@@ -5,6 +5,9 @@ body {
     color: #333;
     margin: 0;
     padding: 0;
+    display: flex; /* Aktifkan Flexbox untuk layout */
+    flex-direction: column; /* Susun elemen secara vertikal */
+    min-height: 100vh; /* Pastikan body setidaknya tinggi layar */
 }
 
 /* Navbar Styling */
@@ -25,6 +28,7 @@ body {
     padding-bottom: 50px;
     padding-left: 20px;
     padding-right: 20px;
+    flex: 1; /* Isi sisa ruang antara navbar dan footer */
 }
 
 /* Blog Section */
@@ -114,6 +118,7 @@ body {
 footer {
     background-color: #333;
     color: white;
-    padding: 20px;
+    padding: 20px 0;
     text-align: center;
+    flex-shrink: 0; /* Jangan menyusut footer */
 }
