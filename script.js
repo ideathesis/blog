@@ -25,10 +25,10 @@ async function fetchMarkdownFiles() {
         const article = document.createElement('article');
         article.classList.add('mb-5');
         article.innerHTML = `
-            <h2><a href="/${link.replace('.md', '.html')}" class="text-decoration-none">${meta.title}</a></h2>
+            <h2><a href="/post/${link.replace('.md', '.html')}" class="text-decoration-none">${meta.title}</a></h2>
             <small class="text-muted">Ditulis oleh ${meta.author} pada ${meta.date}</small>
-            <div>${marked(content.split('\n').slice(0, 5).join('\n'))}</div>
-            <a href="/${link.replace('.md', '.html')}" class="btn btn-primary mt-2">Baca Selengkapnya</a>
+            <div>${marked.parseInline(content.split('\n').slice(0, 5).join('\n'))}</div>
+            <a href="/post/${link.replace('.md', '.html')}" class="btn btn-primary mt-2">Baca Selengkapnya</a>
         `;
         contentDiv.appendChild(article);
     }
@@ -36,7 +36,7 @@ async function fetchMarkdownFiles() {
 
 async function loadPost() {
     const path = window.location.pathname;
-    const mdPath = path.replace('.html', '.md');
+    const mdPath = path.replace('.html', '.md').replace('/post/', '/post/');
 
     const response = await fetch(mdPath);
     if (!response.ok) {
@@ -59,7 +59,7 @@ async function loadPost() {
         <h1>${meta.title}</h1>
         <small class="text-muted">Ditulis oleh ${meta.author} pada ${meta.date}</small>
         <hr>
-        <div>${marked(content)}</div>
+        <div>${marked.parse(content)}</div>
     `;
 }
 
