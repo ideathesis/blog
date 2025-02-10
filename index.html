@@ -98,6 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                 footer.className = "card-footer";
                                 const readMore = document.createElement("a");
                                 readMore.href = `/post/${file.name}`;
+                                readMore.className = "read-more-button";
                                 readMore.textContent = "Baca Selengkapnya";
                                 footer.appendChild(readMore);
                                 body.appendChild(title);
