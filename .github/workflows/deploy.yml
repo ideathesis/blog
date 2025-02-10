@@ -19,7 +19,7 @@ jobs:
           node-version: '14'
 
       - name: Install dependencies
-        run: npm install marked
+        run: npm install -g marked
 
       - name: Convert Markdown to HTML
         run: |
@@ -28,7 +28,7 @@ jobs:
             filename=$(basename "$md" .md)
             echo "Converting $md to $filename.html"
             marked "$md" > "_site/post/$filename.html"
-            sed -i "s|{{title}}|$filename|g" "_site/post/$filename.html"
+            sed -i "s|{{title}}|$(grep '^title:' "$md" | cut -d':' -f2- | xargs)|g" "_site/post/$filename.html"
           done
 
       - name: Copy static files
