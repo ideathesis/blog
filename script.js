@@ -23,6 +23,9 @@ async function fetchMarkdownFiles() {
                 meta[key] = value;
             });
 
+            console.log('Meta:', meta);
+            console.log('Content:', content);
+
             const article = document.createElement('article');
             article.classList.add('mb-5');
             article.innerHTML = `
@@ -43,6 +46,8 @@ async function loadPost() {
         const path = window.location.pathname;
         const mdPath = path.replace('.html', '.md').replace('/post/', '/post/');
 
+        console.log('Fetching:', mdPath);
+
         const response = await fetch(mdPath);
         if (!response.ok) {
             document.getElementById('post-content').innerHTML = '<h1>Postingan Tidak Ditemukan</h1>';
@@ -59,6 +64,9 @@ async function loadPost() {
             const [key, value] = line.split(': ').map(s => s.trim());
             meta[key] = value;
         });
+
+        console.log('Meta:', meta);
+        console.log('Content:', content);
 
         document.getElementById('post-content').innerHTML = `
             <h1>${meta.title}</h1>
