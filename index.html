@@ -55,6 +55,7 @@ body {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     overflow: hidden;
     margin-bottom: 30px;
+    cursor: pointer;
 }
 .post-card:hover {
     transform: translateY(-10px);
@@ -66,6 +67,8 @@ body {
     display: block;
     object-fit: cover;
     aspect-ratio: 16 / 9;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 .post-card .card-body {
     padding: 15px;
@@ -96,10 +99,25 @@ body {
     text-decoration: none;
     color: #007BFF;
     font-weight: 600;
-    transition: color 0.3s ease;
+    transition: color 0.3s ease, transform 0.3s ease;
+    position: relative;
+    padding-right: 20px;
 }
 .post-card .card-footer a:hover {
     color: #0056b3;
+    transform: translateX(5px);
+}
+.post-card .card-footer a::after {
+    content: "→";
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1rem;
+    transition: transform 0.3s ease;
+}
+.post-card .card-footer a:hover::after {
+    transform: translateX(5px);
 }
 footer {
     background-color: #333;
@@ -107,6 +125,20 @@ footer {
     padding: 20px;
     text-align: center;
     font-size: 0.9rem;
+}
+@media (max-width: 768px) {
+    .post-card {
+        margin-bottom: 20px;
+    }
+    .post-card img {
+        aspect-ratio: 4 / 3;
+    }
+    .post-card .card-title {
+        font-size: 1.1rem;
+    }
+    .post-card .card-text {
+        font-size: 0.85rem;
+    }
 }
 </style>
 </head>
@@ -150,10 +182,8 @@ footer {
 <script>
 document.addEventListener("DOMContentLoaded", () => {
     const postList = document.getElementById("post-list");
-
     // Ganti dengan URL repository GitHub Anda
     const repoUrl = "https://api.github.com/repos/ideathesis/blog/contents/post";
-
     // Fetch daftar file dari GitHub API
     fetch(repoUrl)
         .then(response => response.json())
@@ -171,47 +201,36 @@ document.addEventListener("DOMContentLoaded", () => {
                             const metadataScript = doc.querySelector("script[type='application/json']");
                             if (metadataScript) {
                                 const metadata = JSON.parse(metadataScript.textContent);
-
                                 const col = document.createElement("div");
                                 col.className = "col-md-4";
-
                                 const card = document.createElement("div");
                                 card.className = "post-card";
-
-								const img = document.createElement("img");
-								img.src = metadata.image;
-								img.alt = metadata.title;
-
+                                const img = document.createElement("img");
+                                img.src = metadata.image;
+                                img.alt = metadata.title;
                                 const body = document.createElement("div");
                                 body.className = "card-body";
-
                                 const title = document.createElement("h2");
                                 title.className = "card-title";
                                 title.textContent = metadata.title;
-
                                 const author = document.createElement("p");
                                 author.className = "card-text";
                                 author.innerHTML = `<strong>Penulis:</strong> ${metadata.author}`;
-
                                 const date = document.createElement("p");
                                 date.className = "card-text";
                                 date.innerHTML = `<strong>Tanggal:</strong> ${metadata.date}`;
-
                                 const footer = document.createElement("div");
                                 footer.className = "card-footer";
                                 const readMore = document.createElement("a");
                                 readMore.href = `/post/${file.name}`;
-                                readMore.textContent = "Baca Selengkapnya →";
+                                readMore.textContent = "Baca Selengkapnya";
                                 footer.appendChild(readMore);
-
                                 body.appendChild(title);
                                 body.appendChild(author);
                                 body.appendChild(date);
-
                                 card.appendChild(img);
                                 card.appendChild(body);
                                 card.appendChild(footer);
-
                                 col.appendChild(card);
                                 postList.appendChild(col);
                             }
