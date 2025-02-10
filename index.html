@@ -134,59 +134,57 @@ h1, h2 {
 document.addEventListener("DOMContentLoaded", () => {
     const postList = document.getElementById("post-list");
 
-    // Daftar file artikel di folder /post/
-    const posts = [
-        { file: "artikel1.html", title: "Cara Menulis Proposal Skripsi yang Baik", author: "John Doe", date: "2023-10-01", image: "images/blog1.jpg" },
-        { file: "artikel2.html", title: "Tips Sukses Menyelesaikan Skripsi", author: "Jane Smith", date: "2023-09-25", image: "images/blog2.jpg" },
-        { file: "artikel3.html", title: "Mengatasi Stres Saat Menulis Skripsi", author: "Alice Johnson", date: "2023-09-15", image: "images/blog3.jpg" }
-    ];
+    // Fetch metadata dari file JSON
+    fetch("/posts.json")
+        .then(response => response.json())
+        .then(posts => {
+            posts.forEach(post => {
+                const col = document.createElement("div");
+                col.className = "col-md-4";
 
-    // Menambahkan daftar artikel ke halaman
-    posts.forEach(post => {
-        const col = document.createElement("div");
-        col.className = "col-md-4";
+                const card = document.createElement("div");
+                card.className = "post-card";
 
-        const card = document.createElement("div");
-        card.className = "post-card";
+                const img = document.createElement("img");
+                img.src = post.image;
+                img.alt = post.title;
 
-        const img = document.createElement("img");
-        img.src = post.image;
-        img.alt = post.title;
+                const body = document.createElement("div");
+                body.className = "card-body";
 
-        const body = document.createElement("div");
-        body.className = "card-body";
+                const title = document.createElement("h2");
+                title.className = "card-title";
+                title.textContent = post.title;
 
-        const title = document.createElement("h2");
-        title.className = "card-title";
-        title.textContent = post.title;
+                const author = document.createElement("p");
+                author.className = "card-text";
+                author.innerHTML = `<strong>Penulis:</strong> ${post.author}`;
 
-        const author = document.createElement("p");
-        author.className = "card-text";
-        author.innerHTML = `<strong>Penulis:</strong> ${post.author}`;
+                const date = document.createElement("p");
+                date.className = "card-text";
+                date.innerHTML = `<strong>Tanggal:</strong> ${post.date}`;
 
-        const date = document.createElement("p");
-        date.className = "card-text";
-        date.innerHTML = `<strong>Tanggal:</strong> ${post.date}`;
+                const footer = document.createElement("div");
+                footer.className = "card-footer";
+                const readMore = document.createElement("a");
+                readMore.href = `/post/${post.file}`;
+                readMore.textContent = "Baca Selengkapnya";
+                readMore.className = "btn btn-primary btn-sm";
+                footer.appendChild(readMore);
 
-        const footer = document.createElement("div");
-        footer.className = "card-footer";
-        const readMore = document.createElement("a");
-        readMore.href = `/post/${post.file}`;
-        readMore.textContent = "Baca Selengkapnya";
-        readMore.className = "btn btn-primary btn-sm";
-        footer.appendChild(readMore);
+                body.appendChild(title);
+                body.appendChild(author);
+                body.appendChild(date);
 
-        body.appendChild(title);
-        body.appendChild(author);
-        body.appendChild(date);
+                card.appendChild(img);
+                card.appendChild(body);
+                card.appendChild(footer);
 
-        card.appendChild(img);
-        card.appendChild(body);
-        card.appendChild(footer);
-
-        col.appendChild(card);
-        postList.appendChild(col);
-    });
+                col.appendChild(card);
+                postList.appendChild(col);
+            });
+        })
+        .catch(error => console.error("Error loading posts:", error));
 });
 </script>
 </body>
