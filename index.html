@@ -45,8 +45,14 @@
 
 <!-- Main Content -->
 <div class="container content">
-    <div class="row" id="post-list">
-        <!-- Daftar artikel akan dimuat di sini -->
+    <!-- Bagian Atas: 3 Kolom -->
+    <div class="row" id="featured-posts">
+        <!-- Artikel unggulan akan dimuat di sini -->
+    </div>
+
+    <!-- Bagian Bawah: 6 Kolom Kecil -->
+    <div class="row" id="all-posts">
+        <!-- Semua artikel lainnya akan dimuat di sini -->
     </div>
 </div>
 
@@ -62,62 +68,95 @@
 <!-- JavaScript untuk memuat daftar artikel menggunakan GitHub API -->
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-    const postList = document.getElementById("post-list");
+    const featuredPosts = document.getElementById("featured-posts");
+    const allPosts = document.getElementById("all-posts");
     const repoUrl = "https://api.github.com/repos/ideathesis/blog/contents/post";
 
     fetch(repoUrl)
         .then(response => response.json())
         .then(files => {
-            files.forEach(file => {
+            // Urutkan file berdasarkan tanggal (jika metadata memiliki properti "date")
+            files.sort((a, b) => {
+                const dateA = new Date(JSON.parse(atob(a.content.slice(0, a.content.indexOf('}')))).date);
+                const dateB = new Date(JSON.parse(atob(b.content.slice(0, b.content.indexOf('}')))).date);
+                return dateB - dateA;
+            });
+
+            // Bagian Atas: Tampilkan 3 artikel pertama dalam 3 kolom
+            files.slice(0, 3).forEach(file => {
                 if (file.name.endsWith(".html")) {
-                    fetch(file.download_url)
-                        .then(response => response.text())
-                        .then(htmlContent => {
-                            const parser = new DOMParser();
-                            const doc = parser.parseFromString(htmlContent, "text/html");
-                            const metadataScript = doc.querySelector("script[type='application/json']");
-                            if (metadataScript) {
-                                const metadata = JSON.parse(metadataScript.textContent);
-                                const col = document.createElement("div");
-                                col.className = "col-md-4";
-                                const card = document.createElement("div");
-                                card.className = "post-card";
-                                const img = document.createElement("img");
-                                img.src = metadata.image;
-                                img.alt = metadata.title;
-                                const body = document.createElement("div");
-                                body.className = "card-body";
-                                const title = document.createElement("h2");
-                                title.className = "card-title";
-                                title.textContent = metadata.title;
-                                const author = document.createElement("p");
-                                author.className = "card-text";
-                                author.innerHTML = `<strong>Penulis:</strong> ${metadata.author}`;
-                                const date = document.createElement("p");
-                                date.className = "card-text";
-                                date.innerHTML = `<strong>Tanggal:</strong> ${metadata.date}`;
-                                const footer = document.createElement("div");
-                                footer.className = "card-footer";
-                                const readMore = document.createElement("a");
-                                readMore.href = `/post/${file.name}`;
-                                readMore.className = "read-more-button";
-                                readMore.textContent = "Baca Selengkapnya";
-                                footer.appendChild(readMore);
-                                body.appendChild(title);
-                                body.appendChild(author);
-                                body.appendChild(date);
-                                card.appendChild(img);
-                                card.appendChild(body);
-                                card.appendChild(footer);
-                                col.appendChild(card);
-                                postList.appendChild(col);
-                            }
-                        })
-                        .catch(error => console.error(`Error loading file ${file.name}:`, error));
+                    createPostCard(file, featuredPosts, "col-lg-4 col-md-6 col-sm-12");
+                }
+            });
+
+            // Bagian Bawah: Tampilkan sisa artikel dalam 6 kolom kecil
+            files.slice(3).forEach(file => {
+                if (file.name.endsWith(".html")) {
+                    createPostCard(file, allPosts, "col-lg-2 col-md-4 col-sm-6 col-12");
                 }
             });
         })
         .catch(error => console.error("Error loading posts:", error));
+
+    // Fungsi untuk membuat kartu postingan
+    function createPostCard(file, container, columnClass) {
+        fetch(file.download_url)
+            .then(response => response.text())
+            .then(htmlContent => {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(htmlContent, "text/html");
+                const metadataScript = doc.querySelector("script[type='application/json']");
+                if (metadataScript) {
+                    const metadata = JSON.parse(metadataScript.textContent);
+                    const col = document.createElement("div");
+                    col.className = columnClass;
+
+                    const card = document.createElement("div");
+                    card.className = "post-card";
+
+                    const img = document.createElement("img");
+                    img.src = metadata.image;
+                    img.alt = metadata.title;
+
+                    const body = document.createElement("div");
+                    body.className = "card-body";
+
+                    const title = document.createElement("h2");
+                    title.className = "card-title";
+                    title.textContent = metadata.title;
+
+                    const author = document.createElement("p");
+                    author.className = "card-text";
+                    author.innerHTML = `<strong>Penulis:</strong> ${metadata.author}`;
+
+                    const date = document.createElement("p");
+                    date.className = "card-text";
+                    date.innerHTML = `<strong>Tanggal:</strong> ${metadata.date}`;
+
+                    const footer = document.createElement("div");
+                    footer.className = "card-footer";
+
+                    const readMore = document.createElement("a");
+                    readMore.href = `/post/${file.name}`;
+                    readMore.className = "read-more-button";
+                    readMore.textContent = "Baca Selengkapnya";
+
+                    footer.appendChild(readMore);
+
+                    body.appendChild(title);
+                    body.appendChild(author);
+                    body.appendChild(date);
+
+                    card.appendChild(img);
+                    card.appendChild(body);
+                    card.appendChild(footer);
+
+                    col.appendChild(card);
+                    container.appendChild(col);
+                }
+            })
+            .catch(error => console.error(`Error loading file ${file.name}:`, error));
+    }
 });
 </script>
 </body>
