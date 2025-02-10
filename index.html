@@ -22,66 +22,65 @@
 <style>
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: #E8F3E8;
+    background-color: #F5F5F5;
     color: #333;
+    margin: 0;
+    padding: 0;
 }
 .navbar {
     background: linear-gradient(to right, #E8F3E8, #BBDEFB);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 .navbar-brand {
     font-weight: bold;
     color: #333 !important;
+    font-size: 1.5rem;
+}
+.navbar-nav .nav-link {
+    color: #333 !important;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+.navbar-nav .nav-link:hover {
+    color: #007BFF !important;
 }
 .content {
-    padding: 50px 20px;
+    padding: 40px 20px;
     background-color: #F5F5F5;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-.featured-image {
-    display: block;
-    margin: auto;
-    max-width: 100%;
-    height: auto;
-    border-radius: 10px;
-    margin-bottom: 30px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-footer {
-    background-color: #333;
-    color: white;
-    padding: 20px;
-    text-align: center;
-}
-h1, h2 {
-    color: #333;
 }
 .post-card {
     background: white;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-    margin-bottom: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+    margin-bottom: 30px;
 }
 .post-card:hover {
     transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 }
 .post-card img {
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
     width: 100%;
     height: auto;
+    display: block;
+    object-fit: cover;
+    aspect-ratio: 16 / 9;
 }
 .post-card .card-body {
     padding: 15px;
 }
 .post-card .card-title {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
     margin-bottom: 10px;
+    line-height: 1.4;
+    color: #333;
 }
 .post-card .card-text {
     font-size: 0.9rem;
     color: #666;
+    margin-bottom: 10px;
 }
 .post-card .card-footer {
     background: none;
@@ -89,6 +88,25 @@ h1, h2 {
     padding: 10px;
     font-size: 0.8rem;
     color: #999;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.post-card .card-footer a {
+    text-decoration: none;
+    color: #007BFF;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+.post-card .card-footer a:hover {
+    color: #0056b3;
+}
+footer {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    font-size: 0.9rem;
 }
 </style>
 </head>
@@ -116,7 +134,6 @@ h1, h2 {
 
 <!-- Main Content -->
 <div class="container content">
-    <h1 class="text-center mb-4">Daftar Artikel</h1>
     <div class="row" id="post-list">
         <!-- Daftar artikel akan dimuat di sini -->
     </div>
@@ -184,8 +201,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                 footer.className = "card-footer";
                                 const readMore = document.createElement("a");
                                 readMore.href = `/post/${file.name}`;
-                                readMore.textContent = "Baca Selengkapnya";
-                                readMore.className = "btn btn-primary btn-sm";
+                                readMore.textContent = "Baca Selengkapnya →";
                                 footer.appendChild(readMore);
 
                                 body.appendChild(title);
