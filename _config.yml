@@ -1,6 +1,0 @@
-title: IDEA THESIS Blog
-description: "Blog tentang cara menulis proposal skripsi yang baik dan tips seputar penulisan akademik."
-baseurl: "" # misalnya, jika di-root, biarkan kosong
-url: "https://username.github.io" # ganti dengan URL GitHub Pages Anda
-markdown: kramdown
-theme: minima
