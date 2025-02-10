@@ -1,10 +1,147 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Primary Meta Tags -->
+<title id="article-title">Judul Artikel Akan Ditampilkan Di Sini</title>
+<meta name="title" content="Judul Artikel Akan Ditampilkan Di Sini">
+<meta name="description" content="Deskripsi singkat tentang artikel akan ditampilkan di sini.">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://blog.ideathesis.biz.id/post/artikel.html">
+<meta property="og:title" content="Judul Artikel Akan Ditampilkan Di Sini">
+<meta property="og:description" content="Deskripsi singkat tentang artikel akan ditampilkan di sini.">
+<meta property="og:image" id="og-image" content="URL_GAMBAR_AKAN_DITAMPILKAN_DI_SINI">
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="https://blog.ideathesis.biz.id/post/artikel.html">
+<meta property="twitter:title" content="Judul Artikel Akan Ditampilkan Di Sini">
+<meta property="twitter:description" content="Deskripsi singkat tentang artikel akan ditampilkan di sini.">
+<meta property="twitter:image" id="twitter-image" content="URL_GAMBAR_AKAN_DITAMPILKAN_DI_SINI">
+
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="images/favicon-192x192.png">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Custom CSS -->
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="/">IDEA THESIS</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="/#home">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="/#services">Layanan</a></li>
+                <li class="nav-item"><a class="nav-link" href="/#pricing">Harga</a></li>
+                <li class="nav-item"><a class="nav-link" href="/#testimonials">Testimoni</a></li>
+                <li class="nav-item"><a class="nav-link" href="/#blog">Blog</a></li>
+                <li class="nav-item"><a class="nav-link" href="/#library">Perpustakaan</a></li>
+                <li class="nav-item"><a class="nav-link" href="/#contact">Kontak</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Main Content -->
+<div class="container content">
+    <!-- Featured Image and Title -->
+    <div class="row">
+        <div class="col-md-12">
+            <img id="featured-image" src="" alt="Featured Image" class="featured-image mb-4">
+            <h1 id="article-title-content" class="mb-4"></h1>
+            <p id="author-info" class="mb-4"><strong>Penulis:</strong> <span id="author-name"></span> | <strong>Tanggal:</strong> <span id="article-date"></span></p>
+        </div>
+    </div>
+
+    <!-- Article Content -->
+    <div class="row">
+        <div class="col-md-12" id="article-content">
+            <!-- Konten artikel akan dimuat di sini -->
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <p>&copy; <script>document.write(new Date().getFullYear());</script> IDEA THESIS. All rights reserved.</p>
+    </div>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- JavaScript untuk memuat metadata -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    // Baca metadata dari tag <script type="application/json">
+    const metadataScript = document.querySelector("script[type='application/json']");
+    if (metadataScript) {
+        const metadata = JSON.parse(metadataScript.textContent);
+
+        // Set judul halaman
+        document.title = metadata.title;
+        document.getElementById("article-title").textContent = metadata.title;
+        document.getElementById("article-title-content").textContent = metadata.title;
+
+        // Set deskripsi meta
+        document.querySelector('meta[name="description"]').setAttribute("content", metadata.description || "Artikel terkait skripsi dan penelitian.");
+        document.querySelector('meta[property="og:description"]').setAttribute("content", metadata.description || "Artikel terkait skripsi dan penelitian.");
+        document.querySelector('meta[property="twitter:description"]').setAttribute("content", metadata.description || "Artikel terkait skripsi dan penelitian.");
+
+        // Set gambar featured
+        document.getElementById("featured-image").src = metadata.image;
+        document.getElementById("featured-image").alt = metadata.title;
+        document.getElementById("og-image").setAttribute("content", metadata.image);
+        document.getElementById("twitter-image").setAttribute("content", metadata.image);
+
+        // Set informasi penulis dan tanggal
+        document.getElementById("author-name").textContent = metadata.author;
+        document.getElementById("article-date").textContent = new Date(metadata.date).toLocaleDateString("id-ID", {
+            year: "numeric",
+            month: "long",
+            day: "numeric"
+        });
+    }
+
+    // Pindahkan konten artikel dari body ke #article-content
+    const articleContent = document.body.innerHTML.replace(/<script[^>]*>[\s\S]*?<\/script>/gi, ""); // Hapus script metadata
+    document.getElementById("article-content").innerHTML = articleContent;
+});
+</script>
+
 <!-- Metadata -->
 <script type="application/json">
 {
     "title": "Tips Sukses Menyelesaikan Skripsi",
     "author": "Jane Smith",
     "date": "2024-09-25",
-    "image": "post/images/blog1.jpg"
+    "image": "post/images/blog1.jpg",
+    "description": "Temukan tips sukses menyelesaikan skripsi dalam artikel ini."
 }
 </script>
 
@@ -12,3 +149,11 @@
 <h1>Cara Menulis Proposal Skripsi yang Baik</h1>
 <img src="post/images/blog1.jpg" alt="Cara Menulis Proposal Skripsi yang Baik" class="featured-image">
 <p>Proposal skripsi adalah dokumen yang merinci rencana penelitian yang akan dilakukan oleh mahasiswa...</p>
+<h2>Pendahuluan</h2>
+<p>Pendahuluan artikel ini menjelaskan latar belakang masalah dan tujuan penelitian...</p>
+<h2>Tinjauan Pustaka</h2>
+<p>Bagian ini berisi tinjauan pustaka yang relevan dengan topik penelitian...</p>
+<h2>Metodologi Penelitian</h2>
+<p>Metodologi menjelaskan bagaimana penelitian akan dilakukan...</p>
+</body>
+</html>
