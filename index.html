@@ -10,137 +10,16 @@
 <link rel="icon" type="image/png" sizes="192x192" href="images/favicon-192x192.png">
 <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 <link rel="manifest" href="/manifest.json">
-<!-- Bootstrap CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 <!-- Google Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 <!-- Font Awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 <!-- Custom CSS -->
-<style>
-body {
-    font-family: 'Poppins', sans-serif;
-    background-color: #F5F5F5;
-    color: #333;
-    margin: 0;
-    padding: 0;
-}
-.navbar {
-    background: linear-gradient(to right, #E8F3E8, #BBDEFB);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-.navbar-brand {
-    font-weight: bold;
-    color: #333 !important;
-    font-size: 1.5rem;
-}
-.navbar-nav .nav-link {
-    color: #333 !important;
-    font-size: 0.9rem;
-    transition: color 0.3s ease;
-}
-.navbar-nav .nav-link:hover {
-    color: #007BFF !important;
-}
-.content {
-    padding: 40px 20px;
-    background-color: #F5F5F5;
-}
-.post-card {
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    overflow: hidden;
-    margin-bottom: 30px;
-    cursor: pointer;
-}
-.post-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-}
-.post-card img {
-    width: 100%;
-    height: auto;
-    display: block;
-    object-fit: cover;
-    aspect-ratio: 16 / 9;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-}
-.post-card .card-body {
-    padding: 15px;
-}
-.post-card .card-title {
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-bottom: 10px;
-    line-height: 1.4;
-    color: #333;
-}
-.post-card .card-text {
-    font-size: 0.9rem;
-    color: #666;
-    margin-bottom: 10px;
-}
-.post-card .card-footer {
-    background: none;
-    border-top: 1px solid #ddd;
-    padding: 10px;
-    font-size: 0.8rem;
-    color: #999;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.post-card .card-footer a {
-    text-decoration: none;
-    color: #007BFF;
-    font-weight: 600;
-    transition: color 0.3s ease, transform 0.3s ease;
-    position: relative;
-    padding-right: 20px;
-}
-.post-card .card-footer a:hover {
-    color: #0056b3;
-    transform: translateX(5px);
-}
-.post-card .card-footer a::after {
-    content: "→";
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 1rem;
-    transition: transform 0.3s ease;
-}
-.post-card .card-footer a:hover::after {
-    transform: translateX(5px);
-}
-footer {
-    background-color: #333;
-    color: white;
-    padding: 20px;
-    text-align: center;
-    font-size: 0.9rem;
-}
-@media (max-width: 768px) {
-    .post-card {
-        margin-bottom: 20px;
-    }
-    .post-card img {
-        aspect-ratio: 4 / 3;
-    }
-    .post-card .card-title {
-        font-size: 1.1rem;
-    }
-    .post-card .card-text {
-        font-size: 0.85rem;
-    }
-}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 <!-- Navbar -->
@@ -182,20 +61,16 @@ footer {
 <script>
 document.addEventListener("DOMContentLoaded", () => {
     const postList = document.getElementById("post-list");
-    // Ganti dengan URL repository GitHub Anda
     const repoUrl = "https://api.github.com/repos/ideathesis/blog/contents/post";
-    // Fetch daftar file dari GitHub API
+
     fetch(repoUrl)
         .then(response => response.json())
         .then(files => {
             files.forEach(file => {
-                // Hanya proses file HTML
                 if (file.name.endsWith(".html")) {
-                    // Fetch isi file HTML
                     fetch(file.download_url)
                         .then(response => response.text())
                         .then(htmlContent => {
-                            // Ekstrak metadata dari file HTML
                             const parser = new DOMParser();
                             const doc = parser.parseFromString(htmlContent, "text/html");
                             const metadataScript = doc.querySelector("script[type='application/json']");
