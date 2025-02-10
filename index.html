@@ -56,20 +56,39 @@ footer {
 h1, h2 {
     color: #333;
 }
-.post-list {
-    list-style: none;
-    padding: 0;
+.post-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    margin-bottom: 20px;
 }
-.post-list li {
+.post-card:hover {
+    transform: translateY(-10px);
+}
+.post-card img {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    width: 100%;
+    height: auto;
+}
+.post-card .card-body {
+    padding: 15px;
+}
+.post-card .card-title {
+    font-size: 1.5rem;
     margin-bottom: 10px;
 }
-.post-list a {
-    text-decoration: none;
-    color: #333;
-    font-weight: bold;
+.post-card .card-text {
+    font-size: 0.9rem;
+    color: #666;
 }
-.post-list a:hover {
-    color: #007BFF;
+.post-card .card-footer {
+    background: none;
+    border-top: 1px solid #ddd;
+    padding: 10px;
+    font-size: 0.8rem;
+    color: #999;
 }
 </style>
 </head>
@@ -98,9 +117,9 @@ h1, h2 {
 <!-- Main Content -->
 <div class="container content">
     <h1 class="text-center mb-4">Daftar Artikel</h1>
-    <ul class="post-list" id="post-list">
+    <div class="row" id="post-list">
         <!-- Daftar artikel akan dimuat di sini -->
-    </ul>
+    </div>
 </div>
 
 <!-- Footer -->
@@ -117,28 +136,56 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Daftar file artikel di folder /post/
     const posts = [
-        "artikel1.html",
-        "artikel2.html",
-        "artikel3.html"
+        { file: "artikel1.html", title: "Cara Menulis Proposal Skripsi yang Baik", author: "John Doe", date: "2023-10-01", image: "images/blog1.jpg" },
+        { file: "artikel2.html", title: "Tips Sukses Menyelesaikan Skripsi", author: "Jane Smith", date: "2023-09-25", image: "images/blog2.jpg" },
+        { file: "artikel3.html", title: "Mengatasi Stres Saat Menulis Skripsi", author: "Alice Johnson", date: "2023-09-15", image: "images/blog3.jpg" }
     ];
 
     // Menambahkan daftar artikel ke halaman
     posts.forEach(post => {
-        const listItem = document.createElement("li");
-        const link = document.createElement("a");
-        link.href = `/post/${post}`;
-        link.textContent = post.replace(".html", "").replace(/-/g, " ").toUpperCase();
-        link.addEventListener("click", (e) => {
-            e.preventDefault();
-            fetch(`/post/${post}`)
-                .then(response => response.text())
-                .then(html => {
-                    document.querySelector(".content").innerHTML = html;
-                })
-                .catch(error => console.error("Error loading post:", error));
-        });
-        listItem.appendChild(link);
-        postList.appendChild(listItem);
+        const col = document.createElement("div");
+        col.className = "col-md-4";
+
+        const card = document.createElement("div");
+        card.className = "post-card";
+
+        const img = document.createElement("img");
+        img.src = post.image;
+        img.alt = post.title;
+
+        const body = document.createElement("div");
+        body.className = "card-body";
+
+        const title = document.createElement("h2");
+        title.className = "card-title";
+        title.textContent = post.title;
+
+        const author = document.createElement("p");
+        author.className = "card-text";
+        author.innerHTML = `<strong>Penulis:</strong> ${post.author}`;
+
+        const date = document.createElement("p");
+        date.className = "card-text";
+        date.innerHTML = `<strong>Tanggal:</strong> ${post.date}`;
+
+        const footer = document.createElement("div");
+        footer.className = "card-footer";
+        const readMore = document.createElement("a");
+        readMore.href = `/post/${post.file}`;
+        readMore.textContent = "Baca Selengkapnya";
+        readMore.className = "btn btn-primary btn-sm";
+        footer.appendChild(readMore);
+
+        body.appendChild(title);
+        body.appendChild(author);
+        body.appendChild(date);
+
+        card.appendChild(img);
+        card.appendChild(body);
+        card.appendChild(footer);
+
+        col.appendChild(card);
+        postList.appendChild(col);
     });
 });
 </script>
