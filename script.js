@@ -8,6 +8,8 @@ async function fetchMarkdownFiles() {
             .map(a => a.getAttribute('href'))
             .filter(href => href.endsWith('.md'));
 
+        console.log('Links:', links);
+
         const contentDiv = document.getElementById('content');
 
         for (const link of links) {
