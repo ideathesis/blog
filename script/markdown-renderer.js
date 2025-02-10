@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const postFile = urlParams.get('post');
   
   if(postFile) {
+    // Path disesuaikan ke folder /post/
     fetch(`/post/${postFile}`)
       .then(response => response.text())
       .then(text => {
