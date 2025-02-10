@@ -144,37 +144,63 @@ document.addEventListener("DOMContentLoaded", () => {
             files.forEach(file => {
                 // Hanya proses file HTML
                 if (file.name.endsWith(".html")) {
-                    const col = document.createElement("div");
-                    col.className = "col-md-4";
+                    // Fetch isi file HTML
+                    fetch(file.download_url)
+                        .then(response => response.text())
+                        .then(htmlContent => {
+                            // Ekstrak metadata dari file HTML
+                            const parser = new DOMParser();
+                            const doc = parser.parseFromString(htmlContent, "text/html");
+                            const metadataScript = doc.querySelector("script[type='application/json']");
+                            if (metadataScript) {
+                                const metadata = JSON.parse(metadataScript.textContent);
 
-                    const card = document.createElement("div");
-                    card.className = "post-card";
+                                const col = document.createElement("div");
+                                col.className = "col-md-4";
 
-                    // Judul artikel diambil dari nama file (tanpa ekstensi)
-                    const title = file.name.replace(".html", "").replace(/-/g, " ").toUpperCase();
+                                const card = document.createElement("div");
+                                card.className = "post-card";
 
-                    const body = document.createElement("div");
-                    body.className = "card-body";
+                                const img = document.createElement("img");
+                                img.src = metadata.image;
+                                img.alt = metadata.title;
 
-                    const titleElement = document.createElement("h2");
-                    titleElement.className = "card-title";
-                    titleElement.textContent = title;
+                                const body = document.createElement("div");
+                                body.className = "card-body";
 
-                    const footer = document.createElement("div");
-                    footer.className = "card-footer";
-                    const readMore = document.createElement("a");
-                    readMore.href = `/post/${file.name}`;
-                    readMore.textContent = "Baca Selengkapnya";
-                    readMore.className = "btn btn-primary btn-sm";
-                    footer.appendChild(readMore);
+                                const title = document.createElement("h2");
+                                title.className = "card-title";
+                                title.textContent = metadata.title;
 
-                    body.appendChild(titleElement);
+                                const author = document.createElement("p");
+                                author.className = "card-text";
+                                author.innerHTML = `<strong>Penulis:</strong> ${metadata.author}`;
 
-                    card.appendChild(body);
-                    card.appendChild(footer);
+                                const date = document.createElement("p");
+                                date.className = "card-text";
+                                date.innerHTML = `<strong>Tanggal:</strong> ${metadata.date}`;
 
-                    col.appendChild(card);
-                    postList.appendChild(col);
+                                const footer = document.createElement("div");
+                                footer.className = "card-footer";
+                                const readMore = document.createElement("a");
+                                readMore.href = `/post/${file.name}`;
+                                readMore.textContent = "Baca Selengkapnya";
+                                readMore.className = "btn btn-primary btn-sm";
+                                footer.appendChild(readMore);
+
+                                body.appendChild(title);
+                                body.appendChild(author);
+                                body.appendChild(date);
+
+                                card.appendChild(img);
+                                card.appendChild(body);
+                                card.appendChild(footer);
+
+                                col.appendChild(card);
+                                postList.appendChild(col);
+                            }
+                        })
+                        .catch(error => console.error(`Error loading file ${file.name}:`, error));
                 }
             });
         })
