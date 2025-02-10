@@ -32,8 +32,8 @@ jobs:
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/pages-action@v2
         with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: your-project-name
-          zoneId: ${{ secrets.CLOUDFLARE_ZONE_ID }}
+          apiToken: ${{ secrets.IZsERT3TojWiPSw3n1oE6jfHBA2Cyex6KPCdUzxG }}
+          accountId: ${{ secrets.c4080745049bba23ad898dcf3e0cdb9a }}
+          projectName: blog
+          zoneId: ${{ secrets.333d0d6158583c128e61d91d6203068c }}
           directory: ./public
