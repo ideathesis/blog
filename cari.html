@@ -18,8 +18,8 @@
         }
 
         .content {
-            padding-top: 70px; /* Sesuaikan dengan tinggi navbar */
-            padding-bottom: 50px;
+            padding-top: 20px; /* Mengurangi padding atas karena tidak ada judul */
+            padding-bottom: 20px;
             padding-left: 20px;
             padding-right: 20px;
             flex: 1;
@@ -160,21 +160,10 @@
                 width: 100%;
             }
         }
-
-        /* Footer */
-        footer {
-            background-color: #333;
-            color: white;
-            padding: 20px 0;
-            text-align: center;
-            flex-shrink: 0;
-        }
     </style>
 </head>
 <body>
     <div class="content container">
-        <h1 style="text-align: center; margin-bottom: 30px; font-size: 2rem; color: #333;">Blog Saya</h1>
-
         <!-- Kolom Pencarian -->
         <div class="search-container">
             <input type="text" id="search-input" placeholder="Cari artikel..." />
@@ -190,10 +179,6 @@
             <button id="next-page">Selanjutnya</button>
         </div>
     </div>
-
-    <footer>
-        &copy; 2023 Blog Saya. All rights reserved.
-    </footer>
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
@@ -241,7 +226,7 @@
                             return dateB - dateA;
                         });
 
-                        postList.innerHTML = "<li class='no-results'>Masukkan kata kunci dan tekan 'Enter' atau klik 'Cari' untuk melihat hasil.</li>";
+                        postList.innerHTML = "<li class='no-results'>Masukkan kata kunci untuk melihat hasil.</li>";
                     });
                 })
                 .catch(error => console.error("Error loading posts:", error));
