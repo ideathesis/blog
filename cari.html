@@ -86,6 +86,15 @@
       position: relative;
     }
 
+    .loading-indicator-inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin: 0 auto;
+      max-width: 300px;
+    }
+
     .spinner {
       display: inline-block;
       border: 3px solid rgba(0, 0, 0, 0.1);
@@ -94,8 +103,6 @@
       width: 20px;
       height: 20px;
       animation: spin 0.8s linear infinite;
-      vertical-align: middle;
-      margin-right: 10px;
     }
 
     @keyframes spin {
@@ -195,6 +202,10 @@
       .loading-indicator {
         margin-top: 15px;
       }
+
+      .loading-indicator-inner {
+        max-width: 100%;
+      }
     }
   </style>
 </head>
@@ -208,8 +219,10 @@
       </div>
       <!-- Loading Indicator -->
       <div class="loading-indicator">
-        <div class="spinner"></div>
-        <span>Sedang mencari...</span>
+        <div class="loading-indicator-inner">
+          <div class="spinner"></div>
+          <span>Sedang mencari...</span>
+        </div>
       </div>
     </div>
 
