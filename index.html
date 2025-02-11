@@ -68,6 +68,29 @@
     </div>
 </nav>
 
+        <!-- Kolom Pencarian -->
+        <div class="search-container">
+            <div class="search-input-container">
+                <input type="text" id="search-input" placeholder="Cari artikel..." />
+                <button id="search-button">Cari</button>
+            </div>
+            <!-- Loading Indicator -->
+            <div class="loading-indicator">
+                <div class="spinner"></div>
+                <span>Sedang mencari...</span>
+            </div>
+        </div>
+
+        <!-- Daftar Artikel -->
+        <ul id="post-list" class="post-list"></ul>
+
+        <!-- Pagination -->
+        <div id="pagination-container" class="pagination" style="display: none;">
+            <button id="prev-page" disabled>Sebelumnya</button>
+            <button id="next-page">Selanjutnya</button>
+        </div>
+    </div>
+
 <!-- Main Content -->
 <div class="container content">
     <div class="row" id="post-list">
