@@ -30,14 +30,14 @@
         /* Search Container Styling */
         .search-container {
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            justify-content: center;
             gap: 10px;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
+            position: relative; /* Untuk menempatkan indikator loading */
         }
 
         #search-input {
-            width: 100%;
+            flex: 1;
             padding: 12px 15px;
             font-size: 14px;
             border: 1px solid #ddd;
@@ -61,7 +61,6 @@
             border-radius: 6px;
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.3s ease;
-            width: 100%;
         }
 
         #search-button:hover {
@@ -165,12 +164,18 @@
 
         /* Responsive Design */
         @media (max-width: 768px) {
-            .post-title {
-                font-size: 1.1rem;
+            .search-container {
+                flex-direction: column;
+                align-items: center;
             }
 
-            .post-meta {
-                font-size: 0.85rem;
+            #search-input {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            #search-button {
+                width: 100%;
             }
         }
     </style>
@@ -181,11 +186,11 @@
         <div class="search-container">
             <input type="text" id="search-input" placeholder="Cari artikel..." />
             <button id="search-button">Cari</button>
-            <!-- Loading Indicator -->
-            <div class="loading-indicator">
-                <div class="spinner"></div>
-                <span>Sedang mencari...</span>
-            </div>
+        </div>
+        <!-- Loading Indicator -->
+        <div class="loading-indicator">
+            <div class="spinner"></div>
+            <span>Sedang mencari...</span>
         </div>
 
         <!-- Daftar Artikel -->
