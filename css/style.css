@@ -22,6 +22,85 @@ body {
     color: #333 !important;
 }
 
+/* Search Bar Styling */
+.search-container {
+    margin-bottom: 20px;
+}
+.search-input {
+    height: 50px; /* Tinggi kolom pencarian */
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px 0 0 5px;
+    box-shadow: none;
+    font-size: 0.9rem;
+    color: #333;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.search-input:focus {
+    border-color: #81C784;
+    box-shadow: 0 0 8px rgba(129, 199, 132, 0.5);
+    outline: none;
+}
+.search-button {
+    height: 50px; /* Tinggi tombol pencarian */
+    background-color: #81C784;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.search-button:hover {
+    background-color: #64B5F6;
+    transform: scale(1.05);
+}
+.search-button i {
+    margin-right: 5px;
+}
+
+/* Modal Styling */
+.modal-content {
+    background-color: #E8F3E8;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.modal-header {
+    background-color: #BBDEFB;
+    border-bottom: 1px solid #ddd;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.modal-title {
+    font-weight: bold;
+    color: #333;
+}
+.modal-body {
+    max-height: 400px;
+    overflow-y: auto;
+}
+.search-result-item {
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+    padding: 10px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.search-result-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+.search-result-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
+}
+.search-result-description {
+    font-size: 0.85rem;
+    color: #666;
+}
+
 /* Content Padding (agar tidak tertutup oleh navbar) */
 .content {
     padding-top: 70px; /* Sesuaikan dengan tinggi navbar */
