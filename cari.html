@@ -33,6 +33,7 @@
             justify-content: center;
             gap: 10px;
             margin-bottom: 40px;
+            position: relative; /* Untuk menempatkan indikator loading */
         }
 
         #search-input {
@@ -65,6 +66,29 @@
         #search-button:hover {
             background-color: #64B5F6;
             transform: scale(1.05);
+        }
+
+        /* Loading Indicator */
+        .loading-indicator {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: none; /* Hidden by default */
+        }
+
+        .spinner {
+            border: 3px solid rgba(0, 0, 0, 0.1);
+            border-top: 3px solid #81C784;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         /* Daftar Artikel */
@@ -168,6 +192,10 @@
         <div class="search-container">
             <input type="text" id="search-input" placeholder="Cari artikel..." />
             <button id="search-button">Cari</button>
+            <!-- Loading Indicator -->
+            <div class="loading-indicator">
+                <div class="spinner"></div>
+            </div>
         </div>
 
         <!-- Daftar Artikel -->
@@ -188,6 +216,7 @@
             const searchButton = document.getElementById("search-button");
             const prevPageButton = document.getElementById("prev-page");
             const nextPageButton = document.getElementById("next-page");
+            const loadingIndicator = document.querySelector(".loading-indicator");
             const repoUrl = "https://api.github.com/repos/ideathesis/blog/contents/post";
             let articles = [];
             let filteredArticles = [];
@@ -239,23 +268,32 @@
                     return;
                 }
 
-                filteredArticles = articles.filter(article => {
-                    return (
-                        article.title.toLowerCase().includes(query) ||
-                        article.author.toLowerCase().includes(query) ||
-                        article.date.toLowerCase().includes(query)
-                    );
-                });
+                // Tampilkan indikator loading
+                loadingIndicator.style.display = "block";
 
-                currentPage = 1;
-                renderArticles(filteredArticles);
+                // Simulasikan proses pencarian dengan delay
+                setTimeout(() => {
+                    filteredArticles = articles.filter(article => {
+                        return (
+                            article.title.toLowerCase().includes(query) ||
+                            article.author.toLowerCase().includes(query) ||
+                            article.date.toLowerCase().includes(query)
+                        );
+                    });
 
-                if (filteredArticles.length === 0) {
-                    postList.innerHTML = "<li class='no-results'>Tidak ada artikel yang ditemukan.</li>";
-                    paginationContainer.style.display = "none";
-                } else {
-                    updatePaginationButtons(filteredArticles);
-                }
+                    currentPage = 1;
+                    renderArticles(filteredArticles);
+
+                    if (filteredArticles.length === 0) {
+                        postList.innerHTML = "<li class='no-results'>Tidak ada artikel yang ditemukan.</li>";
+                        paginationContainer.style.display = "none";
+                    } else {
+                        updatePaginationButtons(filteredArticles);
+                    }
+
+                    // Sembunyikan indikator loading
+                    loadingIndicator.style.display = "none";
+                }, 500); // Delay 500ms untuk simulasi loading
             }
 
             searchButton.addEventListener("click", performSearch);
