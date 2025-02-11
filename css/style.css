@@ -16,7 +16,6 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     z-index: 1000; /* Agar navbar tetap di atas konten */
 }
-
 .navbar-brand {
     font-weight: bold;
     color: #333 !important;
@@ -24,10 +23,15 @@ body {
 
 /* Content Padding (agar tidak tertutup oleh navbar) */
 .content {
-    padding-top: 70px; /* Sesuaikan dengan tinggi navbar */
-    padding-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Jarak antar elemen secara otomatis */
+    padding-top: 80px; /* Sesuaikan dengan tinggi navbar */
+    padding-bottom: 20px;
     padding-left: 20px;
     padding-right: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
     flex: 1; /* Isi sisa ruang antara navbar dan footer */
 }
 
@@ -38,15 +42,12 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     overflow: hidden;
-    margin-bottom: 30px;
     cursor: pointer;
 }
-
 .post-card:hover {
     transform: translateY(-10px);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 }
-
 .post-card img {
     width: 100%;
     height: auto;
@@ -56,11 +57,9 @@ body {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
 }
-
 .post-card .card-body {
     padding: 15px;
 }
-
 .post-card .card-title {
     font-size: 1.25rem;
     font-weight: 600;
@@ -68,13 +67,11 @@ body {
     line-height: 1.4;
     color: #333;
 }
-
 .post-card .card-text {
     font-size: 0.9rem;
     color: #666;
     margin-bottom: 15px;
 }
-
 .post-card .card-footer {
     background: none;
     border-top: 1px solid #ddd;
@@ -85,7 +82,6 @@ body {
     justify-content: space-between;
     align-items: center;
 }
-
 .post-card .read-more-button {
     text-decoration: none;
     color: white;
@@ -95,7 +91,6 @@ body {
     font-weight: 600;
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
-
 .post-card .read-more-button:hover {
     background-color: #64B5F6;
     transform: scale(1.05);
@@ -124,192 +119,172 @@ footer {
 }
 
 /* Kolom Pencarian */
-.content {
-  padding-top: 80px; /* Ditambahkan padding untuk navbar */
-  padding-bottom: 20px;
-  padding-left: 20px;
-  padding-right: 20px;
-  flex: 1;
-  max-width: 1200px;
-  margin: 0 auto;
+.search-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
 }
-    /* Search Container Styling */
-    .search-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 40px;
-    }
 
-    .search-input-container {
-      display: flex;
-      width: 100%;
-      justify-content: space-between;
-      align-items: center;
-    }
+.search-input-container {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
 
-    #search-input {
-      flex: 1;
-      padding: 12px 15px;
-      font-size: 14px;
-      border: 1px solid #ddd;
-      border-radius: 6px;
-      outline: none;
-      transition: border-color 0.3s ease, box-shadow 0.3s ease;
-      background-color: white;
-    }
+#search-input {
+    flex: 1;
+    padding: 12px 15px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    background-color: white;
+}
+#search-input:focus {
+    border-color: #81C784;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
 
-    #search-input:focus {
-      border-color: #81C784;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
+#search-button {
+    padding: 12px 20px;
+    font-size: 14px;
+    background-color: #81C784;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+#search-button:hover {
+    background-color: #64B5F6;
+    transform: scale(1.05);
+}
 
-    #search-button {
-      padding: 12px 20px;
-      font-size: 14px;
-      background-color: #81C784;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background-color 0.3s ease, transform 0.3s ease;
-    }
-
-    #search-button:hover {
-      background-color: #64B5F6;
-      transform: scale(1.05);
-    }
-
-    /* Loading Indicator */
-    .loading-indicator {
-      display: none;
-      width: 100%;
-      text-align: center;
-      margin-top: 10px;
-      font-size: 14px;
-      color: #666;
-      position: relative;
-    }
-
-    .loading-indicator-inner {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      margin: 0 auto;
-      max-width: 300px;
-    }
-
-    .spinner {
-      display: inline-block;
-      border: 3px solid rgba(0, 0, 0, 0.1);
-      border-top: 3px solid #81C784;
-      border-radius: 50%;
-      width: 20px;
-      height: 20px;
-      animation: spin 0.8s linear infinite;
-    }
-
-    @keyframes spin {
-      0% {
+/* Loading Indicator */
+.loading-indicator {
+    display: none;
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #666;
+    position: relative;
+}
+.loading-indicator-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 0 auto;
+    max-width: 300px;
+}
+.spinner {
+    display: inline-block;
+    border: 3px solid rgba(0, 0, 0, 0.1);
+    border-top: 3px solid #81C784;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 0.8s linear infinite;
+}
+@keyframes spin {
+    0% {
         transform: rotate(0deg);
-      }
-      100% {
+    }
+    100% {
         transform: rotate(360deg);
-      }
     }
+}
 
-    /* Daftar Hasil */
-    .result-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
+/* Daftar Hasil */
+.result-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.result-item {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+    margin-bottom: 25px;
+    padding: 15px;
+}
+.result-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+.result-link {
+    text-decoration: none;
+    color: inherit;
+}
+.result-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    line-height: 1.4;
+    color: #333;
+}
+.result-meta {
+    font-size: 0.9rem;
+    color: #666;
+}
 
-    .result-item {
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      overflow: hidden;
-      margin-bottom: 25px;
-      padding: 15px;
-    }
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+.pagination button {
+    padding: 10px 15px;
+    font-size: 14px;
+    background-color: #81C784;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.pagination button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+.pagination button:hover:not(:disabled) {
+    background-color: #64B5F6;
+    transform: scale(1.05);
+}
 
-    .result-item:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-    }
-
-    .result-link {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    .result-title {
-      font-size: 1.25rem;
-      font-weight: 600;
-      margin-bottom: 10px;
-      line-height: 1.4;
-      color: #333;
-    }
-
-    .result-meta {
-      font-size: 0.9rem;
-      color: #666;
-    }
-
-    /* Pagination */
-    .pagination {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 20px;
-    }
-
-    .pagination button {
-      padding: 10px 15px;
-      font-size: 14px;
-      background-color: #81C784;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background-color 0.3s ease, transform 0.3s ease;
-    }
-
-    .pagination button:disabled {
-      background-color: #ccc;
-      cursor: not-allowed;
-    }
-
-    .pagination button:hover:not(:disabled) {
-      background-color: #64B5F6;
-      transform: scale(1.05);
-    }
-
-    /* Responsive Design */
-    @media (max-width: 768px) {
-      .search-input-container {
+/* Responsive Design */
+@media (max-width: 768px) {
+    .search-input-container {
         flex-direction: column;
         align-items: stretch;
-      }
-
-      #search-input {
+    }
+    #search-input {
         width: 100%;
         margin-bottom: 10px;
-      }
-
-      #search-button {
-        width: 100%;
-      }
-
-      .loading-indicator {
-        margin-top: 15px;
-      }
-
-      .loading-indicator-inner {
-        max-width: 100%;
-      }
     }
+    #search-button {
+        width: 100%;
+    }
+    .loading-indicator {
+        margin-top: 15px;
+    }
+    .loading-indicator-inner {
+        max-width: 100%;
+    }
+}
+
+/* Penyesuaian Jarak Antara Hasil Pencarian dan Blog Section */
+.result-list:empty + .blog-section {
+    margin-top: 40px; /* Jarak default jika hasil pencarian kosong */
+}
+.result-list:not(:empty) + .blog-section {
+    margin-top: 20px; /* Jarak lebih kecil saat hasil pencarian muncul */
+}
