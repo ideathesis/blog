@@ -29,10 +29,10 @@
     <!-- Tambahkan marked.js -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script>
-        async function loadArticleContent(articleUrl) {
+        async function loadArticleContent(articleFile) {
             try {
                 // Mengambil konten artikel dari file Markdown
-                const response = await fetch(articleUrl);
+                const response = await fetch(`post/${articleFile}`);
                 if (!response.ok) {
                     throw new Error('Gagal memuat artikel.');
                 }
@@ -67,7 +67,7 @@
         // Ambil parameter query dari URL untuk menentukan file Markdown yang dimuat
         const urlParams = new URLSearchParams(window.location.search);
         const articleFile = urlParams.get('file') || 'post_0.md'; // Default ke post_0.md jika tidak ada parameter
-        loadArticleContent(`post/${articleFile}`);
+        loadArticleContent(articleFile);
     </script>
 </body>
 </html>
