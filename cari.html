@@ -72,7 +72,7 @@
 
         .post-card {
             display: flex;
-            align-items: flex-start;
+            align-items: stretch; /* Pastikan tinggi gambar sama dengan konten */
             background-color: white;
             border: 1px solid #ddd;
             border-radius: 8px;
@@ -89,23 +89,25 @@
         }
 
         .post-card img {
-            width: 80px; /* Lebar tetap */
-            aspect-ratio: 1 / 1; /* Rasio aspek 1:1 */
+            width: 120px; /* Lebar tetap */
+            height: 100%; /* Tinggi otomatis menyesuaikan dengan kartu */
             object-fit: cover;
-            margin-right: 10px;
             flex-shrink: 0;
         }
 
         .card-body {
             flex: 1;
             padding: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .card-title {
             font-size: 1rem;
             margin-bottom: 5px;
             color: #007bff;
-            overflow-wrap: break-word; /* Memastikan teks tidak keluar dari batas */
+            overflow-wrap: break-word;
             word-break: break-word;
             line-height: 1.4;
         }
@@ -122,10 +124,38 @@
             color: #888;
         }
 
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .pagination button {
+            padding: 10px 15px;
+            font-size: 14px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .pagination button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .pagination button:hover:not(:disabled) {
+            background-color: #0056b3;
+        }
+
         /* Media Queries untuk Mobile */
         @media (max-width: 768px) {
             .post-card img {
-                width: 60px; /* Ukuran gambar lebih kecil di mobile */
+                width: 80px; /* Ukuran gambar lebih kecil di mobile */
             }
 
             .card-title {
@@ -150,6 +180,12 @@
 
         <!-- Daftar Artikel -->
         <div id="post-list" class="row"></div>
+
+        <!-- Pagination -->
+        <div class="pagination">
+            <button id="prev-page" disabled>Sebelumnya</button>
+            <button id="next-page">Selanjutnya</button>
+        </div>
     </div>
 
     <script>
@@ -157,8 +193,13 @@
             const postList = document.getElementById("post-list");
             const searchInput = document.getElementById("search-input");
             const searchButton = document.getElementById("search-button");
+            const prevPageButton = document.getElementById("prev-page");
+            const nextPageButton = document.getElementById("next-page");
             const repoUrl = "https://api.github.com/repos/ideathesis/blog/contents/post";
             let articles = []; // Array untuk menyimpan semua artikel
+            let filteredArticles = []; // Array untuk menyimpan artikel yang difilter
+            let currentPage = 1; // Halaman saat ini
+            const articlesPerPage = 6; // Jumlah artikel per halaman
 
             // Ambil daftar file dari GitHub API
             fetch(repoUrl)
@@ -209,7 +250,7 @@
                 }
 
                 // Filter artikel berdasarkan kata kunci
-                const filteredArticles = articles.filter(article => {
+                filteredArticles = articles.filter(article => {
                     return (
                         article.title.toLowerCase().includes(query) ||
                         article.author.toLowerCase().includes(query) ||
@@ -217,12 +258,19 @@
                     );
                 });
 
+                // Reset halaman ke awal
+                currentPage = 1;
+
                 // Render artikel yang sesuai
                 renderArticles(filteredArticles);
 
                 // Jika tidak ada hasil, tampilkan pesan
                 if (filteredArticles.length === 0) {
                     postList.innerHTML = "<p class='no-results'>Tidak ada artikel yang ditemukan.</p>";
+                    prevPageButton.disabled = true;
+                    nextPageButton.disabled = true;
+                } else {
+                    updatePaginationButtons(filteredArticles);
                 }
             }
 
@@ -238,9 +286,13 @@
 
             // Fungsi untuk merender artikel
             function renderArticles(articlesToRender) {
+                const start = (currentPage - 1) * articlesPerPage;
+                const end = start + articlesPerPage;
+                const paginatedArticles = articlesToRender.slice(start, end);
+
                 postList.innerHTML = ""; // Bersihkan daftar artikel sebelumnya
 
-                articlesToRender.forEach(article => {
+                paginatedArticles.forEach(article => {
                     const col = document.createElement("div");
                     col.className = "col-md-4";
 
@@ -250,7 +302,7 @@
                     card.className = "post-card";
 
                     const img = document.createElement("img");
-                    img.src = article.thumbnail || article.image || "https://via.placeholder.com/80x80"; // Placeholder jika tidak ada gambar
+                    img.src = article.thumbnail || article.image || "https://via.placeholder.com/120x120"; // Placeholder jika tidak ada gambar
                     img.alt = article.title;
 
                     const body = document.createElement("div");
@@ -277,6 +329,30 @@
                     col.appendChild(card);
                     postList.appendChild(col);
                 });
+            }
+
+            // Fungsi untuk memperbarui tombol navigasi
+            function updatePaginationButtons(articlesToRender) {
+                const totalPages = Math.ceil(articlesToRender.length / articlesPerPage);
+
+                prevPageButton.disabled = currentPage === 1;
+                nextPageButton.disabled = currentPage === totalPages;
+
+                prevPageButton.onclick = () => {
+                    if (currentPage > 1) {
+                        currentPage--;
+                        renderArticles(articlesToRender);
+                        updatePaginationButtons(articlesToRender);
+                    }
+                };
+
+                nextPageButton.onclick = () => {
+                    if (currentPage < totalPages) {
+                        currentPage++;
+                        renderArticles(articlesToRender);
+                        updatePaginationButtons(articlesToRender);
+                    }
+                };
             }
         });
     </script>
