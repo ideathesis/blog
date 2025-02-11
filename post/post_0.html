@@ -116,34 +116,43 @@
       }
     }
     /* Styling for related posts */
-    .post-card {
-      background-color: #fff;
-      border-radius: 10px;
+    .related-post {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      text-decoration: none;
+      color: #333;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .related-post:hover {
+      transform: translateY(-5px);
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      overflow: hidden;
-      margin-bottom: 20px;
     }
-    .post-card img {
-      width: 100%;
-      height: auto;
+    .related-post img {
+      width: 80px;
+      height: 80px;
       object-fit: cover;
+      border-radius: 8px;
+      margin-right: 15px;
     }
-    .card-body {
-      padding: 15px;
+    .related-post-content {
+      flex-grow: 1;
     }
-    .card-title {
-      font-size: 18px;
-      margin-bottom: 10px;
+    .related-post-title {
+      font-size: 16px;
+      margin-bottom: 5px;
+      color: #333;
     }
-    .card-text {
-      font-size: 14px;
-      color: #555;
+    .related-post-meta {
+      font-size: 12px;
+      color: #777;
     }
     .read-more-button {
       display: inline-block;
       background-color: #007BFF;
       color: white;
-      padding: 8px 15px;
+      padding: 5px 10px;
+      font-size: 12px;
       border-radius: 5px;
       text-decoration: none;
       transition: background-color 0.3s ease;
@@ -305,36 +314,17 @@
 
                     // Tampilkan artikel yang sudah diurutkan
                     validArticles.forEach(article => {
-                        const card = document.createElement("div");
-                        card.className = "post-card";
-                        const img = document.createElement("img");
-                        img.src = article.image;
-                        img.alt = article.title;
-                        const body = document.createElement("div");
-                        body.className = "card-body";
-                        const title = document.createElement("h2");
-                        title.className = "card-title";
-                        title.textContent = article.title;
-                        const author = document.createElement("p");
-                        author.className = "card-text";
-                        author.innerHTML = `<strong>Penulis:</strong> ${article.author}`;
-                        const date = document.createElement("p");
-                        date.className = "card-text";
-                        date.innerHTML = `<strong>Tanggal:</strong> ${article.date}`;
-                        const footer = document.createElement("div");
-                        footer.className = "card-footer";
-                        const readMore = document.createElement("a");
-                        readMore.href = `/post/${article.file}`;
-                        readMore.className = "read-more-button";
-                        readMore.textContent = "Baca Selengkapnya";
-                        footer.appendChild(readMore);
-                        body.appendChild(title);
-                        body.appendChild(author);
-                        body.appendChild(date);
-                        card.appendChild(img);
-                        card.appendChild(body);
-                        card.appendChild(footer);
-                        postList.appendChild(card);
+                        const postLink = document.createElement("a");
+                        postLink.href = `/post/${article.file}`;
+                        postLink.className = "related-post";
+                        postLink.innerHTML = `
+                            <img src="${article.image}" alt="${article.title}">
+                            <div class="related-post-content">
+                                <h3 class="related-post-title">${article.title}</h3>
+                                <p class="related-post-meta">Oleh ${article.author} | ${article.date}</p>
+                            </div>
+                        `;
+                        postList.appendChild(postLink);
                     });
                 });
             })
