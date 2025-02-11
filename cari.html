@@ -71,8 +71,6 @@
         }
 
         .post-card {
-            display: flex;
-            align-items: stretch; /* Pastikan tinggi gambar sama dengan konten */
             background-color: white;
             border: 1px solid #ddd;
             border-radius: 8px;
@@ -81,26 +79,12 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             text-decoration: none;
             color: inherit;
+            padding: 15px;
         }
 
         .post-card:hover {
             transform: translateY(-3px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .post-card img {
-            width: 120px; /* Lebar tetap */
-            height: 100%; /* Tinggi otomatis menyesuaikan dengan kartu */
-            object-fit: cover;
-            flex-shrink: 0;
-        }
-
-        .card-body {
-            flex: 1;
-            padding: 10px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
         }
 
         .card-title {
@@ -154,10 +138,6 @@
 
         /* Media Queries untuk Mobile */
         @media (max-width: 768px) {
-            .post-card img {
-                width: 80px; /* Ukuran gambar lebih kecil di mobile */
-            }
-
             .card-title {
                 font-size: 0.9rem; /* Font lebih kecil di mobile */
             }
@@ -182,7 +162,7 @@
         <div id="post-list" class="row"></div>
 
         <!-- Pagination -->
-        <div class="pagination">
+        <div id="pagination-container" class="pagination" style="display: none;">
             <button id="prev-page" disabled>Sebelumnya</button>
             <button id="next-page">Selanjutnya</button>
         </div>
@@ -191,6 +171,7 @@
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const postList = document.getElementById("post-list");
+            const paginationContainer = document.getElementById("pagination-container");
             const searchInput = document.getElementById("search-input");
             const searchButton = document.getElementById("search-button");
             const prevPageButton = document.getElementById("prev-page");
@@ -267,10 +248,10 @@
                 // Jika tidak ada hasil, tampilkan pesan
                 if (filteredArticles.length === 0) {
                     postList.innerHTML = "<p class='no-results'>Tidak ada artikel yang ditemukan.</p>";
-                    prevPageButton.disabled = true;
-                    nextPageButton.disabled = true;
+                    paginationContainer.style.display = "none"; // Sembunyikan tombol navigasi
                 } else {
                     updatePaginationButtons(filteredArticles);
+                    paginationContainer.style.display = "flex"; // Tampilkan tombol navigasi jika ada hasil
                 }
             }
 
@@ -301,13 +282,6 @@
                     card.href = `/post/${article.file}`;
                     card.className = "post-card";
 
-                    const img = document.createElement("img");
-                    img.src = article.thumbnail || article.image || "https://via.placeholder.com/120x120"; // Placeholder jika tidak ada gambar
-                    img.alt = article.title;
-
-                    const body = document.createElement("div");
-                    body.className = "card-body";
-
                     const title = document.createElement("h2");
                     title.className = "card-title";
                     title.textContent = article.title;
@@ -320,12 +294,10 @@
                     date.className = "card-text";
                     date.innerHTML = `<strong>Tanggal:</strong> ${article.date}`;
 
-                    body.appendChild(title);
-                    body.appendChild(author);
-                    body.appendChild(date);
+                    card.appendChild(title);
+                    card.appendChild(author);
+                    card.appendChild(date);
 
-                    card.appendChild(img);
-                    card.appendChild(body);
                     col.appendChild(card);
                     postList.appendChild(col);
                 });
