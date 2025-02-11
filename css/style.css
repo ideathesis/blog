@@ -24,7 +24,7 @@ body {
 
 /* Content Padding (agar tidak tertutup oleh navbar) */
 .content {
-    padding-top: 70px; /* Sesuaikan dengan tinggi navbar */
+    padding-top: 50px; /* Sesuaikan dengan tinggi navbar */
     padding-bottom: 50px;
     padding-left: 20px;
     padding-right: 20px;
