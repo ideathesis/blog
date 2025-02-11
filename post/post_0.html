@@ -97,12 +97,17 @@ body {
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-.sidebar h3 {
-  font-size: 18px;
+
+/* Chip Styling for Sidebar Title */
+.sidebar-chip {
+  display: inline-block;
+  background-color: #007BFF;
+  color: white;
+  font-size: 14px;
   font-weight: 600;
-  color: #333;
-  text-align: left;
-  margin-bottom: 20px;
+  padding: 5px 10px;
+  border-radius: 20px;
+  margin-bottom: 15px;
 }
 
 /* Related Post Styling */
@@ -180,11 +185,6 @@ footer {
   .related-post img {
     width: 80px; /* Lebar gambar lebih kecil di layar kecil */
     height: 100%;
-  }
-
-  /* Adjust sidebar heading size */
-  .sidebar h3 {
-    font-size: 16px;
   }
 
   /* Adjust meta text size */
@@ -271,11 +271,12 @@ footer {
         <p>Dengan mengikuti panduan di atas, Anda dapat menyusun proposal skripsi yang baik dan terstruktur. Pastikan untuk selalu berkonsultasi dengan dosen pembimbing Anda selama proses penulisan untuk mendapatkan masukan dan saran yang berharga.</p>
       </div>
 
-      <!-- Sidebar -->
-      <div class="sidebar">
-        <h3>Artikel Terkait</h3>
-        <div id="post-list"></div>
-      </div>
+<!-- Sidebar -->
+<div class="sidebar">
+  <!-- Judul Artikel Terkait dalam bentuk chip -->
+  <span class="sidebar-chip">Artikel Terkait</span>
+  <div id="post-list"></div>
+</div>
     </div>
   </div>
   
