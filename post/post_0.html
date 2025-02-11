@@ -87,45 +87,24 @@
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
     .sidebar h3 {
-      margin-bottom: 15px;
-      font-size: 18px;
+      font-size: 24px;
+      font-weight: 600;
       color: #333;
-    }
-    .sidebar ul {
-      list-style: none;
-      padding: 0;
-    }
-    .sidebar li {
-      margin-bottom: 10px;
-    }
-    .sidebar a {
-      text-decoration: none;
-      color: #555;
-      transition: color 0.3s ease;
-    }
-    .sidebar a:hover {
-      color: #007BFF;
-    }
-    footer {
-      background-color: #333;
-      color: white;
-      padding: 20px;
       text-align: center;
-      margin-top: 40px;
+      margin-bottom: 20px;
+      position: relative;
     }
-    h1, h2 {
-      color: #333;
+    .sidebar h3::before {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50px;
+      height: 3px;
+      background-color: #007BFF;
+      border-radius: 5px;
     }
-    @media (max-width: 768px) {
-      .article-container {
-        grid-template-columns: 1fr;
-      }
-      .featured-image {
-        max-width: 100%;
-        height: auto;
-      }
-    }
-    /* Styling for related posts */
     .related-post {
       display: flex;
       align-items: center;
@@ -133,6 +112,12 @@
       text-decoration: none;
       color: #333;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
+      background-color: #F0F8FF;
+      padding: 15px;
+      border-radius: 10px;
+    }
+    .related-post:nth-child(even) {
+      background-color: #E8F3E8;
     }
     .related-post:hover {
       transform: translateY(-5px);
@@ -152,23 +137,33 @@
       font-size: 16px;
       margin-bottom: 5px;
       color: #333;
+      font-weight: 600;
     }
     .related-post-meta {
       font-size: 12px;
       color: #777;
     }
-    .read-more-button {
-      display: inline-block;
-      background-color: #007BFF;
+    footer {
+      background-color: #333;
       color: white;
-      padding: 5px 10px;
-      font-size: 12px;
-      border-radius: 5px;
-      text-decoration: none;
-      transition: background-color 0.3s ease;
+      padding: 20px;
+      text-align: center;
+      margin-top: 40px;
     }
-    .read-more-button:hover {
-      background-color: #0056b3;
+    h1, h2 {
+      color: #333;
+    }
+    @media (max-width: 768px) {
+      .article-container {
+        grid-template-columns: 1fr;
+      }
+      .featured-image {
+        max-width: 100%;
+        height: auto;
+      }
+      .sidebar h3 {
+        font-size: 20px;
+      }
     }
   </style>	 
 </head>
