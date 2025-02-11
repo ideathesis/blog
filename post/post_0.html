@@ -42,8 +42,9 @@
   <style>
     body {
       font-family: 'Poppins', sans-serif;
-      background-color: #E8F3E8;
+      background-color: #F5F5F5;
       color: #333;
+      line-height: 1.6;
     }
     .navbar {
       background: linear-gradient(to right, #E8F3E8, #BBDEFB);
@@ -53,19 +54,48 @@
       color: #333 !important;
     }
     .content {
-      padding: 50px 20px;
-      background-color: #F5F5F5;
+      padding: 20px;
       margin-top: 20px;
-      margin-bottom: 20px;
     }
     .featured-image {
       display: block;
-      margin: auto; /* Agar gambar rata tengah */
+      margin: auto;
       max-width: 100%;
       height: auto;
       border-radius: 10px;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .article-container {
+      display: grid;
+      grid-template-columns: 3fr 1fr;
+      gap: 20px;
+    }
+    .sidebar {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .sidebar h3 {
+      margin-bottom: 15px;
+      font-size: 18px;
+      color: #333;
+    }
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+    .sidebar li {
+      margin-bottom: 10px;
+    }
+    .sidebar a {
+      text-decoration: none;
+      color: #555;
+      transition: color 0.3s ease;
+    }
+    .sidebar a:hover {
+      color: #007BFF;
     }
     footer {
       background-color: #333;
@@ -75,6 +105,51 @@
     }
     h1, h2 {
       color: #333;
+    }
+    @media (max-width: 768px) {
+      .article-container {
+        grid-template-columns: 1fr;
+      }
+      .featured-image {
+        max-width: 100%;
+        height: auto;
+      }
+    }
+    /* Styling for related posts */
+    .post-card {
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+    .post-card img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+    .card-body {
+      padding: 15px;
+    }
+    .card-title {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+    .card-text {
+      font-size: 14px;
+      color: #555;
+    }
+    .read-more-button {
+      display: inline-block;
+      background-color: #007BFF;
+      color: white;
+      padding: 8px 15px;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+    .read-more-button:hover {
+      background-color: #0056b3;
     }
   </style>	 
 </head>
@@ -112,48 +187,56 @@
   
   <!-- Article Content -->
   <div class="container content">
-    <!-- Gambar Featured -->
-    <img id="featured-image" alt="" class="featured-image">
-    
-    <h1 id="article-title" class="text-center mb-4"></h1>
-    <p id="article-meta" class="text-center text-muted mb-4"></p>
+    <div class="article-container">
+      <!-- Main Content -->
+      <div>
+        <img id="featured-image" alt="" class="featured-image">
+        <h1 id="article-title" class="text-center mb-4"></h1>
+        <p id="article-meta" class="text-center text-muted mb-4"></p>
+        <p>Proposal skripsi adalah dokumen yang merinci rencana penelitian yang akan dilakukan oleh mahasiswa. Proposal yang baik harus memiliki struktur yang jelas, tujuan penelitian yang spesifik, dan metodologi yang tepat. Berikut adalah panduan lengkap untuk menulis proposal skripsi yang baik dan terstruktur:</p>
+      
+        <h2>Pendahuluan</h2>
+        <p>Pendahuluan merupakan bagian yang sangat penting dalam proposal skripsi. Bagian ini harus mencakup:</p>
+        <ul>
+          <li><strong>Latar Belakang:</strong> Jelaskan konteks dan alasan mengapa topik penelitian dipilih. Sertakan data atau fakta yang mendukung pentingnya penelitian ini.</li>
+          <li><strong>Rumusan Masalah:</strong> Identifikasi masalah spesifik yang akan diteliti. Rumusan masalah harus jelas dan terfokus.</li>
+          <li><strong>Tujuan Penelitian:</strong> Nyatakan apa yang ingin dicapai melalui penelitian ini. Tujuan harus spesifik dan terukur.</li>
+          <li><strong>Manfaat Penelitian:</strong> Jelaskan manfaat teoritis dan praktis dari penelitian yang akan dilakukan.</li>
+        </ul>
+      
+        <h2>Tinjauan Pustaka</h2>
+        <p>Bagian ini berfungsi untuk menunjukkan pemahaman Anda terhadap penelitian-penelitian terdahulu yang relevan dengan topik Anda. Sertakan:</p>
+        <ul>
+          <li><strong>Landasan Teori:</strong> Paparkan teori-teori yang mendukung penelitian Anda.</li>
+          <li><strong>Penelitian Terdahulu:</strong> Uraikan penelitian-penelitian sebelumnya yang berkaitan dengan topik Anda dan identifikasi celah yang akan diisi oleh penelitian Anda.</li>
+          <li><strong>Kerangka Berpikir:</strong> Gambarkan alur logika yang menghubungkan teori dengan penelitian yang akan dilakukan.</li>
+        </ul>
+      
+        <h2>Metodologi Penelitian</h2>
+        <p>Metodologi menjelaskan bagaimana penelitian akan dilakukan. Bagian ini harus mencakup:</p>
+        <ul>
+          <li><strong>Desain Penelitian:</strong> Tentukan apakah penelitian Anda bersifat kualitatif, kuantitatif, atau campuran.</li>
+          <li><strong>Populasi dan Sampel:</strong> Jelaskan siapa yang akan menjadi subjek penelitian dan bagaimana sampel akan dipilih.</li>
+          <li><strong>Teknik Pengumpulan Data:</strong> Sebutkan metode yang akan digunakan untuk mengumpulkan data, seperti survei, wawancara, atau observasi.</li>
+          <li><strong>Teknik Analisis Data:</strong> Jelaskan bagaimana data yang terkumpul akan dianalisis untuk menjawab rumusan masalah.</li>
+        </ul>
+      
+        <h2>Jadwal Penelitian</h2>
+        <p>Susun timeline yang realistis untuk setiap tahap penelitian, mulai dari pengumpulan data hingga penulisan laporan akhir. Ini menunjukkan bahwa Anda memiliki perencanaan yang matang dan penelitian dapat diselesaikan dalam waktu yang ditentukan.</p>
+      
+        <h2>Daftar Pustaka</h2>
+        <p>Cantumkan semua sumber yang digunakan dalam proposal Anda. Pastikan untuk mengikuti format penulisan referensi yang ditetapkan oleh institusi Anda.</p>
+      
+        <p>Dengan mengikuti panduan di atas, Anda dapat menyusun proposal skripsi yang baik dan terstruktur. Pastikan untuk selalu berkonsultasi dengan dosen pembimbing Anda selama proses penulisan untuk mendapatkan masukan dan saran yang berharga.</p>
+      </div>
 
-    <p>Proposal skripsi adalah dokumen yang merinci rencana penelitian yang akan dilakukan oleh mahasiswa. Proposal yang baik harus memiliki struktur yang jelas, tujuan penelitian yang spesifik, dan metodologi yang tepat. Berikut adalah panduan lengkap untuk menulis proposal skripsi yang baik dan terstruktur:</p>
-  
-  <h2>Pendahuluan</h2>
-  <p>Pendahuluan merupakan bagian yang sangat penting dalam proposal skripsi. Bagian ini harus mencakup:</p>
-  <ul>
-    <li><strong>Latar Belakang:</strong> Jelaskan konteks dan alasan mengapa topik penelitian dipilih. Sertakan data atau fakta yang mendukung pentingnya penelitian ini.</li>
-    <li><strong>Rumusan Masalah:</strong> Identifikasi masalah spesifik yang akan diteliti. Rumusan masalah harus jelas dan terfokus.</li>
-    <li><strong>Tujuan Penelitian:</strong> Nyatakan apa yang ingin dicapai melalui penelitian ini. Tujuan harus spesifik dan terukur.</li>
-    <li><strong>Manfaat Penelitian:</strong> Jelaskan manfaat teoritis dan praktis dari penelitian yang akan dilakukan.</li>
-  </ul>
-  
-  <h2>Tinjauan Pustaka</h2>
-  <p>Bagian ini berfungsi untuk menunjukkan pemahaman Anda terhadap penelitian-penelitian terdahulu yang relevan dengan topik Anda. Sertakan:</p>
-  <ul>
-    <li><strong>Landasan Teori:</strong> Paparkan teori-teori yang mendukung penelitian Anda.</li>
-    <li><strong>Penelitian Terdahulu:</strong> Uraikan penelitian-penelitian sebelumnya yang berkaitan dengan topik Anda dan identifikasi celah yang akan diisi oleh penelitian Anda.</li>
-    <li><strong>Kerangka Berpikir:</strong> Gambarkan alur logika yang menghubungkan teori dengan penelitian yang akan dilakukan.</li>
-  </ul>
-  
-  <h2>Metodologi Penelitian</h2>
-  <p>Metodologi menjelaskan bagaimana penelitian akan dilakukan. Bagian ini harus mencakup:</p>
-  <ul>
-    <li><strong>Desain Penelitian:</strong> Tentukan apakah penelitian Anda bersifat kualitatif, kuantitatif, atau campuran.</li>
-    <li><strong>Populasi dan Sampel:</strong> Jelaskan siapa yang akan menjadi subjek penelitian dan bagaimana sampel akan dipilih.</li>
-    <li><strong>Teknik Pengumpulan Data:</strong> Sebutkan metode yang akan digunakan untuk mengumpulkan data, seperti survei, wawancara, atau observasi.</li>
-    <li><strong>Teknik Analisis Data:</strong> Jelaskan bagaimana data yang terkumpul akan dianalisis untuk menjawab rumusan masalah.</li>
-  </ul>
-  
-  <h2>Jadwal Penelitian</h2>
-  <p>Susun timeline yang realistis untuk setiap tahap penelitian, mulai dari pengumpulan data hingga penulisan laporan akhir. Ini menunjukkan bahwa Anda memiliki perencanaan yang matang dan penelitian dapat diselesaikan dalam waktu yang ditentukan.</p>
-  
-  <h2>Daftar Pustaka</h2>
-  <p>Cantumkan semua sumber yang digunakan dalam proposal Anda. Pastikan untuk mengikuti format penulisan referensi yang ditetapkan oleh institusi Anda.</p>
-  
-  <p>Dengan mengikuti panduan di atas, Anda dapat menyusun proposal skripsi yang baik dan terstruktur. Pastikan untuk selalu berkonsultasi dengan dosen pembimbing Anda selama proses penulisan untuk mendapatkan masukan dan saran yang berharga.</p>
-</div>
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <h3>Artikel Terkait</h3>
+        <div id="post-list"></div>
+      </div>
+    </div>
+  </div>
   
   <!-- Footer -->
   <footer>
@@ -165,12 +248,98 @@
     // Ambil data metadata dari script tag
     const metadataScript = document.getElementById('metadata');
     const metadata = JSON.parse(metadataScript.textContent);
-
     // Isi elemen HTML dengan data dari metadata
     document.getElementById('article-title').textContent = metadata.title;
     document.getElementById('article-meta').textContent = `Oleh ${metadata.author} | ${metadata.date}`;
     document.getElementById('featured-image').src = metadata.image;
     document.getElementById('featured-image').alt = metadata.title;
+
+    // JavaScript untuk menampilkan artikel terkait
+    document.addEventListener("DOMContentLoaded", () => {
+        const postList = document.getElementById("post-list");
+        const repoUrl = "https://api.github.com/repos/ideathesis/blog/contents/post";
+
+        // Array untuk menyimpan semua artikel
+        const articles = [];
+
+        // Ambil daftar file dari GitHub API
+        fetch(repoUrl)
+            .then(response => response.json())
+            .then(files => {
+                // Loop untuk mengambil metadata dari setiap file HTML
+                const promises = files
+                    .filter(file => file.name.endsWith(".html")) // Hanya proses file HTML
+                    .map(file => fetch(file.download_url) // Fetch isi file HTML
+                        .then(response => response.text())
+                        .then(htmlContent => {
+                            const parser = new DOMParser();
+                            const doc = parser.parseFromString(htmlContent, "text/html");
+                            const metadataScript = doc.querySelector("script[type='application/json']");
+                            if (metadataScript) {
+                                const metadata = JSON.parse(metadataScript.textContent);
+                                metadata.file = file.name; // Simpan nama file
+                                return metadata; // Kembalikan metadata
+                            }
+                            return null; // Jika metadata tidak ada, kembalikan null
+                        })
+                        .catch(error => {
+                            console.error(`Error loading file ${file.name}:`, error);
+                            return null;
+                        })
+                    );
+
+                // Tunggu semua promise selesai
+                Promise.all(promises).then(results => {
+                    // Filter artikel yang memiliki metadata valid
+                    const validArticles = results.filter(article => article !== null);
+
+                    // Urutkan artikel berdasarkan tanggal (terbaru terlebih dahulu)
+                    validArticles.sort((a, b) => {
+                        const dateA = new Date(a.date);
+                        const dateB = new Date(b.date);
+                        return dateB - dateA; // Terbaru terlebih dahulu
+                    });
+
+                    // Bersihkan konten sebelum menampilkan artikel
+                    postList.innerHTML = "";
+
+                    // Tampilkan artikel yang sudah diurutkan
+                    validArticles.forEach(article => {
+                        const card = document.createElement("div");
+                        card.className = "post-card";
+                        const img = document.createElement("img");
+                        img.src = article.image;
+                        img.alt = article.title;
+                        const body = document.createElement("div");
+                        body.className = "card-body";
+                        const title = document.createElement("h2");
+                        title.className = "card-title";
+                        title.textContent = article.title;
+                        const author = document.createElement("p");
+                        author.className = "card-text";
+                        author.innerHTML = `<strong>Penulis:</strong> ${article.author}`;
+                        const date = document.createElement("p");
+                        date.className = "card-text";
+                        date.innerHTML = `<strong>Tanggal:</strong> ${article.date}`;
+                        const footer = document.createElement("div");
+                        footer.className = "card-footer";
+                        const readMore = document.createElement("a");
+                        readMore.href = `/post/${article.file}`;
+                        readMore.className = "read-more-button";
+                        readMore.textContent = "Baca Selengkapnya";
+                        footer.appendChild(readMore);
+                        body.appendChild(title);
+                        body.appendChild(author);
+                        body.appendChild(date);
+                        card.appendChild(img);
+                        card.appendChild(body);
+                        card.appendChild(footer);
+                        postList.appendChild(card);
+                    });
+                });
+            })
+            .catch(error => console.error("Error loading posts:", error));
+    });
   </script>
 </body>
 </html>
