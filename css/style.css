@@ -32,81 +32,49 @@ body {
 }
 
 /* Blog Section */
-.post-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid */
-    gap: 20px; /* Spacing between cards */
-    margin: 0 auto; /* Center align */
-    max-width: 1200px; /* Limit width for larger screens */
-}
-
 .post-card {
     background: white;
-    border-radius: 12px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     overflow: hidden;
+    margin-bottom: 30px;
     cursor: pointer;
-    position: relative; /* For overlay effects */
-}
-.post-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
 
-/* Image Styling */
+.post-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
 .post-card img {
     width: 100%;
     height: auto;
     display: block;
     object-fit: cover;
     aspect-ratio: 16 / 9;
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
-    position: relative;
-    z-index: 1;
-}
-.post-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4));
-    z-index: 2;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-.post-card:hover::before {
-    opacity: 1;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 
-/* Card Body Styling */
 .post-card .card-body {
-    position: relative;
-    z-index: 3;
     padding: 15px;
 }
+
 .post-card .card-title {
     font-size: 1.25rem;
-    font-weight: 700;
-    margin-bottom: 8px;
+    font-weight: 600;
+    margin-bottom: 10px;
     line-height: 1.4;
     color: #333;
-    transition: color 0.3s ease;
 }
-.post-card:hover .card-title {
-    color: #81C784;
-}
+
 .post-card .card-text {
     font-size: 0.9rem;
     color: #666;
-    margin-bottom: 12px;
-    line-height: 1.5;
+    margin-bottom: 15px;
 }
 
-/* Card Footer Styling */
 .post-card .card-footer {
     background: none;
     border-top: 1px solid #ddd;
@@ -117,15 +85,17 @@ body {
     justify-content: space-between;
     align-items: center;
 }
+
 .post-card .read-more-button {
     text-decoration: none;
     color: white;
     background-color: #81C784;
     padding: 8px 16px;
-    border-radius: 6px;
+    border-radius: 5px;
     font-weight: 600;
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
+
 .post-card .read-more-button:hover {
     background-color: #64B5F6;
     transform: scale(1.05);
