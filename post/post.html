@@ -9,16 +9,38 @@
             font-family: Arial, sans-serif;
             margin: 20px;
             line-height: 1.6;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        h1 {
+            font-size: 2.5em;
+            color: #2c3e50;
+        }
+        .author-date {
+            font-size: 0.9em;
+            color: #7f8c8d;
         }
         .featured-image {
             max-width: 100%;
             height: auto;
-            margin-bottom: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
-        header {
-            margin-bottom: 30px;
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         footer {
+            text-align: center;
             margin-top: 30px;
             font-size: 0.9em;
             color: #555;
@@ -28,14 +50,17 @@
 <body>
     <header>
         <h1 id="post-title">Memuat Judul...</h1>
-        <p><strong>Penulis:</strong> <span id="post-author">Memuat Penulis...</span></p>
-        <p><strong>Tanggal:</strong> <span id="post-date">Memuat Tanggal...</span></p>
+        <p class="author-date">
+            <strong>Penulis:</strong> <span id="post-author">Memuat Penulis...</span> |
+            <strong>Tanggal:</strong> <span id="post-date">Memuat Tanggal...</span>
+        </p>
     </header>
 
-    <img id="post-image" src="" alt="Featured Image" class="featured-image">
-
-    <div id="post-content">
-        <p>Memuat konten artikel...</p>
+    <div class="content">
+        <img id="post-image" src="" alt="Featured Image" class="featured-image">
+        <div id="post-content">
+            <p>Memuat konten artikel...</p>
+        </div>
     </div>
 
     <footer>
@@ -43,53 +68,42 @@
     </footer>
 
     <script>
-        // Fungsi untuk mendapatkan parameter query dari URL
-        function getQueryParameter(name) {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(name);
+async function loadArticleContent(articleUrl) {
+    try {
+        // Mengambil konten artikel dari file HTML
+        const response = await fetch(articleUrl);
+        if (!response.ok) {
+            throw new Error('Gagal memuat artikel.');
+        }
+        const html = await response.text();
+
+        // Parsing HTML untuk mendapatkan metadata JSON
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const scriptTag = doc.querySelector('script[type="application/json"]');
+        
+        if (!scriptTag) {
+            throw new Error('Metadata artikel tidak ditemukan.');
         }
 
-        // Fungsi untuk memuat konten artikel
-        async function loadArticleContent(articleUrl) {
-            try {
-                // Mengambil konten artikel dari file HTML
-                const response = await fetch(articleUrl);
-                if (!response.ok) {
-                    throw new Error('Gagal memuat artikel.');
-                }
-                const html = await response.text();
+        const metadata = JSON.parse(scriptTag.textContent);
 
-                // Parsing HTML untuk mendapatkan metadata JSON
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(html, 'text/html');
-                const scriptTag = doc.querySelector('script[type="application/json"]');
-                const metadata = JSON.parse(scriptTag.textContent);
+        // Memperbarui elemen di halaman dengan metadata
+        document.getElementById('post-title').textContent = metadata.title;
+        document.getElementById('post-author').textContent = metadata.author;
+        document.getElementById('post-date').textContent = metadata.date;
+        document.getElementById('post-image').src = metadata.image;
+        document.getElementById('post-image').alt = metadata.title;
 
-                // Memperbarui elemen di halaman dengan metadata
-                document.getElementById('post-title').textContent = metadata.title;
-                document.getElementById('post-author').textContent = metadata.author;
-                document.getElementById('post-date').textContent = metadata.date;
-                document.getElementById('post-image').src = metadata.image;
-                document.getElementById('post-image').alt = metadata.title;
+        // Mengambil konten artikel (semua elemen setelah metadata)
+        const articleContent = doc.body.innerHTML.replace(scriptTag.outerHTML, '');
+        document.getElementById('post-content').innerHTML = articleContent;
 
-                // Mengambil konten artikel (semua elemen setelah metadata)
-                const articleContent = doc.body.innerHTML.replace(scriptTag.outerHTML, '');
-                document.getElementById('post-content').innerHTML = articleContent;
-            } catch (error) {
-                console.error('Error:', error);
-                document.getElementById('post-content').innerHTML = '<p>Gagal memuat artikel. Silakan coba lagi nanti.</p>';
-            }
-        }
-
-        // Jalankan fungsi saat halaman dimuat
-        window.onload = () => {
-            const articleFile = getQueryParameter('article');
-            if (articleFile) {
-                loadArticleContent(articleFile);
-            } else {
-                document.getElementById('post-content').innerHTML = '<p>Artikel tidak ditemukan.</p>';
-            }
-        };
+    } catch (error) {
+        console.error('Error:', error);
+        document.getElementById('post-content').innerHTML = '<p>Gagal memuat artikel. Silakan coba lagi nanti.</p>';
+    }
+}
     </script>
 </body>
 </html>
