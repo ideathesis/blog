@@ -251,7 +251,6 @@
                     paginationContainer.style.display = "none"; // Sembunyikan tombol navigasi
                 } else {
                     updatePaginationButtons(filteredArticles);
-                    paginationContainer.style.display = "flex"; // Tampilkan tombol navigasi jika ada hasil
                 }
             }
 
@@ -306,6 +305,13 @@
             // Fungsi untuk memperbarui tombol navigasi
             function updatePaginationButtons(articlesToRender) {
                 const totalPages = Math.ceil(articlesToRender.length / articlesPerPage);
+
+                // Tampilkan tombol navigasi hanya jika ada lebih dari 6 artikel
+                if (totalPages > 1) {
+                    paginationContainer.style.display = "flex";
+                } else {
+                    paginationContainer.style.display = "none";
+                }
 
                 prevPageButton.disabled = currentPage === 1;
                 nextPageButton.disabled = currentPage === totalPages;
