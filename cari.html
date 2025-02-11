@@ -64,30 +64,32 @@
             background-color: #0056b3;
         }
 
-        .row {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+        /* Daftar Artikel */
+        .post-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
         }
 
-        .post-card {
+        .post-item {
             background-color: white;
             border: 1px solid #ddd;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
             overflow: hidden;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 15px;
+            padding: 15px;
             text-decoration: none;
             color: inherit;
-            padding: 15px;
         }
 
-        .post-card:hover {
+        .post-item:hover {
             transform: translateY(-5px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-        .card-title {
+        .post-title {
             font-size: 1.1rem;
             margin-bottom: 10px;
             color: #007bff;
@@ -96,10 +98,9 @@
             line-height: 1.4;
         }
 
-        .card-text {
+        .post-meta {
             font-size: 0.9rem;
             color: #666;
-            margin-bottom: 5px;
         }
 
         .no-results {
@@ -138,11 +139,11 @@
 
         /* Media Queries untuk Mobile */
         @media (max-width: 768px) {
-            .card-title {
+            .post-title {
                 font-size: 1rem; /* Font lebih kecil di mobile */
             }
 
-            .card-text {
+            .post-meta {
                 font-size: 0.8rem; /* Font lebih kecil di mobile */
             }
         }
@@ -159,7 +160,7 @@
         </div>
 
         <!-- Daftar Artikel -->
-        <div id="post-list" class="row"></div>
+        <ul id="post-list" class="post-list"></ul>
 
         <!-- Pagination -->
         <div id="pagination-container" class="pagination" style="display: none;">
@@ -180,7 +181,7 @@
             let articles = []; // Array untuk menyimpan semua artikel
             let filteredArticles = []; // Array untuk menyimpan artikel yang difilter
             let currentPage = 1; // Halaman saat ini
-            const articlesPerPage = 6; // Jumlah artikel per halaman
+            const articlesPerPage = 10; // Jumlah artikel per halaman
 
             // Ambil daftar file dari GitHub API
             fetch(repoUrl)
@@ -216,7 +217,7 @@
                         });
 
                         // Awalnya, jangan tampilkan artikel apa pun
-                        postList.innerHTML = "<p class='no-results'>Masukkan kata kunci dan tekan 'Enter' atau klik 'Cari' untuk melihat hasil.</p>";
+                        postList.innerHTML = "<li class='no-results'>Masukkan kata kunci dan tekan 'Enter' atau klik 'Cari' untuk melihat hasil.</li>";
                     });
                 })
                 .catch(error => console.error("Error loading posts:", error));
@@ -247,7 +248,7 @@
 
                 // Jika tidak ada hasil, tampilkan pesan
                 if (filteredArticles.length === 0) {
-                    postList.innerHTML = "<p class='no-results'>Tidak ada artikel yang ditemukan.</p>";
+                    postList.innerHTML = "<li class='no-results'>Tidak ada artikel yang ditemukan.</li>";
                     paginationContainer.style.display = "none"; // Sembunyikan tombol navigasi
                 } else {
                     updatePaginationButtons(filteredArticles);
@@ -273,32 +274,29 @@
                 postList.innerHTML = ""; // Bersihkan daftar artikel sebelumnya
 
                 paginatedArticles.forEach(article => {
-                    const col = document.createElement("div");
-                    col.className = "col-md-4";
+                    const li = document.createElement("li");
+                    li.className = "post-item";
 
                     // Buat kartu artikel sebagai tautan
-                    const card = document.createElement("a");
-                    card.href = `/post/${article.file}`;
-                    card.className = "post-card";
+                    const a = document.createElement("a");
+                    a.href = `/post/${article.file}`;
+                    a.className = "post-link";
 
                     const title = document.createElement("h2");
-                    title.className = "card-title";
+                    title.className = "post-title";
                     title.textContent = article.title;
 
-                    const author = document.createElement("p");
-                    author.className = "card-text";
-                    author.innerHTML = `<strong>Penulis:</strong> ${article.author}`;
+                    const meta = document.createElement("p");
+                    meta.className = "post-meta";
+                    meta.innerHTML = `
+                        <strong>Penulis:</strong> ${article.author} &nbsp;&nbsp;
+                        <strong>Tanggal:</strong> ${article.date}
+                    `;
 
-                    const date = document.createElement("p");
-                    date.className = "card-text";
-                    date.innerHTML = `<strong>Tanggal:</strong> ${article.date}`;
-
-                    card.appendChild(title);
-                    card.appendChild(author);
-                    card.appendChild(date);
-
-                    col.appendChild(card);
-                    postList.appendChild(col);
+                    a.appendChild(title);
+                    a.appendChild(meta);
+                    li.appendChild(a);
+                    postList.appendChild(li);
                 });
             }
 
@@ -306,7 +304,7 @@
             function updatePaginationButtons(articlesToRender) {
                 const totalPages = Math.ceil(articlesToRender.length / articlesPerPage);
 
-                // Tampilkan tombol navigasi hanya jika ada lebih dari 6 artikel
+                // Tampilkan tombol navigasi hanya jika ada lebih dari 10 artikel
                 if (totalPages > 1) {
                     paginationContainer.style.display = "flex";
                 } else {
