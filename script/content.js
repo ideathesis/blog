@@ -1,10 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
     const postList = document.getElementById("post-list");
     const repoUrl = "https://api.github.com/repos/ideathesis/blog/contents/post";
-
     // Array untuk menyimpan semua artikel
     const articles = [];
-
     // Ambil daftar file dari GitHub API
     fetch(repoUrl)
         .then(response => response.json())
@@ -30,31 +28,30 @@ document.addEventListener("DOMContentLoaded", () => {
                         return null;
                     })
                 );
-
             // Tunggu semua promise selesai
             Promise.all(promises).then(results => {
                 // Filter artikel yang memiliki metadata valid
                 const validArticles = results.filter(article => article !== null);
-
                 // Urutkan artikel berdasarkan tanggal (terbaru terlebih dahulu)
                 validArticles.sort((a, b) => {
                     const dateA = new Date(a.date);
                     const dateB = new Date(b.date);
                     return dateB - dateA; // Terbaru terlebih dahulu
                 });
-
                 // Bersihkan konten sebelum menampilkan artikel
                 postList.innerHTML = "";
-
                 // Tampilkan artikel yang sudah diurutkan
                 validArticles.forEach(article => {
                     const col = document.createElement("div");
                     col.className = "col-md-4";
                     const card = document.createElement("div");
                     card.className = "post-card";
+
+                    // Gambar utama (gunakan thumbnail, fallback ke image jika thumbnail tidak ada)
                     const img = document.createElement("img");
-                    img.src = article.image;
+                    img.src = article.thumbnail || article.image; // Prioritaskan thumbnail
                     img.alt = article.title;
+
                     const body = document.createElement("div");
                     body.className = "card-body";
                     const title = document.createElement("h2");
@@ -73,12 +70,15 @@ document.addEventListener("DOMContentLoaded", () => {
                     readMore.className = "read-more-button";
                     readMore.textContent = "Baca Selengkapnya";
                     footer.appendChild(readMore);
+
                     body.appendChild(title);
                     body.appendChild(author);
                     body.appendChild(date);
-                    card.appendChild(img);
+
+                    card.appendChild(img); // Thumbnail sebagai gambar utama
                     card.appendChild(body);
                     card.appendChild(footer);
+
                     col.appendChild(card);
                     postList.appendChild(col);
                 });
