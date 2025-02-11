@@ -3,7 +3,7 @@
     const metadata = JSON.parse(metadataScript.textContent);
     // Isi elemen HTML dengan data dari metadata
     document.getElementById('article-title').textContent = metadata.title;
-    document.getElementById('article-meta').textContent = `Oleh &#58; ${metadata.author} | ${metadata.date}`;
+    document.getElementById('article-meta').textContent = `Oleh ${metadata.author} | ${metadata.date}`;
     document.getElementById('featured-image').src = metadata.image;
     document.getElementById('featured-image').alt = metadata.title;
 
