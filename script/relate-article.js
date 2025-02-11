@@ -65,7 +65,7 @@
                             <img src="${article.image}" alt="${article.title}">
                             <div class="related-post-content">
                                 <h3 class="related-post-title">${article.title}</h3>
-                                <p class="related-post-meta">Oleh ${article.author} | ${article.date}</p>
+                                <p class="related-post-meta">Oleh : ${article.author} | ${article.date}</p>
                             </div>
                         `;
                         postList.appendChild(postLink);
