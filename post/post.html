@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Template Post</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        .featured-image {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+        header {
+            margin-bottom: 30px;
+        }
+        footer {
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 id="post-title">Memuat Judul...</h1>
+        <p><strong>Penulis:</strong> <span id="post-author">Memuat Penulis...</span></p>
+        <p><strong>Tanggal:</strong> <span id="post-date">Memuat Tanggal...</span></p>
+    </header>
+
+    <img id="post-image" src="" alt="Featured Image" class="featured-image">
+
+    <div id="post-content">
+        <p>Memuat konten artikel...</p>
+    </div>
+
+    <footer>
+        &copy; 2024 Blog Skripsi
+    </footer>
+
+    <script>
+        // Fungsi untuk mendapatkan parameter query dari URL
+        function getQueryParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        // Fungsi untuk memuat konten artikel
+        async function loadArticleContent(articleUrl) {
+            try {
+                // Mengambil konten artikel dari file HTML
+                const response = await fetch(articleUrl);
+                if (!response.ok) {
+                    throw new Error('Gagal memuat artikel.');
+                }
+                const html = await response.text();
+
+                // Parsing HTML untuk mendapatkan metadata JSON
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                const scriptTag = doc.querySelector('script[type="application/json"]');
+                const metadata = JSON.parse(scriptTag.textContent);
+
+                // Memperbarui elemen di halaman dengan metadata
+                document.getElementById('post-title').textContent = metadata.title;
+                document.getElementById('post-author').textContent = metadata.author;
+                document.getElementById('post-date').textContent = metadata.date;
+                document.getElementById('post-image').src = metadata.image;
+                document.getElementById('post-image').alt = metadata.title;
+
+                // Mengambil konten artikel (semua elemen setelah metadata)
+                const articleContent = doc.body.innerHTML.replace(scriptTag.outerHTML, '');
+                document.getElementById('post-content').innerHTML = articleContent;
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('post-content').innerHTML = '<p>Gagal memuat artikel. Silakan coba lagi nanti.</p>';
+            }
+        }
+
+        // Jalankan fungsi saat halaman dimuat
+        window.onload = () => {
+            const articleFile = getQueryParameter('article');
+            if (articleFile) {
+                loadArticleContent(articleFile);
+            } else {
+                document.getElementById('post-content').innerHTML = '<p>Artikel tidak ditemukan.</p>';
+            }
+        };
+    </script>
+</body>
+</html>
