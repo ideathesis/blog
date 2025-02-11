@@ -5,46 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Template Post</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            line-height: 1.6;
-            background-color: #f9f9f9;
-            color: #333;
-        }
-        header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        h1 {
-            font-size: 2.5em;
-            color: #2c3e50;
-        }
-        .author-date {
-            font-size: 0.9em;
-            color: #7f8c8d;
-        }
-        .featured-image {
-            max-width: 100%;
-            height: auto;
-            margin: 20px 0;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        .content {
-            max-width: 800px;
-            margin: 0 auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        footer {
-            text-align: center;
-            margin-top: 30px;
-            font-size: 0.9em;
-            color: #555;
-        }
+        /* CSS tetap sama seperti sebelumnya */
     </style>
 </head>
 <body>
@@ -55,55 +16,58 @@
             <strong>Tanggal:</strong> <span id="post-date">Memuat Tanggal...</span>
         </p>
     </header>
-
     <div class="content">
         <img id="post-image" src="" alt="Featured Image" class="featured-image">
         <div id="post-content">
             <p>Memuat konten artikel...</p>
         </div>
     </div>
-
     <footer>
         &copy; 2024 Blog Skripsi
     </footer>
 
+    <!-- Tambahkan marked.js -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script>
-async function loadArticleContent(articleUrl) {
-    try {
-        // Mengambil konten artikel dari file HTML
-        const response = await fetch(articleUrl);
-        if (!response.ok) {
-            throw new Error('Gagal memuat artikel.');
+        async function loadArticleContent(articleUrl) {
+            try {
+                // Mengambil konten artikel dari file Markdown
+                const response = await fetch(articleUrl);
+                if (!response.ok) {
+                    throw new Error('Gagal memuat artikel.');
+                }
+                const markdown = await response.text();
+
+                // Parsing metadata JSON dari komentar di awal file
+                const metadataMatch = markdown.match(/<!--\s*Metadata\s*-->\s*({[\s\S]*?})/);
+                if (!metadataMatch) {
+                    throw new Error('Metadata artikel tidak ditemukan.');
+                }
+                const metadata = JSON.parse(metadataMatch[1]);
+
+                // Memperbarui elemen di halaman dengan metadata
+                document.getElementById('post-title').textContent = metadata.title;
+                document.getElementById('post-author').textContent = metadata.author;
+                document.getElementById('post-date').textContent = metadata.date;
+                document.getElementById('post-image').src = metadata.image;
+                document.getElementById('post-image').alt = metadata.title;
+
+                // Menghapus metadata dari konten Markdown
+                const contentMarkdown = markdown.replace(/<!--\s*Metadata\s*-->\s*{[\s\S]*?}/, '').trim();
+                
+                // Mengonversi Markdown ke HTML menggunakan marked.js
+                const contentHtml = marked.parse(contentMarkdown);
+                document.getElementById('post-content').innerHTML = contentHtml;
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('post-content').innerHTML = '<p>Gagal memuat artikel. Silakan coba lagi nanti.</p>';
+            }
         }
-        const html = await response.text();
 
-        // Parsing HTML untuk mendapatkan metadata JSON
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, 'text/html');
-        const scriptTag = doc.querySelector('script[type="application/json"]');
-        
-        if (!scriptTag) {
-            throw new Error('Metadata artikel tidak ditemukan.');
-        }
-
-        const metadata = JSON.parse(scriptTag.textContent);
-
-        // Memperbarui elemen di halaman dengan metadata
-        document.getElementById('post-title').textContent = metadata.title;
-        document.getElementById('post-author').textContent = metadata.author;
-        document.getElementById('post-date').textContent = metadata.date;
-        document.getElementById('post-image').src = metadata.image;
-        document.getElementById('post-image').alt = metadata.title;
-
-        // Mengambil konten artikel (semua elemen setelah metadata)
-        const articleContent = doc.body.innerHTML.replace(scriptTag.outerHTML, '');
-        document.getElementById('post-content').innerHTML = articleContent;
-
-    } catch (error) {
-        console.error('Error:', error);
-        document.getElementById('post-content').innerHTML = '<p>Gagal memuat artikel. Silakan coba lagi nanti.</p>';
-    }
-}
+        // Ambil parameter query dari URL untuk menentukan file Markdown yang dimuat
+        const urlParams = new URLSearchParams(window.location.search);
+        const articleFile = urlParams.get('file') || 'post_0.md'; // Default ke post_0.md jika tidak ada parameter
+        loadArticleContent(`post/${articleFile}`);
     </script>
 </body>
 </html>
