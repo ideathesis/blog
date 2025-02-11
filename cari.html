@@ -18,7 +18,7 @@
         }
 
         .content {
-            padding-top: 20px; /* Mengurangi padding atas karena tidak ada judul */
+            padding-top: 20px;
             padding-bottom: 20px;
             padding-left: 20px;
             padding-right: 20px;
@@ -30,10 +30,17 @@
         /* Search Container Styling */
         .search-container {
             display: flex;
-            justify-content: center;
+            flex-direction: column; /* Tata letak vertikal agar loading indicator berada di bawah */
+            align-items: center; /* Pusatkan elemen horizontal */
             gap: 10px;
-            margin-bottom: 20px;
-            position: relative; /* Untuk menempatkan indikator loading */
+            margin-bottom: 40px;
+        }
+
+        .search-input-container {
+            display: flex; /* Untuk menempatkan input dan tombol dalam satu baris */
+            width: 100%;
+            justify-content: space-between; /* Jarak antara input dan tombol */
+            align-items: center; /* Pusatkan secara vertikal */
         }
 
         #search-input {
@@ -71,8 +78,9 @@
         /* Loading Indicator */
         .loading-indicator {
             display: none; /* Hidden by default */
-            text-align: center;
-            margin-top: 10px;
+            width: 100%; /* Lebar penuh agar pusatkan dengan Flexbox */
+            text-align: center; /* Pusatkan teks */
+            margin-top: 10px; /* Jarak dari kolom pencarian */
             font-size: 14px;
             color: #666;
         }
@@ -85,7 +93,8 @@
             width: 20px;
             height: 20px;
             animation: spin 0.8s linear infinite;
-            margin-right: 10px;
+            vertical-align: middle; /* Pusatkan spinner dengan teks */
+            margin-right: 10px; /* Jarak antara spinner dan teks */
         }
 
         @keyframes spin {
@@ -164,9 +173,9 @@
 
         /* Responsive Design */
         @media (max-width: 768px) {
-            .search-container {
-                flex-direction: column;
-                align-items: center;
+            .search-input-container {
+                flex-direction: column; /* Tata letak vertikal pada mobile */
+                align-items: stretch; /* Biarkan elemen memenuhi lebar penuh */
             }
 
             #search-input {
@@ -184,13 +193,15 @@
     <div class="content container">
         <!-- Kolom Pencarian -->
         <div class="search-container">
-            <input type="text" id="search-input" placeholder="Cari artikel..." />
-            <button id="search-button">Cari</button>
-        </div>
-        <!-- Loading Indicator -->
-        <div class="loading-indicator">
-            <div class="spinner"></div>
-            <span>Sedang mencari...</span>
+            <div class="search-input-container">
+                <input type="text" id="search-input" placeholder="Cari artikel..." />
+                <button id="search-button">Cari</button>
+            </div>
+            <!-- Loading Indicator -->
+            <div class="loading-indicator">
+                <div class="spinner"></div>
+                <span>Sedang mencari...</span>
+            </div>
         </div>
 
         <!-- Daftar Artikel -->
@@ -264,7 +275,9 @@
                 }
 
                 // Tampilkan indikator loading
-                loadingIndicator.style.display = "flex";
+                loadingIndicator.style.display = "flex"; // Menggunakan flexbox untuk presisi
+                loadingIndicator.style.justifyContent = "center"; // Pusatkan horizontal
+                loadingIndicator.style.alignItems = "center"; // Pusatkan vertikal
 
                 // Simulasikan proses pencarian dengan delay
                 setTimeout(() => {
