@@ -20,15 +20,31 @@
         }
 
         .search-container {
+            display: flex;
+            gap: 10px;
             margin-bottom: 20px;
         }
 
         #search-input {
-            width: 100%;
+            flex: 1;
             padding: 10px;
             font-size: 16px;
             border: 1px solid #ccc;
             border-radius: 5px;
+        }
+
+        #search-button {
+            padding: 10px 15px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #search-button:hover {
+            background-color: #0056b3;
         }
 
         .row {
@@ -88,6 +104,7 @@
         <!-- Kolom Pencarian -->
         <div class="search-container">
             <input type="text" id="search-input" placeholder="Cari artikel..." />
+            <button id="search-button">Cari</button>
         </div>
 
         <!-- Daftar Artikel -->
@@ -98,8 +115,9 @@
         document.addEventListener("DOMContentLoaded", () => {
             const postList = document.getElementById("post-list");
             const searchInput = document.getElementById("search-input");
+            const searchButton = document.getElementById("search-button");
             const repoUrl = "https://api.github.com/repos/ideathesis/blog/contents/post";
-            const articles = [];
+            let articles = []; // Array untuk menyimpan semua artikel
 
             // Ambil daftar file dari GitHub API
             fetch(repoUrl)
@@ -127,34 +145,45 @@
                         );
 
                     Promise.all(promises).then(results => {
-                        const validArticles = results.filter(article => article !== null);
-                        validArticles.sort((a, b) => {
+                        articles = results.filter(article => article !== null); // Simpan artikel yang valid
+                        articles.sort((a, b) => {
                             const dateA = new Date(a.date);
                             const dateB = new Date(b.date);
-                            return dateB - dateA;
+                            return dateB - dateA; // Urutkan berdasarkan tanggal terbaru
                         });
 
-                        // Simpan semua artikel ke array global
-                        articles.push(...validArticles);
-
-                        // Render artikel pertama kali
-                        renderArticles(validArticles);
-
-                        // Tambahkan event listener untuk kolom pencarian
-                        searchInput.addEventListener("input", () => {
-                            const query = searchInput.value.toLowerCase().trim();
-                            const filteredArticles = validArticles.filter(article => {
-                                return (
-                                    article.title.toLowerCase().includes(query) ||
-                                    article.author.toLowerCase().includes(query) ||
-                                    article.date.toLowerCase().includes(query)
-                                );
-                            });
-                            renderArticles(filteredArticles);
-                        });
+                        // Awalnya, jangan tampilkan artikel apa pun
+                        postList.innerHTML = "<p>Masukkan kata kunci dan klik 'Cari' untuk melihat hasil.</p>";
                     });
                 })
                 .catch(error => console.error("Error loading posts:", error));
+
+            // Event listener untuk tombol "Cari"
+            searchButton.addEventListener("click", () => {
+                const query = searchInput.value.toLowerCase().trim();
+
+                if (!query) {
+                    alert("Masukkan kata kunci untuk mencari!");
+                    return;
+                }
+
+                // Filter artikel berdasarkan kata kunci
+                const filteredArticles = articles.filter(article => {
+                    return (
+                        article.title.toLowerCase().includes(query) ||
+                        article.author.toLowerCase().includes(query) ||
+                        article.date.toLowerCase().includes(query)
+                    );
+                });
+
+                // Render artikel yang sesuai
+                renderArticles(filteredArticles);
+
+                // Jika tidak ada hasil, tampilkan pesan
+                if (filteredArticles.length === 0) {
+                    postList.innerHTML = "<p>Tidak ada artikel yang ditemukan.</p>";
+                }
+            });
 
             // Fungsi untuk merender artikel
             function renderArticles(articlesToRender) {
