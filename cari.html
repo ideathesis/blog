@@ -30,14 +30,14 @@
         /* Search Container Styling */
         .search-container {
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            align-items: center;
             gap: 10px;
             margin-bottom: 40px;
-            position: relative; /* Untuk menempatkan indikator loading */
         }
 
         #search-input {
-            flex: 1;
+            width: 100%;
             padding: 12px 15px;
             font-size: 14px;
             border: 1px solid #ddd;
@@ -61,6 +61,7 @@
             border-radius: 6px;
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.3s ease;
+            width: 100%;
         }
 
         #search-button:hover {
@@ -70,20 +71,22 @@
 
         /* Loading Indicator */
         .loading-indicator {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
             display: none; /* Hidden by default */
+            text-align: center;
+            margin-top: 10px;
+            font-size: 14px;
+            color: #666;
         }
 
         .spinner {
+            display: inline-block;
             border: 3px solid rgba(0, 0, 0, 0.1);
             border-top: 3px solid #81C784;
             border-radius: 50%;
             width: 20px;
             height: 20px;
             animation: spin 0.8s linear infinite;
+            margin-right: 10px;
         }
 
         @keyframes spin {
@@ -169,20 +172,6 @@
             .post-meta {
                 font-size: 0.85rem;
             }
-
-            .search-container {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            #search-input {
-                width: 100%;
-                margin-bottom: 10px;
-            }
-
-            #search-button {
-                width: 100%;
-            }
         }
     </style>
 </head>
@@ -195,6 +184,7 @@
             <!-- Loading Indicator -->
             <div class="loading-indicator">
                 <div class="spinner"></div>
+                <span>Sedang mencari...</span>
             </div>
         </div>
 
@@ -269,7 +259,7 @@
                 }
 
                 // Tampilkan indikator loading
-                loadingIndicator.style.display = "block";
+                loadingIndicator.style.display = "flex";
 
                 // Simulasikan proses pencarian dengan delay
                 setTimeout(() => {
