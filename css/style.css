@@ -204,6 +204,7 @@ footer {
     list-style: none;
     padding: 0;
     margin: 0;
+    margin-bottom: 20px; /* Jarak ke blog section */
 }
 .result-item {
     background: white;
@@ -211,7 +212,7 @@ footer {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     overflow: hidden;
-    margin-bottom: 25px;
+    margin-bottom: 15px;
     padding: 15px;
 }
 .result-item:hover {
@@ -260,31 +261,11 @@ footer {
     transform: scale(1.05);
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .search-input-container {
-        flex-direction: column;
-        align-items: stretch;
-    }
-    #search-input {
-        width: 100%;
-        margin-bottom: 10px;
-    }
-    #search-button {
-        width: 100%;
-    }
-    .loading-indicator {
-        margin-top: 15px;
-    }
-    .loading-indicator-inner {
-        max-width: 100%;
-    }
+/* Penyesuaian Jarak Antara Hasil Pencarian dan Blog Section */
+#result-list {
+    margin-bottom: 20px; /* Jarak ke blog section */
 }
 
-/* Penyesuaian Jarak Antara Hasil Pencarian dan Blog Section */
-.result-list:empty + #post-list {
-    margin-top: 40px; /* Jarak default jika hasil pencarian kosong */
-}
-.result-list:not(:empty) + #post-list {
-    margin-top: 20px; /* Jarak lebih kecil saat hasil pencarian muncul */
+#post-list {
+    margin-top: 0; /* Hapus margin tambahan */
 }
