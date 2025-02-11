@@ -7,10 +7,12 @@
     <style>
         /* Styling untuk halaman */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f9f9f9;
+            background-color: #f9fafb;
+            color: #333;
+            line-height: 1.6;
         }
 
         .container {
@@ -19,28 +21,43 @@
             padding: 20px;
         }
 
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2rem;
+            color: #007bff;
+        }
+
         .search-container {
             display: flex;
+            justify-content: center;
             gap: 10px;
-            margin-bottom: 20px;
+            margin-bottom: 40px;
         }
 
         #search-input {
             flex: 1;
-            padding: 10px;
+            padding: 12px;
             font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            border: 2px solid #007bff;
+            border-radius: 8px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        #search-input:focus {
+            border-color: #0056b3;
         }
 
         #search-button {
-            padding: 10px 15px;
+            padding: 12px 20px;
             font-size: 16px;
             background-color: #007bff;
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
+            transition: background-color 0.3s ease;
         }
 
         #search-button:hover {
@@ -48,28 +65,28 @@
         }
 
         .row {
-            display: flex;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
         }
 
         .post-card {
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             background-color: white;
-            flex: 1 1 calc(33.333% - 20px);
-            transition: transform 0.2s ease;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .post-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
         }
 
         .post-card img {
             width: 100%;
             height: auto;
+            object-fit: cover;
         }
 
         .card-body {
@@ -77,30 +94,43 @@
         }
 
         .card-title {
-            font-size: 18px;
+            font-size: 1.2rem;
             margin-bottom: 10px;
+            color: #007bff;
         }
 
         .card-text {
-            margin-bottom: 5px;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: #555;
         }
 
         .read-more-button {
             display: inline-block;
-            padding: 10px 15px;
+            padding: 8px 15px;
             background-color: #007bff;
             color: white;
             text-decoration: none;
-            border-radius: 5px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            transition: background-color 0.3s ease;
         }
 
         .read-more-button:hover {
             background-color: #0056b3;
         }
+
+        .no-results {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #888;
+        }
     </style>
 </head>
 <body>
     <div class="container">
+        <h1>Blog Saya</h1>
+
         <!-- Kolom Pencarian -->
         <div class="search-container">
             <input type="text" id="search-input" placeholder="Cari artikel..." />
@@ -153,13 +183,13 @@
                         });
 
                         // Awalnya, jangan tampilkan artikel apa pun
-                        postList.innerHTML = "<p>Masukkan kata kunci dan klik 'Cari' untuk melihat hasil.</p>";
+                        postList.innerHTML = "<p class='no-results'>Masukkan kata kunci dan tekan 'Enter' atau klik 'Cari' untuk melihat hasil.</p>";
                     });
                 })
                 .catch(error => console.error("Error loading posts:", error));
 
-            // Event listener untuk tombol "Cari"
-            searchButton.addEventListener("click", () => {
+            // Fungsi pencarian
+            function performSearch() {
                 const query = searchInput.value.toLowerCase().trim();
 
                 if (!query) {
@@ -181,7 +211,17 @@
 
                 // Jika tidak ada hasil, tampilkan pesan
                 if (filteredArticles.length === 0) {
-                    postList.innerHTML = "<p>Tidak ada artikel yang ditemukan.</p>";
+                    postList.innerHTML = "<p class='no-results'>Tidak ada artikel yang ditemukan.</p>";
+                }
+            }
+
+            // Event listener untuk tombol "Cari"
+            searchButton.addEventListener("click", performSearch);
+
+            // Event listener untuk tombol Enter
+            searchInput.addEventListener("keypress", (event) => {
+                if (event.key === "Enter") {
+                    performSearch();
                 }
             });
 
@@ -196,7 +236,7 @@
                     card.className = "post-card";
 
                     const img = document.createElement("img");
-                    img.src = article.thumbnail || article.image;
+                    img.src = article.thumbnail || article.image || "https://via.placeholder.com/300"; // Placeholder jika tidak ada gambar
                     img.alt = article.title;
 
                     const body = document.createElement("div");
