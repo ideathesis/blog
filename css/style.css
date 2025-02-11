@@ -282,9 +282,9 @@ footer {
 }
 
 /* Penyesuaian Jarak Antara Hasil Pencarian dan Blog Section */
-.result-list:empty + .blog-section {
+.result-list:empty + #post-list {
     margin-top: 40px; /* Jarak default jika hasil pencarian kosong */
 }
-.result-list:not(:empty) + .blog-section {
+.result-list:not(:empty) + #post-list {
     margin-top: 20px; /* Jarak lebih kecil saat hasil pencarian muncul */
 }
