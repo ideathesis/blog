@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 limitedRelatedArticles.forEach(article => {
                     const postLink = document.createElement("a");
                     postLink.href = `/post/${article.file}`;
-                    postLink.className = "col-md-4 related-post";
+                    postLink.className = "col-md-12 col-lg-6 related-post"; // Sesuaikan grid untuk responsif
                     postLink.innerHTML = `
                         <img src="${article.image}" alt="${article.title}" class="img-fluid">
                         <div class="related-post-content">
