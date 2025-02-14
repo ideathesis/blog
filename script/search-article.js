@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // Element references
   const resultList = document.getElementById("result-list");
   const paginationContainer = document.getElementById("pagination-container");
   const searchInput = document.getElementById("search-input");
@@ -6,147 +7,135 @@ document.addEventListener("DOMContentLoaded", () => {
   const prevPageButton = document.getElementById("prev-page");
   const nextPageButton = document.getElementById("next-page");
   const loadingIndicator = document.querySelector(".loading-indicator");
-  const manifestUrl = "https://raw.githubusercontent.com/ideathesis/blog/main/post/manifest.json";
   
+  // Konfigurasi
+  const manifestUrl = "https://raw.githubusercontent.com/ideathesis/blog/main/post/manifest.json";
+  const articlesPerPage = 5;
+  let currentPage = 1;
   let articles = [];
   let filteredArticles = [];
-  let currentPage = 1;
-  const articlesPerPage = 5;
 
-  // Fungsi konversi tanggal DD-MM-YYYY ke Date object
-  const parseCustomDate = (dateString) => {
+  // Fungsi konversi tanggal
+  const parseDate = (dateString) => {
     const [day, month, year] = dateString.split("-");
     return new Date(`${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`);
   };
 
-  // Ambil data dari manifest.json
-  fetch(manifestUrl)
-    .then(response => {
-      if (!response.ok) throw new Error('Gagal memuat manifest');
-      return response.json();
-    })
-    .then(articlesData => {
-      articles = articlesData
+  // Load data dari manifest
+  const loadArticles = async () => {
+    try {
+      loadingIndicator.style.display = "flex";
+      
+      const response = await fetch(manifestUrl);
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+      
+      const rawData = await response.json();
+      articles = rawData
         .map(article => ({
           ...article,
-          dateObject: parseCustomDate(article.date)
+          dateObj: parseDate(article.date)
         }))
-        .sort((a, b) => b.dateObject - a.dateObject);
-      
-      // Set status awal
-      resultList.innerHTML = "<li class='no-results'>Masukkan kata kunci untuk melihat hasil.</li>";
-    })
-    .catch(error => {
-      console.error("Error:", error);
+        .sort((a, b) => b.dateObj - a.dateObj);
+
+    } catch (error) {
+      console.error("Gagal memuat artikel:", error);
       resultList.innerHTML = `
-        <li class='no-results error'>
-          Gagal memuat data artikel. Silakan coba kembali nanti.
-          <button onclick="location.reload()">Muat Ulang</button>
+        <li class="error-message">
+          <p>⚠️ Gagal memuat daftar artikel. Silakan coba beberapa saat lagi.</p>
+          <button onclick="window.location.reload()">Coba Lagi</button>
         </li>
       `;
-    });
-
-  // Fungsi pencarian
-  const performSearch = () => {
-    const query = searchInput.value.toLowerCase().trim();
-    
-    if (!query) {
-      alert("Masukkan kata kunci pencarian!");
-      searchInput.focus();
-      return;
-    }
-
-    loadingIndicator.style.display = "flex";
-    
-    setTimeout(() => {
-      filteredArticles = articles.filter(article => {
-        const searchFields = [
-          article.title.toLowerCase(),
-          article.author.toLowerCase(),
-          article.date.toLowerCase()
-        ];
-        return searchFields.some(field => field.includes(query));
-      });
-
-      currentPage = 1;
-      renderResults(filteredArticles);
-      updatePagination(filteredArticles);
-      
+    } finally {
       loadingIndicator.style.display = "none";
-    }, 500);
+    }
   };
 
-  // Render hasil pencarian
-  const renderResults = (articlesToRender) => {
+  // Fungsi pencarian
+  const searchArticles = () => {
+    const query = searchInput.value.trim().toLowerCase();
+    if (!query) return;
+
+    filteredArticles = articles.filter(article => 
+      article.title.toLowerCase().includes(query) ||
+      article.author.toLowerCase().includes(query) ||
+      article.date.toLowerCase().includes(query)
+    );
+
+    currentPage = 1;
+    renderResults();
+    updatePagination();
+  };
+
+  // Render hasil
+  const renderResults = () => {
     resultList.innerHTML = "";
     
-    if (articlesToRender.length === 0) {
-      resultList.innerHTML = "<li class='no-results'>Tidak ada artikel yang cocok.</li>";
+    if (filteredArticles.length === 0) {
+      resultList.innerHTML = `
+        <li class="no-results">
+          <p>Tidak ditemukan artikel yang sesuai dengan pencarian</p>
+        </li>
+      `;
       return;
     }
 
     const startIndex = (currentPage - 1) * articlesPerPage;
-    const paginatedArticles = articlesToRender.slice(
-      startIndex, 
-      startIndex + articlesPerPage
-    );
+    const paginated = filteredArticles.slice(startIndex, startIndex + articlesPerPage);
 
-    paginatedArticles.forEach(article => {
-      const listItem = document.createElement("li");
-      listItem.className = "result-item";
-      
-      listItem.innerHTML = `
-        <a href="/post/${article.file}" class="result-link">
-          <div class="result-thumbnail">
-            <img src="${article.thumbnail || article.image}" 
+    paginated.forEach(article => {
+      const li = document.createElement("li");
+      li.className = "result-item";
+      li.innerHTML = `
+        <a href="/post/${article.file}" class="result-card">
+          <div class="card-image">
+            <img src="${article.thumbnail}" 
                  alt="${article.title}" 
                  loading="lazy">
           </div>
-          <div class="result-content">
-            <h2 class="result-title">${article.title}</h2>
-            <div class="result-meta">
+          <div class="card-body">
+            <h3 class="card-title">${article.title}</h3>
+            <div class="card-meta">
               <span class="author">${article.author}</span>
-              <time datetime="${article.dateObject.toISOString()}">
-                ${article.date}
-              </time>
+              <time>${article.date}</time>
             </div>
           </div>
         </a>
       `;
-      
-      resultList.appendChild(listItem);
+      resultList.appendChild(li);
     });
   };
 
-  // Update tampilan pagination
-  const updatePagination = (articlesToRender) => {
-    const totalPages = Math.ceil(articlesToRender.length / articlesPerPage);
+  // Update pagination
+  const updatePagination = () => {
+    const totalPages = Math.ceil(filteredArticles.length / articlesPerPage);
     
     paginationContainer.style.display = totalPages > 1 ? "flex" : "none";
     prevPageButton.disabled = currentPage === 1;
     nextPageButton.disabled = currentPage === totalPages;
 
-    // Update event handlers
     prevPageButton.onclick = () => {
       if (currentPage > 1) {
         currentPage--;
-        renderResults(articlesToRender);
-        updatePagination(articlesToRender);
+        renderResults();
+        updatePagination();
       }
     };
 
     nextPageButton.onclick = () => {
       if (currentPage < totalPages) {
         currentPage++;
-        renderResults(articlesToRender);
-        updatePagination(articlesToRender);
+        renderResults();
+        updatePagination();
       }
     };
   };
 
-  // Event listeners
-  searchButton.addEventListener("click", performSearch);
+  // Event handlers
+  searchButton.addEventListener("click", searchArticles);
   searchInput.addEventListener("keypress", (e) => {
-    if (e.key === "Enter") performSearch();
+    if (e.key === "Enter") searchArticles();
   });
+
+  // Inisialisasi
+  loadArticles();
 });
