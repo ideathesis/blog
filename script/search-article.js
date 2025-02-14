@@ -134,4 +134,4 @@ document.addEventListener("DOMContentLoaded", () => {
   searchInput.addEventListener("keypress", (e) => {
     if (e.key === "Enter") performSearch();
   });
-});
+});1
