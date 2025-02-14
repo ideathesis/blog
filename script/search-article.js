@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let articles = [];
   let filteredArticles = [];
   let currentPage = 1;
-  const articlesPerPage = 10;
+  const articlesPerPage = 5;
 
   // Fungsi konversi tanggal DD-MM-YYYY ke Date object
   const parseCustomDate = (dateString) => {
