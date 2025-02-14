@@ -90,6 +90,7 @@ body {
   background-color: #F5F5F5;
   width: 100%; /* Pastikan lebar sesuai dengan grid */
   box-sizing: border-box; /* Pastikan padding tidak melebihi lebar */
+  max-width: 100%; /* Batasi lebar maksimal agar tidak melebihi sidebar */
 }
 
 .related-post:hover {
@@ -124,6 +125,7 @@ body {
   font-weight: 600;
   line-height: 1.2; /* Mengurangi jarak antar baris */
   word-wrap: break-word; /* Memastikan teks panjang tidak melebihi lebar */
+  max-width: calc(100% - 115px); /* Kurangi lebar teks untuk memberi ruang pada gambar */
 }
 
 /* Related Post Meta Styling */
@@ -133,7 +135,7 @@ body {
   white-space: nowrap; /* Mencegah teks berlipat */
   overflow: hidden; /* Sembunyikan teks yang melebihi lebar */
   text-overflow: ellipsis; /* Tambahkan tanda titik-titik jika teks terpotong */
-  max-width: 100%; /* Batasi lebar teks agar tidak melebihi area */
+  max-width: calc(100% - 115px); /* Kurangi lebar teks untuk memberi ruang pada gambar */
 }
 
 /* Footer Styling */
