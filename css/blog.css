@@ -55,6 +55,7 @@ body {
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   max-width: 100%; /* Pastikan sidebar tidak melebihi lebar kontainer */
+  width: 100%; /* Lebar tetap sesuai grid */
 }
 
 /* Chip Styling for Sidebar Title */
@@ -137,15 +138,6 @@ body {
   overflow: hidden; /* Sembunyikan teks yang melebihi lebar */
   text-overflow: ellipsis; /* Tambahkan tanda titik-titik jika teks terpotong */
   max-width: calc(100% - 115px); /* Kurangi lebar teks untuk memberi ruang pada gambar */
-}
-
-/* Footer Styling */
-footer {
-  background-color: #333;
-  color: white;
-  padding: 20px;
-  text-align: center;
-  margin-top: 40px;
 }
 
 /* Responsive Design for Small Screens */
