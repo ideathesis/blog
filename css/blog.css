@@ -9,16 +9,14 @@ body {
 
 /* Navbar Styling */
 .navbar {
-  background: linear-gradient(to right, #E8F3E8, #BBDEFB);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  position: fixed;
-  width: 100%;
-  top: 0;
-  z-index: 1000;
+    background: linear-gradient(to right, #E8F3E8, #BBDEFB);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* Agar navbar tetap di atas konten */
 }
+
 .navbar-brand {
-  font-weight: bold;
-  color: #333 !important;
+    font-weight: bold;
+    color: #333 !important;
 }
 
 /* Main Content Styling */
