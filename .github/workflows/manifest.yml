@@ -9,7 +9,11 @@ jobs:
       
       - name: Setup Python
         uses: actions/setup-python@v4
-        with: { python-version: '3.x' }
+        with: 
+          python-version: '3.x'
+      
+      - name: Install dependencies
+        run: pip install beautifulsoup4  # Tambahkan ini
       
       - name: Generate Manifest
         run: |
@@ -20,18 +24,23 @@ jobs:
           from bs4 import BeautifulSoup
 
           manifest = []
-          for file in os.listdir('post'):
-              if file.endswith('.html'):
-                  with open(f'post/{file}', 'r') as f:
+          post_dir = 'post'
+          
+          for filename in os.listdir(post_dir):
+              if filename.endswith('.html'):
+                  with open(os.path.join(post_dir, filename), 'r') as f:
                       soup = BeautifulSoup(f.read(), 'html.parser')
                       script = soup.find('script', {'type': 'application/json', 'id': 'metadata'})
                       if script:
-                          data = json.loads(script.string)
-                          data['file'] = file
-                          manifest.append(data)
+                          try:
+                              data = json.loads(script.string)
+                              data['file'] = filename
+                              manifest.append(data)
+                          except json.JSONDecodeError as e:
+                              print(f"Error parsing JSON in {filename}: {str(e)}")
           
-          with open('post/manifest.json', 'w') as f:
-              json.dump(manifest, f, indent=2)
+          with open(os.path.join(post_dir, 'manifest.json'), 'w') as f:
+              json.dump(manifest, f, indent=2, ensure_ascii=False)
           EOF
 
       - name: Commit Changes
@@ -39,5 +48,5 @@ jobs:
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
           git add post/manifest.json
-          git commit -m "Update manifest" || echo "No changes to commit"
+          git diff --quiet && git diff --staged --quiet || git commit -m "Update manifest"
           git push
