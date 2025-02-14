@@ -4,7 +4,7 @@ body {
   background-color: #F9FAFB;
   color: #333;
   line-height: 1.6;
-  margin-top: 60px; /* Padding untuk menghindari tertutup navbar */
+  margin-top: 60px;
 }
 
 /* Navbar Styling */
@@ -159,16 +159,21 @@ footer {
   .article-container {
     grid-template-columns: 1fr;
     gap: 15px;
+    /* Menambahkan container untuk mengatur urutan */
+    grid-auto-flow: dense;
   }
 
   .content {
     padding: 15px;
     margin-top: 15px;
+    /* Konten utama di urutan pertama */
+    order: 0;
   }
 
   .sidebar {
     padding: 15px;
-    order: -1;
+    /* Sidebar di urutan kedua (bawah) */
+    order: 1;
   }
 
   .related-post {
