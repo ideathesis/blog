@@ -94,7 +94,10 @@ document.addEventListener("DOMContentLoaded", () => {
           <div class="result-content">
             <h2 class="result-title">${article.title}</h2>
             <div class="result-meta">
-			<span class="author">Oleh: ${article.author}</span> &#124; <time datetime="${article.dateObject.toISOString()}">${article.date}</time>
+              <span class="author">Oleh : ${article.author}</span> |
+              <time datetime="${article.dateObject.toISOString()}">
+                ${article.date}
+              </time>
             </div>
           </div>
         </a>
