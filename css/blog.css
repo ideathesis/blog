@@ -75,8 +75,8 @@ body {
 
 /* Related Post Container */
 #post-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsif untuk semua layar */
+  display: flex;
+  flex-direction: column; /* Tumpuk artikel secara vertikal */
   gap: 15px; /* Jarak antar artikel terkait */
 }
 
@@ -121,7 +121,7 @@ body {
 
 /* Related Post Title Styling */
 .related-post-title {
-  font-size: 14px; /* Ukuran teks lebih kecil untuk PC */
+  font-size: 14px; /* Ukuran teks untuk semua layar */
   margin-bottom: 5px;
   color: #333;
   font-weight: 600;
@@ -132,7 +132,7 @@ body {
 
 /* Related Post Meta Styling */
 .related-post-meta {
-  font-size: 12px; /* Ukuran teks lebih kecil untuk PC */
+  font-size: 12px; /* Ukuran teks untuk semua layar */
   color: #777;
   white-space: nowrap; /* Mencegah teks berlipat */
   overflow: hidden; /* Sembunyikan teks yang melebihi lebar */
@@ -147,21 +147,4 @@ footer {
   padding: 20px;
   text-align: center;
   margin-top: 40px;
-}
-
-/* Responsive Design for Small Screens */
-@media (max-width: 768px) {
-  /* Adjust grid layout for smaller screens */
-  .article-container {
-    grid-template-columns: 1fr; /* Hanya satu kolom di layar kecil */
-  }
-
-  /* Adjust font sizes for smaller screens */
-  .related-post-title {
-    font-size: 14px; /* Ukuran font tetap sama */
-  }
-
-  .related-post-meta {
-    font-size: 11px; /* Ukuran font tetap sama */
-  }
 }
