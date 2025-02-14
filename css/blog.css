@@ -44,7 +44,7 @@ body {
 /* Article Container Styling */
 .article-container {
   display: grid;
-  grid-template-columns: 3fr 1fr;
+  grid-template-columns: 3fr 1fr; /* 3 kolom utama, 1 kolom sidebar */
   gap: 20px;
 }
 
@@ -54,6 +54,8 @@ body {
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 100%; /* Pastikan sidebar tidak melebihi lebar kontainer */
+  width: 100%; /* Lebar tetap sesuai grid */
 }
 
 /* Chip Styling for Sidebar Title */
@@ -71,18 +73,29 @@ body {
   box-sizing: border-box; /* Pastikan padding tidak melebihi lebar */
 }
 
+/* Related Post Container */
+#post-list {
+  display: flex;
+  flex-direction: column; /* Tumpuk artikel secara vertikal */
+  gap: 15px; /* Jarak antar artikel terkait */
+}
+
 /* Related Post Styling */
 .related-post {
   display: flex;
-  align-items: stretch; /* Pastikan gambar dan teks sama tinggi */
-  margin-bottom: 15px;
+  flex-direction: column; /* Gambar di atas teks */
+  align-items: stretch;
   text-decoration: none;
   color: #333;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   padding: 10px;
   border-radius: 8px;
   background-color: #F5F5F5;
+  width: 100%; /* Pastikan lebar sesuai dengan grid */
+  box-sizing: border-box; /* Pastikan padding tidak melebihi lebar */
+  max-width: 100%; /* Batasi lebar maksimal agar tidak melebihi sidebar */
 }
+
 .related-post:hover {
   transform: translateY(-3px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -91,12 +104,11 @@ body {
 
 /* Related Post Image Styling */
 .related-post img {
-  width: 100px; /* Lebar gambar tetap */
-  height: 100%; /* Tinggi gambar sesuai konten */
+  width: 100%; /* Gambar menjadi full-width */
+  height: auto; /* Tinggi otomatis */
   object-fit: cover;
   border-radius: 8px;
-  margin-right: 15px;
-  flex-shrink: 0; /* Pastikan gambar tidak menyusut */
+  margin-bottom: 10px; /* Jarak antara gambar dan teks */
 }
 
 /* Related Post Content Styling */
@@ -109,21 +121,23 @@ body {
 
 /* Related Post Title Styling */
 .related-post-title {
-  font-size: 14px;
+  font-size: 14px; /* Ukuran teks untuk semua layar */
   margin-bottom: 5px;
   color: #333;
   font-weight: 600;
   line-height: 1.2; /* Mengurangi jarak antar baris */
+  word-wrap: break-word; /* Memastikan teks panjang tidak melebihi lebar */
+  max-width: 100%; /* Pastikan teks tidak melebihi lebar kontainer */
 }
 
 /* Related Post Meta Styling */
 .related-post-meta {
-  font-size: 12px;
+  font-size: 12px; /* Ukuran teks untuk semua layar */
   color: #777;
   white-space: nowrap; /* Mencegah teks berlipat */
   overflow: hidden; /* Sembunyikan teks yang melebihi lebar */
   text-overflow: ellipsis; /* Tambahkan tanda titik-titik jika teks terpotong */
-  max-width: 100%; /* Batasi lebar teks agar tidak melebihi area */
+  max-width: 100%; /* Pastikan teks tidak melebihi lebar kontainer */
 }
 
 /* Footer Styling */
@@ -133,23 +147,4 @@ footer {
   padding: 20px;
   text-align: center;
   margin-top: 40px;
-}
-
-/* Responsive Design for Small Screens */
-@media (max-width: 768px) {
-  /* Adjust grid layout for smaller screens */
-  .article-container {
-    grid-template-columns: 1fr;
-  }
-
-  /* Reduce image size for smaller screens */
-  .related-post img {
-    width: 80px; /* Lebar gambar lebih kecil di layar kecil */
-    height: 100%;
-  }
-
-  /* Adjust meta text size */
-  .related-post-meta {
-    font-size: 11px; /* Ukuran font lebih kecil */
-  }
 }
