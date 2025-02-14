@@ -1,13 +1,17 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const postList = document.getElementById("post-list");
-    const repoUrl = "https://api.github.com/repos/ideathesis/blog/contents/post";
-
     // Ambil metadata artikel saat ini
     const currentMetadataScript = document.getElementById('metadata');
     const currentMetadata = JSON.parse(currentMetadataScript.textContent);
 
+    // Isi elemen HTML dengan data dari metadata
+    document.getElementById('article-title').textContent = currentMetadata.title;
+    document.getElementById('article-meta').textContent = `Oleh : ${currentMetadata.author} | ${currentMetadata.date}`;
+    document.getElementById('featured-image').src = currentMetadata.image;
+    document.getElementById('featured-image').alt = currentMetadata.title;
+
     // Array untuk menyimpan semua artikel
     const articles = [];
+    const repoUrl = "https://api.github.com/repos/ideathesis/blog/contents/post";
 
     // Ambil daftar file dari GitHub API
     fetch(repoUrl)
@@ -64,15 +68,16 @@ document.addEventListener("DOMContentLoaded", () => {
                 relatedArticles.sort((a, b) => b.relevanceScore - a.relevanceScore);
 
                 // Bersihkan konten sebelum menampilkan artikel
+                const postList = document.getElementById("post-list");
                 postList.innerHTML = "";
 
                 // Tampilkan artikel terkait yang sudah diurutkan
                 relatedArticles.forEach(article => {
                     const postLink = document.createElement("a");
                     postLink.href = `/post/${article.file}`;
-                    postLink.className = "related-post";
+                    postLink.className = "col-md-4 related-post";
                     postLink.innerHTML = `
-                        <img src="${article.image}" alt="${article.title}">
+                        <img src="${article.image}" alt="${article.title}" class="img-fluid">
                         <div class="related-post-content">
                             <h3 class="related-post-title">${article.title}</h3>
                             <p class="related-post-meta">Oleh : ${article.author} | ${article.date}</p>
