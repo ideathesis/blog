@@ -164,6 +164,11 @@ footer {
     background-color: white;
 }
 
+#search-input:focus {
+    border-color: #81C784;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
 #search-button {
     padding: 12px 20px;
     font-size: 14px;
