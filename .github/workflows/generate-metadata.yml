@@ -1,4 +1,4 @@
-name: Generate Articles Metadata
+name: Generate Articles Metadata for Cloudflare Pages
 
 on:
   push:
@@ -25,8 +25,11 @@ jobs:
       - name: Generate metadata JSON
         run: node generate-metadata.js
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: public
+      - name: Commit and push to output branch
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b output || git checkout output
+          git add public/
+          git commit -m "Update static files for Cloudflare Pages" || echo "No changes to commit"
+          git push origin output --force
