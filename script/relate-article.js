@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 relatedArticles.sort((a, b) => b.relevanceScore - a.relevanceScore);
 
                 // Batasi jumlah artikel terkait yang ditampilkan (misalnya, hanya 5 artikel)
-                const maxRelatedArticles = 10;
+                const maxRelatedArticles = 5;
                 const limitedRelatedArticles = relatedArticles.slice(0, maxRelatedArticles);
 
                 // Bersihkan konten sebelum menampilkan artikel
