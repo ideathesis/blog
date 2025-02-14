@@ -23,7 +23,7 @@ jobs:
         run: npm install
 
       - name: Generate metadata JSON
-        run: node generate-metadata.js
+        run: node generate-metadata.j
 
       - name: Commit and push to output branch
         run: |
