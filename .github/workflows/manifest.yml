@@ -1,0 +1,43 @@
+name: Generate Manifest
+on: [push]
+
+jobs:
+  generate-manifest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with: { python-version: '3.x' }
+      
+      - name: Generate Manifest
+        run: |
+          echo "Generating manifest.json..."
+          python3 <<EOF
+          import os
+          import json
+          from bs4 import BeautifulSoup
+
+          manifest = []
+          for file in os.listdir('post'):
+              if file.endswith('.html'):
+                  with open(f'post/{file}', 'r') as f:
+                      soup = BeautifulSoup(f.read(), 'html.parser')
+                      script = soup.find('script', {'type': 'application/json', 'id': 'metadata'})
+                      if script:
+                          data = json.loads(script.string)
+                          data['file'] = file
+                          manifest.append(data)
+          
+          with open('post/manifest.json', 'w') as f:
+              json.dump(manifest, f, indent=2)
+          EOF
+
+      - name: Commit Changes
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add post/manifest.json
+          git commit -m "Update manifest" || echo "No changes to commit"
+          git push
