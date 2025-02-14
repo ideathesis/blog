@@ -163,158 +163,86 @@ footer {
     flex-shrink: 0; /* Jangan menyusut footer */
 }
 
-/* Kolom Pencarian */
+/* Kolom Pencarian (Revisi) */
 .search-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    gap: 8px; /* Diperkecil dari 10px */
+    margin-bottom: 0.5rem; /* Tambahkan margin bawah yang lebih ketat */
 }
 
 .search-input-container {
     display: flex;
     width: 100%;
-    justify-content: space-between;
-    align-items: center;
+    max-width: 800px; /* Batasi lebar maksimum */
+    gap: 8px; /* Tambahkan jarak antara input dan tombol */
 }
 
 #search-input {
-    flex: 1;
-    padding: 12px 15px;
-    font-size: 14px;
+    padding: 10px 14px; /* Sedikit diperkecil */
+    font-size: 15px;
     border: 1px solid #ddd;
-    border-radius: 6px;
-    outline: none;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    background-color: white;
-}
-
-#search-input:focus {
-    border-color: #81C784;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    transition: all 0.2s ease;
 }
 
 #search-button {
-    padding: 12px 20px;
-    font-size: 14px;
-    background-color: #81C784;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    padding: 10px 18px; /* Ukuran lebih kompak */
+    border-radius: 8px;
+    flex-shrink: 0; /* Hindari penyusutan tombol */
 }
 
-#search-button:hover {
-    background-color: #64B5F6;
-    transform: scale(1.05);
-}
-
-/* Loading Indicator */
-.loading-indicator {
-    display: none;
-    width: 100%;
-    text-align: center;
-    margin-top: 10px;
-    font-size: 14px;
-    color: #666;
-    position: relative;
-}
-
-.loading-indicator-inner {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    margin: 0 auto;
-    max-width: 300px;
-}
-
-.spinner {
-    display: inline-block;
-    border: 3px solid rgba(0, 0, 0, 0.1);
-    border-top: 3px solid #81C784;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    animation: spin 0.8s linear infinite;
-}
-
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-/* Daftar Hasil */
+/* Daftar Hasil (Revisi) */
 .result-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    margin-bottom: 20px; /* Jarak ke blog section */
+    margin: 12px 0 10px; /* Atas-bawah diperkecil */
+    width: 100%;
+    max-width: 800px; /* Sesuaikan dengan input */
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .result-item {
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    overflow: hidden;
-    margin-bottom: 15px;
-    padding: 15px;
-}
-
-.result-item:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-}
-
-.result-link {
-    text-decoration: none;
-    color: inherit;
+    margin-bottom: 12px; /* Diperkecil dari 15px */
+    padding: 12px; /* Padding lebih ketat */
+    border-radius: 8px;
 }
 
 .result-title {
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-bottom: 10px;
-    line-height: 1.4;
-    color: #333;
+    font-size: 1.1rem; /* Sedikit lebih kecil */
+    margin-bottom: 8px;
 }
 
-.result-meta {
-    font-size: 0.9rem;
-    color: #666;
-}
-
-/* Pagination */
+/* Pagination (Revisi) */
 .pagination {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 20px;
+    margin: 15px 0 10px; /* Atas-bawah diperkecil */
 }
 
-.pagination button {
-    padding: 10px 15px;
-    font-size: 14px;
-    background-color: #81C784;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+/* Loading Indicator (Revisi) */
+.loading-indicator {
+    margin-top: 8px; /* Diperkecil dari 10px */
 }
 
-.pagination button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
+.loading-indicator-inner {
+    gap: 8px; /* Jarak elemen loading */
 }
 
-.pagination button:hover:not(:disabled) {
-    background-color: #64B5F6;
-    transform: scale(1.05);
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .search-input-container {
+        flex-direction: column; /* Stack vertikal di mobile */
+    }
+    
+    #search-button {
+        width: 100%;
+        padding: 12px;
+    }
+    
+    .result-list {
+        margin: 10px 0 8px;
+    }
+    
+    .result-item {
+        margin-bottom: 10px;
+    }
 }
