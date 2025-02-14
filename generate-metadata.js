@@ -1,9 +1,15 @@
 const fs = require('fs');
 const path = require('path');
-const { JSDOM } = require('jsdom'); // Impor JSDOM dari jsdom
+const { JSDOM } = require('jsdom');
 
 // Direktori tempat file HTML artikel disimpan
 const postDir = path.join(__dirname, 'post');
+
+// Pastikan direktori output (public/data) ada
+const outputDir = path.join(__dirname, 'public', 'data');
+if (!fs.existsSync(outputDir)) {
+  fs.mkdirSync(outputDir, { recursive: true }); // Buat direktori jika belum ada
+}
 
 // Baca semua file HTML di direktori /post/
 const files = fs.readdirSync(postDir);
@@ -29,5 +35,6 @@ const articles = files
   .filter(article => article !== null); // Filter artikel yang valid
 
 // Simpan metadata ke file JSON
-fs.writeFileSync('public/data/articles.json', JSON.stringify(articles, null, 2));
+const outputPath = path.join(outputDir, 'articles.json');
+fs.writeFileSync(outputPath, JSON.stringify(articles, null, 2));
 console.log('Metadata berhasil dihasilkan!');
