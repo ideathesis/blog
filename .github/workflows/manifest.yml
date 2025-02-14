@@ -4,16 +4,19 @@ on: [push]
 jobs:
   generate-manifest:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Berikan akses write
+      
     steps:
       - uses: actions/checkout@v4
       
       - name: Setup Python
         uses: actions/setup-python@v4
-        with: 
+        with:
           python-version: '3.x'
       
       - name: Install dependencies
-        run: pip install beautifulsoup4  # Tambahkan ini
+        run: pip install beautifulsoup4
       
       - name: Generate Manifest
         run: |
@@ -28,25 +31,41 @@ jobs:
           
           for filename in os.listdir(post_dir):
               if filename.endswith('.html'):
-                  with open(os.path.join(post_dir, filename), 'r') as f:
-                      soup = BeautifulSoup(f.read(), 'html.parser')
-                      script = soup.find('script', {'type': 'application/json', 'id': 'metadata'})
-                      if script:
-                          try:
-                              data = json.loads(script.string)
+                  file_path = os.path.join(post_dir, filename)
+                  try:
+                      with open(file_path, 'r', encoding='utf-8') as f:
+                          soup = BeautifulSoup(f.read(), 'html.parser')
+                          script = soup.find('script', {'type': 'application/json', 'id': 'metadata'})
+                          
+                          if script:
+                              data = json.loads(script.string.strip())
                               data['file'] = filename
                               manifest.append(data)
-                          except json.JSONDecodeError as e:
-                              print(f"Error parsing JSON in {filename}: {str(e)}")
+                  except Exception as e:
+                      print(f"Error processing {filename}: {str(e)}")
           
-          with open(os.path.join(post_dir, 'manifest.json'), 'w') as f:
+          manifest_path = os.path.join(post_dir, 'manifest.json')
+          with open(manifest_path, 'w', encoding='utf-8') as f:
               json.dump(manifest, f, indent=2, ensure_ascii=False)
           EOF
 
-      - name: Commit Changes
+      - name: Commit & Push
+        env:
+          GH_TOKEN: ${{ secrets.IDEA_THESIS_BLOG }}  # Gunakan token custom
         run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
+          git config --global user.name "IDEA THESIS Blog Bot"
+          git config --global user.email "blog-bot@ideathesis.com"
+          
+          # Update remote URL dengan token
+          git remote set-url origin "https://x-access-token:$GH_TOKEN@github.com/${{ github.repository }}"
+          
+          # Commit changes
           git add post/manifest.json
-          git diff --quiet && git diff --staged --quiet || git commit -m "Update manifest"
-          git push
+          
+          if ! git diff --quiet --staged; then
+            git commit -m "Update manifest.json"
+            git push origin HEAD:main
+            echo "✅ Manifest updated!"
+          else
+            echo "🔄 No changes to commit"
+          fi
