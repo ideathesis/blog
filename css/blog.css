@@ -75,14 +75,15 @@ body {
 
 /* Related Post Container */
 #post-list {
-  display: flex;
-  flex-direction: column; /* Tumpuk artikel secara vertikal */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsif untuk semua layar */
   gap: 15px; /* Jarak antar artikel terkait */
 }
 
 /* Related Post Styling */
 .related-post {
   display: flex;
+  flex-direction: column;
   align-items: stretch;
   text-decoration: none;
   color: #333;
@@ -103,12 +104,11 @@ body {
 
 /* Related Post Image Styling */
 .related-post img {
-  width: 100px; /* Lebar gambar tetap */
+  width: 100%; /* Gambar menjadi full-width */
   height: auto; /* Tinggi otomatis */
   object-fit: cover;
   border-radius: 8px;
-  margin-right: 15px;
-  flex-shrink: 0; /* Pastikan gambar tidak menyusut */
+  margin-bottom: 10px; /* Jarak antara gambar dan teks */
 }
 
 /* Related Post Content Styling */
@@ -121,13 +121,12 @@ body {
 
 /* Related Post Title Styling */
 .related-post-title {
-  font-size: 14px;
+  font-size: 16px;
   margin-bottom: 5px;
   color: #333;
   font-weight: 600;
   line-height: 1.2; /* Mengurangi jarak antar baris */
   word-wrap: break-word; /* Memastikan teks panjang tidak melebihi lebar */
-  max-width: calc(100% - 115px); /* Kurangi lebar teks untuk memberi ruang pada gambar */
 }
 
 /* Related Post Meta Styling */
@@ -137,7 +136,15 @@ body {
   white-space: nowrap; /* Mencegah teks berlipat */
   overflow: hidden; /* Sembunyikan teks yang melebihi lebar */
   text-overflow: ellipsis; /* Tambahkan tanda titik-titik jika teks terpotong */
-  max-width: calc(100% - 115px); /* Kurangi lebar teks untuk memberi ruang pada gambar */
+}
+
+/* Footer Styling */
+footer {
+  background-color: #333;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  margin-top: 40px;
 }
 
 /* Responsive Design for Small Screens */
@@ -147,25 +154,12 @@ body {
     grid-template-columns: 1fr; /* Hanya satu kolom di layar kecil */
   }
 
-  /* Reduce image size for smaller screens */
-  .related-post img {
-    width: 80px; /* Lebar gambar lebih kecil di layar kecil */
-    height: auto; /* Tinggi otomatis */
+  /* Adjust font sizes for smaller screens */
+  .related-post-title {
+    font-size: 14px; /* Ukuran font lebih kecil */
   }
 
-  /* Adjust meta text size */
   .related-post-meta {
     font-size: 11px; /* Ukuran font lebih kecil */
-  }
-
-  /* Stack related posts vertically on small screens */
-  .related-post {
-    flex-direction: column; /* Tumpuk gambar dan teks di layar kecil */
-  }
-
-  .related-post img {
-    width: 100%; /* Gambar menjadi full-width di layar kecil */
-    height: auto; /* Tinggi otomatis */
-    margin-bottom: 10px; /* Jarak antara gambar dan teks */
   }
 }
