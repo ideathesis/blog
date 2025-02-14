@@ -32,8 +32,6 @@ document.addEventListener("DOMContentLoaded", () => {
           dateObject: parseCustomDate(article.date)
         }))
         .sort((a, b) => b.dateObject - a.dateObject);
-      
-      // [DIHAPUS] Tidak ada pesan inisial
     })
     .catch(error => {
       console.error("Error:", error);
@@ -45,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
       `;
     });
 
-  // Fungsi pencarian - TETAP SAMA
+  // Fungsi pencarian
   const performSearch = () => {
     const query = searchInput.value.toLowerCase().trim();
     
@@ -75,7 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 500);
   };
 
-  // Render hasil pencarian - TETAP SAMA
+  // Render hasil pencarian TANPA GAMBAR
   const renderResults = (articlesToRender) => {
     resultList.innerHTML = "";
     
@@ -85,10 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const startIndex = (currentPage - 1) * articlesPerPage;
-    const paginatedArticles = articlesToRender.slice(
-      startIndex, 
-      startIndex + articlesPerPage
-    );
+    const paginatedArticles = articlesToRender.slice(startIndex, startIndex + articlesPerPage);
 
     paginatedArticles.forEach(article => {
       const listItem = document.createElement("li");
@@ -96,11 +91,6 @@ document.addEventListener("DOMContentLoaded", () => {
       
       listItem.innerHTML = `
         <a href="/post/${article.file}" class="result-link">
-          <div class="result-thumbnail">
-            <img src="${article.thumbnail || article.image}" 
-                 alt="${article.title}" 
-                 loading="lazy">
-          </div>
           <div class="result-content">
             <h2 class="result-title">${article.title}</h2>
             <div class="result-meta">
@@ -117,7 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
-  // Update tampilan pagination - TETAP SAMA
+  // Update tampilan pagination
   const updatePagination = (articlesToRender) => {
     const totalPages = Math.ceil(articlesToRender.length / articlesPerPage);
     
@@ -142,7 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   };
 
-  // Event listeners - TETAP SAMA
+  // Event listeners
   searchButton.addEventListener("click", performSearch);
   searchInput.addEventListener("keypress", (e) => {
     if (e.key === "Enter") performSearch();
