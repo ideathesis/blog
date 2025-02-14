@@ -121,21 +121,23 @@ body {
 
 /* Related Post Title Styling */
 .related-post-title {
-  font-size: 16px;
+  font-size: 14px; /* Ukuran teks lebih kecil untuk PC */
   margin-bottom: 5px;
   color: #333;
   font-weight: 600;
   line-height: 1.2; /* Mengurangi jarak antar baris */
   word-wrap: break-word; /* Memastikan teks panjang tidak melebihi lebar */
+  max-width: 100%; /* Pastikan teks tidak melebihi lebar kontainer */
 }
 
 /* Related Post Meta Styling */
 .related-post-meta {
-  font-size: 12px;
+  font-size: 12px; /* Ukuran teks lebih kecil untuk PC */
   color: #777;
   white-space: nowrap; /* Mencegah teks berlipat */
   overflow: hidden; /* Sembunyikan teks yang melebihi lebar */
   text-overflow: ellipsis; /* Tambahkan tanda titik-titik jika teks terpotong */
+  max-width: 100%; /* Pastikan teks tidak melebihi lebar kontainer */
 }
 
 /* Footer Styling */
@@ -156,10 +158,10 @@ footer {
 
   /* Adjust font sizes for smaller screens */
   .related-post-title {
-    font-size: 14px; /* Ukuran font lebih kecil */
+    font-size: 14px; /* Ukuran font tetap sama */
   }
 
   .related-post-meta {
-    font-size: 11px; /* Ukuran font lebih kecil */
+    font-size: 11px; /* Ukuran font tetap sama */
   }
 }
