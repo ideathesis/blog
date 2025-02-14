@@ -9,87 +9,55 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById('featured-image').src = currentMetadata.image;
     document.getElementById('featured-image').alt = currentMetadata.title;
 
-    // Array untuk menyimpan semua artikel
-    const articles = [];
-    const repoUrl = "https://api.github.com/repos/ideathesis/blog/contents/post";
-
-    // Ambil daftar file dari GitHub API
-    fetch(repoUrl)
+    // Ambil data dari manifest.json
+    const manifestUrl = "https://raw.githubusercontent.com/ideathesis/blog/main/post/manifest.json";
+    
+    fetch(manifestUrl)
         .then(response => response.json())
-        .then(files => {
-            // Loop untuk mengambil metadata dari setiap file HTML
-            const promises = files
-                .filter(file => file.name.endsWith(".html")) // Hanya proses file HTML
-                .map(file => fetch(file.download_url) // Fetch isi file HTML
-                    .then(response => response.text())
-                    .then(htmlContent => {
-                        const parser = new DOMParser();
-                        const doc = parser.parseFromString(htmlContent, "text/html");
-                        const metadataScript = doc.querySelector("script[type='application/json']");
-                        if (metadataScript) {
-                            const metadata = JSON.parse(metadataScript.textContent);
-                            metadata.file = file.name; // Simpan nama file
-                            return metadata; // Kembalikan metadata
-                        }
-                        return null; // Jika metadata tidak ada, kembalikan null
-                    })
-                    .catch(error => {
-                        console.error(`Error loading file ${file.name}:`, error);
-                        return null;
-                    })
-                );
+        .then(allArticles => {
+            // Filter artikel terkait
+            const relatedArticles = allArticles.filter(article => {
+                const currentTitleWords = currentMetadata.title.toLowerCase().split(/\s+/);
+                const articleTitleWords = article.title.toLowerCase().split(/\s+/);
+                const hasMatchingWords = currentTitleWords.some(word => articleTitleWords.includes(word));
+                return hasMatchingWords && article.title !== currentMetadata.title;
+            });
 
-            // Tunggu semua promise selesai
-            Promise.all(promises).then(results => {
-                // Filter artikel yang memiliki metadata valid
-                const validArticles = results.filter(article => article !== null);
+            // Hitung skor relevansi
+            relatedArticles.forEach(article => {
+                const currentTitleWords = currentMetadata.title.toLowerCase().split(/\s+/);
+                const articleTitleWords = article.title.toLowerCase().split(/\s+/);
+                article.relevanceScore = currentTitleWords.filter(word => articleTitleWords.includes(word)).length;
+            });
 
-                // Hitung relevansi artikel berdasarkan kesamaan judul
-                const relatedArticles = validArticles.filter(article => {
-                    const currentTitleWords = currentMetadata.title.toLowerCase().split(/\s+/); // Kata-kata judul artikel saat ini
-                    const articleTitleWords = article.title.toLowerCase().split(/\s+/); // Kata-kata judul artikel lain
+            // Urutkan dan batasi jumlah
+            const sortedArticles = relatedArticles.sort((a, b) => b.relevanceScore - a.relevanceScore);
+            const limitedArticles = sortedArticles.slice(0, 5);
 
-                    // Cek apakah ada kata yang cocok antara judul artikel saat ini dan artikel lain
-                    const hasMatchingWords = currentTitleWords.some(word => articleTitleWords.includes(word));
-                    return hasMatchingWords && article.title !== currentMetadata.title; // Pastikan artikel bukan artikel saat ini
-                });
-
-                // Urutkan artikel terkait berdasarkan jumlah kata yang cocok (relevansi)
-                relatedArticles.forEach(article => {
-                    const currentTitleWords = currentMetadata.title.toLowerCase().split(/\s+/); // Kata-kata judul artikel saat ini
-                    const articleTitleWords = article.title.toLowerCase().split(/\s+/); // Kata-kata judul artikel lain
-
-                    // Hitung jumlah kata yang cocok
-                    const matchingWords = currentTitleWords.filter(word => articleTitleWords.includes(word)).length;
-                    article.relevanceScore = matchingWords; // Simpan skor relevansi
-                });
-
-                // Urutkan artikel berdasarkan skor relevansi (tertinggi terlebih dahulu)
-                relatedArticles.sort((a, b) => b.relevanceScore - a.relevanceScore);
-
-                // Batasi jumlah artikel terkait yang ditampilkan (misalnya, hanya 5 artikel)
-                const maxRelatedArticles = 5;
-                const limitedRelatedArticles = relatedArticles.slice(0, maxRelatedArticles);
-
-                // Bersihkan konten sebelum menampilkan artikel
-                const postList = document.getElementById("post-list");
-                postList.innerHTML = "";
-
-                // Tampilkan artikel terkait yang sudah diurutkan
-                limitedRelatedArticles.forEach(article => {
-                    const postLink = document.createElement("a");
-                    postLink.href = `/post/${article.file}`;
-                    postLink.className = "col-md-12 col-lg-6 related-post"; // Sesuaikan grid untuk responsif
-                    postLink.innerHTML = `
-                        <img src="${article.image}" alt="${article.title}" class="img-fluid">
-                        <div class="related-post-content">
-                            <h3 class="related-post-title">${article.title}</h3>
-                            <p class="related-post-meta">Oleh : ${article.author} | ${article.date}</p>
-                        </div>
-                    `;
-                    postList.appendChild(postLink);
-                });
+            // Render artikel
+            const postList = document.getElementById("post-list");
+            postList.innerHTML = "";
+            
+            limitedArticles.forEach(article => {
+                const postLink = document.createElement("a");
+                postLink.href = `/post/${article.file}`;
+                postLink.className = "col-md-12 col-lg-6 related-post";
+                postLink.innerHTML = `
+                    <img src="${article.image}" alt="${article.title}" class="img-fluid">
+                    <div class="related-post-content">
+                        <h3 class="related-post-title">${article.title}</h3>
+                        <p class="related-post-meta">Oleh : ${article.author} | ${article.date}</p>
+                    </div>
+                `;
+                postList.appendChild(postLink);
             });
         })
-        .catch(error => console.error("Error loading posts:", error));
+        .catch(error => {
+            console.error("Gagal memuat artikel terkait:", error);
+            document.getElementById("post-list").innerHTML = `
+                <div class="alert alert-warning">
+                    Gagal memuat artikel terkait. Silakan refresh halaman.
+                </div>
+            `;
+        });
 });
