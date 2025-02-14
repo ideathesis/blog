@@ -1,15 +1,19 @@
 document.addEventListener("DOMContentLoaded", () => {
     const postList = document.getElementById("post-list");
     const manifestUrl = "https://raw.githubusercontent.com/ideathesis/blog/main/post/manifest.json";
+    
+    // 1. Tambahkan variabel itemsPerPage di sini
+    const itemsPerPage = 6; // 👈 Ubah angka ini untuk mengubah jumlah tampilan per halaman
+    
     let allArticles = [];
     let currentPage = 0;
     let totalPages = 0;
     let prevButton, nextButton;
 
-    // Fungsi untuk merender artikel
+    // 2. Fungsi renderArticles yang dimodifikasi
     const renderArticles = (page) => {
-        const start = page * 6;
-        const end = start + 6;
+        const start = page * itemsPerPage;
+        const end = start + itemsPerPage;
         const articlesToShow = allArticles.slice(start, end);
 
         postList.innerHTML = "";
@@ -56,30 +60,29 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     };
 
-    // Fungsi untuk update tombol paginasi
+    // 3. Fungsi updatePaginationButtons tetap sama
     const updatePaginationButtons = () => {
         prevButton.disabled = currentPage === 0;
         nextButton.disabled = currentPage >= totalPages - 1;
     };
 
-    // Fungsi untuk inisialisasi paginasi
+    // 4. Fungsi initPagination tetap sama
     const initPagination = () => {
         const paginationControls = document.createElement("div");
         paginationControls.className = "pagination-controls d-flex justify-content-center gap-3 my-4";
 
         prevButton = document.createElement("button");
-        prevButton.className = "btn btn-primary";
+        prevButton.className = "pagination-button";
         prevButton.textContent = "Sebelumnya";
         
         nextButton = document.createElement("button");
-        nextButton.className = "btn btn-primary";
+        nextButton.className = "pagination-button";
         nextButton.textContent = "Selanjutnya";
 
         paginationControls.appendChild(prevButton);
         paginationControls.appendChild(nextButton);
         postList.parentNode.insertBefore(paginationControls, postList.nextSibling);
 
-        // Event listeners untuk tombol
         prevButton.addEventListener("click", () => {
             if (currentPage > 0) {
                 currentPage--;
@@ -100,17 +103,17 @@ document.addEventListener("DOMContentLoaded", () => {
     fetch(manifestUrl)
         .then(response => response.json())
         .then(articles => {
-            // Urutkan artikel berdasarkan tanggal terbaru
             allArticles = articles.sort((a, b) => {
                 const [dA, mA, yA] = a.date.split("-");
                 const [dB, mB, yB] = b.date.split("-");
                 return new Date(`${yA}-${mA}-${dA}`) - new Date(`${yB}-${mB}-${dB}`);
             }).reverse();
 
-            totalPages = Math.ceil(allArticles.length / 6);
+            // 5. Modifikasi perhitungan totalPages
+            totalPages = Math.ceil(allArticles.length / itemsPerPage);
             
-            // Sembunyikan paginasi jika tidak perlu
-            if (allArticles.length > 6) {
+            // 6. Modifikasi kondisi tampilkan paginasi
+            if (allArticles.length > itemsPerPage) {
                 initPagination();
             }
             
