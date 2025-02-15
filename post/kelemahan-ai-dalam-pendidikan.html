@@ -47,7 +47,47 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Custom CSS -->
-<link rel="stylesheet" href="/css/blog.css">
+<style>
+  /* Efek hover pada tabel */
+  .table-hover tbody tr:hover {
+    background-color: #f8f9fa;
+    transform: scale(1.02);
+    transition: transform 0.2s ease-in-out;
+  }
+
+  /* Card dengan efek hover */
+  .card-hover {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .card-hover:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Blockquote dengan gaya khusus */
+  blockquote {
+    border-left: 5px solid #0d6efd;
+    background-color: #f8f9fa;
+    padding: 15px;
+    margin: 20px 0;
+    font-style: italic;
+    color: #555;
+  }
+
+  /* Efek zoom pada gambar */
+  .img-zoom {
+    transition: transform 0.3s ease;
+  }
+  .img-zoom:hover {
+    transform: scale(1.05);
+  }
+
+  /* Accordion FAQ */
+  .accordion-button:not(.collapsed) {
+    background-color: #e9f5ff;
+    color: #0d6efd;
+  }
+</style>
 </head>
 <body>
 
@@ -89,36 +129,36 @@
 	
         <!-- Main Content -->
         <article>
-            <img id="featured-image" alt="" class="featured-image img-fluid">
+            <img id="featured-image" alt="" class="featured-image img-fluid img-zoom">
             <h1 id="article-title" class="text-center mb-4"></h1>
             <p id="article-meta" class="text-center text-muted mb-4"></p>
             <p>Mengandalkan AI untuk tugas ilmiah ibarat memakai kalkulator tanpa tahu rumus matematika: Anda dapat jawaban instan, tapi <strong>nol pemahaman konseptual</strong>. Simak mengapa kecerdasan buatan takkan pernah menggantikan kedalaman berpikir manusia!</p>
 
             <h2>Analogi Terjebak AI: Kisah Mahasiswa Harvard yang Gagal Ujian</h2>
-            <blockquote class="blockquote">
+            <blockquote>
                 <p>"Saya menggunakan ChatGPT untuk merangkum 50 jurnal fisika kuantum. Nilai saya A, tapi saat diminta menjelaskan konsep dasar ke dosen, otak saya kosong!" <br><em>- Anonymous Mahasiswa Program Magister</em></p>
             </blockquote>
 
             <h2>3 Batasan Fatal AI dalam Proses Akademik</h2>
             <div class="row">
-                <div class="col-md-4">
-                    <div class="card">
+                <div class="col-md-4 mb-3">
+                    <div class="card card-hover">
                         <div class="card-body">
                             <h4 class="card-title">❌ Misinterpretasi Konteks</h4>
                             <p class="card-text">AI tak bisa membedakan satire dengan fakta dalam sumber sejarah (Tes: 72% kesalahan kontekstual pada riset Stanford 2024)</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card">
+                <div class="col-md-4 mb-3">
+                    <div class="card card-hover">
                         <div class="card-body">
                             <h4 class="card-title">❌ Ilusi Pengetahuan</h4>
                             <p class="card-text">Generasi referensi fiktif (<em>hallucination</em>) terjadi pada 1 dari 3 permintaan ke AI (Laporan Nature, Jan 2025)</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card">
+                <div class="col-md-4 mb-3">
+                    <div class="card card-hover">
                         <div class="card-body">
                             <h4 class="card-title">❌ Zero Critical Thinking</h4>
                             <p class="card-text">AI hanya mereplikasi pola data tanpa mempertanyakan validitas (Contoh: Analisis bias gender dalam dataset tak terdeteksi)</p>
@@ -128,7 +168,7 @@
             </div>
 
             <h2>Tabel Perbandingan: Manusia vs AI dalam Penelitian</h2>
-            <table class="table table-bordered">
+            <table class="table table-hover">
                 <thead>
                     <tr>
                         <th>Aspek</th>
@@ -157,8 +197,8 @@
 
             <h2>Cara Bijak Memanfaatkan AI: Panduan 4 Lapis</h2>
             <div class="row">
-                <div class="col-md-6">
-                    <div class="card">
+                <div class="col-md-6 mb-3">
+                    <div class="card card-hover">
                         <div class="card-body">
                             <h4 class="card-title">✅ Gunakan AI untuk:</h4>
                             <ul class="list-group list-group-flush">
@@ -169,8 +209,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="card">
+                <div class="col-md-6 mb-3">
+                    <div class="card card-hover">
                         <div class="card-body">
                             <h4 class="card-title">❌ Jangan Gunakan AI untuk:</h4>
                             <ul class="list-group list-group-flush">
@@ -183,34 +223,31 @@
                 </div>
             </div>
 
-            <h2>Bukti Nyata: 97% Mahasiswa Bingung Eratkan AI ke Realita</h2>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title">Kasus 1: Analisis Sosiologi</h4>
-                            <p class="card-text">AI menyimpulkan "kenaikan perceraian karena media sosial" tanpa mempertimbangkan faktor ekonomi dan budaya lokal</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title">Kasus 2: Penelitian Kedokteran</h4>
-                            <p class="card-text">ChatGPT merekomendasikan dosis obat tanpa memvalidasi dengan guideline terbaru IDI</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <h2>FAQ: Mitos vs Fakta tentang AI Akademik</h2>
-            <div class="card">
-                <div class="card-body">
-                    <p><strong>Mitos:</strong> "AI bisa menggantikan peran dosen pembimbing"<br>
-                    <strong>Fakta:</strong> Survei 500 profesor menunjukkan 89% setuju bahwa AI <em>tidak</em> mampu memberikan umpan balik kontekstual</p>
-                    
-                    <p><strong>Mitos:</strong> "Hasil AI selalu objektif"<br>
-                    <strong>Fakta:</strong> 62% output AI mengandung bias dari data training (Riset MIT 2024)</p>
+            <div class="accordion" id="faqAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                            Mitos: "AI bisa menggantikan peran dosen pembimbing"
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            <strong>Fakta:</strong> Survei 500 profesor menunjukkan 89% setuju bahwa AI <em>tidak</em> mampu memberikan umpan balik kontekstual.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+                            Mitos: "Hasil AI selalu objektif"
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            <strong>Fakta:</strong> 62% output AI mengandung bias dari data training (Riset MIT 2024).
+                        </div>
+                    </div>
                 </div>
             </div>
 
