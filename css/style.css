@@ -179,7 +179,7 @@ footer {
     max-width: 800px; /* Lebar maksimal untuk container */
     justify-content: space-between;
     align-items: center;
-    gap: 8px; /* Jarak antara input dan tombol lebih presisi */
+    gap: 3px; /* Jarak antara input dan tombol lebih presisi */
 }
 
 #search-input {
