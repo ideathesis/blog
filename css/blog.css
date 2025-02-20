@@ -4,26 +4,27 @@ body {
   background-color: #F9FAFB;
   color: #333;
   line-height: 1.6;
-  margin-top: 60px;
+  margin-top: 60px; /* Jarak antara navbar dan body */
 }
 
 /* Define CSS Variables for Consistent Spacing */
 :root {
-  --spacing-large: 40px;
+  --spacing-large: 40px; /* Jarak presisi antara elemen */
   --spacing-medium: 30px;
   --spacing-small: 25px;
 }
 
 /* Navbar Styling */
 .navbar {
-    background: linear-gradient(to right, #E8F3E8, #BBDEFB);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    z-index: 1000; /* Agar navbar tetap di atas konten */
+  background: linear-gradient(to right, #E8F3E8, #BBDEFB);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000; /* Agar navbar tetap di atas konten */
+  padding: 10px 0; /* Padding navbar agar tidak terlalu tinggi */
 }
 
 .navbar-brand {
-    font-weight: bold;
-    color: #333 !important;
+  font-weight: bold;
+  color: #333 !important;
 }
 
 /* Main Content Styling */
@@ -32,7 +33,7 @@ body {
   background-color: #FFFFFF;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-top: var(--spacing-large); /* Sesuaikan jarak ini agar lebih presisi */
+  margin-top: var(--spacing-large); /* Jarak presisi antara navbar dan main content */
 }
 
 /* Featured Image Styling */
@@ -151,7 +152,7 @@ footer {
   color: white;
   padding: 20px;
   text-align: center;
-  margin-top: var(--spacing-large); /* Konsisten dengan main content */
+  margin-top: var(--spacing-large); /* Jarak presisi antara elemen di atas footer */
 }
 
 /* Mobile Responsiveness */
@@ -170,7 +171,7 @@ footer {
 
   .content {
     padding: 15px;
-    margin-top: var(--spacing-medium); /* Sesuaikan jarak untuk tampilan mobile */
+    margin-top: var(--spacing-medium); /* Jarak presisi untuk tampilan mobile */
     /* Konten utama di urutan pertama */
     order: 0;
   }
@@ -229,7 +230,7 @@ footer {
 
   footer {
     padding: 15px;
-    margin-top: var(--spacing-medium); /* Konsisten dengan main content */
+    margin-top: var(--spacing-medium); /* Jarak presisi untuk tampilan mobile */
   }
 }
 
@@ -248,11 +249,11 @@ footer {
   }
 
   .content {
-    margin-top: var(--spacing-small); /* Sesuaikan lagi untuk layar sangat kecil */
+    margin-top: var(--spacing-small); /* Jarak presisi untuk layar sangat kecil */
   }
 
   footer {
     padding: 15px;
-    margin-top: var(--spacing-small); /* Konsisten dengan main content */
+    margin-top: var(--spacing-small); /* Jarak presisi untuk layar sangat kecil */
   }
 }
