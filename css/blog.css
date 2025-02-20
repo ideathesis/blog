@@ -21,11 +21,11 @@ body {
 
 /* Main Content Styling */
 .content {
-  padding: 20px;
-  background-color: #FFFFFF;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-top: 20px;
+    padding: 20px;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 50px; /* Menambah jarak antara navbar dan main content */
 }
 
 /* Featured Image Styling */
