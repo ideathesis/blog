@@ -1,6 +1,7 @@
 /* General Body Styling */
 body {
   font-family: 'Poppins', sans-serif;
+  padding: 20px;
   background-color: #F9FAFB;
   color: #333;
   line-height: 1.6;
