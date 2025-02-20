@@ -4,7 +4,9 @@ body {
   background-color: #F9FAFB;
   color: #333;
   line-height: 1.6;
-  margin-top: 60px;
+  margin-top: 60px; /* Tetap dipertahankan */
+  padding-top: 20px; /* Padding baru untuk bagian atas body */
+  box-sizing: border-box; /* Memastikan padding tidak mengganggu layout */
 }
 
 /* Navbar Styling */
@@ -150,9 +152,15 @@ footer {
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
   body {
-    margin-top: 50px;
-    font-size: 15px;
+    padding-top: 15px; /* Padding lebih kecil untuk layar kecil */
   }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding-top: 10px; /* Padding lebih kecil lagi untuk layar sangat kecil */
+  }
+}
 
   .article-container {
     grid-template-columns: 1fr;
