@@ -5,7 +5,7 @@ body {
   background-color: #F9FAFB;
   color: #333;
   line-height: 1.6;
-  margin-top: 0px;
+  margin-top: 60px;
 }
 
 /* Navbar Styling */
@@ -143,9 +143,9 @@ body {
 footer {
   background-color: #333;
   color: white;
-  padding: 20px;
+  padding: 20px 0; /* Padding atas dan bawah */
   text-align: center;
-  margin-top: 40px;
+  flex-shrink: 0; /* Jangan menyusut footer */
 }
 
 /* Mobile Responsiveness */
