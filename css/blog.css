@@ -152,15 +152,9 @@ footer {
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
   body {
-    padding-top: 15px; /* Padding lebih kecil untuk layar kecil */
+    margin-top: 50px;
+    font-size: 15px;
   }
-}
-
-@media (max-width: 480px) {
-  body {
-    padding-top: 10px; /* Padding lebih kecil lagi untuk layar sangat kecil */
-  }
-}
 
   .article-container {
     grid-template-columns: 1fr;
