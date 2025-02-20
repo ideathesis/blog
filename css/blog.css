@@ -17,10 +17,10 @@ body {
 
 /* Define CSS Variables for Consistent Spacing */
 :root {
-  --spacing-extra-large: 100px; /* Jarak ekstra besar untuk presisi */
+  --spacing-extra-large: 100px; /* Jarak ekstra besar untuk desktop */
   --spacing-large: 80px; /* Jarak besar */
-  --spacing-medium: 60px;
-  --spacing-small: 40px;
+  --spacing-medium: 60px; /* Jarak medium */
+  --spacing-small: 40px; /* Jarak kecil */
 }
 
 /* Navbar Styling */
@@ -67,7 +67,7 @@ body {
 /* Article Container Styling */
 .article-container {
   display: grid;
-  grid-template-columns: 3fr 1fr;
+  grid-template-columns: 3fr 1fr; /* Dua kolom untuk desktop */
   gap: 20px;
 }
 
@@ -174,23 +174,74 @@ footer {
 
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
+  :root {
+    --spacing-extra-large: 60px; /* Kurangi jarak untuk tablet */
+    --spacing-large: 50px;
+    --spacing-medium: 40px;
+    --spacing-small: 30px;
+  }
+
+  .navbar {
+    padding: 10px 0; /* Kurangi padding navbar */
+  }
+
   .content {
-    margin-top: var(--spacing-large); /* Jarak presisi untuk mobile */
-    margin-bottom: var(--spacing-large); /* Jarak presisi untuk mobile */
+    padding: 20px; /* Kurangi padding internal */
+    margin-top: var(--spacing-extra-large); /* Sesuaikan jarak */
+    margin-bottom: var(--spacing-extra-large); /* Sesuaikan jarak */
+  }
+
+  .article-container {
+    grid-template-columns: 1fr; /* Ubah grid menjadi satu kolom */
+    gap: 15px; /* Kurangi jarak antar elemen */
   }
 
   footer {
-    margin-top: var(--spacing-large); /* Jarak presisi untuk mobile */
+    margin-top: var(--spacing-extra-large); /* Sesuaikan jarak */
   }
 }
 
 @media (max-width: 480px) {
+  :root {
+    --spacing-extra-large: 40px; /* Kurangi jarak untuk smartphone */
+    --spacing-large: 30px;
+    --spacing-medium: 20px;
+    --spacing-small: 15px;
+  }
+
+  body {
+    padding-top: 10px; /* Kurangi padding body */
+  }
+
+  .navbar {
+    padding: 8px 0; /* Kurangi padding navbar */
+  }
+
   .content {
-    margin-top: var(--spacing-medium); /* Jarak presisi untuk layar kecil */
-    margin-bottom: var(--spacing-medium); /* Jarak presisi untuk layar kecil */
+    padding: 15px; /* Kurangi padding internal */
+    margin-top: var(--spacing-extra-large); /* Sesuaikan jarak */
+    margin-bottom: var(--spacing-extra-large); /* Sesuaikan jarak */
+  }
+
+  .featured-image {
+    margin-bottom: 15px; /* Kurangi margin gambar */
+  }
+
+  .related-post img {
+    width: 80px; /* Kurangi ukuran gambar related post */
+    height: 60px;
+  }
+
+  .related-post-title {
+    font-size: 12px; /* Kurangi ukuran font judul */
+  }
+
+  .related-post-meta {
+    font-size: 10px; /* Kurangi ukuran font meta */
   }
 
   footer {
-    margin-top: var(--spacing-medium); /* Jarak presisi untuk layar kecil */
+    padding: 15px; /* Kurangi padding footer */
+    margin-top: var(--spacing-extra-large); /* Sesuaikan jarak */
   }
 }
