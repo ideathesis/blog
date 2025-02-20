@@ -330,18 +330,22 @@ footer {
 
 /* Media Queries untuk Responsivitas */
 @media (max-width: 1200px) {
-    #search-input {
-        max-width: 500px; /* Panjang input lebih pendek untuk layar medium */
-    }
-
     .search-input-container {
         gap: 10px; /* Jarak antara input dan tombol lebih kecil */
+    }
+
+    #search-input {
+        max-width: 500px; /* Panjang input lebih pendek untuk layar medium */
     }
 }
 
 @media (max-width: 768px) {
     .search-container {
         padding: 15px; /* Padding lebih kecil untuk layar tablet */
+    }
+
+    .search-input-container {
+        gap: 8px; /* Jarak antara input dan tombol lebih kecil */
     }
 
     #search-input {
@@ -374,6 +378,10 @@ footer {
         padding: 10px; /* Padding lebih kecil untuk layar mobile */
     }
 
+    .search-input-container {
+        gap: 6px; /* Jarak antara input dan tombol lebih kecil */
+    }
+
     #search-input {
         font-size: 0.85rem; /* Ukuran font lebih kecil */
         padding: 10px 12px; /* Padding lebih kecil */
@@ -397,7 +405,7 @@ footer {
     }
 
     .pagination {
-        gap: 8px; /* Jarak antar tombol lebih kecil */
+        gap: 6px; /* Jarak antar tombol lebih kecil */
     }
 
     .pagination button {
