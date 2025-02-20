@@ -187,8 +187,8 @@ footer {
     padding: 14px 16px; /* Padding lebih tinggi */
     font-size: 1rem;
     font-family: 'Poppins', sans-serif;
-    border: 1px solid #ddd;
-    border-radius: 3px; /* Border radius lebih besar */
+    border: 2px solid #ddd;
+    border-radius: 5px; /* Border radius lebih besar */
     outline: none;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
     background-color: white;
@@ -207,7 +207,7 @@ footer {
     background-color: #81C784;
     color: white;
     border: none;
-    border-radius: 8px; /* Border radius lebih besar */
+    border-radius: 5px; /* Border radius lebih besar */
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
@@ -314,7 +314,7 @@ footer {
     background-color: #81C784;
     color: white;
     border: none;
-    border-radius: 10px;
+    border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
