@@ -1,7 +1,6 @@
 /* General Body Styling */
 body {
   font-family: 'Poppins', sans-serif;
-  padding: 20px;
   background-color: #F9FAFB;
   color: #333;
   line-height: 1.6;
@@ -143,9 +142,9 @@ body {
 footer {
   background-color: #333;
   color: white;
-  padding: 20px 0; /* Padding atas dan bawah */
+  padding: 20px;
   text-align: center;
-  flex-shrink: 0; /* Jangan menyusut footer */
+  margin-top: 40px;
 }
 
 /* Mobile Responsiveness */
