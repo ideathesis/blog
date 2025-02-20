@@ -73,7 +73,7 @@ Violation of copyright or unauthorized use of this site may result in serious le
 Untuk informasi lebih lanjut atau jika Anda memiliki pertanyaan terkait penggunaan situs ini, silakan hubungi kami:
 
 - **Website**: [https://ideathesis.biz.id/](https://ideathesis.biz.id/)
-- **Email**: [ideathesis.id@gmail.com](mailto:ideathesis.id@gmail.com)
+- **Email**: [admin@ideathesis.biz.id](mailto:admin@ideathesis.biz.id)
 
 ---
 
