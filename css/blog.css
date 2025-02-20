@@ -100,38 +100,39 @@ body {
 #post-list {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 15px; /* Jarak antara artikel terkait */
 }
 
 /* Related Post Styling */
 .related-post {
   display: flex;
-  flex-direction: column;
-  align-items: stretch;
+  align-items: center; /* Rata tengah vertikal */
   text-decoration: none;
   color: #333;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   padding: 10px;
-  border-radius: 8px;
-  background-color: #F5F5F5;
+  border-radius: 10px; /* Sudut melengkung */
+  background-color: #F9FAFB; /* Warna latar belakang lembut */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); /* Bayangan halus */
   width: 100%;
   box-sizing: border-box;
   max-width: 100%;
 }
 
 .related-post:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  background-color: #E8F3E8;
+  transform: translateY(-3px); /* Efek mengambang saat hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Bayangan lebih kuat saat hover */
+  background-color: #E8F3E8; /* Latar belakang hover */
 }
 
 /* Related Post Image Styling */
 .related-post img {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 10px;
+  width: 80px; /* Ukuran gambar proporsional */
+  height: 60px; /* Tinggi gambar tetap */
+  object-fit: cover; /* Gambar tetap proporsional */
+  border-radius: 8px; /* Sudut melengkung */
+  margin-right: 15px; /* Jarak antara gambar dan teks */
+  flex-shrink: 0; /* Mencegah gambar menyusut */
 }
 
 /* Related Post Content Styling */
@@ -163,82 +164,46 @@ body {
   max-width: 100%;
 }
 
-/* Footer Styling */
-footer {
-  background-color: #333;
-  color: white;
-  padding: 20px;
-  text-align: center;
-  margin-top: var(--spacing-extra-large); /* Jarak presisi */
-}
-
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
-  :root {
-    --spacing-extra-large: 60px; /* Kurangi jarak untuk tablet */
-    --spacing-large: 50px;
-    --spacing-medium: 40px;
-    --spacing-small: 30px;
+  .related-post {
+    padding: 10px; /* Padding tetap minimal */
+    border-radius: 8px; /* Sudut lebih kecil */
   }
 
-  .navbar {
-    padding: 10px 0; /* Kurangi padding navbar */
+  .related-post img {
+    width: 60px; /* Ukuran gambar lebih kecil */
+    height: 45px; /* Tinggi gambar tetap proporsional */
   }
 
-  .content {
-    padding: 20px; /* Kurangi padding internal */
-    margin-top: var(--spacing-extra-large); /* Sesuaikan jarak */
-    margin-bottom: var(--spacing-extra-large); /* Sesuaikan jarak */
+  .related-post-title {
+    font-size: 13px; /* Ukuran font judul lebih kecil */
   }
 
-  .article-container {
-    grid-template-columns: 1fr; /* Ubah grid menjadi satu kolom */
-    gap: 15px; /* Kurangi jarak antar elemen */
-  }
-
-  footer {
-    margin-top: var(--spacing-extra-large); /* Sesuaikan jarak */
+  .related-post-meta {
+    font-size: 11px; /* Ukuran font meta lebih kecil */
   }
 }
 
 @media (max-width: 480px) {
-  :root {
-    --spacing-extra-large: 40px; /* Kurangi jarak untuk smartphone */
-    --spacing-large: 30px;
-    --spacing-medium: 20px;
-    --spacing-small: 15px;
-  }
-
-  body {
-    padding-top: 10px; /* Kurangi padding body */
-  }
-
-  .navbar {
-    padding: 8px 0; /* Kurangi padding navbar */
-  }
-
-  .content {
-    padding: 15px; /* Kurangi padding internal */
-    margin-top: var(--spacing-extra-large); /* Sesuaikan jarak */
-    margin-bottom: var(--spacing-extra-large); /* Sesuaikan jarak */
-  }
-
-  .featured-image {
-    margin-bottom: 15px; /* Kurangi margin gambar */
+  .related-post {
+    padding: 8px; /* Padding lebih kecil lagi */
+    border-radius: 6px; /* Sudut lebih kecil */
   }
 
   .related-post img {
-    width: 80px; /* Kurangi ukuran gambar related post */
-    height: 60px;
+    width: 50px; /* Ukuran gambar sangat kecil */
+    height: 40px; /* Tinggi gambar tetap proporsional */
   }
 
   .related-post-title {
-    font-size: 12px; /* Kurangi ukuran font judul */
+    font-size: 12px; /* Ukuran font judul lebih kecil lagi */
   }
 
   .related-post-meta {
-    font-size: 10px; /* Kurangi ukuran font meta */
+    font-size: 10px; /* Ukuran font meta lebih kecil lagi */
   }
+}
 
   footer {
     padding: 15px; /* Kurangi padding footer */
