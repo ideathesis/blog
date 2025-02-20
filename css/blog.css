@@ -1,31 +1,56 @@
+/* Global Box Sizing */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 /* General Body Styling */
 body {
   font-family: 'Poppins', sans-serif;
   background-color: #F9FAFB;
   color: #333;
   line-height: 1.6;
-  margin-top: 60px;
+  margin-top: 0; /* Hapus margin-top body */
+  padding-top: 20px; /* Tambahkan padding kecil di atas body */
+}
+
+/* Define CSS Variables for Consistent Spacing */
+:root {
+  --spacing-extra-large: 100px; /* Jarak ekstra besar untuk presisi */
+  --spacing-large: 80px; /* Jarak besar */
+  --spacing-medium: 60px;
+  --spacing-small: 40px;
 }
 
 /* Navbar Styling */
 .navbar {
-    background: linear-gradient(to right, #E8F3E8, #BBDEFB);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    z-index: 1000; /* Agar navbar tetap di atas konten */
+  background: linear-gradient(to right, #E8F3E8, #BBDEFB);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  padding: 15px 0; /* Padding navbar */
+  margin-bottom: var(--spacing-medium); /* Ruang tambahan di bawah navbar */
 }
 
 .navbar-brand {
-    font-weight: bold;
-    color: #333 !important;
+  font-weight: bold;
+  color: #333 !important;
 }
 
 /* Main Content Styling */
 .content {
-  padding: 20px;
+  padding: 30px; /* Padding internal untuk efek mengambang */
   background-color: #FFFFFF;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-top: 20px;
+  border-radius: 15px; /* Sudut lebih melengkung */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Bayangan lebih kuat */
+  margin-top: var(--spacing-extra-large); /* Jarak dari navbar */
+  margin-bottom: var(--spacing-extra-large); /* Jarak dari footer */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Efek hover */
+}
+
+.content:hover {
+  transform: translateY(-5px); /* Efek mengambang saat hover */
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15); /* Bayangan lebih kuat saat hover */
 }
 
 /* Featured Image Styling */
@@ -144,99 +169,28 @@ footer {
   color: white;
   padding: 20px;
   text-align: center;
-  margin-top: 40px;
+  margin-top: var(--spacing-extra-large); /* Jarak presisi */
 }
 
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
-  body {
-    margin-top: 50px;
-    font-size: 15px;
-  }
-
-  .article-container {
-    grid-template-columns: 1fr;
-    gap: 15px;
-    /* Menambahkan container untuk mengatur urutan */
-    grid-auto-flow: dense;
-  }
-
   .content {
-    padding: 15px;
-    margin-top: 15px;
-    /* Konten utama di urutan pertama */
-    order: 0;
+    margin-top: var(--spacing-large); /* Jarak presisi untuk mobile */
+    margin-bottom: var(--spacing-large); /* Jarak presisi untuk mobile */
   }
 
-  .sidebar {
-    padding: 15px;
-    /* Sidebar di urutan kedua (bawah) */
-    order: 1;
-  }
-
-  .related-post {
-    flex-direction: row;
-    align-items: center;
-    gap: 12px;
-    padding: 8px;
-  }
-
-  .related-post img {
-    width: 100px;
-    height: 70px;
-    margin-bottom: 0;
-    flex-shrink: 0;
-  }
-
-  .related-post-content {
-    flex: 1;
-    min-width: 0;
-  }
-
-  .related-post-title {
-    font-size: 13px;
-    line-height: 1.3;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    margin-bottom: 3px;
-  }
-
-  .related-post-meta {
-    font-size: 11px;
-    white-space: normal;
-  }
-
-  .navbar {
-    padding: 10px;
-  }
-
-  .navbar-brand {
-    font-size: 1.1rem;
-  }
-
-  .featured-image {
-    margin-bottom: 15px;
+  footer {
+    margin-top: var(--spacing-large); /* Jarak presisi untuk mobile */
   }
 }
 
 @media (max-width: 480px) {
-  .related-post img {
-    width: 80px;
-    height: 60px;
+  .content {
+    margin-top: var(--spacing-medium); /* Jarak presisi untuk layar kecil */
+    margin-bottom: var(--spacing-medium); /* Jarak presisi untuk layar kecil */
   }
-  
-  .related-post-title {
-    -webkit-line-clamp: 3;
-  }
-  
-  body {
-    font-size: 14px;
-  }
-  
+
   footer {
-    padding: 15px;
-    margin-top: 30px;
+    margin-top: var(--spacing-medium); /* Jarak presisi untuk layar kecil */
   }
 }
