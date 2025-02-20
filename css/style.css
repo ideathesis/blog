@@ -176,13 +176,14 @@ footer {
 .search-input-container {
     display: flex;
     width: 100%;
+    max-width: 800px; /* Lebar maksimal untuk container */
     justify-content: space-between;
     align-items: center;
     gap: 12px; /* Jarak antara input dan tombol lebih presisi */
 }
 
 #search-input {
-    flex: 1;
+    flex: 1; /* Input mengambil ruang tersisa */
     padding: 14px 16px; /* Padding lebih tinggi */
     font-size: 1rem;
     font-family: 'Poppins', sans-serif;
@@ -191,7 +192,6 @@ footer {
     outline: none;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
     background-color: white;
-    max-width: 600px; /* Batas maksimal lebar input untuk desktop */
 }
 
 #search-input:focus {
@@ -200,6 +200,7 @@ footer {
 }
 
 #search-button {
+    flex: 0 0 auto; /* Tombol memiliki lebar tetap */
     padding: 14px 20px; /* Padding lebih tinggi */
     font-size: 1rem;
     font-family: 'Poppins', sans-serif;
@@ -335,7 +336,11 @@ footer {
     }
 
     #search-input {
-        max-width: 500px; /* Panjang input lebih pendek untuk layar medium */
+        font-size: 0.95rem; /* Ukuran font sedikit lebih kecil */
+    }
+
+    #search-button {
+        padding: 12px 18px; /* Padding sedikit lebih kecil */
     }
 }
 
@@ -351,7 +356,6 @@ footer {
     #search-input {
         font-size: 0.9rem; /* Ukuran font lebih kecil */
         padding: 12px 14px; /* Padding lebih kecil */
-        max-width: 100%; /* Input mengambil lebar penuh */
     }
 
     #search-button {
