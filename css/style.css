@@ -178,16 +178,16 @@ footer {
     width: 100%;
     justify-content: space-between;
     align-items: center;
-    gap: 10px; /* Jarak antara input dan tombol */
+    gap: 8px; /* Jarak antara input dan tombol lebih dekat */
 }
 
 #search-input {
     flex: 1;
-    padding: 15px; /* Sesuai dengan .services input[type="text"] */
+    padding: 12px 15px; /* Padding disesuaikan agar lebih kecil */
     font-size: 1rem; /* Sesuai dengan .services input[type="text"] */
     font-family: 'Poppins', sans-serif; /* Sesuai dengan .services input[type="text"] */
     border: 1px solid #ddd;
-    border-radius: 10px; /* Sesuai dengan .services .result-item */
+    border-radius: 6px; /* Border radius disesuaikan agar lebih kecil */
     outline: none;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
     background-color: white;
@@ -195,17 +195,17 @@ footer {
 
 #search-input:focus {
     border-color: black; /* Border hitam saat fokus */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sesuai dengan .services .result-item */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Box shadow lebih halus */
 }
 
 #search-button {
-    padding: 15px 20px; /* Sesuai dengan .services button */
+    padding: 12px 18px; /* Padding disesuaikan agar lebih kecil */
     font-size: 1rem; /* Sesuai dengan .services button */
     font-family: 'Poppins', sans-serif; /* Sesuai dengan .services button */
     background-color: #81C784;
     color: white;
     border: none;
-    border-radius: 10px; /* Sesuai dengan .services .result-item */
+    border-radius: 6px; /* Border radius disesuaikan agar lebih kecil */
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
