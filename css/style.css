@@ -178,7 +178,7 @@ footer {
     width: 100%;
     justify-content: space-between;
     align-items: center;
-    gap: 10px; /* Jarak antara input dan tombol lebih presisi */
+    gap: 12px; /* Jarak antara input dan tombol lebih presisi */
 }
 
 #search-input {
@@ -191,7 +191,7 @@ footer {
     outline: none;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
     background-color: white;
-    max-width: 400px; /* Batas maksimal lebar input */
+    max-width: 600px; /* Batas maksimal lebar input untuk desktop */
 }
 
 #search-input:focus {
@@ -329,6 +329,16 @@ footer {
 }
 
 /* Media Queries untuk Responsivitas */
+@media (max-width: 1200px) {
+    #search-input {
+        max-width: 500px; /* Panjang input lebih pendek untuk layar medium */
+    }
+
+    .search-input-container {
+        gap: 10px; /* Jarak antara input dan tombol lebih kecil */
+    }
+}
+
 @media (max-width: 768px) {
     .search-container {
         padding: 15px; /* Padding lebih kecil untuk layar tablet */
@@ -337,6 +347,7 @@ footer {
     #search-input {
         font-size: 0.9rem; /* Ukuran font lebih kecil */
         padding: 12px 14px; /* Padding lebih kecil */
+        max-width: 100%; /* Input mengambil lebar penuh */
     }
 
     #search-button {
