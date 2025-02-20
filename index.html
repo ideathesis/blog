@@ -70,27 +70,47 @@
 </nav>
 
 <!-- Kolom Pencarian -->
+<section id="search-section" class="section">
   <div class="content container">
+    <!-- Kontainer Pencarian -->
     <div class="search-container">
+      <!-- Input Pencarian -->
       <div class="search-input-container">
-        <input type="text" id="search-input" placeholder="Cari artikel...">
-        <button id="search-button">Cari</button>
+        <input 
+          type="text" 
+          id="search-input" 
+          placeholder="Cari artikel..." 
+          aria-label="Kolom pencarian artikel"
+        >
+        <button id="search-button" aria-label="Tombol cari">Cari</button>
       </div>
-      <div class="loading-indicator">
+
+      <!-- Indikator Loading -->
+      <div class="loading-indicator" aria-hidden="true">
         <div class="loading-indicator-inner">
           <span>Sedang mencari...</span>
           <div class="spinner"></div>
         </div>
       </div>
     </div>
-    <!-- Daftar Hasil -->
-    <ul id="result-list" class="result-list"></ul>
+
+    <!-- Daftar Hasil Pencarian -->
+    <ul id="result-list" class="result-list" aria-label="Daftar hasil pencarian artikel"></ul>
+
     <!-- Pagination -->
-    <div id="pagination-container" class="pagination" style="display: none;">
-      <button id="prev-page" disabled>Sebelumnya</button>
-      <button id="next-page">Selanjutnya</button>
+    <div 
+      id="pagination-container" 
+      class="pagination" 
+      style="display: none;" 
+      aria-label="Navigasi halaman hasil pencarian"
+    >
+      <button id="prev-page" disabled aria-label="Halaman sebelumnya">Sebelumnya</button>
+      <button id="next-page" aria-label="Halaman berikutnya">Selanjutnya</button>
     </div>
   </div>
+</section>
+
+<!-- Skrip Pencarian -->
 <script src="script/search-article.js"></script>
 
 <!-- Main Content -->
