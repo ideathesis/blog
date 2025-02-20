@@ -179,7 +179,7 @@ footer {
     max-width: 800px; /* Lebar maksimal untuk container */
     justify-content: space-between;
     align-items: center;
-    gap: 3px; /* Jarak antara input dan tombol lebih presisi */
+    gap: 2px; /* Jarak antara input dan tombol lebih presisi */
 }
 
 #search-input {
@@ -332,7 +332,7 @@ footer {
 /* Media Queries untuk Responsivitas */
 @media (max-width: 1200px) {
     .search-input-container {
-        gap: 3px; /* Jarak antara input dan tombol lebih kecil */
+        gap: 1px; /* Jarak antara input dan tombol lebih kecil */
     }
 
     #search-input {
