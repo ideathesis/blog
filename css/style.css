@@ -27,7 +27,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 30px; /* Jarak vertikal antar elemen menjadi lebih besar */
-    padding-top: 0px; /* Sesuaikan dengan tinggi navbar */
+    padding-top: 80px; /* Sesuaikan dengan tinggi navbar */
     padding-bottom: 20px;
     padding-left: 20px;
     padding-right: 20px;
