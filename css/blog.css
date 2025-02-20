@@ -7,6 +7,13 @@ body {
   margin-top: 60px;
 }
 
+/* Define CSS Variables for Consistent Spacing */
+:root {
+  --spacing-large: 40px;
+  --spacing-medium: 30px;
+  --spacing-small: 25px;
+}
+
 /* Navbar Styling */
 .navbar {
     background: linear-gradient(to right, #E8F3E8, #BBDEFB);
@@ -21,11 +28,11 @@ body {
 
 /* Main Content Styling */
 .content {
-    padding: 20px;
-    background-color: #FFFFFF;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-top: 50px; /* Menambah jarak antara navbar dan main content */
+  padding: 20px;
+  background-color: #FFFFFF;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: var(--spacing-large); /* Sesuaikan jarak ini agar lebih presisi */
 }
 
 /* Featured Image Styling */
@@ -144,7 +151,7 @@ footer {
   color: white;
   padding: 20px;
   text-align: center;
-  margin-top: 40px;
+  margin-top: var(--spacing-large); /* Konsisten dengan main content */
 }
 
 /* Mobile Responsiveness */
@@ -163,7 +170,7 @@ footer {
 
   .content {
     padding: 15px;
-    margin-top: 15px;
+    margin-top: var(--spacing-medium); /* Sesuaikan jarak untuk tampilan mobile */
     /* Konten utama di urutan pertama */
     order: 0;
   }
@@ -219,6 +226,11 @@ footer {
   .featured-image {
     margin-bottom: 15px;
   }
+
+  footer {
+    padding: 15px;
+    margin-top: var(--spacing-medium); /* Konsisten dengan main content */
+  }
 }
 
 @media (max-width: 480px) {
@@ -226,17 +238,21 @@ footer {
     width: 80px;
     height: 60px;
   }
-  
+
   .related-post-title {
     -webkit-line-clamp: 3;
   }
-  
+
   body {
     font-size: 14px;
   }
-  
+
+  .content {
+    margin-top: var(--spacing-small); /* Sesuaikan lagi untuk layar sangat kecil */
+  }
+
   footer {
     padding: 15px;
-    margin-top: 30px;
+    margin-top: var(--spacing-small); /* Konsisten dengan main content */
   }
 }
