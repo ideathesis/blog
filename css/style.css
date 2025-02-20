@@ -168,8 +168,8 @@ footer {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
-    padding: 20px; /* Padding lebih kecil untuk perangkat kecil */
+    gap: 12px; /* Jarak antar elemen lebih besar */
+    padding: 20px; /* Padding default */
     background-color: #F5F5F5;
 }
 
@@ -178,16 +178,16 @@ footer {
     width: 100%;
     justify-content: space-between;
     align-items: center;
-    gap: 8px; /* Jarak antara input dan tombol */
+    gap: 10px; /* Jarak antara input dan tombol lebih presisi */
 }
 
 #search-input {
     flex: 1;
-    padding: 12px 15px;
+    padding: 14px 16px; /* Padding lebih tinggi */
     font-size: 1rem;
     font-family: 'Poppins', sans-serif;
     border: 1px solid #ddd;
-    border-radius: 6px;
+    border-radius: 8px; /* Border radius lebih besar */
     outline: none;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
     background-color: white;
@@ -200,13 +200,13 @@ footer {
 }
 
 #search-button {
-    padding: 12px 18px;
+    padding: 14px 20px; /* Padding lebih tinggi */
     font-size: 1rem;
     font-family: 'Poppins', sans-serif;
     background-color: #81C784;
     color: white;
     border: none;
-    border-radius: 6px;
+    border-radius: 8px; /* Border radius lebih besar */
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
@@ -336,12 +336,12 @@ footer {
 
     #search-input {
         font-size: 0.9rem; /* Ukuran font lebih kecil */
-        padding: 10px 12px; /* Padding lebih kecil */
+        padding: 12px 14px; /* Padding lebih kecil */
     }
 
     #search-button {
         font-size: 0.9rem; /* Ukuran font lebih kecil */
-        padding: 10px 15px; /* Padding lebih kecil */
+        padding: 12px 16px; /* Padding lebih kecil */
     }
 
     .result-title {
@@ -365,12 +365,12 @@ footer {
 
     #search-input {
         font-size: 0.85rem; /* Ukuran font lebih kecil */
-        padding: 8px 10px; /* Padding lebih kecil */
+        padding: 10px 12px; /* Padding lebih kecil */
     }
 
     #search-button {
         font-size: 0.85rem; /* Ukuran font lebih kecil */
-        padding: 8px 12px; /* Padding lebih kecil */
+        padding: 10px 14px; /* Padding lebih kecil */
     }
 
     .result-item {
