@@ -169,8 +169,6 @@ footer {
     flex-direction: column;
     align-items: center;
     gap: 10px;
-    padding: 50px 20px; /* Sesuai dengan .services */
-    background-color: #F5F5F5; /* Sesuai dengan .services */
 }
 
 .search-input-container {
@@ -182,11 +180,10 @@ footer {
 
 #search-input {
     flex: 1;
-    padding: 15px; /* Sesuai dengan .services input[type="text"] */
-    font-size: 1rem; /* Sesuai dengan .services input[type="text"] */
-    font-family: 'Poppins', sans-serif; /* Sesuai dengan .services input[type="text"] */
+    padding: 12px 15px;
+    font-size: 14px;
     border: 1px solid #ddd;
-    border-radius: 10px; /* Sesuai dengan .services .result-item */
+    border-radius: 6px;
     outline: none;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
     background-color: white;
@@ -194,17 +191,16 @@ footer {
 
 #search-input:focus {
     border-color: #81C784;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sesuai dengan .services .result-item */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 #search-button {
-    padding: 15px 20px; /* Sesuai dengan .services button */
-    font-size: 1rem; /* Sesuai dengan .services button */
-    font-family: 'Poppins', sans-serif; /* Sesuai dengan .services button */
+    padding: 12px 20px;
+    font-size: 14px;
     background-color: #81C784;
     color: white;
     border: none;
-    border-radius: 10px; /* Sesuai dengan .services .result-item */
+    border-radius: 6px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
@@ -216,27 +212,32 @@ footer {
 
 /* Loading Indicator */
 .loading-indicator {
-    display: none; /* Default: hidden */
+    display: none;
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #666;
+    position: relative;
+}
+
+.loading-indicator-inner {
+    display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1rem; /* Sesuai dengan .services .loading */
-    color: #666; /* Sesuai dengan .services .loading */
-    margin-top: 20px; /* Sesuai dengan .services .loading */
+    gap: 10px;
+    margin: 0 auto;
+    max-width: 300px;
 }
 
-.loading-indicator.show {
-    display: flex; /* Tampilkan hanya saat proses pencarian */
-}
-
-.loading-indicator::before {
-    content: '';
-    width: 16px; /* Sesuai dengan .services .loading::before */
-    height: 16px; /* Sesuai dengan .services .loading::before */
-    margin-right: 10px; /* Sesuai dengan .services .loading::before */
-    border: 3px solid #81C784; /* Sesuai dengan .services .loading::before */
-    border-top: 3px solid transparent; /* Sesuai dengan .services .loading::before */
+.spinner {
+    display: inline-block;
+    border: 3px solid rgba(0, 0, 0, 0.1);
+    border-top: 3px solid #81C784;
     border-radius: 50%;
-    animation: spin 1s linear infinite; /* Sesuai dengan .services @keyframes spin */
+    width: 20px;
+    height: 20px;
+    animation: spin 0.8s linear infinite;
 }
 
 @keyframes spin {
@@ -253,47 +254,40 @@ footer {
     list-style: none;
     padding: 0;
     margin: 0;
-    margin-top: 20px; /* Sesuai dengan .services .results */
+    margin-bottom: 20px; /* Jarak ke blog section */
 }
 
 .result-item {
-    background-color: white; /* Sesuai dengan .services .result-item */
-    padding: 20px; /* Sesuai dengan .services .result-item */
-    margin-bottom: 20px; /* Sesuai dengan .services .result-item */
-    border-radius: 10px; /* Sesuai dengan .services .result-item */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sesuai dengan .services .result-item */
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     overflow: hidden;
+    margin-bottom: 15px;
+    padding: 15px;
 }
 
 .result-item:hover {
-    transform: translateY(-10px); /* Sesuai dengan .services .result-item */
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Sesuai dengan .services .result-item */
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 }
 
 .result-link {
     text-decoration: none;
-    color: #81C784; /* Sesuai dengan .services .result-link */
-    font-weight: bold; /* Sesuai dengan .services .result-link */
-    transition: color 0.3s ease; /* Sesuai dengan .services .result-link */
-}
-
-.result-link:hover {
-    color: #64B5F6; /* Sesuai dengan .services .result-link:hover */
-    text-decoration: underline; /* Sesuai dengan .services .result-link:hover */
+    color: inherit;
 }
 
 .result-title {
-    font-size: 1.2rem; /* Sesuai dengan .services .result-title */
-    margin-bottom: 10px; /* Sesuai dengan .services .result-title */
-    color: #333; /* Sesuai dengan .services .result-title */
-    font-weight: bold; /* Sesuai dengan .services .result-title */
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    line-height: 1.4;
+    color: #333;
 }
 
 .result-meta {
-    font-size: 0.9rem; /* Sesuai dengan .services .result-author */
-    color: #666; /* Sesuai dengan .services .result-author */
-    margin-bottom: 10px; /* Sesuai dengan .services .result-author */
+    font-size: 0.9rem;
+    color: #666;
 }
 
 /* Pagination */
@@ -301,17 +295,16 @@ footer {
     display: flex;
     justify-content: center;
     gap: 10px;
-    margin-top: 20px; /* Sesuai dengan .services .pagination */
+    margin-top: 20px;
 }
 
 .pagination button {
-    padding: 10px 15px; /* Sesuai dengan .services button */
-    font-size: 1rem; /* Sesuai dengan .services button */
-    font-family: 'Poppins', sans-serif; /* Sesuai dengan .services button */
+    padding: 10px 15px;
+    font-size: 14px;
     background-color: #81C784;
     color: white;
     border: none;
-    border-radius: 10px; /* Sesuai dengan .services .result-item */
+    border-radius: 6px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
