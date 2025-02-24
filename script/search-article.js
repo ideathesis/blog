@@ -92,10 +92,10 @@ document.addEventListener("DOMContentLoaded", () => {
       listItem.innerHTML = `
         <a href="/post/${article.file}" class="result-link">
           <div class="result-content">
-            <h2 class="result-title">Oleh: ${article.title}</h2>
+            <h2 class="result-title">${article.title}</h2>
             <div class="result-meta">
-              <span class="author">| ${article.author}</span>
-              <time datetime="${article.dateObject.toISOString()}">
+              <span class="author">Oleh: ${article.author}</span>
+              <time datetime="| ${article.dateObject.toISOString()}">
                 ${article.date}
               </time>
             </div>
