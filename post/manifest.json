@@ -8,14 +8,6 @@
     "file": "plagiarism-checker-x-vs-turnitin.html"
   },
   {
-    "title": "Penelitian Ilmiah: Kunci Sukses Tugas Akhir yang Berdampak Besar",
-    "author": "IDEA THESIS",
-    "date": "11-2-2025",
-    "image": "images/penelitian-ilmiah-tugas-akhir-sukses.png",
-    "thumbnail": "/post/images/penelitian-ilmiah-tugas-akhir-sukses.png",
-    "file": "penelitian-ilmiah-tugas-akhir-sukses.html"
-  },
-  {
     "title": "Mengapa Turnitin Tidak Selalu Akurat? Alasan Pemeriksaan Manual Masih Dibutuhkan untuk Hindari Plagiarisme",
     "author": "IDEA THESIS",
     "date": "15-2-2025",
@@ -40,12 +32,12 @@
     "file": "10-kampus-terbaik-di-indonesia.html"
   },
   {
-    "title": "Mengenal JASP: Software Analisis Statistik Open Source yang Mudah Digunakan",
+    "title": "Penelitian Ilmiah: Kunci Sukses Tugas Akhir yang Berdampak Besar",
     "author": "IDEA THESIS",
     "date": "11-2-2025",
-    "image": "images/jasp-pengenalan-dan-analisis-statistik.png",
-    "thumbnail": "/post/images/jasp-pengenalan-dan-analisis-statistik.png",
-    "file": "jasp-pengenalan-dan-analisis-statistik.html"
+    "image": "images/penelitian-ilmiah-tugas-akhir-sukses.png",
+    "thumbnail": "/post/images/penelitian-ilmiah-tugas-akhir-sukses.png",
+    "file": "penelitian-ilmiah-tugas-akhir-sukses.html"
   },
   {
     "title": "Tutorial Analisis Mediasi dengan JASP: Panduan Lengkap untuk Penelitian Anda",
@@ -54,5 +46,13 @@
     "image": "images/analisis-mediasi-dengan-jasp.png",
     "thumbnail": "/post/images/analisis-mediasi-dengan-jasp.png",
     "file": "analisis-mediasi-dengan-jasp.html"
+  },
+  {
+    "title": "Mengenal JASP: Software Analisis Statistik Open Source yang Mudah Digunakan",
+    "author": "IDEA THESIS",
+    "date": "11-2-2025",
+    "image": "images/jasp-pengenalan-dan-analisis-statistik.png",
+    "thumbnail": "/post/images/jasp-pengenalan-dan-analisis-statistik.png",
+    "file": "jasp-pengenalan-dan-analisis-statistik.html"
   }
 ]
