@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>IDEA THESIS - Blog</title>
+  
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
@@ -17,9 +18,6 @@
   <meta property="og:image" content="https://blog.ideathesis.biz.id/images/logo.jpg">
   <meta property="og:url" content="https://blog.ideathesis.biz.id">
   <meta property="og:type" content="website">
-  
-  <!-- Title Post Dynamis -->
-  <script src="/script/title-post-dynamis.js"></script>
   
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,7 +33,26 @@
   <!-- Custom CSS -->
   <link rel="stylesheet" href="/css/blog.css">
   
-  <!-- Showdown JS untuk konversi Markdown ke HTML -->
+  <!-- CSS untuk Disqus -->
+  <style>
+    .disqus-section {
+      margin: 40px 0;
+      padding-top: 30px;
+      border-top: 1px solid #eee;
+    }
+    
+    #disqus_thread {
+      margin: 0 -15px;
+    }
+    
+    @media (max-width: 768px) {
+      #disqus_thread {
+        margin: 0;
+      }
+    }
+  </style>
+  
+  <!-- Showdown JS -->
   <script src="https://cdn.jsdelivr.net/npm/showdown@2.1.0/dist/showdown.min.js"></script>
 </head>
 <body>
@@ -72,21 +89,35 @@
   }
   </script>
   
-  <!-- Article Content -->
+  <!-- Konten Utama -->
   <div class="container content">
     <div class="article-container">
-    
-      <!-- Main Content -->
       <div>
-        <!-- Elemen ini tetap dipertahankan -->
         <img id="featured-image" alt="" class="featured-image">
         <h1 id="article-title" class="text-center mb-4"></h1>
         <p id="article-meta" class="text-center text-muted mb-4"></p>
         
-        <!-- Konten artikel dari file Markdown akan dimuat di sini -->
+        <!-- Konten Artikel -->
         <div id="article-content"></div>
-  
-        <!-- Tombol Bagikan ke Media Sosial (Responsif, Universal, Icon Bulat Tanpa Teks) -->
+
+        <!-- Kolom Komentar Disqus -->
+        <div class="disqus-section">
+          <div id="disqus_thread"></div>
+          <script>
+            (function() {
+              var d = document, s = d.createElement('script');
+              s.src = 'https://ideathesis.disqus.com/embed.js';
+              s.setAttribute('data-timestamp', +new Date());
+              (d.head || d.body).appendChild(s);
+            })();
+          </script>
+          <noscript>
+            Silakan aktifkan JavaScript untuk melihat komentar.
+            <a href="https://disqus.com/?ref_noscript">Komentar oleh Disqus</a>
+          </noscript>
+        </div>
+
+        <!-- Tombol Bagikan -->
         <div class="social-share d-flex flex-wrap justify-content-center my-4">
           <a id="facebook-share" href="#" target="_blank" class="btn btn-primary m-2">
             <i class="fab fa-facebook-f"></i>
@@ -104,9 +135,8 @@
             <i class="fab fa-telegram-plane"></i>
           </a>
         </div>
-  
       </div>
-  
+
       <!-- Sidebar -->
       <div class="sidebar">
         <span class="sidebar-chip">Artikel Terkait</span>
@@ -125,9 +155,8 @@
   <script src="/script/relate-article.js"></script>
   <script src="/script/share-button.js"></script>
   
-  <!-- Script untuk memuat file Markdown dan mengkonversinya ke HTML -->
+  <!-- Script untuk memuat artikel -->
   <script>
-    // Ubah 'artikel.md' dengan path file Markdown Anda
     fetch('/post/md/10-kampus-terbaik-di-indonesia.md')
       .then(response => response.text())
       .then(markdown => {
@@ -135,9 +164,7 @@
         const html = converter.makeHtml(markdown);
         document.getElementById('article-content').innerHTML = html;
       })
-      .catch(error => {
-        console.error('Gagal memuat file Markdown:', error);
-      });
+      .catch(error => console.error('Gagal memuat konten:', error));
   </script>
 </body>
 </html>
