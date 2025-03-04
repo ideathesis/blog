@@ -110,7 +110,12 @@
     
       <!-- Main Content -->
       <div>
-        <!-- Elemen konten artikel yang akan diisi dari file Markdown -->
+        <!-- Elemen ini tetap dipertahankan -->
+        <img id="featured-image" alt="" class="featured-image">
+        <h1 id="article-title" class="text-center mb-4"></h1>
+        <p id="article-meta" class="text-center text-muted mb-4"></p>
+        
+        <!-- Konten artikel dari file Markdown akan dimuat di sini -->
         <div id="article-content"></div>
   
         <!-- Tombol Bagikan ke Media Sosial (Responsif, Universal, Icon Bulat Tanpa Teks) -->
@@ -153,7 +158,6 @@
   
   <!-- Script untuk atur link berbagi secara dinamis -->
   <script>
-    // Ambil URL dan judul halaman
     const currentUrl = encodeURIComponent(window.location.href);
     const pageTitle = encodeURIComponent(document.title);
     
@@ -166,7 +170,7 @@
   
   <!-- Script untuk memuat file Markdown dan mengkonversinya ke HTML -->
   <script>
-    // Ganti 'artikel.md' dengan path file Markdown Anda
+    // Ubah 'artikel.md' dengan path file Markdown Anda
     fetch('/article.md')
       .then(response => response.text())
       .then(markdown => {
