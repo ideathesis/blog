@@ -25,32 +25,28 @@
 
 <p>Penelitian tahun 2024 membuktikan:</p>
 
-<div style="display: flex; gap: 20px;">
-  <div style="flex: 1; text-align: center; border: 1px solid #dee2e6; padding: 15px;">
-    <h4 style="color: #28a745;">Plagiarism Checker X</h4>
-    <p>98% dokumen terdeteksi</p>
-  </div>
-  <div style="flex: 1; text-align: center; border: 1px solid #dee2e6; padding: 15px;">
-    <h4 style="color: #dc3545;">Turnitin</h4>
-    <p>82% dokumen terdeteksi</p>
-  </div>
-</div>
+| **Alat**                 | **Hasil Deteksi**       |
+|---------------------------|-------------------------|
+| **Plagiarism Checker X**  | 98% dokumen terdeteksi |
+| **Turnitin**              | 82% dokumen terdeteksi |
 
 ## FAQ Seputar Alat Deteksi Plagiarisme
 
-<div style="background-color: #f8f9fa; padding: 20px; border-radius: 5px;">
-  <p><strong>Q: Apakah Plagiarism Checker X diakui institusi pendidikan?</strong><br>
-  A: Ya, digunakan oleh 50+ universitas di Asia Tenggara termasuk UI dan UGM</p>
-  
-  <p><strong>Q: Bisakah mendeteksi plagiarisme dari PDF?</strong><br>
-  A: ✓ Mendukung 15+ format file termasuk PDF, DOCX, hingga TXT</p>
-</div>
+<details>
+<summary><strong>Q: Apakah Plagiarism Checker X diakui institusi pendidikan?</strong></summary>
+<p>Ya, digunakan oleh 50+ universitas di Asia Tenggara termasuk UI dan UGM.</p>
+</details>
+
+<details>
+<summary><strong>Q: Bisakah mendeteksi plagiarisme dari PDF?</strong></summary>
+<p>✓ Mendukung 15+ format file termasuk PDF, DOCX, hingga TXT.</p>
+</details>
 
 ## Harga Spesial untuk Pendidikan Indonesia!
 
 <div style="background-color: #fff3cd; padding: 20px; border-left: 4px solid #ffc107; margin: 20px 0;">
-  <p>Gunakan kode <strong>MAHASISWAID</strong> untuk diskon 40% paket premium!  
-  <br>[Klaim Sekarang →](#link-ke-harga)</p>
+<p>Gunakan kode <strong>MAHASISWAID</strong> untuk diskon 40% paket premium!  
+<br>[Klaim Sekarang →](#link-ke-harga)</p>
 </div>
 
 <p><strong>Kesimpulan:</strong> Dengan akurasi 99.3% berdasarkan tes independen ISO, **Plagiarism Checker X** layak menjadi alternatif Turnitin yang lebih ekonomis dan powerful. Tertarik mencoba? [Baca juga panduan anti plagiarisme kami](/cara-menghindari-plagiarisme) untuk hasil maksimal!</p>
