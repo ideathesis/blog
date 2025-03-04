@@ -85,6 +85,23 @@
         
         <!-- Konten artikel dari file Markdown akan dimuat di sini -->
         <div id="article-content"></div>
+		
+		<div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+        // Ambil URL halaman secara otomatis
+        this.page.url = window.location.href; // URL lengkap halaman
+        // Ambil path URL sebagai identifier (contoh: "/blog/post-1")
+        this.page.identifier = window.location.pathname; 
+    };
+    (function() {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://ideathesis.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Silakan aktifkan JavaScript untuk melihat komentar.</noscript>
   
         <!-- Tombol Bagikan ke Media Sosial (Responsif, Universal, Icon Bulat Tanpa Teks) -->
         <div class="social-share d-flex flex-wrap justify-content-center my-4">
