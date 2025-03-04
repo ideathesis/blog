@@ -25,28 +25,30 @@ Menggunakan variabel, teori, hingga data analisis milik orang lain secara **bula
 
 ## Contoh Kasus Plagiarisme vs Adaptasi Etis
 
-<table style="width:100%; border-collapse: collapse; margin: 20px 0;">
-  <tr style="background-color: #f8f9fa;">
-    <th style="padding: 12px; border: 1px solid #dee2e6;">Aspek</th>
-    <th style="padding: 12px; border: 1px solid #dee2e6;">Plagiarisme (Salah)</th>
-    <th style="padding: 12px; border: 1px solid #dee2e6;">Adaptasi Etis (Benar)</th>
-  </tr>
-  <tr>
-    <td style="padding: 12px; border: 1px solid #dee2e6;">Variabel</td>
-    <td style="padding: 12px; border: 1px solid #dee2e6;">Menyalin definisi operasional tanpa sitasi</td>
-    <td style="padding: 12px; border: 1px solid #dee2e6;">Mengembangkan variabel dengan modifikasi konteks lokal (Contoh: "Brand Awareness" diadaptasi menjadi "Kesadaran Merek pada Gen Z di Papua")</td>
-  </tr>
-  <tr style="background-color: #f8f9fa;">
-    <td style="padding: 12px; border: 1px solid #dee2e6;">Data Analisis</td>
-    <td style="padding: 12px; border: 1px solid #dee2e6;">Menggunakan dataset identik tanpa izin</td>
-    <td style="padding: 12px; border: 1px solid #dee2e6;">Replikasi data dengan tambahan parameter baru (Contoh: Analisis regresi 2020 di-update dengan data inflasi 2024)</td>
-  </tr>
-  <tr>
-    <td style="padding: 12px; border: 1px solid #dee2e6;">Fenomena</td>
-    <td style="padding: 12px; border: 1px solid #dee2e6;">Mengkopi latar belakang penelitian</td>
-    <td style="padding: 12px; border: 1px solid #dee2e6;">Membandingkan fenomena serupa di wilayah berbeda (Contoh: Studi "Urbanisasi di Jakarta" diadaptasi menjadi "Migrasi Desa-Kota di NTT Pasca Pandemi")</td>
-  </tr>
-</table>
+<div style="overflow-x: auto;">
+  <table style="width:100%; border-collapse: collapse; margin: 20px 0;">
+    <tr style="background-color: #f8f9fa;">
+      <th style="padding: 12px; border: 1px solid #dee2e6;">Aspek</th>
+      <th style="padding: 12px; border: 1px solid #dee2e6;">Plagiarisme (Salah)</th>
+      <th style="padding: 12px; border: 1px solid #dee2e6;">Adaptasi Etis (Benar)</th>
+    </tr>
+    <tr>
+      <td style="padding: 12px; border: 1px solid #dee2e6;">Variabel</td>
+      <td style="padding: 12px; border: 1px solid #dee2e6;">Menyalin definisi operasional tanpa sitasi</td>
+      <td style="padding: 12px; border: 1px solid #dee2e6;">Mengembangkan variabel dengan modifikasi konteks lokal (Contoh: "Brand Awareness" diadaptasi menjadi "Kesadaran Merek pada Gen Z di Papua")</td>
+    </tr>
+    <tr style="background-color: #f8f9fa;">
+      <td style="padding: 12px; border: 1px solid #dee2e6;">Data Analisis</td>
+      <td style="padding: 12px; border: 1px solid #dee2e6;">Menggunakan dataset identik tanpa izin</td>
+      <td style="padding: 12px; border: 1px solid #dee2e6;">Replikasi data dengan tambahan parameter baru (Contoh: Analisis regresi 2020 di-update dengan data inflasi 2024)</td>
+    </tr>
+    <tr>
+      <td style="padding: 12px; border: 1px solid #dee2e6;">Fenomena</td>
+      <td style="padding: 12px; border: 1px solid #dee2e6;">Mengkopi latar belakang penelitian</td>
+      <td style="padding: 12px; border: 1px solid #dee2e6;">Membandingkan fenomena serupa di wilayah berbeda (Contoh: Studi "Urbanisasi di Jakarta" diadaptasi menjadi "Migrasi Desa-Kota di NTT Pasca Pandemi")</td>
+    </tr>
+  </table>
+</div>
 
 ## 5 Langkah Adaptasi Penelitian yang Legal
 
@@ -62,8 +64,8 @@ Menggunakan variabel, teori, hingga data analisis milik orang lain secara **bula
 
 ## Studi Kasus: Skripsi "Pengaruh CSR Terhadap Reputasi Perusahaan"
 
-<div style="display: flex; gap: 20px; margin: 15px 0;">
-  <div style="flex: 1; padding: 15px; border: 1px solid #28a745; border-radius: 5px;">
+<div style="display: flex; flex-wrap: wrap; gap: 20px; margin: 15px 0;">
+  <div style="flex: 1 1 300px; padding: 15px; border: 1px solid #28a745; border-radius: 5px; box-sizing: border-box;">
     <h4 style="color: #28a745;">Versi Orisinal (2020)</h4>
     <p>
       • Variabel: Kepuasan konsumen<br>
@@ -71,7 +73,7 @@ Menggunakan variabel, teori, hingga data analisis milik orang lain secara **bula
       • Metode: SEM-PLS
     </p>
   </div>
-  <div style="flex: 1; padding: 15px; border: 1px solid #007bff; border-radius: 5px;">
+  <div style="flex: 1 1 300px; padding: 15px; border: 1px solid #007bff; border-radius: 5px; box-sizing: border-box;">
     <h4 style="color: #007bff;">Adaptasi Legal (2024)</h4>
     <p>
       • Variabel: Kepuasan konsumen <em>+ loyalitas merek</em><br>
