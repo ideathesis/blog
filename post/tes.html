@@ -167,7 +167,7 @@
   <!-- Script untuk memuat file Markdown dan mengkonversinya ke HTML -->
   <script>
     // Ganti 'artikel.md' dengan path file Markdown Anda
-    fetch('/artikel.md')
+    fetch('/article.md')
       .then(response => response.text())
       .then(markdown => {
         const converter = new showdown.Converter();
