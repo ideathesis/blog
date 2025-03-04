@@ -10,16 +10,24 @@
 | Harga per Bulan           | Rp 99.000 (Premium)                      | Rp 450.000+               |
 | Deteksi Parafrase         | ✓ Teknologi AI                           | ✕ Terbatas                |
 
+> **Catatan:** Tabel di atas menggunakan format sederhana untuk memastikan kompatibilitas lintas platform.
+
+---
+
 ## Mengapa 92% Pengguna Beralih ke Plagiarism Checker X?
 
 > "Plagiarism Checker X tidak hanya menghemat 70% waktu kami dalam pengecekan jurnal, tapi juga menemukan sumber plagiarisme yang terlewat oleh Turnitin!"  
 > **- Tim Redaksi Jurnal Edu Research**
+
+---
 
 ## ✅ Keunggulan Tersembunyi Plagiarism Checker X
 
 - **Mode Pemeriksaan Mendalam**: Deteksi bahkan untuk perubahan sinonim dan struktur kalimat  
 - **Integrasi ChatGPT Checker**: Identifikasi konten AI-generated yang tak terdeteksi alat lain  
 - **Laporan Ekspor PDF**: Siap langsung cetak untuk kebutuhan administrasi  
+
+---
 
 ## Bukti Nyata: Studi Kasus Universitas Padjadjaran
 
@@ -36,19 +44,32 @@ Penelitian tahun 2024 membuktikan:
   </div>
 </div>
 
+> **Catatan:** Blok di atas menggunakan sintaks Markdown ekstensi untuk layout kolom. Jika tidak didukung, Anda dapat menggantinya dengan tabel sederhana.
+
+---
+
 ## FAQ Seputar Alat Deteksi Plagiarisme
 
-**Q: Apakah Plagiarism Checker X diakui institusi pendidikan?**  
-A: Ya, digunakan oleh 50+ universitas di Asia Tenggara termasuk UI dan UGM  
+<details>
+<summary><strong>Q: Apakah Plagiarism Checker X diakui institusi pendidikan?</strong></summary>
+<p>Ya, digunakan oleh 50+ universitas di Asia Tenggara termasuk UI dan UGM.</p>
+</details>
 
-**Q: Bisakah mendeteksi plagiarisme dari PDF?**  
-A: ✓ Mendukung 15+ format file termasuk PDF, DOCX, hingga TXT  
+<details>
+<summary><strong>Q: Bisakah mendeteksi plagiarisme dari PDF?</strong></summary>
+<p>✓ Mendukung 15+ format file termasuk PDF, DOCX, hingga TXT.</p>
+</details>
+
+---
 
 ## Harga Spesial untuk Pendidikan Indonesia!
 
+> 🟨 **Promo Terbatas!**  
 > Gunakan kode **MAHASISWAID** untuk diskon 40% paket premium!  
-[Klaim Sekarang →](#link-ke-harga)
+> [Klaim Sekarang →](#link-ke-harga)
+
+---
 
 ## Kesimpulan:
 
-Dengan akurasi 99.3% berdasarkan tes independen ISO, **Plagiarism Checker X** layak menjadi alternatif Turnitin yang lebih ekonomis dan powerful. Tertarik mencoba? [Baca juga panduan anti plagiarisme kami](/cara-menghindari-plagiarisme) untuk hasil maksimal!
+Dengan akurasi **99.3%** berdasarkan tes independen ISO, **Plagiarism Checker X** layak menjadi alternatif Turnitin yang lebih ekonomis dan powerful. Tertarik mencoba? [Baca juga panduan anti plagiarisme kami](/cara-menghindari-plagiarisme) untuk hasil maksimal!
