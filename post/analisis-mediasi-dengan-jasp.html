@@ -1,188 +1,143 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>IDEA THESIS - Blog</title>
-<!-- Favicon -->
-<link rel="icon" type="image/x-icon" href="/favicon.ico">
-<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="192x192" href="images/favicon-192x192.png">
-<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-<link rel="manifest" href="/manifest.json">
-
-<!-- Open Graph Tags -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IDEA THESIS - Blog</title>
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="images/favicon-192x192.png">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+  <link rel="manifest" href="/manifest.json">
+  
+  <!-- Open Graph Tags -->
   <meta property="og:title" content="IDEA THESIS - Blog">
-  <meta property="og:description" content="Temukan artikel terbaru seputar pendidikan, skripsi, penelitian, dan tips akademik di Blog IDEA THESIS. Dapatkan inspirasi dan panduan untuk menyelesaikan tugas akhir Anda dengan mudah.">
+  <meta property="og:description" content="Temukan artikel terbaru seputar pendidikan, skripsi, penelitian, dan tips akademik di Blog IDEA THESIS.">
   <meta property="og:image" content="https://blog.ideathesis.biz.id/images/logo.jpg">
   <meta property="og:url" content="https://blog.ideathesis.biz.id">
   <meta property="og:type" content="website">
   
-<!-- Title Post Dynamis -->
-<script src="/script/title-post-dynamis.js"></script>
-	 
-<!-- Google Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-
-<!-- Font Awesome -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-<!-- Bootstrap CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-
-<!-- Custom CSS -->
-<link rel="stylesheet" href="/css/blog.css">
+  <!-- Title Post Dynamis -->
+  <script src="/script/title-post-dynamis.js"></script>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/css/blog.css">
+  
+  <!-- Showdown JS untuk konversi Markdown ke HTML -->
+  <script src="https://cdn.jsdelivr.net/npm/showdown@2.1.0/dist/showdown.min.js"></script>
 </head>
 <body>
 
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light fixed-top">
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top">
     <div class="container">
-        <a class="navbar-brand" href="https://ideathesis.biz.id">IDEA THESIS</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link" href="https://ideathesis.biz.id#home">Home</a></li>
-						<li class="nav-item"><a class="nav-link" href="https://ideathesis.biz.id#services">Layanan</a></li>
-						<li class="nav-item"><a class="nav-link" href="https://ideathesis.biz.id#pricing">Harga</a></li>
-						<li class="nav-item"><a class="nav-link" href="https://ideathesis.biz.id#testimonials">Testimoni</a></li>
-						<li class="nav-item"><a class="nav-link" href="https://ideathesis.biz.id#about">Tentang</a></li>
-						<li class="nav-item"><a class="nav-link" href="https://blog.ideathesis.biz.id">Blog</a></li>
-						<li class="nav-item"><a class="nav-link" href="http://labs.ideathesis.biz.id">Labs</a></li>
-            </ul>
-        </div>
+      <a class="navbar-brand" href="https://ideathesis.biz.id">IDEA THESIS</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="https://ideathesis.biz.id#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="https://ideathesis.biz.id#services">Layanan</a></li>
+          <li class="nav-item"><a class="nav-link" href="https://ideathesis.biz.id#pricing">Harga</a></li>
+          <li class="nav-item"><a class="nav-link" href="https://ideathesis.biz.id#testimonials">Testimoni</a></li>
+          <li class="nav-item"><a class="nav-link" href="https://ideathesis.biz.id#about">Tentang</a></li>
+          <li class="nav-item"><a class="nav-link" href="https://blog.ideathesis.biz.id">Blog</a></li>
+          <li class="nav-item"><a class="nav-link" href="http://labs.ideathesis.biz.id">Labs</a></li>
+        </ul>
+      </div>
     </div>
-</nav>
+  </nav>
   
-<!-- Metadata -->
-<script type="application/json" id="metadata">
-{
+  <!-- Metadata -->
+  <script type="application/json" id="metadata">
+  {
 	"title": "Tutorial Analisis Mediasi dengan JASP: Panduan Lengkap untuk Penelitian Anda",
 	"author": "IDEA THESIS",
 	"date": "12-2-2025",
 	"image": "images/analisis-mediasi-dengan-jasp.png",
 	"thumbnail": "/post/images/analisis-mediasi-dengan-jasp.png"
-}
-</script>
+  }
+  </script>
   
-<!-- Article Content -->
+  <!-- Article Content -->
   <div class="container content">
     <div class="article-container">
-	
-<!-- Main Content -->
+    
+      <!-- Main Content -->
       <div>
+        <!-- Elemen ini tetap dipertahankan -->
         <img id="featured-image" alt="" class="featured-image">
         <h1 id="article-title" class="text-center mb-4"></h1>
         <p id="article-meta" class="text-center text-muted mb-4"></p>
-<p><strong>Analisis mediasi</strong> adalah teknik statistik yang digunakan untuk memahami hubungan kompleks antara variabel dalam penelitian. Teknik ini membantu peneliti mengidentifikasi mekanisme atau proses yang mendasari hubungan antara variabel independen (X), mediator (M/Z), dan dependen (Y). Dengan semakin populernya perangkat lunak statistik seperti <strong>JASP (Jeffrey's Amazing Statistics Program)</strong>, kini Anda dapat melakukan analisis mediasi dengan lebih mudah tanpa harus khawatir tentang uji asumsi klasik.</p>
-
-<p>Artikel ini akan memberikan panduan rinci tentang cara melakukan analisis mediasi menggunakan JASP, termasuk langkah-langkah praktis, interpretasi hasil, serta tips untuk memastikan keberhasilan analisis Anda. Jika Anda merasa kesulitan, jangan ragu untuk berkonsultasi dengan <strong>IDEA THESIS</strong>, tim ahli yang siap membantu Anda menyelesaikan masalah penelitian secara profesional.</p>
-
-<h2>Apa Itu Analisis Mediasi?</h2>
-<p>Analisis mediasi digunakan untuk memahami apakah hubungan antara variabel independen (X) dan variabel dependen (Y) dipengaruhi oleh variabel ketiga, yang disebut mediator (M/Z). Contohnya:</p>
-<ul>
-<li>Variabel independen (X): Tingkat stres.</li>
-<li>Mediator (M/Z): Kualitas tidur.</li>
-<li>Variabel dependen (Y): Produktivitas kerja.</li>
-</ul>
-<p>Dalam contoh ini, analisis mediasi bertujuan untuk mengetahui apakah kualitas tidur (M/Z) memediasi hubungan antara tingkat stres (X) dan produktivitas kerja (Y).</p>
-
-<h2>Kenapa Memilih JASP untuk Analisis Mediasi?</h2>
-<p>JASP adalah perangkat lunak statistik open-source yang ramah pengguna, dengan antarmuka yang intuitif dan visualisasi data yang menarik. Berikut adalah alasan utama mengapa JASP cocok untuk analisis mediasi:</p>
-<ol>
-<li><strong>Gratis dan Mudah Diunduh:</strong> Tidak ada biaya tambahan untuk menggunakan JASP.</li>
-<li><strong>Tidak Perlu Uji Asumsi Klasik:</strong> Salah satu keunggulan JASP adalah Anda tidak perlu melakukan uji asumsi klasik seperti normalitas, homoskedastisitas, atau multikolinearitas.</li>
-<li><strong>Menu SEM Terintegrasi:</strong> JASP menyediakan menu SEM yang memungkinkan Anda melakukan analisis mediasi dengan mudah.</li>
-<li><strong>Visualisasi Diagram Jalur:</strong> JASP secara otomatis menghasilkan diagram jalur yang membantu Anda memvisualisasikan model analisis.</li>
-</ol>
-
-<h2>Langkah-Langkah Melakukan Analisis Mediasi dengan JASP</h2>
-<h3>1. Persiapkan Data Anda</h3>
-<p>Sebelum memulai analisis, pastikan data Anda sudah tersusun dengan baik dalam format CSV atau Excel. Pastikan juga:</p>
-<ul>
-<li>Variabel independen (X), mediator (M/Z), dan dependen (Y) sudah terpisah dengan jelas.</li>
-<li>Data tidak mengandung missing value yang signifikan.</li>
-</ul>
-
-<h3>2. Unduh dan Instal JASP</h3>
-<p>Anda dapat mengunduh JASP secara gratis dari situs resmi <a href="https://jasp-stats.org/">jasp-stats.org</a>. Setelah diinstal, buka aplikasi dan impor file data Anda.</p>
-
-<h3>3. Masukkan Data ke JASP</h3>
-<p>Buka file CSV atau Excel Anda di JASP. Pastikan nama variabel sesuai dengan penelitian Anda (misalnya, X = Stres, M/Z = Tidur, Y = Produktivitas).</p>
-
-<h3>4. Pilih Menu "SEM"</h3>
-<p>Untuk analisis mediasi:</p>
-<ol>
-<li>Klik menu <strong>"SEM"</strong> di bagian atas.</li>
-<li>Pilih opsi <strong>"Mediation Analysis"</strong>.</li>
-</ol>
-
-<h3>5. Tentukan Variabel</h3>
-<ul>
-<li><strong>Independent Variable (X):</strong> Pilih variabel independen Anda (contoh: Stres).</li>
-<li><strong>Mediator (M/Z):</strong> Pilih variabel mediator Anda (contoh: Tidur).</li>
-<li><strong>Dependent Variable (Y):</strong> Pilih variabel dependen Anda (contoh: Produktivitas).</li>
-</ul>
-
-<h3>6. Atur Model Analisis</h3>
-<p>Gambar diagram jalur berdasarkan hipotesis penelitian Anda:</p>
-<ul>
-<li>Hubungkan X ke M/Z.</li>
-<li>Hubungkan M/Z ke Y.</li>
-<li>Hubungkan X ke Y (untuk menguji direct effect).</li>
-</ul>
-<p>Aktifkan opsi bootstrap untuk mendapatkan estimasi indirect effect yang lebih akurat.</p>
-
-<h3>7. Interpretasi Hasil</h3>
-<p>Setelah analisis selesai, JASP akan menampilkan output berupa:</p>
-<ul>
-<li><strong>Direct Effect (c'):</strong> Pengaruh langsung X terhadap Y.</li>
-<li><strong>Indirect Effect (a*b):</strong> Pengaruh tidak langsung X terhadap Y melalui M/Z.</li>
-<li><strong>Total Effect (c):</strong> Gabungan direct dan indirect effect.</li>
-<li><strong>Signifikansi (p-value):</strong> Nilai p-value digunakan untuk menentukan apakah efek tersebut signifikan.</li>
-</ul>
-
-<h2>Tips untuk Mengoptimalkan Analisis Mediasi</h2>
-<ol>
-<li><strong>Gunakan Bootstrap:</strong> Metode bootstrap meningkatkan akurasi estimasi indirect effect.</li>
-<li><strong>Visualisasikan Model:</strong> Gunakan diagram jalur untuk mempermudah interpretasi hasil.</li>
-<li><strong>Perhatikan Sample Size:</strong> Pastikan jumlah sampel cukup besar untuk mendapatkan hasil yang reliabel.</li>
-<li><strong>Simulasikan Model Alternatif:</strong> Cobalah beberapa model alternatif untuk memastikan bahwa model Anda adalah yang paling sesuai.</li>
-</ol>
-
-<h2>Kesulitan? Konsultasikan dengan IDEA THESIS</h2>
-<p>Melakukan analisis mediasi bisa menjadi tantangan, terutama jika Anda baru pertama kali menggunakan JASP atau belum terbiasa dengan konsep statistik yang kompleks. Jika Anda merasa kesulitan, jangan ragu untuk berkonsultasi dengan <strong>IDEA THESIS</strong>.</p>
-<p><strong>IDEA THESIS</strong> adalah tim profesional yang berpengalaman dalam membantu mahasiswa dan peneliti menyelesaikan tugas akhir, skripsi, tesis, atau disertasi. Layanan Kami mencakup:</p>
-<ul>
-<li>Bimbingan analisis data statistik menggunakan JASP, SPSS, AMOS, dan lainnya.</li>
-<li>Pelatihan penggunaan software statistik.</li>
-<li>Penyusunan laporan hasil analisis secara profesional.</li>
-</ul>
-<p>Hubungi IDEA THESIS untuk mendapatkan bantuan yang Anda butuhkan.</p>
-
-<h2>Kesimpulan</h2>
-<p>Analisis mediasi adalah alat yang sangat berguna untuk memahami hubungan kompleks antara variabel dalam penelitian. Dengan JASP, Anda dapat melakukan analisis ini secara efisien tanpa harus khawatir tentang uji asumsi klasik. Namun, jika Anda menghadapi kendala, jangan ragu untuk meminta bantuan dari <strong>IDEA THESIS</strong>, mitra terpercaya untuk keberhasilan penelitian Anda.</p>
+        
+        <!-- Konten artikel dari file Markdown akan dimuat di sini -->
+        <div id="article-content"></div>
+  
+        <!-- Tombol Bagikan ke Media Sosial (Responsif, Universal, Icon Bulat Tanpa Teks) -->
+        <div class="social-share d-flex flex-wrap justify-content-center my-4">
+          <a id="facebook-share" href="#" target="_blank" class="btn btn-primary m-2">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a id="twitter-share" href="#" target="_blank" class="btn btn-info m-2">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a id="linkedin-share" href="#" target="_blank" class="btn btn-secondary m-2">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+          <a id="whatsapp-share" href="#" target="_blank" class="btn btn-success m-2">
+            <i class="fab fa-whatsapp"></i>
+          </a>
+          <a id="telegram-share" href="#" target="_blank" class="btn btn-telegram m-2">
+            <i class="fab fa-telegram-plane"></i>
+          </a>
+        </div>
+  
       </div>
-
-<!-- Sidebar -->
-<div class="sidebar">
-  <!-- Judul Artikel Terkait dalam bentuk chip -->
-  <span class="sidebar-chip">Artikel Terkait</span>
-  <div id="post-list"></div>
-</div>
+  
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <span class="sidebar-chip">Artikel Terkait</span>
+        <div id="post-list"></div>
+      </div>
     </div>
   </div>
   
-<!-- Footer -->
+  <!-- Footer -->
   <footer>
     <p>&copy; <script>document.write(new Date().getFullYear());</script> IDEA THESIS. All rights reserved.</p>
   </footer>
   
+  <!-- JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-<script src="/script/relate-article.js"></script>
+  <script src="/script/relate-article.js"></script>
+  <script src="/script/share-button.js"></script>
+  
+  <!-- Script untuk memuat file Markdown dan mengkonversinya ke HTML -->
+  <script>
+    // Ubah 'artikel.md' dengan path file Markdown Anda
+    fetch('/post/md/analisis-mediasi-dengan-jasp.md')
+      .then(response => response.text())
+      .then(markdown => {
+        const converter = new showdown.Converter();
+        const html = converter.makeHtml(markdown);
+        document.getElementById('article-content').innerHTML = html;
+      })
+      .catch(error => {
+        console.error('Gagal memuat file Markdown:', error);
+      });
+  </script>
 </body>
 </html>
