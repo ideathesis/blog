@@ -47,6 +47,12 @@
       justify-content: center;
       font-size: 20px;
     }
+    /* Warna khusus untuk Telegram */
+    .btn-telegram {
+      background-color: #0088cc;
+      border-color: #0088cc;
+      color: #fff;
+    }
   </style>
 </head>
 <body>
@@ -150,6 +156,9 @@
           <a id="whatsapp-share" href="#" target="_blank" class="btn btn-success m-2">
             <i class="fab fa-whatsapp"></i>
           </a>
+          <a id="telegram-share" href="#" target="_blank" class="btn btn-telegram m-2">
+            <i class="fab fa-telegram-plane"></i>
+          </a>
         </div>
   
       </div>
@@ -183,6 +192,7 @@
     document.getElementById('twitter-share').href = "https://twitter.com/intent/tweet?url=" + currentUrl + "&text=" + pageTitle;
     document.getElementById('linkedin-share').href = "https://www.linkedin.com/sharing/share-offsite/?url=" + currentUrl;
     document.getElementById('whatsapp-share').href = "https://wa.me/?text=" + currentUrl;
+    document.getElementById('telegram-share').href = "https://t.me/share/url?url=" + currentUrl + "&text=" + pageTitle;
   </script>
 </body>
 </html>
