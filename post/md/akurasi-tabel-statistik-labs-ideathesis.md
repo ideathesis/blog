@@ -71,3 +71,5 @@ Akurasi dalam perhitungan statistik bukan sekadar pilihan, tapi **keharusan** un
 - **Fokus pada interpretasi data**, bukan perhitungan teknis.
 
 Jangan biarkan kesalahan perhitungan menggagalkan kerja keras Anda. Segera kunjungi [LABS IDEA THESIS](https://labs.ideathesis.biz.id/tabel-distribusi) dan nikmati kemudahan akses ke tabel distribusi statistik dengan presisi tinggi!
+
+---
