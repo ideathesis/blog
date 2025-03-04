@@ -1,57 +1,44 @@
-// Preconnect via JavaScript
-const preconnect = document.createElement('link');
-preconnect.rel = 'preconnect';
-preconnect.href = 'https://ideathesis.disqus.com';
-document.head.appendChild(preconnect);
-
-// Konfigurasi Disqus
+// Konfigurasi Disqus dengan penanganan URL yang lebih baik
 var disqus_config = function () {
+    // Gunakan URL lengkap termasuk query string dan hash
     this.page.url = window.location.href;
-    this.page.identifier = window.location.pathname;
+    
+    // Gunakan kombinasi path + query string sebagai identifier
+    // untuk menghindari duplikasi komentar pada URL berbeda
+    this.page.identifier = window.location.pathname + window.location.search;
+    
+    // Jika ada canonical URL yang ditentukan, gunakan itu
+    var canonical = document.querySelector("link[rel='canonical']");
+    if (canonical) {
+        this.page.url = canonical.href;
+        this.page.identifier = canonical.href;
+    }
 };
 
-// Fungsi utama load Disqus
-function loadDisqus() {
-    if(window.DISQUS || document.querySelector('script[src*="disqus.com/embed.js"]')) return;
-    
-    const d = document, s = d.createElement('script');
-    s.src = 'https://ideathesis.disqus.com/embed.js';
-    s.async = true;
-    s.defer = true;
-    s.setAttribute('data-timestamp', +new Date());
-    (d.head || d.body).appendChild(s);
-}
-
-// Lazy Load dengan Intersection Observer
-if(document.getElementById('disqus_thread')) {
-    if('IntersectionObserver' in window) {
-        const observer = new IntersectionObserver((entries) => {
-            if(entries[0].isIntersecting) {
-                loadDisqus();
-                observer.disconnect();
-            }
-        }, {
-            rootMargin: '200px',
-            threshold: 0.01
-        });
+// Pastikan skrip hanya dimuat sekali
+if (!window.DISQUS) {
+    (function() {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://ideathesis.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        s.setAttribute('id', 'disqus-script');
+        s.async = true; // Non-blokir rendering halaman
+        s.onerror = function() {
+            console.error('Gagal memuat skrip Disqus');
+        };
         
-        observer.observe(document.getElementById('disqus_thread'));
-    } else {
-        // Fallback 1: Load setelah 2 detik delay
-        setTimeout(loadDisqus, 2000);
-        
-        // Fallback 2: Load saat user scroll
-        window.addEventListener('scroll', () => {
-            if(window.scrollY + window.innerHeight > document.getElementById('disqus_thread').offsetTop) {
-                loadDisqus();
-            }
-        }, { once: true });
-    }
+        // Cek ketersediaan elemen target
+        var target = d.getElementsByTagName('head')[0] || d.body;
+        if (target) {
+            target.appendChild(s);
+        } else {
+            console.warn('Tidak dapat menemukan elemen untuk menyisipkan Disqus');
+        }
+    })();
+} else {
+    // Jika Disqus sudah dimuat, refresh instance
+    DISQUS.reset({
+        reload: true,
+        config: disqus_config
+    });
 }
-
-// Final fallback jika semua metode gagal
-window.addEventListener('load', () => {
-    if(!document.querySelector('#disqus_thread iframe')) {
-        loadDisqus();
-    }
-});
