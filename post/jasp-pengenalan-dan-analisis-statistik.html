@@ -1,150 +1,143 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>IDEA THESIS - Blog</title>
-<!-- Favicon -->
-<link rel="icon" type="image/x-icon" href="/favicon.ico">
-<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="192x192" href="images/favicon-192x192.png">
-<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-<link rel="manifest" href="/manifest.json">
-
-<!-- Open Graph Tags -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IDEA THESIS - Blog</title>
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="images/favicon-192x192.png">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+  <link rel="manifest" href="/manifest.json">
+  
+  <!-- Open Graph Tags -->
   <meta property="og:title" content="IDEA THESIS - Blog">
-  <meta property="og:description" content="Temukan artikel terbaru seputar pendidikan, skripsi, penelitian, dan tips akademik di Blog IDEA THESIS. Dapatkan inspirasi dan panduan untuk menyelesaikan tugas akhir Anda dengan mudah.">
+  <meta property="og:description" content="Temukan artikel terbaru seputar pendidikan, skripsi, penelitian, dan tips akademik di Blog IDEA THESIS.">
   <meta property="og:image" content="https://blog.ideathesis.biz.id/images/logo.jpg">
   <meta property="og:url" content="https://blog.ideathesis.biz.id">
   <meta property="og:type" content="website">
   
-<!-- Title Post Dynamis -->
-<script src="/script/title-post-dynamis.js"></script>
-	 
-<!-- Google Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-
-<!-- Font Awesome -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-<!-- Bootstrap CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-
-<!-- Custom CSS -->
-<link rel="stylesheet" href="/css/blog.css">
+  <!-- Title Post Dynamis -->
+  <script src="/script/title-post-dynamis.js"></script>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/css/blog.css">
+  
+  <!-- Showdown JS untuk konversi Markdown ke HTML -->
+  <script src="https://cdn.jsdelivr.net/npm/showdown@2.1.0/dist/showdown.min.js"></script>
 </head>
 <body>
 
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light fixed-top">
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top">
     <div class="container">
-        <a class="navbar-brand" href="https://ideathesis.biz.id">IDEA THESIS</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link" href="https://ideathesis.biz.id#home">Home</a></li>
-						<li class="nav-item"><a class="nav-link" href="https://ideathesis.biz.id#services">Layanan</a></li>
-						<li class="nav-item"><a class="nav-link" href="https://ideathesis.biz.id#pricing">Harga</a></li>
-						<li class="nav-item"><a class="nav-link" href="https://ideathesis.biz.id#testimonials">Testimoni</a></li>
-						<li class="nav-item"><a class="nav-link" href="https://ideathesis.biz.id#about">Tentang</a></li>
-						<li class="nav-item"><a class="nav-link" href="https://blog.ideathesis.biz.id">Blog</a></li>
-						<li class="nav-item"><a class="nav-link" href="http://labs.ideathesis.biz.id">Labs</a></li>
-            </ul>
-        </div>
+      <a class="navbar-brand" href="https://ideathesis.biz.id">IDEA THESIS</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="https://ideathesis.biz.id#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="https://ideathesis.biz.id#services">Layanan</a></li>
+          <li class="nav-item"><a class="nav-link" href="https://ideathesis.biz.id#pricing">Harga</a></li>
+          <li class="nav-item"><a class="nav-link" href="https://ideathesis.biz.id#testimonials">Testimoni</a></li>
+          <li class="nav-item"><a class="nav-link" href="https://ideathesis.biz.id#about">Tentang</a></li>
+          <li class="nav-item"><a class="nav-link" href="https://blog.ideathesis.biz.id">Blog</a></li>
+          <li class="nav-item"><a class="nav-link" href="http://labs.ideathesis.biz.id">Labs</a></li>
+        </ul>
+      </div>
     </div>
-</nav>
+  </nav>
   
-<!-- Metadata -->
-<script type="application/json" id="metadata">
-{
+  <!-- Metadata -->
+  <script type="application/json" id="metadata">
+  {
     "title": "Mengenal JASP: Software Analisis Statistik Open Source yang Mudah Digunakan",
     "author": "IDEA THESIS",
     "date": "11-2-2025",
     "image": "images/jasp-pengenalan-dan-analisis-statistik.png",
     "thumbnail": "/post/images/jasp-pengenalan-dan-analisis-statistik.png"
-}
-</script>
+  }
+  </script>
   
-<!-- Article Content -->
+  <!-- Article Content -->
   <div class="container content">
     <div class="article-container">
-	
-<!-- Main Content -->
+    
+      <!-- Main Content -->
       <div>
+        <!-- Elemen ini tetap dipertahankan -->
         <img id="featured-image" alt="" class="featured-image">
         <h1 id="article-title" class="text-center mb-4"></h1>
         <p id="article-meta" class="text-center text-muted mb-4"></p>
-    <h2>Apa itu JASP?</h2>
-    <p>JASP (Jeffrey's Amazing Statistics Program) adalah perangkat lunak open source yang dirancang untuk analisis statistik. JASP menawarkan antarmuka pengguna yang intuitif dan mudah digunakan, sehingga cocok untuk pemula maupun profesional di bidang statistik. Perangkat lunak ini mendukung berbagai metode analisis statistik, baik tradisional (frequentist) maupun Bayesian. JASP dikembangkan oleh tim peneliti dari University of Amsterdam dengan tujuan utama untuk menyediakan alat analisis statistik yang modern, transparan, dan dapat diakses oleh semua orang.</p>
-    <p>Salah satu keunikan JASP adalah pendekatannya yang menggabungkan statistik frequentist dan Bayesian dalam satu platform. Hal ini memungkinkan pengguna untuk membandingkan hasil dari kedua pendekatan tersebut secara langsung, memberikan wawasan yang lebih komprehensif tentang data yang dianalisis.</p>
-
-    <h2>Sejarah Singkat JASP</h2>
-    <p>JASP pertama kali dikembangkan pada tahun 2014 oleh Eric-Jan Wagenmakers dan timnya di University of Amsterdam. Nama "JASP" sendiri merupakan penghormatan kepada Harold Jeffreys, seorang ahli statistik terkenal yang berkontribusi besar pada perkembangan statistik Bayesian. Awalnya, JASP dibuat sebagai alat untuk membantu mahasiswa dan peneliti dalam memahami konsep statistik Bayesian, yang sering dianggap lebih kompleks dibandingkan statistik frequentist.</p>
-    <p>Seiring waktu, JASP berkembang menjadi perangkat lunak yang lebih lengkap, mendukung berbagai teknik analisis statistik dan visualisasi data. Saat ini, JASP telah digunakan oleh ribuan peneliti di seluruh dunia, mulai dari akademisi hingga praktisi industri.</p>
-
-    <h2>Fitur Utama JASP</h2>
-    <p>JASP memiliki beragam fitur yang menjadikannya salah satu alat analisis statistik favorit bagi banyak peneliti. Berikut adalah beberapa fitur utamanya:</p>
-    <ul>
-      <li><strong>Antarmuka Pengguna yang Sederhana:</strong> JASP dirancang dengan antarmuka drag-and-drop yang memudahkan pengguna untuk mengimpor data dan melakukan analisis tanpa perlu menulis kode. Ini sangat membantu bagi mereka yang tidak memiliki latar belakang pemrograman.</li>
-      <li><strong>Analisis Frequentist dan Bayesian:</strong> JASP menyediakan opsi untuk melakukan analisis statistik menggunakan pendekatan frequentist (klasik) maupun Bayesian, memberikan fleksibilitas kepada pengguna. Anda dapat memilih metode mana yang paling sesuai dengan kebutuhan penelitian Anda.</li>
-      <li><strong>Ekspor Hasil yang Mudah:</strong> Hasil analisis dapat diekspor dalam format PDF atau HTML, sehingga memudahkan untuk dibagikan atau dimasukkan ke dalam laporan penelitian. Fitur ini sangat berguna bagi peneliti yang sering bekerja dengan jurnal ilmiah atau presentasi.</li>
-      <li><strong>Open Source:</strong> JASP sepenuhnya gratis dan open source, menjadikannya alternatif yang sangat baik untuk perangkat lunak komersial seperti SPSS. Karena sifatnya yang open source, pengguna juga dapat berkontribusi pada pengembangan perangkat lunak ini.</li>
-      <li><strong>Dukungan untuk Berbagai Metode Statistik:</strong> JASP mendukung berbagai teknik analisis, termasuk uji-t, ANOVA, regresi linier, korelasi, faktor analisis, dan banyak lagi. Selain itu, JASP terus diperbarui dengan fitur-fitur baru berdasarkan permintaan pengguna.</li>
-      <li><strong>Visualisasi Data Interaktif:</strong> JASP menyediakan grafik dan visualisasi data yang interaktif, memungkinkan pengguna untuk mengeksplorasi data dengan cara yang lebih dinamis. Fitur ini sangat membantu dalam memahami pola dan tren dalam data.</li>
-    </ul>
-
-    <h2>Kelebihan JASP</h2>
-    <p>Berikut adalah beberapa kelebihan JASP yang membuatnya menonjol dibandingkan perangkat lunak statistik lainnya:</p>
-    <ul>
-      <li><strong>Kemudahan Penggunaan:</strong> Antarmuka yang user-friendly membuat JASP sangat cocok untuk pemula yang baru belajar statistik. Bahkan pengguna yang tidak memiliki latar belakang statistik pun dapat dengan cepat memahami cara kerja perangkat lunak ini.</li>
-      <li><strong>Pendekatan Bayesian:</strong> Tidak semua perangkat lunak statistik menyediakan analisis Bayesian secara langsung, tetapi JASP melakukannya dengan sangat baik. Pendekatan Bayesian memungkinkan pengguna untuk menghasilkan probabilitas posterior, yang sering kali lebih relevan dalam konteks penelitian modern.</li>
-      <li><strong>Tampilan Visualisasi Data yang Menarik:</strong> JASP menyediakan grafik dan visualisasi data yang interaktif dan informatif. Anda dapat dengan mudah menyesuaikan tampilan grafik sesuai dengan preferensi Anda.</li>
-      <li><strong>Komunitas yang Aktif:</strong> JASP memiliki komunitas pengguna yang aktif, sehingga pengguna dapat dengan mudah menemukan tutorial, dukungan, dan pembaruan fitur. Komunitas ini juga sering memberikan masukan untuk pengembangan fitur-fitur baru.</li>
-      <li><strong>Transparansi dalam Analisis:</strong> JASP dirancang untuk meningkatkan transparansi dalam analisis statistik. Semua langkah analisis dicatat secara otomatis, sehingga pengguna dapat dengan mudah melacak proses yang dilakukan.</li>
-    </ul>
-
-    <h2>Cara Menggunakan JASP</h2>
-    <p>Menggunakan JASP cukup sederhana. Berikut adalah langkah-langkah dasar untuk memulai:</p>
-    <ol>
-      <li><strong>Unduh dan Instal:</strong> Kunjungi situs resmi JASP (<a href="https://jasp-stats.org/">https://jasp-stats.org/</a>) dan unduh versi terbaru sesuai dengan sistem operasi Anda (Windows, macOS, atau Linux).</li>
-      <li><strong>Impor Data:</strong> Anda dapat mengimpor data dari berbagai format, seperti CSV, Excel, atau SPSS. Pastikan data Anda sudah disiapkan dengan benar sebelum diimpor ke JASP.</li>
-      <li><strong>Pilih Analisis:</strong> Pilih jenis analisis yang ingin Anda lakukan dari menu yang tersedia. Misalnya, jika Anda ingin melakukan uji-t, pilih opsi "T-Tests" dari menu.</li>
-      <li><strong>Konfigurasi Parameter:</strong> Sesuaikan parameter analisis sesuai dengan kebutuhan penelitian Anda. Misalnya, jika Anda melakukan regresi linier, Anda dapat memilih variabel independen dan dependen.</li>
-      <li><strong>Lihat Hasil:</strong> Setelah analisis selesai, hasilnya akan ditampilkan dalam bentuk tabel dan grafik yang mudah dipahami. Anda juga dapat mengekspor hasil ini ke format PDF atau HTML untuk keperluan pelaporan.</li>
-    </ol>
-
-    <h2>Perbandingan JASP dengan Perangkat Lunak Lain</h2>
-    <p>JASP sering dibandingkan dengan perangkat lunak statistik lain seperti SPSS, R, dan Python. Berikut adalah perbandingan singkat:</p>
-    <ul>
-      <li><strong>JASP vs SPSS:</strong> SPSS adalah perangkat lunak komersial yang kuat, tetapi mahal. JASP, di sisi lain, sepenuhnya gratis dan open source. Selain itu, JASP menawarkan pendekatan Bayesian yang tidak tersedia di SPSS.</li>
-      <li><strong>JASP vs R:</strong> R adalah bahasa pemrograman statistik yang sangat fleksibel, tetapi memerlukan pengetahuan pemrograman. JASP lebih mudah digunakan karena tidak memerlukan coding, sehingga cocok untuk pemula.</li>
-      <li><strong>JASP vs Python:</strong> Python adalah alat yang sangat kuat untuk analisis data dan machine learning, tetapi memerlukan kemampuan pemrograman yang lebih tinggi. JASP lebih fokus pada analisis statistik dasar hingga menengah dengan antarmuka yang lebih ramah pengguna.</li>
-    </ul>
-
-    <h2>Kesimpulan</h2>
-    <p>JASP adalah perangkat lunak analisis statistik yang kuat, fleksibel, dan mudah digunakan. Dengan kombinasi fitur analisis frequentist dan Bayesian, serta antarmuka yang ramah pengguna, JASP menjadi pilihan yang sangat baik untuk peneliti, mahasiswa, dan profesional di berbagai bidang. Keunggulan lainnya adalah sifatnya yang open source, sehingga siapa pun dapat menggunakannya tanpa biaya. Jika Anda mencari alat analisis statistik yang modern dan efisien, JASP layak untuk dicoba.</p>
-    <p>Bagi mereka yang baru memulai belajar statistik atau ingin beralih dari perangkat lunak komersial seperti SPSS, JASP adalah pilihan yang sempurna. Dengan komunitas yang aktif dan dukungan untuk berbagai metode statistik, JASP terus berkembang menjadi salah satu perangkat lunak statistik terbaik di pasaran.</p>
+        
+        <!-- Konten artikel dari file Markdown akan dimuat di sini -->
+        <div id="article-content"></div>
+  
+        <!-- Tombol Bagikan ke Media Sosial (Responsif, Universal, Icon Bulat Tanpa Teks) -->
+        <div class="social-share d-flex flex-wrap justify-content-center my-4">
+          <a id="facebook-share" href="#" target="_blank" class="btn btn-primary m-2">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a id="twitter-share" href="#" target="_blank" class="btn btn-info m-2">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a id="linkedin-share" href="#" target="_blank" class="btn btn-secondary m-2">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+          <a id="whatsapp-share" href="#" target="_blank" class="btn btn-success m-2">
+            <i class="fab fa-whatsapp"></i>
+          </a>
+          <a id="telegram-share" href="#" target="_blank" class="btn btn-telegram m-2">
+            <i class="fab fa-telegram-plane"></i>
+          </a>
+        </div>
+  
       </div>
-
-<!-- Sidebar -->
-<div class="sidebar">
-  <!-- Judul Artikel Terkait dalam bentuk chip -->
-  <span class="sidebar-chip">Artikel Terkait</span>
-  <div id="post-list"></div>
-</div>
+  
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <span class="sidebar-chip">Artikel Terkait</span>
+        <div id="post-list"></div>
+      </div>
     </div>
   </div>
   
-<!-- Footer -->
+  <!-- Footer -->
   <footer>
     <p>&copy; <script>document.write(new Date().getFullYear());</script> IDEA THESIS. All rights reserved.</p>
   </footer>
   
+  <!-- JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-<script src="/script/relate-article.js"></script>
+  <script src="/script/relate-article.js"></script>
+  <script src="/script/share-button.js"></script>
+  
+  <!-- Script untuk memuat file Markdown dan mengkonversinya ke HTML -->
+  <script>
+    // Ubah 'artikel.md' dengan path file Markdown Anda
+    fetch('/post/md/jasp-pengenalan-dan-analisis-statistik.md')
+      .then(response => response.text())
+      .then(markdown => {
+        const converter = new showdown.Converter();
+        const html = converter.makeHtml(markdown);
+        document.getElementById('article-content').innerHTML = html;
+      })
+      .catch(error => {
+        console.error('Gagal memuat file Markdown:', error);
+      });
+  </script>
 </body>
 </html>
