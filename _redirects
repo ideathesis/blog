@@ -1,1 +1,1 @@
-/post/:file*.md   /post/:file*   200
+/post/:slug   /post/md/:slug.html   200
