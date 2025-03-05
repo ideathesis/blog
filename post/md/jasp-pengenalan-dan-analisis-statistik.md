@@ -1,3 +1,11 @@
+---
+title: "Mengenal JASP: Software Analisis Statistik Open Source yang Mudah Digunakan"
+author: "IDEA THESIS"
+date: "11-2-2025"
+image: "images/jasp-pengenalan-dan-analisis-statistik.png"
+thumbnail: "/post/images/jasp-pengenalan-dan-analisis-statistik.png"
+---
+
 ## Apa itu JASP?
 
 JASP (Jeffrey's Amazing Statistics Program) adalah perangkat lunak open source yang dirancang untuk analisis statistik. JASP menawarkan antarmuka pengguna yang intuitif dan mudah digunakan, sehingga cocok untuk pemula maupun profesional di bidang statistik. Perangkat lunak ini mendukung berbagai metode analisis statistik, baik tradisional (frequentist) maupun Bayesian. JASP dikembangkan oleh tim peneliti dari University of Amsterdam dengan tujuan utama untuk menyediakan alat analisis statistik yang modern, transparan, dan dapat diakses oleh semua orang.

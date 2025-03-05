@@ -1,3 +1,11 @@
+---
+title: "Mengapa Turnitin Tidak Selalu Akurat? Alasan Pemeriksaan Manual Masih Dibutuhkan untuk Hindari Plagiarisme"
+author: "IDEA THESIS"
+date: "15-2-2025"
+image: "images/turnitin-vs-pemeriksaan-manual.png"
+thumbnail: "/post/images/turnitin-vs-pemeriksaan-manual.png"
+---
+
 <style>
 /* Styling tambahan untuk tampilan yang lebih menarik */
 h2 {

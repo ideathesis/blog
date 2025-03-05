@@ -1,3 +1,11 @@
+---
+title: "Dampak & Sanksi Menyontek Karya Ilmiah: Panduan Adaptasi Penelitian yang Etis"
+author: "IDEA THESIS"
+date: "15-2-2025"
+image: "images/sanksi-plagiarisme-karya-ilmiah.png"
+thumbnail: "/post/images/sanksi-plagiarisme-karya-ilmiah.png"
+---
+
 Menggunakan variabel, teori, hingga data analisis milik orang lain secara **bulat-bulat** dalam karya ilmiah bukan hanya pelanggaran etika, tapi juga tindakan kriminal yang berisiko menghancurkan karier akademik. Simak konsekuensi nyata dan cara adaptasi penelitian yang benar!
 
 ## 3 Dampak Fatal Plagiarisme Karya Ilmiah

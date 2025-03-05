@@ -1,3 +1,11 @@
+---
+title: "Penelitian Ilmiah: Kunci Sukses Tugas Akhir yang Berdampak Besar"
+author: "IDEA THESIS"
+date: "11-2-2025"
+image: "images/penelitian-ilmiah-tugas-akhir-sukses.png"
+thumbnail: "/post/images/penelitian-ilmiah-tugas-akhir-sukses.png"
+---
+
 Penelitian ilmiah dan tugas akhir adalah dua elemen penting dalam perjalanan akademik seorang mahasiswa. Namun, tidak sedikit yang merasa cemas atau bahkan bingung ketika harus memulai proses ini. Artikel ini akan membahas secara mendalam cara merancang penelitian ilmiah yang berkualitas tinggi serta tips untuk menyelesaikan tugas akhir dengan sukses.
 
 ## Mengapa Penelitian Ilmiah Penting?

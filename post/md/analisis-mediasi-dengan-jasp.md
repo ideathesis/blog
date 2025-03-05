@@ -1,3 +1,11 @@
+---
+title: "Tutorial Analisis Mediasi dengan JASP: Panduan Lengkap untuk Penelitian Anda"
+author: "IDEA THESIS"
+date: "12-2-2025"
+image: "images/analisis-mediasi-dengan-jasp.png"
+thumbnail: "/post/images/analisis-mediasi-dengan-jasp.png"
+---
+
 **Analisis mediasi** adalah teknik statistik yang digunakan untuk memahami hubungan kompleks antara variabel dalam penelitian. Teknik ini membantu peneliti mengidentifikasi mekanisme atau proses yang mendasari hubungan antara variabel independen (X), mediator (M/Z), dan dependen (Y). Dengan semakin populernya perangkat lunak statistik seperti **JASP (Jeffrey's Amazing Statistics Program)**, kini Anda dapat melakukan analisis mediasi dengan lebih mudah tanpa harus khawatir tentang uji asumsi klasik.
 
 Artikel ini akan memberikan panduan rinci tentang cara melakukan analisis mediasi menggunakan JASP, termasuk langkah-langkah praktis, interpretasi hasil, serta tips untuk memastikan keberhasilan analisis Anda. Jika Anda merasa kesulitan, jangan ragu untuk berkonsultasi dengan **IDEA THESIS**, tim ahli yang siap membantu Anda menyelesaikan masalah penelitian secara profesional.

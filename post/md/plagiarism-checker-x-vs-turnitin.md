@@ -1,3 +1,11 @@
+---
+title: "Plagiarism Checker X vs Turnitin: 5 Fakta Akurasi yang Mengejutkan!"
+author: "IDEA THESIS"
+date: "15-2-2025"
+image: "images/plagiarism-checker-x-vs-turnitin.png"
+thumbnail: "/post/images/plagiarism-checker-x-vs-turnitin.png"
+---
+
 Dalam **deteksi plagiarisme**, dua nama besar yang sering diperbincangkan adalah **Plagiarism Checker X** dan Turnitin. Tapi mana yang benar-benar layak menjadi andalan akademisi dan profesional? Simak analisis lengkap berikut!
 
 ## Tabel Perbandingan Plagiarism Checker X vs Turnitin
