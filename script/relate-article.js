@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Update elemen HTML dengan data dari metadata
     document.getElementById('article-title').textContent = currentMetadata.title;
-    document.getElementById('article-meta').textContent = `Oleh : ${currentMetadata.author} | ${currentMetadata.date}`;
+    document.getElementById('article-meta').textContent = `Penulis : ${currentMetadata.author} | ${currentMetadata.date}`;
     document.getElementById('featured-image').src = currentMetadata.image;
     document.getElementById('featured-image').alt = currentMetadata.title;
 
