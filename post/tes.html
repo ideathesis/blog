@@ -67,11 +67,10 @@
     
       <!-- Main Content -->
       <div>
-<!-- Elemen ini tetap dipertahankan sebagai placeholder -->
+<!-- Placeholder untuk metadata -->
 <img id="featured-image" alt="" class="featured-image">
 <h1 id="article-title" class="text-center mb-4"></h1>
 <p id="article-meta" class="text-center text-muted mb-4"></p>
-
         
         <!-- Konten artikel dari file Markdown akan dimuat di sini -->
         <div id="article-content"></div>
@@ -142,14 +141,11 @@
         // Pisahkan bagian YAML dan konten Markdown
         const parts = text.split('---');
         if (parts.length >= 3) {
-          // Bagian kedua adalah YAML front matter
           const yamlContent = parts[1];
-          // Sisanya adalah konten Markdown
           markdownContent = parts.slice(2).join('---');
           
           // Parsing YAML secara sederhana (format: key: value per baris)
           yamlContent.split('\n').forEach(line => {
-            // Abaikan baris kosong
             if (line.trim() === '') return;
             const [key, ...rest] = line.split(':');
             if (key && rest) {
@@ -159,19 +155,24 @@
         }
       }
 
-      // Perbarui elemen placeholder HTML dengan metadata yang telah diambil
+      // Perbarui elemen HTML dengan metadata yang telah diambil
       if (metadata.title) {
         document.getElementById('article-title').textContent = metadata.title;
-        document.title = metadata.title; // Atur judul dokumen di browser
+        document.title = metadata.title; // Mengatur judul dokumen di browser
       }
-      if (metadata.date) {
+      // Gabungkan data author dan date ke dalam elemen article-meta
+      if (metadata.author && metadata.date) {
+        document.getElementById('article-meta').textContent = `Oleh ${metadata.author} pada ${metadata.date}`;
+      } else if (metadata.author) {
+        document.getElementById('article-meta').textContent = `Oleh ${metadata.author}`;
+      } else if (metadata.date) {
         document.getElementById('article-meta').textContent = metadata.date;
       }
       if (metadata.image) {
         document.getElementById('featured-image').setAttribute('src', metadata.image);
       }
       
-      // Konversi sisa Markdown (tanpa YAML) menjadi HTML menggunakan Showdown
+      // Konversi sisa Markdown (tanpa YAML front matter) ke HTML menggunakan Showdown
       const converter = new showdown.Converter();
       const html = converter.makeHtml(markdownContent);
       document.getElementById('article-content').innerHTML = html;
