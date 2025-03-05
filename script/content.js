@@ -130,7 +130,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const readMore = document.createElement("a");
       // Karena properti file sudah berupa query string (misal: "?file=example.md")
       // dan menggunakan index.html, tautan diarahkan ke: /post/?file=example.md
-      readMore.href = `/post/index.html${article.file}`;
+      readMore.href = `/post/${article.file}`;
       readMore.className = "read-more-button";
       readMore.textContent = "Baca Selengkapnya";
 
