@@ -1,82 +1,86 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Ambil metadata artikel dari elemen dengan id "metadata"
-  const metadataScript = document.getElementById("metadata");
-  if (!metadataScript) {
-    console.error("Metadata tidak ditemukan. Pastikan file MD menyisipkan metadata sebagai JSON.");
+  // Ambil metadata artikel dari DOM (hasil render file MD)
+  const currentTitle = document.getElementById("article-title")?.textContent.trim() || "";
+  if (!currentTitle) {
+    console.error("Judul artikel tidak ditemukan. Pastikan file MD menyertakan title.");
     return;
   }
-
-  let currentMetadata;
-  try {
-    currentMetadata = JSON.parse(metadataScript.textContent);
-  } catch (error) {
-    console.error("Gagal mengurai metadata:", error);
-    return;
+  // Coba ekstrak penulis dari article-meta (dengan pola "Penulis: ..." jika ada)
+  const metaText = document.getElementById("article-meta")?.textContent.trim() || "";
+  let currentAuthor = "";
+  const penulisMatch = metaText.match(/Penulis:\s*([^|]+)/i);
+  if (penulisMatch) {
+    currentAuthor = penulisMatch[1].trim();
   }
+  // Ambil URL gambar unggulan
+  const currentImage = document.getElementById("featured-image")?.getAttribute("src") || "";
 
-  // (Opsional) Tampilkan data artikel saat ini di elemen yang sesuai
-  const titleEl = document.getElementById("article-title");
-  const metaEl = document.getElementById("article-meta");
-  const featuredImageEl = document.getElementById("featured-image");
-  if (titleEl) titleEl.textContent = currentMetadata.title;
-  if (metaEl) metaEl.textContent = `Oleh: ${currentMetadata.author} | ${currentMetadata.date}`;
-  if (featuredImageEl) {
-    featuredImageEl.src = currentMetadata.image;
-    featuredImageEl.alt = currentMetadata.title;
-  }
+  // Buat objek metadata dari artikel saat ini
+  const currentMetadata = {
+    title: currentTitle,
+    author: currentAuthor,
+    image: currentImage
+    // date bisa ditambahkan jika diperlukan
+  };
 
-  // URL manifest.json (pastikan URL ini benar dan dapat diakses)
-  const manifestUrl =
-    "https://raw.githubusercontent.com/ideathesis/blog/main/post/manifest.json";
+  // URL manifest.json (pastikan URL ini benar)
+  const manifestUrl = "https://raw.githubusercontent.com/ideathesis/blog/main/post/manifest.json";
 
-  // Fungsi untuk mengkonversi tanggal dari format DD-MM-YYYY ke Date object
+  // Fungsi untuk mengonversi tanggal dari format DD-MM-YYYY ke objek Date
   const parseDate = (dateStr) => {
-    const [day, month, year] = dateStr.split("-");
-    return new Date(`${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`);
+    const parts = dateStr.split("-");
+    if (parts.length !== 3) return new Date();
+    return new Date(parts[2], parts[1] - 1, parts[0]);
   };
 
   fetch(manifestUrl, { mode: "cors" })
-    .then((response) => {
+    .then(response => {
       if (!response.ok) throw new Error("Gagal memuat manifest");
       return response.json();
     })
-    .then((articles) => {
-      // Tambahkan properti dateObject ke tiap artikel untuk keperluan pengurutan (jika diperlukan)
-      articles = articles.map((article) => ({
+    .then(manifest => {
+      if (!Array.isArray(manifest)) throw new Error("Manifest JSON tidak berbentuk array");
+
+      // Tambahkan properti dateObject untuk tiap artikel (jika diperlukan untuk sorting)
+      manifest = manifest.map(article => ({
         ...article,
-        dateObject: parseDate(article.date),
+        dateObject: parseDate(article.date)
       }));
 
-      // Pecah judul artikel saat ini menjadi kata-kata (huruf kecil)
-      const currentTitleWords = currentMetadata.title.toLowerCase().split(/\s+/);
+      // Pecah judul artikel saat ini menjadi array kata (huruf kecil)
+      const currentTitleWords = currentMetadata.title.toLowerCase().split(/\s+/).filter(Boolean);
 
       // Filter artikel terkait:
-      // - Artikel yang memiliki setidaknya satu kata yang sama pada judul
-      // - Tidak menampilkan artikel yang judulnya sama persis (artikel yang sedang dibuka)
-      const relatedArticles = articles.filter((article) => {
-        if (article.title === currentMetadata.title) return false;
-        const articleTitleWords = article.title.toLowerCase().split(/\s+/);
-        return currentTitleWords.some((word) => articleTitleWords.includes(word));
+      // - Lewati artikel yang judulnya persis sama
+      // - Pilih artikel yang memiliki setidaknya satu kata yang sama di judul
+      let relatedArticles = manifest.filter(article => {
+        if (article.title.trim().toLowerCase() === currentMetadata.title.toLowerCase()) {
+          return false;
+        }
+        const articleTitleWords = article.title.toLowerCase().split(/\s+/).filter(Boolean);
+        return currentTitleWords.some(word => articleTitleWords.includes(word));
       });
 
       // Hitung skor relevansi berdasarkan jumlah kata yang sama
-      relatedArticles.forEach((article) => {
-        const articleTitleWords = article.title.toLowerCase().split(/\s+/);
-        article.relevanceScore = currentTitleWords.filter((word) =>
-          articleTitleWords.includes(word)
-        ).length;
+      relatedArticles = relatedArticles.map(article => {
+        const articleTitleWords = article.title.toLowerCase().split(/\s+/).filter(Boolean);
+        const relevanceScore = currentTitleWords.filter(word => articleTitleWords.includes(word)).length;
+        return { ...article, relevanceScore };
       });
 
-      // Urutkan artikel berdasarkan skor relevansi (tertinggi di atas) dan batasi maksimal 5 artikel
-      const sortedArticles = relatedArticles.sort(
-        (a, b) => b.relevanceScore - a.relevanceScore
-      );
-      const limitedArticles = sortedArticles.slice(0, 5);
+      // Urutkan artikel terkait berdasarkan skor relevansi tertinggi
+      relatedArticles.sort((a, b) => b.relevanceScore - a.relevanceScore);
 
-      // Render artikel terkait ke dalam container (misalnya, dengan id "post-list")
+      // Hapus artikel dengan skor 0 (tidak ada kata yang sama)
+      relatedArticles = relatedArticles.filter(article => article.relevanceScore > 0);
+
+      // Batasi hasil maksimal 5 artikel
+      const limitedArticles = relatedArticles.slice(0, 5);
+
+      // Render artikel terkait ke dalam container sidebar (id "post-list")
       const container = document.getElementById("post-list");
       if (!container) {
-        console.error("Container artikel terkait (post-list) tidak ditemukan.");
+        console.error("Container #post-list tidak ditemukan.");
         return;
       }
       container.innerHTML = "";
@@ -84,12 +88,18 @@ document.addEventListener("DOMContentLoaded", () => {
       if (limitedArticles.length === 0) {
         container.innerHTML = "<p>Tidak ada artikel terkait yang ditemukan.</p>";
       } else {
-        limitedArticles.forEach((article) => {
+        limitedArticles.forEach(article => {
           const link = document.createElement("a");
-          // Karena properti file pada manifest sudah berupa query string (misal: "?file=example.md"),
-          // dan file MD ditampilkan melalui URL seperti /post/?file=example.md,
-          // tautan diarahkan ke /post/ dengan query string tersebut.
-          link.href = `/post/${article.file}`;
+          // Properti file pada manifest sudah berupa query string (misal: "?file=example.md")
+          // Karena file MD ditampilkan dengan URL: /post/?file=example.md,
+          // tautan untuk artikel terkait dibuat sebagai: /post/ + query string tersebut.
+          let href = "/post/";
+          if (article.file.startsWith("?")) {
+            href += article.file;
+          } else {
+            href += "?file=" + article.file;
+          }
+          link.href = href;
           link.className = "col-md-12 col-lg-6 related-post";
           link.innerHTML = `
             <img src="${article.image}" alt="${article.title}" class="img-fluid">
@@ -102,7 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
       }
     })
-    .catch((error) => {
+    .catch(error => {
       console.error("Gagal memuat artikel terkait:", error);
       const container = document.getElementById("post-list");
       if (container) {
