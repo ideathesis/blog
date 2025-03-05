@@ -121,180 +121,81 @@
   
   <!-- Script untuk memuat file Markdown dan mengkonversinya ke HTML -->
 <script>
-  // Fungsi parsing YAML yang lebih robust
+  // Fungsi untuk parsing YAML front matter
   function parseYAML(yamlText) {
-    const result = {};
-    const lines = yamlText.split('\n');
-    
-    for(let line of lines) {
-      line = line.trim();
-      if(!line || line.startsWith('#')) continue; // Abaikan komentar
-      
-      const colonIndex = line.indexOf(':');
-      if(colonIndex === -1) continue;
-      
-      const key = line.slice(0, colonIndex).trim();
-      let value = line.slice(colonIndex + 1).trim();
-      
-      // Handle quoted values
-      if (/^['"].*['"]$/.test(value)) {
-        value = value.slice(1, -1);
+    let result = {};
+    yamlText.split('\n').forEach(line => {
+      if (!line.trim()) return; // Lewati baris kosong
+      // Coba cocokkan dengan pattern key: "value"
+      let match = line.match(/^(\w+):\s*"(.*)"\s*$/);
+      if (match) {
+        result[match[1]] = match[2];
+      } else {
+        // Jika tidak menggunakan tanda kutip, gunakan pola key: value
+        match = line.match(/^(\w+):\s*(.*)$/);
+        if (match) {
+          result[match[1]] = match[2].trim();
+        }
       }
-      
-      // Handle multi-line values
-      if(value === '|' || value === '>') {
-        const nextLine = lines[lines.indexOf(line) + 1];
-        value = nextLine.trim();
-      }
-      
-      result[key] = value;
-    }
+    });
     return result;
   }
 
-  // Konfigurasi Showdown dengan ekstensi
-  const converter = new showdown.Converter({
-    extensions: ['gh-code-blocks', 'tables', 'anchor'],
-    tables: true,
-    tasklists: true,
-    simplifiedAutoLink: true,
-    openLinksInNewWindow: true,
-    emoji: true
-  });
+  // Ambil parameter 'file' dari URL atau gunakan file default
+  const params = new URLSearchParams(window.location.search);
+  const mdFile = params.get('file') || 'default.md';
 
-  // Ambil parameter file dari URL
-  const getMDfile = () => {
-    const params = new URLSearchParams(window.location.search);
-    const fileParam = params.get('file');
-    return fileParam ? `${fileParam}.md` : 'default.md';
-  };
+  fetch(`/post/md/${mdFile}`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('File tidak ditemukan');
+      }
+      return response.text();
+    })
+    .then(text => {
+      let metadata = {};
+      let markdownContent = text;
+      
+      // Ekstrak YAML front matter jika ada menggunakan regex
+      if (text.startsWith('---')) {
+        const match = text.match(/^---\s*([\s\S]*?)\s*---\s*([\s\S]*)$/);
+        if (match) {
+          let yamlContent = match[1];
+          markdownContent = match[2];
+          metadata = parseYAML(yamlContent);
+        }
+      }
 
-  // Fungsi utama memuat artikel
-  const loadArticle = async () => {
-    try {
-      const mdFile = getMDfile();
-      const response = await fetch(`/post/md/${mdFile}`);
+      // Update placeholder HTML dengan metadata
+      if (metadata.title) {
+        document.getElementById('article-title').textContent = metadata.title;
+        document.title = metadata.title; // Mengatur judul dokumen di browser
+      }
       
-      if(!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+      // Gabungkan informasi author dan date
+      let metaText = "";
+      if (metadata.author) {
+        metaText += `Penulis: ${metadata.author}`;
+      }
+      if (metadata.date) {
+        metaText += metaText ? ` | ${metadata.date}` : metadata.date;
+      }
+      document.getElementById('article-meta').textContent = metaText;
       
-      const text = await response.text();
-      const { metadata, content } = extractFrontMatter(text);
+      // Atur gambar jika tersedia
+      if (metadata.image) {
+        document.getElementById('featured-image').setAttribute('src', metadata.image);
+      }
       
-      // Inject metadata ke DOM
-      injectMetadata(metadata);
-      
-      // Update konten halaman
-      updatePageContent(metadata, content);
-      
-      // Update Open Graph tags
-      updateOpenGraph(metadata);
-      
-    } catch (error) {
-      handleLoadingError(error);
-    }
-  };
-
-  // Ekstrak front matter dan konten
-  const extractFrontMatter = (text) => {
-    let metadata = {};
-    let content = text;
-    
-    const frontMatterMatch = text.match(/^---\s*([\s\S]*?)\s*---\s*([\s\S]*)$/);
-    if(frontMatterMatch) {
-      metadata = parseYAML(frontMatterMatch[1]);
-      content = frontMatterMatch[2];
-    }
-    
-    return { metadata, content };
-  };
-
-  // Inject metadata ke dalam elemen script
-  const injectMetadata = (metadata) => {
-    let existingMetadata = document.getElementById('metadata');
-    if(existingMetadata) existingMetadata.remove();
-    
-    const metadataScript = document.createElement('script');
-    metadataScript.id = 'metadata';
-    metadataScript.type = 'application/json';
-    metadataScript.textContent = JSON.stringify({
-      ...metadata,
-      file: getMDfile().replace('.md', '')
+      // Konversi Markdown ke HTML dengan Showdown
+      const converter = new showdown.Converter();
+      const html = converter.makeHtml(markdownContent);
+      document.getElementById('article-content').innerHTML = html;
+    })
+    .catch(error => {
+      console.error('Gagal memuat file Markdown:', error);
+      document.getElementById('article-content').innerHTML = '<p>Maaf, terjadi kesalahan saat memuat konten.</p>';
     });
-    document.head.appendChild(metadataScript);
-  };
-
-  // Update konten halaman
-  const updatePageContent = (metadata, markdownContent) => {
-    // Update judul
-    document.getElementById('article-title').textContent = metadata.title || 'Artikel Tanpa Judul';
-    document.title = `${metadata.title} | IDEA THESIS Blog`;
-    
-    // Update metadata penulis dan tanggal
-    const author = metadata.author || 'Admin IDEA THESIS';
-    const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    const formattedDate = metadata.date ? 
-      new Date(metadata.date).toLocaleDateString('id-ID', dateOptions) : 'Tanggal tidak tersedia';
-    
-    document.getElementById('article-meta').innerHTML = `
-      <span class="author"><i class="fas fa-user-edit"></i> ${author}</span>
-      <span class="date"><i class="fas fa-calendar-alt"></i> ${formattedDate}</span>
-    `;
-    
-    // Update gambar utama
-    const featuredImage = document.getElementById('featured-image');
-    if(metadata.image) {
-      featuredImage.src = metadata.image.startsWith('/') ? 
-        metadata.image : `/images/blog/${metadata.image}`;
-      featuredImage.alt = metadata.title;
-      featuredImage.style.display = 'block';
-    } else {
-      featuredImage.style.display = 'none';
-    }
-    
-    // Konversi Markdown ke HTML
-    let htmlContent = converter.makeHtml(markdownContent);
-    
-    // Proses tambahan untuk gambar dalam konten
-    htmlContent = htmlContent.replace(
-      /<img src="(?!http)(.*?)"/g, 
-      (match, path) => `<img src="/images/blog/${path}" class="img-fluid" loading="lazy"`
-    );
-    
-    document.getElementById('article-content').innerHTML = htmlContent;
-  };
-
-  // Update Open Graph tags
-  const updateOpenGraph = (metadata) => {
-    const ogTags = {
-      'og:title': metadata.title,
-      'og:description': metadata.description || 'Temukan artikel menarik seputar penelitian dan penulisan akademik',
-      'og:image': metadata.image ? 
-        `https://blog.ideathesis.biz.id${metadata.image.startsWith('/') ? 
-          metadata.image : `/images/blog/${metadata.image}`} : 
-        'https://blog.ideathesis.biz.id/images/og-default.jpg',
-      'og:url': window.location.href
-    };
-    
-    for(const [property, content] of Object.entries(ogTags)) {
-      const tag = document.querySelector(`meta[property="${property}"]`);
-      if(tag) tag.setAttribute('content', content);
-    }
-  };
-
-  // Penanganan error
-  const handleLoadingError = (error) => {
-    console.error('Error:', error);
-    document.getElementById('article-content').innerHTML = `
-      <div class="alert alert-danger">
-        <h4>Gagal Memuat Artikel</h4>
-        <p>${error.message}</p>
-        <a href="/" class="btn btn-primary">Kembali ke Beranda</a>
-      </div>
-    `;
-  };
-
-  // Jalankan proses pemuatan artikel
-  loadArticle();
 </script>
 
 </body>
