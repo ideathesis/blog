@@ -1,54 +1,46 @@
-:root {
-  --navbar-height: 60px; /* Sesuaikan dengan tinggi navbar yang diinginkan */
-  --content-extra-top-padding: 20px; /* Jarak tambahan di atas konten setelah navbar */
-  --content-side-padding: 20px;
-  --content-bottom-padding: 20px;
-}
-
 /* General Styles */
 body {
-  font-family: 'Poppins', sans-serif;
-  background-color: #F5F5F5;
-  color: #333;
-  margin: 0;
-  padding: 0;
-  display: flex; /* Aktifkan Flexbox untuk layout */
-  flex-direction: column; /* Susun elemen secara vertikal */
-  min-height: 100vh; /* Pastikan body setidaknya tinggi layar */
+    font-family: 'Poppins', sans-serif;
+    background-color: #F5F5F5;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex; /* Aktifkan Flexbox untuk layout */
+    flex-direction: column; /* Susun elemen secara vertikal */
+    min-height: 100vh; /* Pastikan body setidaknya tinggi layar */
 }
 
 /* Navbar Styling */
 .navbar {
-  background: linear-gradient(to right, #E8F3E8, #BBDEFB);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  z-index: 1000; /* Agar navbar tetap di atas konten */
-  height: var(--navbar-height);
-  display: flex;
-  align-items: center;
-  padding: 0 var(--content-side-padding);
+    background: linear-gradient(to right, #E8F3E8, #BBDEFB);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* Agar navbar tetap di atas konten */
 }
 
 .navbar-brand {
-  font-weight: bold;
-  color: #333 !important;
+    font-weight: bold;
+    color: #333 !important;
 }
 
-/* Content Styling */
+/* Content Padding (agar tidak tertutup oleh navbar) */
 .content {
-  display: flex;
-  flex-direction: column;
-  gap: 30px; /* Jarak vertikal antar elemen */
-  padding: calc(var(--navbar-height) + var(--content-extra-top-padding)) var(--content-side-padding) var(--content-bottom-padding);
-  max-width: 1200px;
-  margin: 0 auto;
-  flex: 1; /* Isi sisa ruang antara navbar dan footer */
+    display: flex;
+    flex-direction: column;
+    gap: 30px; /* Jarak vertikal antar elemen menjadi lebih besar */
+    padding-top: 80px; /* Sesuaikan dengan tinggi navbar */
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    flex: 1; /* Isi sisa ruang antara navbar dan footer */
 }
 
 /* Footer */
 footer {
-  background-color: #333;
-  color: white;
-  padding: 20px 0;
-  text-align: center;
-  flex-shrink: 0; /* Jangan menyusut footer */
+    background-color: #333;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    flex-shrink: 0; /* Jangan menyusut footer */
 }
