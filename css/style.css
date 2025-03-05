@@ -22,19 +22,7 @@ body {
     color: #333 !important;
 }
 
-/* Content Padding (agar tidak tertutup oleh navbar) */
-.content {
-    display: flex;
-    flex-direction: column;
-    gap: 10px; /* Jarak vertikal antar elemen menjadi lebih besar */
-    padding-top: 80px; /* Sesuaikan dengan tinggi navbar */
-    padding-bottom: 20px;
-    padding-left: 20px;
-    padding-right: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-    flex: 1; /* Isi sisa ruang antara navbar dan footer */
-}
+
 
 /* Footer */
 footer {
