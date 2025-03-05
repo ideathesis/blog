@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const postList = document.getElementById("post-list");
     // Gunakan URL relatif untuk memastikan file manifest.json di-load dari server yang sama
-    const manifestUrl = "/post/manifest.json";
+    const manifestUrl = "post/manifest.json";
     let allArticles = [];
     let currentPage = 0;
     let totalPages = 0;
