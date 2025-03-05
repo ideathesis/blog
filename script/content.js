@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Sisipkan style khusus untuk tampilan kartu artikel
+  // Sisipkan style khusus untuk tampilan kartu artikel dan paginasi
   const styleEl = document.createElement("style");
   styleEl.textContent = `
     .post-card {
@@ -62,31 +62,67 @@ document.addEventListener("DOMContentLoaded", () => {
       background-color: #64B5F6;
       transform: scale(1.05);
     }
+    /* Styling untuk kontainer paginasi */
+    .pagination-controls {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .pagination-controls button {
+      padding: 10px 15px;
+      font-size: 1rem;
+      background-color: #81C784;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+    .pagination-controls button:hover:not(:disabled) {
+      background-color: #64B5F6;
+      transform: scale(1.05);
+    }
+    .pagination-controls button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
   `;
   document.head.appendChild(styleEl);
 
   const postList = document.getElementById("post-list");
   const manifestUrl = "https://raw.githubusercontent.com/ideathesis/blog/main/post/manifest.json";
   let articles = [];
+  let currentPage = 0;
+  const articlesPerPage = 6;
+  let totalPages = 0;
+  let paginationControls;
 
   // Fungsi konversi tanggal dari format DD-MM-YYYY ke Date object
   const parseCustomDate = (dateString) => {
     const [day, month, year] = dateString.split("-");
-    return new Date(`${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`);
+    return new Date(`${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`);
   };
 
-  // Ambil data dari manifest.json dan render daftar artikel
+  // Ambil data dari manifest.json dan render artikel
   fetch(manifestUrl, { mode: "cors" })
     .then(response => {
-      if (!response.ok) throw new Error('Gagal memuat manifest');
+      if (!response.ok) throw new Error("Gagal memuat manifest");
       return response.json();
     })
     .then(data => {
-      articles = data.map(article => ({
-        ...article,
-        dateObject: parseCustomDate(article.date)
-      })).sort((a, b) => b.dateObject - a.dateObject);
-      renderListing(articles);
+      articles = data
+        .map(article => ({
+          ...article,
+          dateObject: parseCustomDate(article.date)
+        }))
+        .sort((a, b) => b.dateObject - a.dateObject);
+
+      totalPages = Math.ceil(articles.length / articlesPerPage);
+      renderArticles(currentPage);
+      if (totalPages > 1) {
+        createPaginationControls();
+      }
     })
     .catch(error => {
       console.error("Error:", error);
@@ -98,10 +134,14 @@ document.addEventListener("DOMContentLoaded", () => {
       `;
     });
 
-  // Fungsi untuk merender daftar artikel dalam tampilan kartu
-  const renderListing = (articlesArray) => {
+  // Fungsi untuk merender artikel sesuai halaman
+  const renderArticles = (page) => {
+    const start = page * articlesPerPage;
+    const end = start + articlesPerPage;
+    const articlesToShow = articles.slice(start, end);
+
     postList.innerHTML = "";
-    articlesArray.forEach(article => {
+    articlesToShow.forEach(article => {
       const col = document.createElement("div");
       col.className = "col-md-4";
       const card = document.createElement("div");
@@ -128,9 +168,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const footer = document.createElement("div");
       footer.className = "card-footer";
       const readMore = document.createElement("a");
-      // Karena properti file sudah berupa query string (misal: "?file=example.md")
-      // dan menggunakan index.html, tautan diarahkan ke: /post/?file=example.md
-      readMore.href = `/post/${article.file}`;
+      // Tautan diarahkan ke index.html dengan query string dari properti file
+      readMore.href = `/post/index.html${article.file}`;
       readMore.className = "read-more-button";
       readMore.textContent = "Baca Selengkapnya";
 
@@ -144,5 +183,47 @@ document.addEventListener("DOMContentLoaded", () => {
       col.appendChild(card);
       postList.appendChild(col);
     });
+  };
+
+  // Fungsi untuk membuat kontrol paginasi
+  const createPaginationControls = () => {
+    paginationControls = document.createElement("div");
+    paginationControls.className = "pagination-controls";
+    
+    const prevButton = document.createElement("button");
+    prevButton.textContent = "Sebelumnya";
+    prevButton.disabled = currentPage === 0;
+    prevButton.onclick = () => {
+      if (currentPage > 0) {
+        currentPage--;
+        renderArticles(currentPage);
+        updatePaginationButtons();
+      }
+    };
+
+    const nextButton = document.createElement("button");
+    nextButton.textContent = "Selanjutnya";
+    nextButton.disabled = currentPage >= totalPages - 1;
+    nextButton.onclick = () => {
+      if (currentPage < totalPages - 1) {
+        currentPage++;
+        renderArticles(currentPage);
+        updatePaginationButtons();
+      }
+    };
+
+    paginationControls.appendChild(prevButton);
+    paginationControls.appendChild(nextButton);
+    // Sisipkan kontrol paginasi setelah container artikel
+    postList.parentNode.appendChild(paginationControls);
+  };
+
+  // Fungsi untuk memperbarui status tombol paginasi
+  const updatePaginationButtons = () => {
+    if (paginationControls) {
+      const [prevButton, nextButton] = paginationControls.children;
+      prevButton.disabled = currentPage === 0;
+      nextButton.disabled = currentPage >= totalPages - 1;
+    }
   };
 });
