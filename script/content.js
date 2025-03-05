@@ -3,18 +3,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const style = document.createElement("style");
     style.type = "text/css";
     style.textContent = `
-        /* General Styles */
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #F5F5F5;
-            color: #333;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-        
         /* Blog Section */
         .post-card {
             background: white;
