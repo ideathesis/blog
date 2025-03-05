@@ -26,14 +26,14 @@ body {
 .content {
     display: flex;
     flex-direction: column;
-    gap: 30px; /* Jarak vertikal antar elemen menjadi lebih besar */
-    padding-top: 80px; /* Sesuaikan dengan tinggi navbar */
+    gap: 20px; /* Mengatur jarak antar elemen agar tidak terlalu jauh dan tidak terlalu dekat */
+    padding-top: 60px; /* Menyesuaikan padding atas sesuai tinggi navbar */
     padding-bottom: 20px;
     padding-left: 20px;
     padding-right: 20px;
     max-width: 1200px;
     margin: 0 auto;
-    flex: 1; /* Isi sisa ruang antara navbar dan footer */
+    flex: 1; /* Mengisi sisa ruang antara navbar dan footer */
 }
 
 /* Footer */
