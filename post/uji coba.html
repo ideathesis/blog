@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IDEA THESIS - Blog</title>
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="images/favicon-192x192.png">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+  <link rel="manifest" href="/manifest.json">
+  
+  <!-- Open Graph Tags -->
+  <meta property="og:title" content="IDEA THESIS - Blog">
+  <meta property="og:description" content="Temukan artikel terbaru seputar pendidikan, skripsi, penelitian, dan tips akademik di Blog IDEA THESIS.">
+  <meta property="og:image" content="https://blog.ideathesis.biz.id/images/logo.jpg">
+  <meta property="og:url" content="https://blog.ideathesis.biz.id">
+  <meta property="og:type" content="website">
+  
+  <!-- Title Post Dynamis -->
+  <script src="/script/title-post-dynamis.js"></script>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/css/blog.css">
+  
+  <!-- Showdown JS untuk konversi Markdown ke HTML -->
+  <script src="https://cdn.jsdelivr.net/npm/showdown@2.1.0/dist/showdown.min.js"></script>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="https://ideathesis.biz.id">IDEA THESIS</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="https://ideathesis.biz.id#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="https://ideathesis.biz.id#services">Layanan</a></li>
+          <li class="nav-item"><a class="nav-link" href="https://ideathesis.biz.id#pricing">Harga</a></li>
+          <li class="nav-item"><a class="nav-link" href="https://ideathesis.biz.id#testimonials">Testimoni</a></li>
+          <li class="nav-item"><a class="nav-link" href="https://ideathesis.biz.id#about">Tentang</a></li>
+          <li class="nav-item"><a class="nav-link" href="https://blog.ideathesis.biz.id">Blog</a></li>
+          <li class="nav-item"><a class="nav-link" href="http://labs.ideathesis.biz.id">Labs</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  <!-- Metadata -->
+  <script type="application/json" id="metadata">
+  {
+    "title": "10 Kampus Terbaik di Indonesia: Pilihan Tepat untuk Masa Depan Gemilang",
+    "author": "IDEA THESIS",
+    "date": "12-2-2025",
+    "image": "images/10-kampus-terbaik-di-indonesia.png",
+    "thumbnail": "/post/images/10-kampus-terbaik-di-indonesia.png"
+  }
+  </script>
+  
+  <!-- Article Content -->
+  <div class="container content">
+    <div class="article-container">
+    
+      <!-- Main Content -->
+      <div>
+        <!-- Elemen ini tetap dipertahankan -->
+        <img id="featured-image" alt="" class="featured-image">
+        <h1 id="article-title" class="text-center mb-4"></h1>
+        <p id="article-meta" class="text-center text-muted mb-4"></p>
+        
+        <!-- Konten artikel dari file Markdown akan dimuat di sini -->
+        <div id="article-content"></div>
+
+        <!-- Tombol Bagikan ke Media Sosial (Responsif, Universal, Icon Bulat Tanpa Teks) -->
+        <div class="social-share d-flex flex-wrap justify-content-center my-4">
+          <a id="facebook-share" href="#" target="_blank" class="btn btn-primary m-2">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a id="twitter-share" href="#" target="_blank" class="btn btn-info m-2">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a id="linkedin-share" href="#" target="_blank" class="btn btn-secondary m-2">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+          <a id="whatsapp-share" href="#" target="_blank" class="btn btn-success m-2">
+            <i class="fab fa-whatsapp"></i>
+          </a>
+          <a id="telegram-share" href="#" target="_blank" class="btn btn-telegram m-2">
+            <i class="fab fa-telegram-plane"></i>
+          </a>
+        </div>
+  
+        <!-- Komentar Disqus -->
+		<div id="disqus_thread"></div>
+			<noscript>Silakan aktifkan JavaScript untuk melihat komentar.</noscript>
+  
+    </div>
+  
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <span class="sidebar-chip">Artikel Terkait</span>
+        <div id="post-list"></div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Footer -->
+  <footer>
+    <p>&copy; <script>document.write(new Date().getFullYear());</script> IDEA THESIS. All rights reserved.</p>
+  </footer>
+  
+  <!-- JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/script/relate-article.js"></script>
+  <script src="/script/share-button.js"></script>
+  <script src="/script/disqus.js"></script>
+  
+  <!-- Script untuk memuat file Markdown dan mengkonversinya ke HTML -->
+<script>
+  // Ambil parameter 'file' dari URL, jika tidak ada gunakan file default
+  const params = new URLSearchParams(window.location.search);
+  const mdFile = params.get('file') || 'default.md';
+
+  fetch(`/post/md/${mdFile}`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('File tidak ditemukan');
+      }
+      return response.text();
+    })
+    .then(markdown => {
+      const converter = new showdown.Converter();
+      const html = converter.makeHtml(markdown);
+      document.getElementById('article-content').innerHTML = html;
+    })
+    .catch(error => {
+      console.error('Gagal memuat file Markdown:', error);
+      document.getElementById('article-content').innerHTML = '<p>Maaf, terjadi kesalahan saat memuat konten.</p>';
+    });
+</script>
+
+</body>
+</html>
