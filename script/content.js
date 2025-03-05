@@ -121,6 +121,7 @@ document.addEventListener("DOMContentLoaded", () => {
             card.className = "post-card";
 
             const img = document.createElement("img");
+            // Menggunakan properti thumbnail atau fallback ke image
             img.src = article.thumbnail || article.image;
             img.alt = article.title;
 
@@ -141,7 +142,8 @@ document.addEventListener("DOMContentLoaded", () => {
             const footer = document.createElement("div");
             footer.className = "card-footer";
             const readMore = document.createElement("a");
-            readMore.href = `/post/${article.file}`;
+            // Mengarahkan tautan ke index.html dengan query string file
+            readMore.href = `/post/index.html${article.file}`;
             readMore.className = "read-more-button";
             readMore.textContent = "Baca Selengkapnya";
             
@@ -198,15 +200,26 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     };
 
-    // Ambil data artikel dari manifest
-    fetch(manifestUrl)
-        .then(response => response.json())
+    // Ambil data artikel dari manifest dengan penanganan error yang lebih baik
+    fetch(manifestUrl, { mode: "cors" })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok: " + response.statusText);
+            }
+            return response.json();
+        })
         .then(articles => {
-            // Urutkan artikel berdasarkan tanggal terbaru
+            if (!Array.isArray(articles)) {
+                throw new Error("Data JSON tidak valid: harus berupa array");
+            }
+
+            // Urutkan artikel berdasarkan tanggal terbaru (format DD-MM-YYYY)
             allArticles = articles.sort((a, b) => {
                 const [dA, mA, yA] = a.date.split("-");
                 const [dB, mB, yB] = b.date.split("-");
-                return new Date(`${yA}-${mA}-${dA}`) - new Date(`${yB}-${mB}-${dB}`);
+                const dateA = new Date(`${yA}-${mA}-${dA}`);
+                const dateB = new Date(`${yB}-${mB}-${dB}`);
+                return dateA - dateB;
             }).reverse();
 
             totalPages = Math.ceil(allArticles.length / 6);
