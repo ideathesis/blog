@@ -1,43 +1,43 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Ambil metadata dari variabel global
-  const currentMetadata = window.currentMetadata;
-  if (!currentMetadata) {
-    console.error("Metadata artikel tidak ditemukan!");
+  // Pastikan metadata tersedia
+  if (!window.currentMetadata) {
+    console.error("Metadata tidak ditemukan!");
+    document.getElementById("post-list").innerHTML = `
+      <div class="alert alert-warning">
+        Artikel terkait tidak dapat dimuat karena metadata tidak tersedia.
+      </div>
+    `;
     return;
   }
 
-  // Konfigurasi URL manifest
   const manifestUrl = "https://raw.githubusercontent.com/ideathesis/blog/main/post/manifest.json";
 
-  // Ambil data artikel dari manifest
   fetch(manifestUrl)
     .then(response => {
-      if (!response.ok) throw new Error("Gagal memuat daftar artikel");
+      if (!response.ok) throw new Error("Gagal memuat manifest");
       return response.json();
     })
     .then(allArticles => {
-      // Filter artikel terkait berdasarkan tag atau kata kunci
-      const relatedArticles = allArticles
-        .filter(article => {
-          // Skip artikel yang sama
-          if (article.title === currentMetadata.title) return false;
+      // Filter artikel terkait
+      const relatedArticles = allArticles.filter(article => {
+        // Skip artikel yang sama
+        if (article.title === window.currentMetadata.title) return false;
 
-          // Cari kesamaan tag (jika ada)
-          if (currentMetadata.tags && article.tags) {
-            const commonTags = currentMetadata.tags.filter(tag => 
-              article.tags.includes(tag)
-            );
-            if (commonTags.length > 0) return true;
-          }
-
-          // Jika tidak ada tag, gunakan kesamaan judul
-          const currentTitle = currentMetadata.title.toLowerCase();
-          const articleTitle = article.title.toLowerCase();
-          return currentTitle.split(/\s+/).some(word => 
-            articleTitle.includes(word)
+        // Prioritaskan artikel dengan tag yang sama
+        if (window.currentMetadata.tags && article.tags) {
+          const hasCommonTags = window.currentMetadata.tags.some(tag => 
+            article.tags.includes(tag)
           );
-        })
-        .slice(0, 5); // Batasi 5 artikel
+          if (hasCommonTags) return true;
+        }
+
+        // Jika tidak ada tag, cari kesamaan judul
+        const currentTitle = window.currentMetadata.title.toLowerCase();
+        const articleTitle = article.title.toLowerCase();
+        return currentTitle.split(/\s+/).some(word => 
+          articleTitle.includes(word)
+        );
+      });
 
       // Tampilkan artikel terkait
       const postList = document.getElementById("post-list");
@@ -66,8 +66,8 @@ document.addEventListener("DOMContentLoaded", () => {
     .catch(error => {
       console.error("Gagal memuat artikel terkait:", error);
       document.getElementById("post-list").innerHTML = `
-        <div class="alert alert-warning">
-          Gagal memuat artikel terkait. Coba refresh halaman.
+        <div class="alert alert-danger">
+          Terjadi kesalahan saat memuat artikel terkait. Coba refresh halaman.
         </div>
       `;
     });
