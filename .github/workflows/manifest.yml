@@ -6,52 +6,58 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write  # Berikan akses write
-      
+
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.x'
-      
+
       - name: Install dependencies
-        run: pip install beautifulsoup4
-      
+        run: pip install pyyaml
+
       - name: Generate Manifest
         run: |
           echo "Generating manifest.json..."
-          python3 <<EOF
+          python3 <<'EOF'
           import os
           import json
-          from bs4 import BeautifulSoup
+          import yaml
 
           manifest = []
-          post_dir = 'post'
+          post_dir = 'post/md'
           
           for filename in os.listdir(post_dir):
-              if filename.endswith('.html'):
+              if filename.endswith('.md'):
                   file_path = os.path.join(post_dir, filename)
                   try:
                       with open(file_path, 'r', encoding='utf-8') as f:
-                          soup = BeautifulSoup(f.read(), 'html.parser')
-                          script = soup.find('script', {'type': 'application/json', 'id': 'metadata'})
-                          
-                          if script:
-                              data = json.loads(script.string.strip())
-                              data['file'] = filename
-                              manifest.append(data)
+                          lines = f.read().splitlines()
+                          if lines and lines[0].strip() == '---':
+                              frontmatter_lines = []
+                              # Mulai dari baris kedua, ambil baris sampai ditemukan penutup front matter
+                              for line in lines[1:]:
+                                  if line.strip() == '---':
+                                      break
+                                  frontmatter_lines.append(line)
+                              metadata = yaml.safe_load("\n".join(frontmatter_lines))
+                              # Tambahkan properti file dengan format yang diinginkan
+                              metadata['file'] = f"?file={filename}"
+                              manifest.append(metadata)
                   except Exception as e:
                       print(f"Error processing {filename}: {str(e)}")
           
-          manifest_path = os.path.join(post_dir, 'manifest.json')
+          # Simpan manifest.json di folder post
+          manifest_path = os.path.join('post', 'manifest.json')
           with open(manifest_path, 'w', encoding='utf-8') as f:
               json.dump(manifest, f, indent=2, ensure_ascii=False)
           EOF
 
       - name: Commit & Push
         env:
-          GH_TOKEN: ${{ secrets.IDEA_THESIS_BLOG }}  # Gunakan token custom
+          GH_TOKEN: ${{ secrets.IDEA_THESIS_BLOG }}
         run: |
           git config --global user.name "IDEA THESIS Blog Bot"
           git config --global user.email "blog-bot@ideathesis.com"
