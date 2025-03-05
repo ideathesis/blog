@@ -101,8 +101,8 @@ document.addEventListener("DOMContentLoaded", () => {
     document.head.appendChild(style);
 
     const postList = document.getElementById("post-list");
-    // Pastikan URL ini sesuai dengan lokasi manifest.json terbaru
-    const manifestUrl = "https://raw.githubusercontent.com/ideathesis/blog/main/post/manifest.json";
+    // Gunakan URL relatif untuk memastikan file manifest.json di-load dari server yang sama
+    const manifestUrl = "/post/manifest.json";
     let allArticles = [];
     let currentPage = 0;
     let totalPages = 0;
@@ -143,8 +143,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const footer = document.createElement("div");
             footer.className = "card-footer";
             const readMore = document.createElement("a");
-            // Karena properti file sudah berformat query string (contoh: "?file=nama_file.md")
-            // kita gunakan nilai tersebut langsung sebagai URL tautan.
+            // Properti file sudah berformat query string, misalnya "?file=nama_file.md"
             readMore.href = article.file;
             readMore.className = "read-more-button";
             readMore.textContent = "Baca Selengkapnya";
@@ -204,7 +203,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Ambil data artikel dari manifest
     fetch(manifestUrl)
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+            return response.json();
+        })
         .then(articles => {
             // Urutkan artikel berdasarkan tanggal terbaru (format DD-MM-YYYY)
             allArticles = articles.sort((a, b) => {
