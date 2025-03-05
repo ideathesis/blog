@@ -120,75 +120,83 @@
   <script src="/script/disqus.js"></script>
   
   <!-- Script untuk memuat file Markdown dan mengkonversinya ke HTML -->
-  <script>
-    // Fungsi untuk parsing YAML front matter
-    function parseYAML(yamlText) {
-      let result = {};
-      yamlText.split('\n').forEach(line => {
-        if (!line.trim()) return;
-        let match = line.match(/^(\w+):\s*"(.*)"\s*$/);
+<script>
+  // Fungsi untuk parsing YAML front matter
+  function parseYAML(yamlText) {
+    let result = {};
+    yamlText.split('\n').forEach(line => {
+      if (!line.trim()) return; // Lewati baris kosong
+      let match = line.match(/^(\w+):\s*"(.*)"\s*$/);
+      if (match) {
+        result[match[1]] = match[2];
+      } else {
+        match = line.match(/^(\w+):\s*(.*)$/);
         if (match) {
-          result[match[1]] = match[2];
-        } else {
-          match = line.match(/^(\w+):\s*(.*)$/);
-          if (match) {
-            result[match[1]] = match[2].trim();
-          }
+          result[match[1]] = match[2].trim();
         }
-      });
-      return result;
-    }
+      }
+    });
+    return result;
+  }
 
-    // Ambil parameter 'file' dari URL atau gunakan file default
-    const params = new URLSearchParams(window.location.search);
-    const mdFile = params.get('file') || 'default.md';
+  // Ambil parameter 'file' dari URL atau gunakan file default
+  const params = new URLSearchParams(window.location.search);
+  const mdFile = params.get('file') || 'default.md';
 
-    fetch(`/post/md/${mdFile}`)
-      .then(response => {
-        if (!response.ok) throw new Error('File tidak ditemukan');
-        return response.text();
-      })
-      .then(text => {
-        let metadata = {};
-        let markdownContent = text;
-
-        // Ekstrak YAML front matter jika ada
-        if (text.startsWith('---')) {
-          const match = text.match(/^---\s*([\s\S]*?)\s*---\s*([\s\S]*)$/);
-          if (match) {
-            const yamlContent = match[1];
-            markdownContent = match[2];
-            metadata = parseYAML(yamlContent);
-          }
+  fetch(`/post/md/${mdFile}`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('File tidak ditemukan');
+      }
+      return response.text();
+    })
+    .then(text => {
+      let metadata = {};
+      let markdownContent = text;
+      
+      // Jika terdapat YAML front matter, ekstrak metadata-nya
+      if (text.startsWith('---')) {
+        const match = text.match(/^---\s*([\s\S]*?)\s*---\s*([\s\S]*)$/);
+        if (match) {
+          const yamlContent = match[1];
+          markdownContent = match[2];
+          metadata = parseYAML(yamlContent);
         }
+      }
 
-        // Simpan metadata ke variabel global
-        window.currentMetadata = metadata; // ← Baris yang ditambahkan
+      // Simpan metadata ke variabel global
+      window.currentMetadata = metadata;
 
-        // Update tampilan dengan metadata
-        if (metadata.title) {
-          document.getElementById('article-title').textContent = metadata.title;
-          document.title = metadata.title;
-        }
-        let metaText = "";
-        if (metadata.author) metaText += `Penulis: ${metadata.author}`;
-        if (metadata.date) metaText += metaText ? ` | ${metadata.date}` : metadata.date;
-        document.getElementById('article-meta').textContent = metaText;
-        if (metadata.image) {
-          document.getElementById('featured-image').src = metadata.image;
-          document.getElementById('featured-image').alt = metadata.title;
-        }
+      // Update placeholder HTML dengan metadata
+      if (metadata.title) {
+        document.getElementById('article-title').textContent = metadata.title;
+        document.title = metadata.title;
+      }
+      
+      let metaText = "";
+      if (metadata.author) {
+        metaText += `Penulis: ${metadata.author}`;
+      }
+      if (metadata.date) {
+        metaText += metaText ? ` | ${metadata.date}` : metadata.date;
+      }
+      document.getElementById('article-meta').textContent = metaText;
+      
+      if (metadata.image) {
+        document.getElementById('featured-image').setAttribute('src', metadata.image);
+      }
+      
+      // Konversi Markdown ke HTML dengan Showdown
+      const converter = new showdown.Converter();
+      const html = converter.makeHtml(markdownContent);
+      document.getElementById('article-content').innerHTML = html;
+    })
+    .catch(error => {
+      console.error('Gagal memuat file Markdown:', error);
+      document.getElementById('article-content').innerHTML = '<p>Maaf, terjadi kesalahan saat memuat konten.</p>';
+    });
+</script>
 
-        // Konversi Markdown ke HTML
-        const converter = new showdown.Converter();
-        const html = converter.makeHtml(markdownContent);
-        document.getElementById('article-content').innerHTML = html;
-      })
-      .catch(error => {
-        console.error('Gagal memuat file Markdown:', error);
-        document.getElementById('article-content').innerHTML = '<p>Maaf, terjadi kesalahan saat memuat konten.</p>';
-      });
-  </script>
 
 </body>
 </html>
