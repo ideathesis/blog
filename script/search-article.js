@@ -1,9 +1,29 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Sisipkan style langsung ke dalam head (hanya CSS yang digunakan oleh JS)
+  // Sisipkan style langsung ke dalam head
   const styleEl = document.createElement("style");
   styleEl.textContent = `
-    /* Search Input dan Tombol */
+    /* Container Utama untuk Pencarian (terpusat) */
+    .search-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 0 auto;
+        padding: 20px;
+        max-width: 800px;
+        width: 100%;
+    }
+
+    /* Kolom Pencarian */
+    .search-input-container {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+    }
+
     #search-input {
+        flex: 1;
         padding: 14px 16px;
         font-size: 1rem;
         font-family: 'Poppins', sans-serif;
@@ -64,8 +84,8 @@ document.addEventListener("DOMContentLoaded", () => {
     #result-list {
         list-style: none;
         padding: 0;
-        margin: 0;
-        margin-top: 20px;
+        margin: 20px 0 0;
+        width: 100%;
     }
     .result-item {
         background-color: white;
@@ -88,7 +108,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     .result-link:hover {
         color: #64B5F6;
-        text-decoration: none;
     }
     .result-title {
         font-size: 1.2rem;
@@ -99,7 +118,6 @@ document.addEventListener("DOMContentLoaded", () => {
     .result-meta {
         font-size: 0.9rem;
         color: #666;
-        margin-bottom: 10px;
     }
 
     /* Pagination */
@@ -108,6 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
         justify-content: center;
         gap: 10px;
         margin-top: 20px;
+        width: 100%;
     }
     #pagination-container button {
         padding: 10px 15px;
@@ -128,8 +147,25 @@ document.addEventListener("DOMContentLoaded", () => {
         background-color: #64B5F6;
         transform: scale(1.05);
     }
+
+    /* Media Queries untuk Responsivitas */
+    @media (max-width: 768px) {
+        .search-input-container {
+            flex-direction: column;
+        }
+        #search-input, #search-button {
+            width: 100%;
+            box-sizing: border-box;
+        }
+        #search-button {
+            margin-top: 10px;
+        }
+    }
   `;
   document.head.appendChild(styleEl);
+
+  // Pastikan container pencarian sudah terpusat
+  const searchContainer = document.querySelector(".search-container");
 
   const resultList = document.getElementById("result-list");
   const paginationContainer = document.getElementById("pagination-container");
