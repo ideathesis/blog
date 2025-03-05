@@ -61,17 +61,6 @@
     </div>
   </nav>
   
-  <!-- Metadata -->
-  <script type="application/json" id="metadata">
-  {
-    "title": "10 Kampus Terbaik di Indonesia: Pilihan Tepat untuk Masa Depan Gemilang",
-    "author": "IDEA THESIS",
-    "date": "12-2-2025",
-    "image": "images/10-kampus-terbaik-di-indonesia.png",
-    "thumbnail": "/post/images/10-kampus-terbaik-di-indonesia.png"
-  }
-  </script>
-  
   <!-- Article Content -->
   <div class="container content">
     <div class="article-container">
@@ -132,7 +121,7 @@
   
   <!-- Script untuk memuat file Markdown dan mengkonversinya ke HTML -->
 <script>
-  // Ambil parameter 'file' dari URL, jika tidak ada gunakan file default
+  // Ambil parameter 'file' dari URL atau gunakan file default
   const params = new URLSearchParams(window.location.search);
   const mdFile = params.get('file') || 'default.md';
 
@@ -143,9 +132,44 @@
       }
       return response.text();
     })
-    .then(markdown => {
+    .then(text => {
+      let metadata = {};
+      let markdownContent = text;
+      
+      // Mengecek apakah file Markdown memiliki YAML front matter
+      if (text.startsWith('---')) {
+        // Memisahkan bagian YAML dan konten Markdown
+        const parts = text.split('---');
+        if (parts.length >= 3) {
+          const yamlContent = parts[1];
+          markdownContent = parts.slice(2).join('---');
+          
+          // Parsing YAML secara sederhana (asumsi setiap baris: key: value)
+          yamlContent.split('\n').forEach(line => {
+            const [key, ...rest] = line.split(':');
+            if (key && rest) {
+              metadata[key.trim()] = rest.join(':').trim();
+            }
+          });
+        }
+      }
+
+      // Perbarui elemen-elemen HTML berdasarkan metadata
+      if (metadata.title) {
+        document.getElementById('article-title').textContent = metadata.title;
+        document.title = metadata.title; // mengatur judul dokumen
+      }
+      if (metadata.date) {
+        document.getElementById('article-meta').textContent = metadata.date;
+      }
+      // Anda juga dapat mengatur meta tag lain, contohnya gambar atau deskripsi
+      if (metadata.image) {
+        document.getElementById('featured-image').setAttribute('src', metadata.image);
+      }
+      
+      // Konversi Markdown ke HTML menggunakan Showdown
       const converter = new showdown.Converter();
-      const html = converter.makeHtml(markdown);
+      const html = converter.makeHtml(markdownContent);
       document.getElementById('article-content').innerHTML = html;
     })
     .catch(error => {
@@ -153,6 +177,7 @@
       document.getElementById('article-content').innerHTML = '<p>Maaf, terjadi kesalahan saat memuat konten.</p>';
     });
 </script>
+
 
 </body>
 </html>
