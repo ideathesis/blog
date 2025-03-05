@@ -101,6 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.head.appendChild(style);
 
     const postList = document.getElementById("post-list");
+    // Pastikan URL ini sesuai dengan lokasi manifest.json terbaru
     const manifestUrl = "https://raw.githubusercontent.com/ideathesis/blog/main/post/manifest.json";
     let allArticles = [];
     let currentPage = 0;
@@ -121,6 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
             card.className = "post-card";
 
             const img = document.createElement("img");
+            // Menggunakan properti thumbnail atau fallback ke image
             img.src = article.thumbnail || article.image;
             img.alt = article.title;
 
@@ -141,7 +143,9 @@ document.addEventListener("DOMContentLoaded", () => {
             const footer = document.createElement("div");
             footer.className = "card-footer";
             const readMore = document.createElement("a");
-            readMore.href = `/post/${article.file}`;
+            // Karena properti file sudah berformat query string (contoh: "?file=nama_file.md")
+            // kita gunakan nilai tersebut langsung sebagai URL tautan.
+            readMore.href = article.file;
             readMore.className = "read-more-button";
             readMore.textContent = "Baca Selengkapnya";
             
@@ -202,7 +206,7 @@ document.addEventListener("DOMContentLoaded", () => {
     fetch(manifestUrl)
         .then(response => response.json())
         .then(articles => {
-            // Urutkan artikel berdasarkan tanggal terbaru
+            // Urutkan artikel berdasarkan tanggal terbaru (format DD-MM-YYYY)
             allArticles = articles.sort((a, b) => {
                 const [dA, mA, yA] = a.date.split("-");
                 const [dB, mB, yB] = b.date.split("-");
