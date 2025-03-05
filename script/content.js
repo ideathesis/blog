@@ -1,4 +1,117 @@
 document.addEventListener("DOMContentLoaded", () => {
+    // Sisipkan CSS langsung ke dalam head agar styling tetap terjaga
+    const style = document.createElement("style");
+    style.type = "text/css";
+    style.textContent = `
+        /* General Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #F5F5F5;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        /* Blog Section */
+        .post-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        
+        .post-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+        
+        .post-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+            aspect-ratio: 16 / 9;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        
+        .post-card .card-body {
+            padding: 15px;
+        }
+        
+        .post-card .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            line-height: 1.4;
+            color: #333;
+        }
+        
+        .post-card .card-text {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .post-card .card-footer {
+            background: none;
+            border-top: 1px solid #ddd;
+            padding: 10px;
+            font-size: 0.8rem;
+            color: #999;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .post-card .read-more-button {
+            text-decoration: none;
+            color: white;
+            background-color: #81C784;
+            padding: 8px 16px;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        
+        .post-card .read-more-button:hover {
+            background-color: #64B5F6;
+            transform: scale(1.05);
+        }
+        
+        /* Pagination Controls */
+        .pagination-controls button {
+            text-decoration: none;
+            color: white;
+            background-color: #81C784;
+            padding: 8px 16px;
+            border-radius: 5px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        
+        .pagination-controls button:hover {
+            background-color: #4CAF50;
+            transform: translateY(-2px);
+        }
+        
+        .pagination-controls button:disabled {
+            background-color: #C0C0C0;
+            cursor: not-allowed;
+            transform: none;
+            opacity: 0.7;
+        }
+    `;
+    document.head.appendChild(style);
+
     const postList = document.getElementById("post-list");
     const manifestUrl = "https://raw.githubusercontent.com/ideathesis/blog/main/post/manifest.json";
     let allArticles = [];
@@ -97,6 +210,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     };
 
+    // Ambil data artikel dari manifest
     fetch(manifestUrl)
         .then(response => response.json())
         .then(articles => {
@@ -109,7 +223,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             totalPages = Math.ceil(allArticles.length / 6);
             
-            // Sembunyikan paginasi jika tidak perlu
+            // Inisialisasi paginasi hanya jika artikel lebih dari 6
             if (allArticles.length > 6) {
                 initPagination();
             }
