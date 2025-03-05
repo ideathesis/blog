@@ -196,6 +196,39 @@
       console.error('Gagal memuat file Markdown:', error);
       document.getElementById('article-content').innerHTML = '<p>Maaf, terjadi kesalahan saat memuat konten.</p>';
     });
+
+  // Fungsi untuk parsing YAML front matter sudah ada di sini...
+  // (kode yang sudah Anda gunakan untuk mengambil metadata dari file MD)
+
+  // Setelah markdown diubah menjadi HTML, sisipkan metadata ke dalam elemen <script id="metadata">
+  (function injectMetadata() {
+    const titleEl = document.getElementById('article-title');
+    const metaEl = document.getElementById('article-meta');
+    const featuredImageEl = document.getElementById('featured-image');
+    const params = new URLSearchParams(window.location.search);
+    const fileParam = params.get('file');
+    
+    // Ekstrak informasi dari DOM
+    const metadataObj = {
+      title: titleEl ? titleEl.textContent.trim() : "",
+      // Asumsikan format meta: "Penulis: Nama Penulis | Tanggal"
+      author: (metaEl && (metaEl.textContent.match(/Penulis:\s*([^|]+)/) || [])[1]) ? (metaEl.textContent.match(/Penulis:\s*([^|]+)/)[1].trim()) : "",
+      date: metaEl ? metaEl.textContent.split("|")[1]?.trim() || "" : "",
+      image: featuredImageEl ? featuredImageEl.getAttribute("src") : "",
+      // Pastikan properti file berupa query string, misal: "?file=nama_file.md"
+      file: fileParam ? `?file=${fileParam}` : ""
+    };
+
+    // Buat dan sisipkan elemen <script id="metadata">
+    const scriptEl = document.createElement("script");
+    scriptEl.id = "metadata";
+    scriptEl.type = "application/json";
+    scriptEl.textContent = JSON.stringify(metadataObj);
+    document.body.appendChild(scriptEl);
+
+    // Debug: cetak metadata ke konsol
+    console.log("Metadata disisipkan:", metadataObj);
+  })();
 </script>
 
 </body>

@@ -1,32 +1,34 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Ambil metadata artikel dari DOM (hasil render file MD)
-  const currentTitle = document.getElementById("article-title")?.textContent.trim() || "";
-  if (!currentTitle) {
-    console.error("Judul artikel tidak ditemukan. Pastikan file MD menyertakan title.");
+  // Ambil metadata dari elemen dengan id "metadata"
+  const metadataScript = document.getElementById("metadata");
+  if (!metadataScript) {
+    console.error("Metadata tidak ditemukan. Pastikan elemen <script id='metadata'> sudah disisipkan.");
     return;
   }
-  // Coba ekstrak penulis dari article-meta (dengan pola "Penulis: ..." jika ada)
-  const metaText = document.getElementById("article-meta")?.textContent.trim() || "";
-  let currentAuthor = "";
-  const penulisMatch = metaText.match(/Penulis:\s*([^|]+)/i);
-  if (penulisMatch) {
-    currentAuthor = penulisMatch[1].trim();
+
+  let currentMetadata;
+  try {
+    currentMetadata = JSON.parse(metadataScript.textContent);
+  } catch (e) {
+    console.error("Gagal mengurai metadata:", e);
+    return;
   }
-  // Ambil URL gambar unggulan
-  const currentImage = document.getElementById("featured-image")?.getAttribute("src") || "";
 
-  // Buat objek metadata dari artikel saat ini
-  const currentMetadata = {
-    title: currentTitle,
-    author: currentAuthor,
-    image: currentImage
-    // date bisa ditambahkan jika diperlukan
-  };
+  // (Opsional) Update elemen tampilan jika diperlukan
+  const titleEl = document.getElementById("article-title");
+  const metaEl = document.getElementById("article-meta");
+  const featuredImageEl = document.getElementById("featured-image");
+  if (titleEl) titleEl.textContent = currentMetadata.title;
+  if (metaEl) metaEl.textContent = `Oleh: ${currentMetadata.author} | ${currentMetadata.date}`;
+  if (featuredImageEl) {
+    featuredImageEl.src = currentMetadata.image;
+    featuredImageEl.alt = currentMetadata.title;
+  }
 
-  // URL manifest.json (pastikan URL ini benar)
+  // URL manifest.json – sesuaikan jika perlu
   const manifestUrl = "https://raw.githubusercontent.com/ideathesis/blog/main/post/manifest.json";
 
-  // Fungsi untuk mengonversi tanggal dari format DD-MM-YYYY ke objek Date
+  // Fungsi konversi tanggal dari format DD-MM-YYYY ke objek Date
   const parseDate = (dateStr) => {
     const parts = dateStr.split("-");
     if (parts.length !== 3) return new Date();
@@ -41,22 +43,21 @@ document.addEventListener("DOMContentLoaded", () => {
     .then(manifest => {
       if (!Array.isArray(manifest)) throw new Error("Manifest JSON tidak berbentuk array");
 
-      // Tambahkan properti dateObject untuk tiap artikel (jika diperlukan untuk sorting)
+      // Tambahkan properti dateObject ke tiap artikel (jika diperlukan)
       manifest = manifest.map(article => ({
         ...article,
-        dateObject: parseDate(article.date)
+        dateObject: parseDate(article.date),
       }));
 
       // Pecah judul artikel saat ini menjadi array kata (huruf kecil)
       const currentTitleWords = currentMetadata.title.toLowerCase().split(/\s+/).filter(Boolean);
 
       // Filter artikel terkait:
-      // - Lewati artikel yang judulnya persis sama
-      // - Pilih artikel yang memiliki setidaknya satu kata yang sama di judul
+      // - Lewati artikel dengan judul yang sama persis (artikel saat ini)
+      // - Pilih artikel yang memiliki setidaknya satu kata yang sama pada judul
       let relatedArticles = manifest.filter(article => {
-        if (article.title.trim().toLowerCase() === currentMetadata.title.toLowerCase()) {
+        if (article.title.trim().toLowerCase() === currentMetadata.title.trim().toLowerCase())
           return false;
-        }
         const articleTitleWords = article.title.toLowerCase().split(/\s+/).filter(Boolean);
         return currentTitleWords.some(word => articleTitleWords.includes(word));
       });
@@ -91,8 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
         limitedArticles.forEach(article => {
           const link = document.createElement("a");
           // Properti file pada manifest sudah berupa query string (misal: "?file=example.md")
-          // Karena file MD ditampilkan dengan URL: /post/?file=example.md,
-          // tautan untuk artikel terkait dibuat sebagai: /post/ + query string tersebut.
+          // Karena file MD ditampilkan melalui URL /post/?file=..., tautan dibentuk sebagai:
           let href = "/post/";
           if (article.file.startsWith("?")) {
             href += article.file;
