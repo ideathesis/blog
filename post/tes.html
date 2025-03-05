@@ -67,10 +67,11 @@
     
       <!-- Main Content -->
       <div>
-        <!-- Elemen ini tetap dipertahankan -->
-        <img id="featured-image" alt="" class="featured-image">
-        <h1 id="article-title" class="text-center mb-4"></h1>
-        <p id="article-meta" class="text-center text-muted mb-4"></p>
+<!-- Elemen ini tetap dipertahankan sebagai placeholder -->
+<img id="featured-image" alt="" class="featured-image">
+<h1 id="article-title" class="text-center mb-4"></h1>
+<p id="article-meta" class="text-center text-muted mb-4"></p>
+
         
         <!-- Konten artikel dari file Markdown akan dimuat di sini -->
         <div id="article-content"></div>
@@ -136,7 +137,7 @@
       let metadata = {};
       let markdownContent = text;
       
-      // Mengecek apakah file Markdown memiliki YAML front matter
+      // Cek apakah ada YAML front matter
       if (text.startsWith('---')) {
         // Memisahkan bagian YAML dan konten Markdown
         const parts = text.split('---');
@@ -144,7 +145,7 @@
           const yamlContent = parts[1];
           markdownContent = parts.slice(2).join('---');
           
-          // Parsing YAML secara sederhana (asumsi setiap baris: key: value)
+          // Parsing YAML secara sederhana (asumsi format: key: value per baris)
           yamlContent.split('\n').forEach(line => {
             const [key, ...rest] = line.split(':');
             if (key && rest) {
@@ -154,15 +155,14 @@
         }
       }
 
-      // Perbarui elemen-elemen HTML berdasarkan metadata
+      // Perbarui elemen HTML berdasarkan metadata dari file Markdown
       if (metadata.title) {
         document.getElementById('article-title').textContent = metadata.title;
-        document.title = metadata.title; // mengatur judul dokumen
+        document.title = metadata.title; // Mengatur judul dokumen browser
       }
       if (metadata.date) {
         document.getElementById('article-meta').textContent = metadata.date;
       }
-      // Anda juga dapat mengatur meta tag lain, contohnya gambar atau deskripsi
       if (metadata.image) {
         document.getElementById('featured-image').setAttribute('src', metadata.image);
       }
@@ -177,7 +177,6 @@
       document.getElementById('article-content').innerHTML = '<p>Maaf, terjadi kesalahan saat memuat konten.</p>';
     });
 </script>
-
 
 </body>
 </html>
