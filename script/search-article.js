@@ -1,4 +1,136 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // Sisipkan style langsung ke dalam head (hanya CSS yang digunakan oleh JS)
+  const styleEl = document.createElement("style");
+  styleEl.textContent = `
+    /* Search Input dan Tombol */
+    #search-input {
+        padding: 14px 16px;
+        font-size: 1rem;
+        font-family: 'Poppins', sans-serif;
+        border: 2px solid #ddd;
+        border-radius: 5px;
+        outline: none;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        background-color: white;
+    }
+    #search-input:focus {
+        border-color: black;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    #search-button {
+        padding: 14px 20px;
+        font-size: 1rem;
+        font-family: 'Poppins', sans-serif;
+        background-color: #81C784;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+    #search-button:hover {
+        background-color: #64B5F6;
+        transform: scale(1.05);
+    }
+
+    /* Loading Indicator */
+    .loading-indicator {
+        display: none;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+        color: #666;
+        margin-top: 20px;
+    }
+    .loading-indicator.show {
+        display: flex;
+    }
+    .loading-indicator::before {
+        content: '';
+        width: 16px;
+        height: 16px;
+        margin-right: 10px;
+        border: 3px solid #81C784;
+        border-top: 3px solid transparent;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    /* Daftar Hasil dan Item */
+    #result-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        margin-top: 20px;
+    }
+    .result-item {
+        background-color: white;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        overflow: hidden;
+    }
+    .result-item:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+    }
+    .result-link {
+        text-decoration: none;
+        color: #81C784;
+        font-weight: bold;
+        transition: color 0.3s ease;
+    }
+    .result-link:hover {
+        color: #64B5F6;
+        text-decoration: none;
+    }
+    .result-title {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+        color: #333;
+        font-weight: bold;
+    }
+    .result-meta {
+        font-size: 0.9rem;
+        color: #666;
+        margin-bottom: 10px;
+    }
+
+    /* Pagination */
+    #pagination-container {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 20px;
+    }
+    #pagination-container button {
+        padding: 10px 15px;
+        font-size: 1rem;
+        font-family: 'Poppins', sans-serif;
+        background-color: #81C784;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+    #pagination-container button:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+    }
+    #pagination-container button:hover:not(:disabled) {
+        background-color: #64B5F6;
+        transform: scale(1.05);
+    }
+  `;
+  document.head.appendChild(styleEl);
+
   const resultList = document.getElementById("result-list");
   const paginationContainer = document.getElementById("pagination-container");
   const searchInput = document.getElementById("search-input");
@@ -73,7 +205,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 500);
   };
 
-  // Render hasil pencarian TANPA GAMBAR
+  // Render hasil pencarian (tanpa gambar)
   const renderResults = (articlesToRender) => {
     resultList.innerHTML = "";
     
@@ -95,9 +227,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <h2 class="result-title">${article.title}</h2>
             <div class="result-meta">
               <span class="author">Oleh: ${article.author}</span>
-              <time datetime="${article.dateObject.toISOString()}">| 
-                ${article.date}
-              </time>
+              <time datetime="${article.dateObject.toISOString()}">| ${article.date}</time>
             </div>
           </div>
         </a>
