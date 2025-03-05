@@ -1,9 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // Sisipkan CSS langsung ke dalam head agar styling tetap terjaga
+    // Sisipkan CSS yang diperlukan langsung ke dalam head
     const style = document.createElement("style");
     style.type = "text/css";
     style.textContent = `
-        /* Blog Section */
+        /* Styling untuk Artikel */
         .post-card {
             background: white;
             border-radius: 10px;
@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
             transform: scale(1.05);
         }
         
-        /* Pagination Controls */
+        /* Styling untuk Tombol Paginasi */
         .pagination-controls button {
             text-decoration: none;
             color: white;
@@ -87,8 +87,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         
         .pagination-controls button:hover {
-            background-color: #4CAF50;
-            transform: translateY(-2px);
+            background-color: #64B5F6;
+            transform: scale(1.05);
         }
         
         .pagination-controls button:disabled {
@@ -180,7 +180,7 @@ document.addEventListener("DOMContentLoaded", () => {
         paginationControls.appendChild(nextButton);
         postList.parentNode.insertBefore(paginationControls, postList.nextSibling);
 
-        // Event listeners untuk tombol
+        // Event listeners untuk tombol paginasi
         prevButton.addEventListener("click", () => {
             if (currentPage > 0) {
                 currentPage--;
@@ -211,7 +211,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             totalPages = Math.ceil(allArticles.length / 6);
             
-            // Inisialisasi paginasi hanya jika artikel lebih dari 6
+            // Inisialisasi paginasi jika artikel lebih dari 6
             if (allArticles.length > 6) {
                 initPagination();
             }
