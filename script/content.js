@@ -169,7 +169,7 @@ document.addEventListener("DOMContentLoaded", () => {
       footer.className = "card-footer";
       const readMore = document.createElement("a");
       // Tautan diarahkan ke index.html dengan query string dari properti file
-      readMore.href = `/post/index.html${article.file}`;
+      readMore.href = `/post/${article.file}`;
       readMore.className = "read-more-button";
       readMore.textContent = "Baca Selengkapnya";
 
