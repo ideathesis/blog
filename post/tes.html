@@ -175,10 +175,10 @@
       // Gabungkan informasi author dan date
       let metaText = "";
       if (metadata.author) {
-        metaText += `Oleh ${metadata.author}`;
+        metaText += `Oleh: ${metadata.author}`;
       }
       if (metadata.date) {
-        metaText += metaText ? ` pada ${metadata.date}` : metadata.date;
+        metaText += metaText ? ` | ${metadata.date}` : metadata.date;
       }
       document.getElementById('article-meta').textContent = metaText;
       
