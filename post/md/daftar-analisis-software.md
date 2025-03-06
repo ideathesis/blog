@@ -6,55 +6,13 @@ image: "images/daftar-analisis-software.png"
 thumbnail: "/post/images/daftar-analisis-software.png"
 ---
 
-<style>
-  /* Responsive and mobile friendly styles for Showdown markdown */
-  body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    margin: 0;
-    padding: 20px;
-    background-color: #f7f9fa;
-    color: #34495e;
-  }
-  .container {
-    max-width: 800px;
-    margin: auto;
-    background: #fff;
-    padding: 25px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  }
-  h1, h2, h3 {
-    color: #2c3e50;
-  }
-  p {
-    line-height: 1.6;
-    font-size: 1.1em;
-  }
-  ul {
-    margin-left: 20px;
-  }
-  .highlight {
-    background-color: #ecf0f1;
-    padding: 15px;
-    border-left: 5px solid #2980b9;
-    margin: 20px 0;
-  }
-  img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    margin: 10px auto;
-  }
-  @media only screen and (max-width: 600px) {
-    body {
-      padding: 10px;
-    }
-    p {
-      font-size: 1em;
-    }
-  }
-</style>
-
-<div class="container">
+---
+title: "Daftar Software Analisis Populer dan Terbaik: SPSS, E-Views, STATA, SmartPLS, dan JASP"
+author: "IDEA THESIS"
+date: "6-3-2025"
+image: "images/analisis-software.png"
+thumbnail: "/post/images/analisis-software.png"
+---
 
 # Daftar Software Analisis Populer dan Terbaik
 
@@ -123,5 +81,3 @@ Dalam dunia analisis data, pemilihan software yang tepat merupakan langkah krusi
 ---
 
 Setiap software memiliki keunggulan tersendiri sesuai dengan kebutuhan analisis data. Pilihlah software yang paling sesuai dengan jenis data, tujuan analisis, dan preferensi pribadi Anda untuk mendapatkan hasil yang optimal.
-
-</div>
