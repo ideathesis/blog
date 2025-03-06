@@ -14,7 +14,8 @@ Dalam dunia analisis data, pemilihan software yang tepat merupakan langkah krusi
 
 ## 1. SPSS
 
-**SPSS** (Statistical Package for the Social Sciences) merupakan software analisis statistik yang banyak digunakan di kalangan akademisi dan profesional.  
+**SPSS** (Statistical Package for the Social Sciences) merupakan software analisis statistik yang banyak digunakan di kalangan akademisi dan profesional.
+
 **Fitur Unggulan:**
 - **Kemudahan Penggunaan:** Antarmuka yang ramah pengguna memudahkan analisis meski bagi pemula.
 - **Analisis Statistik Lanjutan:** Mendukung berbagai metode seperti regresi, ANOVA, dan analisis multivariat.
@@ -26,7 +27,8 @@ Dalam dunia analisis data, pemilihan software yang tepat merupakan langkah krusi
 
 ## 2. E-Views
 
-**E-Views** adalah software andalan untuk analisis ekonometrika, terutama dalam analisis time series dan peramalan ekonomi.  
+**E-Views** adalah software andalan untuk analisis ekonometrika, terutama dalam analisis time series dan peramalan ekonomi.
+
 **Fitur Unggulan:**
 - **Analisis Ekonometrika:** Alat canggih untuk analisis data ekonomi dan peramalan.
 - **Visualisasi Dinamis:** Menyediakan grafik interaktif untuk mendukung interpretasi data.
@@ -38,7 +40,8 @@ Dalam dunia analisis data, pemilihan software yang tepat merupakan langkah krusi
 
 ## 3. STATA
 
-**STATA** adalah software analisis data statistik yang powerful, banyak digunakan dalam penelitian kesehatan, ekonomi, dan ilmu sosial.  
+**STATA** adalah software analisis data statistik yang powerful, banyak digunakan dalam penelitian kesehatan, ekonomi, dan ilmu sosial.
+
 **Fitur Unggulan:**
 - **Sintaks yang Kuat:** Mendukung scripting untuk analisis kompleks dan replikasi penelitian.
 - **Beragam Paket Analisis:** Tersedia paket lengkap untuk analisis data dan pembuatan grafik berkualitas tinggi.
@@ -50,7 +53,8 @@ Dalam dunia analisis data, pemilihan software yang tepat merupakan langkah krusi
 
 ## 4. SmartPLS
 
-**SmartPLS** khusus dirancang untuk analisis model persamaan struktural (SEM) dengan pendekatan Partial Least Squares (PLS).  
+**SmartPLS** khusus dirancang untuk analisis model persamaan struktural (SEM) dengan pendekatan Partial Least Squares (PLS).
+
 **Fitur Unggulan:**
 - **User-Friendly Interface:** Memudahkan pengguna dalam pembuatan dan pengujian model struktural.
 - **Analisis Jalur dan Pengukuran:** Estimasi akurat untuk model-model yang kompleks.
@@ -62,7 +66,8 @@ Dalam dunia analisis data, pemilihan software yang tepat merupakan langkah krusi
 
 ## 5. JASP
 
-**JASP** adalah software open-source yang menawarkan alternatif modern untuk analisis statistik dengan antarmuka yang bersih dan intuitif.  
+**JASP** adalah software open-source yang menawarkan alternatif modern untuk analisis statistik dengan antarmuka yang bersih dan intuitif.
+
 **Fitur Unggulan:**
 - **Gratis dan Open-Source:** Tidak memerlukan biaya lisensi, cocok untuk akademisi dan pelajar.
 - **Integrasi dengan R:** Menggabungkan kekuatan R dengan kemudahan penggunaan JASP.
