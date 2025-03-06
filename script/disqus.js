@@ -4,10 +4,13 @@ preconnect.rel = 'preconnect';
 preconnect.href = 'https://ideathesis.disqus.com';
 document.head.appendChild(preconnect);
 
-// Konfigurasi Disqus
+// Konfigurasi Disqus dengan identifier unik berdasarkan parameter "file"
 var disqus_config = function () {
+    const params = new URLSearchParams(window.location.search);
+    // Gunakan nilai parameter "file" sebagai identifier, atau fallback ke pathname
+    const fileParam = params.get('file') || window.location.pathname;
     this.page.url = window.location.href;
-    this.page.identifier = window.location.pathname;
+    this.page.identifier = fileParam;
 };
 
 // Fungsi utama load Disqus
