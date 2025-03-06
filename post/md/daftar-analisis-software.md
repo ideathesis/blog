@@ -6,14 +6,6 @@ image: "images/daftar-analisis-software.png"
 thumbnail: "/post/images/daftar-analisis-software.png"
 ---
 
----
-title: "Daftar Software Analisis Populer dan Terbaik: SPSS, E-Views, STATA, SmartPLS, dan JASP"
-author: "IDEA THESIS"
-date: "6-3-2025"
-image: "images/analisis-software.png"
-thumbnail: "/post/images/analisis-software.png"
----
-
 # Daftar Software Analisis Populer dan Terbaik
 
 Dalam dunia analisis data, pemilihan software yang tepat merupakan langkah krusial untuk mendapatkan insight yang akurat dan mendalam. Artikel ini membahas lima software analisis data yang populer dan terbaik, lengkap dengan penjelasan detail mengenai fitur unggulan masing-masing serta visualisasi antarmuka.
