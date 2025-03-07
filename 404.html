@@ -1,101 +1,128 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Halaman Tidak Ditemukan</title>
-    <!-- Favicon untuk browser modern -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="images/favicon-192x192.png">
-    <!-- Favicon untuk Apple devices -->
-    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-    <!-- Favicon untuk manifest.json (PWA) -->
-    <link rel="manifest" href="/manifest.json">
-    
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #E8F3E8;
-            color: #333;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh; /* Pastikan body minimal setinggi viewport */
-        }
-        .hero {
-            position: relative;
-            background: url('/css/images/404.png') no-repeat center center/cover;
-            color: white;
-            text-align: center;
-            padding: 100px 20px;
-            min-height: 500px;
-            flex: 1; /* Memastikan hero section memenuhi sisa ruang */
-        }
-        .hero .overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7));
-            z-index: 1;
-        }
-        .hero .container {
-            position: relative;
-            z-index: 2;
-        }
-        h1 {
-            font-size: 4rem;
-            margin-bottom: 20px;
-        }
-        p {
-            font-size: 1.5rem;
-            margin-bottom: 30px;
-        }
-        .cta-button {
-            background-color: #81C784;
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-        }
-        .cta-button:hover {
-            background-color: #64B5F6;
-        }
-        footer {
-            background-color: #333;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Halaman Tidak Ditemukan</title>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+  <link rel="manifest" href="/manifest.json">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #81C784;
+      --hover-color: #64B5F6;
+      --error-color: #e74c3c; /* Warna error */
+      --dark-overlay-start: rgba(0, 0, 0, 0.5);
+      --dark-overlay-end: rgba(0, 0, 0, 0.7);
+      --body-bg: #E8F3E8;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--body-bg);
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      background: url('css/images/404.png') no-repeat center center/cover;
+      position: relative;
+    }
+    main::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: linear-gradient(to bottom, var(--dark-overlay-start), var(--dark-overlay-end));
+      z-index: 1;
+    }
+    .content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 600px;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      backdrop-filter: blur(4px);
+    }
+    .content h1 {
+      font-size: 5rem;
+      color: var(--error-color);
+      margin-bottom: 20px;
+      animation: fadeInDown 0.8s ease;
+    }
+    .content p {
+      font-size: 1.5rem;
+      color: var(--error-color);
+      margin-bottom: 30px;
+      animation: fadeInUp 0.8s ease;
+    }
+    .cta-button {
+      background-color: var(--primary-color);
+      color: #fff;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      text-decoration: none;
+      font-weight: 600;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    .cta-button:hover {
+      background-color: var(--hover-color);
+      transform: translateY(-3px);
+    }
+    footer {
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      padding: 28px 15px; /* padding vertical ditingkatkan */
+    }
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    /* Responsif */
+    @media (max-width: 768px) {
+      .content h1 {
+        font-size: 3.5rem;
+      }
+      .content p {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
 </head>
 <body>
-    <!-- Hero Section -->
-    <div class="hero">
-        <div class="overlay"></div>
-        <div class="container">
-            <h1>404</h1>
-            <p>Maaf, halaman yang Anda cari tidak ditemukan.</p>
-            <a href="https://ideathesis.biz.id" class="cta-button">Kembali ke Beranda</a>
-        </div>
+  <main>
+    <div class="content">
+      <h1>404</h1>
+      <p>Maaf, halaman yang Anda cari tidak ditemukan.</p>
+      <a href="/" class="cta-button">Kembali ke Beranda</a>
     </div>
-
-    <!-- Footer -->
-    <footer>
-        <p>&copy; <script>document.write(new Date().getFullYear());</script> IDEA THESIS. All rights reserved.</p>
-    </footer>
-
-<!-- JavaScript -->
+  </main>
+  <footer>
+    <p>&copy; <script>document.write(new Date().getFullYear());</script> IDEA THESIS. All rights reserved.</p>
+  </footer>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
   <script src="script/swiper-pagination.js"></script>
