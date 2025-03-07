@@ -153,10 +153,19 @@ body {
   max-width: 100%;
 }
 
+/* Hover effect for Related Post agar selaras dengan navbar */
 .related-post:hover {
   transform: translateY(-3px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  background-color: #E8F3E8;
+  background: linear-gradient(135deg, #00C853, #00BFA5);
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+/* Pastikan teks tetap jelas dan mudah dibaca saat hover */
+.related-post:hover .related-post-title,
+.related-post:hover .related-post-meta {
+  color: #FFFFFF;
+  transition: color 0.3s ease;
 }
 
 /* Related Post Image Styling */
