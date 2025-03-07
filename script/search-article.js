@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
         font-size: 1rem;
         font-family: 'Poppins', sans-serif;
         border: 2px solid #ddd;
-        border-radius: 5px;
+        border-radius: 50px; /* Diubah menjadi lebih rounded */
         outline: none;
         transition: border-color 0.3s ease, box-shadow 0.3s ease;
         background-color: white;
@@ -37,19 +37,20 @@ document.addEventListener("DOMContentLoaded", () => {
         border-color: black;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
+    /* Tombol Pencarian disesuaikan */
     #search-button {
         padding: 14px 20px;
         font-size: 1rem;
         font-family: 'Poppins', sans-serif;
-        background-color: #81C784;
+        background: linear-gradient(45deg, #81C784, #66BB6A);
         color: white;
         border: none;
-        border-radius: 5px;
+        border-radius: 50px;
         cursor: pointer;
-        transition: background-color 0.3s ease, transform 0.3s ease;
+        transition: background 0.3s ease, transform 0.3s ease;
     }
     #search-button:hover {
-        background-color: #64B5F6;
+        background: linear-gradient(45deg, #66BB6A, #43A047);
         transform: scale(1.05);
     }
 
@@ -129,23 +130,24 @@ document.addEventListener("DOMContentLoaded", () => {
         width: 100%;
     }
     #pagination-container button {
-        padding: 10px 15px;
+        padding: 12px 30px;
         font-size: 1rem;
         font-family: 'Poppins', sans-serif;
-        background-color: #81C784;
+        background: linear-gradient(45deg, #81C784, #66BB6A);
         color: white;
         border: none;
-        border-radius: 5px;
+        border-radius: 50px;
         cursor: pointer;
-        transition: background-color 0.3s ease, transform 0.3s ease;
-    }
-    #pagination-container button:disabled {
-        background-color: #ccc;
-        cursor: not-allowed;
+        transition: background 0.3s ease, transform 0.3s ease;
     }
     #pagination-container button:hover:not(:disabled) {
-        background-color: #64B5F6;
+        background: linear-gradient(45deg, #66BB6A, #43A047);
         transform: scale(1.05);
+    }
+    /* Tombol paginasi disabled: background tombol disesuaikan */
+    #pagination-container button:disabled {
+        background: linear-gradient(45deg, #E0E0E0, #BDBDBD);
+        cursor: not-allowed;
     }
 
     /* Media Queries untuk Responsivitas */
