@@ -89,18 +89,17 @@ body {
   }
 }
 
-/* Content Padding (agar tidak tertutup oleh navbar) */
 .content {
     display: flex;
     flex-direction: column;
     gap: 30px; /* Jarak vertikal antar elemen menjadi lebih besar */
-    padding-top: 80px; /* Sesuaikan dengan tinggi navbar */
+    padding-top: 100px; /* Menaikkan padding-top agar tidak terlalu rapat dengan navbar */
     padding-bottom: 20px;
     padding-left: 20px;
     padding-right: 20px;
     max-width: 1200px;
     margin: 0 auto;
-    flex: 1; /* Isi sisa ruang antara navbar dan footer */
+    flex: 1; /* Mengisi sisa ruang antara navbar dan footer */
 }
 
 /* Footer */
