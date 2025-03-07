@@ -128,8 +128,8 @@ body {
 /* Chip Styling for Sidebar Title */
 .sidebar-chip {
   display: block;
-  background: linear-gradient(to right, #E8F3E8, #BBDEFB);
-  color: #333;
+  background: linear-gradient(135deg, #00C853, #00BFA5);
+  color: #FFFFFF;
   font-size: 14px;
   font-weight: 600;
   text-align: center;
@@ -138,7 +138,9 @@ body {
   margin-bottom: 20px;
   width: 100%;
   box-sizing: border-box;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
 
 /* Related Post Container */
 #post-list {
