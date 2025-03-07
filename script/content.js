@@ -49,18 +49,25 @@ document.addEventListener("DOMContentLoaded", () => {
       justify-content: space-between;
       align-items: center;
     }
+    /* Button Read More dengan style disesuaikan */
     .post-card .read-more-button {
       text-decoration: none;
-      color: white;
-      background-color: #81C784;
-      padding: 8px 16px;
-      border-radius: 5px;
+      color: #fff;
+      background: linear-gradient(45deg, #81C784, #66BB6A);
+      border: none;
+      padding: 12px 30px;
+      border-radius: 50px;
+      font-size: 1em;
       font-weight: 600;
-      transition: background-color 0.3s ease, transform 0.3s ease;
+      text-align: center;
+      display: inline-block;
+      cursor: pointer;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
     .post-card .read-more-button:hover {
-      background-color: #64B5F6;
-      transform: scale(1.05);
+      background: linear-gradient(45deg, #66BB6A, #43A047);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
     }
     /* Styling untuk kontainer paginasi */
     .pagination-controls {
@@ -70,21 +77,24 @@ document.addEventListener("DOMContentLoaded", () => {
       margin-top: 20px;
     }
     .pagination-controls button {
-      padding: 10px 15px;
-      font-size: 1rem;
-      background-color: #81C784;
-      color: white;
+      padding: 12px 30px;
+      font-size: 1em;
+      background: linear-gradient(45deg, #81C784, #66BB6A);
+      color: #fff;
       border: none;
-      border-radius: 5px;
+      border-radius: 50px;
       cursor: pointer;
-      transition: background-color 0.3s ease, transform 0.3s ease;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
     .pagination-controls button:hover:not(:disabled) {
-      background-color: #64B5F6;
-      transform: scale(1.05);
+      background: linear-gradient(45deg, #66BB6A, #43A047);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
     }
+    /* Style untuk tombol disabled dengan background yang berbeda,
+       tanpa mengubah warna teks */
     .pagination-controls button:disabled {
-      background-color: #ccc;
+      background: linear-gradient(45deg, #E0E0E0, #BDBDBD);
       cursor: not-allowed;
     }
   `;
