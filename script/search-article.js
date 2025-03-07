@@ -37,12 +37,12 @@ document.addEventListener("DOMContentLoaded", () => {
         border-color: black;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
-    /* Tombol Pencarian disesuaikan */
+    /* Tombol Pencarian disesuaikan agar selaras dengan navbar */
     #search-button {
         padding: 14px 20px;
         font-size: 1rem;
         font-family: 'Poppins', sans-serif;
-        background: linear-gradient(45deg, #81C784, #66BB6A);
+        background: linear-gradient(45deg, #00C853, #00BFA5);
         color: white;
         border: none;
         border-radius: 50px;
@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
         transition: background 0.3s ease, transform 0.3s ease;
     }
     #search-button:hover {
-        background: linear-gradient(45deg, #66BB6A, #43A047);
+        background: linear-gradient(45deg, #00BFA5, #00C853);
         transform: scale(1.05);
     }
 
@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
         width: 16px;
         height: 16px;
         margin-right: 10px;
-        border: 3px solid #81C784;
+        border: 3px solid #00C853;
         border-top: 3px solid transparent;
         border-radius: 50%;
         animation: spin 1s linear infinite;
@@ -103,12 +103,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     .result-link {
         text-decoration: none;
-        color: #81C784;
+        color: #00C853;
         font-weight: bold;
         transition: color 0.3s ease;
     }
     .result-link:hover {
-        color: #64B5F6;
+        color: #00BFA5;
     }
     .result-title {
         font-size: 1.2rem;
@@ -133,7 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
         padding: 12px 30px;
         font-size: 1rem;
         font-family: 'Poppins', sans-serif;
-        background: linear-gradient(45deg, #81C784, #66BB6A);
+        background: linear-gradient(45deg, #00C853, #00BFA5);
         color: white;
         border: none;
         border-radius: 50px;
@@ -141,7 +141,7 @@ document.addEventListener("DOMContentLoaded", () => {
         transition: background 0.3s ease, transform 0.3s ease;
     }
     #pagination-container button:hover:not(:disabled) {
-        background: linear-gradient(45deg, #66BB6A, #43A047);
+        background: linear-gradient(45deg, #00BFA5, #00C853);
         transform: scale(1.05);
     }
     /* Tombol paginasi disabled: background tombol disesuaikan */

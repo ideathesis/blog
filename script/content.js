@@ -49,11 +49,11 @@ document.addEventListener("DOMContentLoaded", () => {
       justify-content: space-between;
       align-items: center;
     }
-    /* Button Read More dengan style disesuaikan */
+    /* Button Read More dengan style disesuaikan agar selaras dengan navbar */
     .post-card .read-more-button {
       text-decoration: none;
       color: #fff;
-      background: linear-gradient(45deg, #81C784, #66BB6A);
+      background: linear-gradient(45deg, #00C853, #00BFA5);
       border: none;
       padding: 12px 30px;
       border-radius: 50px;
@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
     .post-card .read-more-button:hover {
-      background: linear-gradient(45deg, #66BB6A, #43A047);
+      background: linear-gradient(45deg, #00BFA5, #00C853);
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
     }
     /* Styling untuk kontainer paginasi */
@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
     .pagination-controls button {
       padding: 12px 30px;
       font-size: 1em;
-      background: linear-gradient(45deg, #81C784, #66BB6A);
+      background: linear-gradient(45deg, #00C853, #00BFA5);
       color: #fff;
       border: none;
       border-radius: 50px;
@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
     .pagination-controls button:hover:not(:disabled) {
-      background: linear-gradient(45deg, #66BB6A, #43A047);
+      background: linear-gradient(45deg, #00BFA5, #00C853);
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
     }
     /* Style untuk tombol disabled dengan background yang berbeda,
