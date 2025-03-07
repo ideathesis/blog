@@ -27,8 +27,10 @@ body {
   background-color: #FFFFFF;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-top: 20px;
+  margin-top: 60px;  /* Jarak dari navbar */
+  margin-bottom: 60px;  /* Jarak dari footer */
 }
+
 
 /* Featured Image Styling */
 .featured-image {
