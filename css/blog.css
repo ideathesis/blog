@@ -133,9 +133,10 @@ body {
 /* Related Post Container - Layout Grid untuk Desktop */
 #post-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 20px;
-  margin: 20px 0;
+  margin: 20px auto;
+  max-width: 1200px; /* Batas maksimal kontainer */
 }
 
 /* Related Post Styling */
@@ -150,6 +151,45 @@ body {
   text-decoration: none;
   transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
 }
+
+.related-post:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, #00C853, #00BFA5);
+}
+
+.related-post:hover .related-post-title,
+.related-post:hover .related-post-meta {
+  color: #FFFFFF;
+  transition: color 0.3s ease;
+}
+
+/* Styling untuk konten artikel terkait tetap sama */
+.related-post img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.related-post-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.related-post-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.related-post-meta {
+  font-size: 13px;
+  color: #777;
+}
+
 
 /* Hover effect: background berubah ke gradasi navbar dan teks menjadi putih */
 .related-post:hover {
