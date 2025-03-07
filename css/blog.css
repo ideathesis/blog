@@ -137,7 +137,7 @@ body {
   gap: 15px;
 }
 
-/* Related Post Styling (Default: untuk mobile & fallback) */
+/* Related Post Styling */
 .related-post {
   display: flex;
   flex-direction: column;
@@ -145,18 +145,21 @@ body {
   text-decoration: none;
   color: #333;
   transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
-  padding: 15px;
-  border-radius: 8px;
+  padding: 12px;
+  border-radius: 10px;
   background-color: #FFFFFF;
-  border-left: 4px solid #00C853;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  border: 1px solid transparent;
+  width: 100%;
+  box-sizing: border-box;
+  max-width: 100%;
 }
 
-/* Hover effect untuk Related Post */
+/* Hover effect: background, border, dan teks berubah agar selaras dengan navbar/logo */
 .related-post:hover {
   transform: translateY(-3px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   background: linear-gradient(135deg, #00C853, #00BFA5);
+  border-color: #00C853;
 }
 
 .related-post:hover .related-post-title,
@@ -191,6 +194,7 @@ body {
   line-height: 1.2;
   word-wrap: break-word;
   max-width: 100%;
+  transition: color 0.3s ease;
 }
 
 /* Related Post Meta Styling */
@@ -201,6 +205,7 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 100%;
+  transition: color 0.3s ease;
 }
 
 /* Footer Styling */
@@ -243,16 +248,23 @@ footer p {
     order: 1;
   }
 
-  /* Pada mobile, related post tetap tampil secara column (default) */
   .related-post {
-    flex-direction: column;
-    align-items: stretch;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    padding: 8px;
   }
 
   .related-post img {
-    width: 100%;
-    height: auto;
-    margin-bottom: 10px;
+    width: 100px;
+    height: 70px;
+    margin-bottom: 0;
+    flex-shrink: 0;
+  }
+
+  .related-post-content {
+    flex: 1;
+    min-width: 0;
   }
 
   .related-post-title {
@@ -283,31 +295,23 @@ footer p {
   }
 }
 
-/* Desktop Specific Styling */
-@media (min-width: 769px) {
-  /* Pada desktop, related post tampil dengan layout row (gambar di kiri, konten di kanan) */
-  .related-post {
-    flex-direction: row;
-    align-items: center;
-    gap: 12px;
-    padding: 10px;
-  }
-
+@media (max-width: 480px) {
   .related-post img {
-    width: 100px;
-    height: 70px;
-    margin-bottom: 0;
-    flex-shrink: 0;
+    width: 80px;
+    height: 60px;
   }
-
-  .related-post-content {
-    flex: 1;
-    min-width: 0;
+  
+  .related-post-title {
+    -webkit-line-clamp: 3;
   }
-
-  /* Pastikan container artikel memiliki grid dua kolom agar sidebar berada di samping konten */
-  .article-container {
-    grid-template-columns: 3fr 1fr;
+  
+  body {
+    font-size: 14px;
+  }
+  
+  footer {
+    padding: 15px;
+    margin-top: 30px;
   }
 }
 
