@@ -9,16 +9,83 @@ body {
   box-sizing: border-box; /* Memastikan padding tidak mengganggu layout */
 }
 
-/* Navbar Styling */
+/* Navbar Styles */
 .navbar {
-    background: linear-gradient(to right, #E8F3E8, #BBDEFB);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    z-index: 1000; /* Agar navbar tetap di atas konten */
+  background: linear-gradient(135deg, #00C853, #00BFA5);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 0.75rem 1rem;
+  transition: background 0.3s ease;
 }
 
+/* Navbar Brand */
 .navbar-brand {
-    font-weight: bold;
-    color: #333 !important;
+  font-weight: 700;
+  font-size: 1.5rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #FFFFFF !important;
+  transition: color 0.3s ease;
+}
+
+.navbar-brand:hover {
+  color: #FFEB3B !important; /* Efek hover: kuning terang */
+}
+
+/* Navbar Links */
+.nav-link {
+  color: #FFFFFF !important;
+  margin: 0 1rem;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  background-color: #FFEB3B;
+  bottom: -4px;
+  left: 0;
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #FFEB3B !important;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* Navbar Toggler (untuk tampilan mobile) */
+.navbar-toggler {
+  border: none;
+  padding: 0.25rem 0.75rem;
+  font-size: 1.25rem;
+  color: #FFFFFF;
+  transition: transform 0.3s ease;
+}
+
+.navbar-toggler:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+/* Toggler Icon */
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=UTF8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255,0.8)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+/* Responsif: Penyesuaian untuk tampilan mobile */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0.5rem 1rem;
+  }
+  .nav-link {
+    margin: 0.5rem 0;
+  }
 }
 
 /* Main Content Styling */
@@ -30,7 +97,6 @@ body {
   margin-top: 60px;  /* Jarak dari navbar */
   margin-bottom: 60px;  /* Jarak dari footer */
 }
-
 
 /* Featured Image Styling */
 .featured-image {
