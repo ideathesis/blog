@@ -141,13 +141,20 @@ body {
 }
 
 /* Footer Styling */
-footer {
-  background-color: #333;
-  color: white;
-  padding: 20px;
-  text-align: center;
-  margin-top: 40px;
-}
+	footer {
+	  background-color: #333;
+	  color: white;
+	  padding: 20px;
+	  min-height: 80px;
+	  display: flex;
+	  justify-content: center;
+	  align-items: center;
+	  text-align: center;
+	}
+
+	footer p {
+	  transform: translateY(10px); /* Turunkan teks 10px */
+	}
 
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
