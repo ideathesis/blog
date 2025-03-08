@@ -77,7 +77,13 @@ document.addEventListener("DOMContentLoaded", () => {
     return new Date(`${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`);
   };
 
-  // Render artikel berdasarkan array artikel yang diberikan (hanya 3 artikel)
+  // Fungsi untuk menghasilkan identifier konsisten berdasarkan properti artikel,
+  // misalnya menggunakan nilai article.file (pastikan nilainya unik)
+  const getIdentifier = (article) => {
+    return article.file || "";
+  };
+
+  // Render artikel berdasarkan array artikel yang diberikan (maksimal 3 artikel)
   const renderArticles = (articlesToRender) => {
     popularArticlesList.innerHTML = "";
     if (articlesToRender.length === 0) {
@@ -88,8 +94,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const col = document.createElement("div");
       col.className = "col-md-4";
 
-      // Buat URL postingan; pastikan identifier sama seperti di halaman postingan
-      const postLink = `/post/${article.file || ""}`;
+      // Buat URL postingan; tetap gunakan /post/ untuk link, namun identifier hanya nilainya
+      const identifier = getIdentifier(article);
+      const postLink = `/post/${identifier}`;
 
       // Elemen <a> agar seluruh card clickable
       const link = document.createElement("a");
@@ -107,7 +114,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Meta data: penulis, tanggal, dan jumlah komentar
       // Jika article.commentCount sudah ada, tampilkan nilainya; jika belum, gunakan elemen count Disqus
-      const commentDisplay = typeof article.commentCount === "number" ? article.commentCount : `<span class="disqus-comment-count" data-disqus-identifier="${postLink}"></span>`;
+      const commentDisplay = typeof article.commentCount === "number"
+        ? article.commentCount
+        : `<span class="disqus-comment-count" data-disqus-identifier="${identifier}"></span>`;
       const meta = document.createElement("div");
       meta.className = "popular-post-card-meta";
       meta.innerHTML = `<strong>Penulis:</strong> ${article.author || "Tidak Diketahui"} | <strong>Tanggal:</strong> ${article.date || "-"} | <strong>Komentar:</strong> ${commentDisplay}`;
@@ -122,15 +131,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Fungsi untuk memuat skrip count Disqus
   function loadDisqusCountScript() {
+    // Jika belum dimuat, tambahkan skrip count Disqus ke body
     if (!document.getElementById("dsq-count-scr")) {
       const dsqCountScript = document.createElement("script");
       dsqCountScript.id = "dsq-count-scr";
       dsqCountScript.src = "https://ideathesis.disqus.com/count.js";
       dsqCountScript.async = true;
       dsqCountScript.defer = true;
+      dsqCountScript.onload = () => {
+        console.log("Skrip count Disqus telah selesai dimuat.");
+      };
       document.body.appendChild(dsqCountScript);
       console.log("Skrip count Disqus dimuat.");
     } else if (window.DISQUSWIDGETS) {
+      // Jika sudah ada, reset count-nya
       window.DISQUSWIDGETS.getCount({ reset: true });
       console.log("Reset count Disqus dipanggil.");
     }
@@ -150,12 +164,12 @@ document.addEventListener("DOMContentLoaded", () => {
           ...article,
           dateObject: parseCustomDate(article.date)
         }));
-        // Render awal (sementara) dengan 3 artikel sesuai urutan di manifest
+        // Render awal 3 artikel sesuai urutan di manifest
         renderArticles(articles.slice(0, 3));
         // Muat skrip count Disqus untuk memperbarui nilai
         loadDisqusCountScript();
-        // Setelah beberapa detik, ambil jumlah komentar, sortir artikel, dan render 3 teratas
-        setTimeout(sortArticlesByCommentCount, 4000);
+        // Setelah 5 detik, ambil jumlah komentar, sortir artikel, dan render ulang 3 teratas
+        setTimeout(sortArticlesByCommentCount, 5000);
       })
       .catch(error => {
         console.error("Error:", error);
@@ -172,8 +186,8 @@ document.addEventListener("DOMContentLoaded", () => {
   function sortArticlesByCommentCount() {
     // Untuk setiap artikel, cari elemen dengan data-disqus-identifier yang sesuai
     articles.forEach(article => {
-      const postLink = `/post/${article.file || ""}`;
-      const span = document.querySelector(`.disqus-comment-count[data-disqus-identifier="${postLink}"]`);
+      const identifier = getIdentifier(article);
+      const span = document.querySelector(`.disqus-comment-count[data-disqus-identifier="${identifier}"]`);
       if (span) {
         // Ambil nilai dari teks; jika tidak bisa parse, gunakan 0
         const count = parseInt(span.textContent.trim()) || 0;
@@ -197,12 +211,12 @@ document.addEventListener("DOMContentLoaded", () => {
   document.head.appendChild(preconnect);
 
   // Konfigurasi Disqus untuk halaman postingan
+  // Pastikan halaman postingan menggunakan identifier yang sama (misalnya, hanya file name)
   var disqus_config = function () {
     const params = new URLSearchParams(window.location.search);
-    // Pastikan identifier yang digunakan konsisten
-    const fileParam = params.get("file") || window.location.pathname;
+    const identifier = params.get("file") || window.location.pathname.split("/").pop();
     this.page.url = window.location.href;
-    this.page.identifier = fileParam;
+    this.page.identifier = identifier;
   };
 
   function loadDisqus() {
@@ -215,7 +229,7 @@ document.addEventListener("DOMContentLoaded", () => {
     (d.head || d.body).appendChild(s);
   }
 
-  // Lazy load Disqus jika elemen #disqus_thread ada di halaman
+  // Lazy load Disqus jika elemen #disqus_thread ada di halaman postingan
   if (document.getElementById("disqus_thread")) {
     if ("IntersectionObserver" in window) {
       const observer = new IntersectionObserver(
@@ -248,9 +262,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Pastikan Disqus juga ter-load saat window load
+  // Pastikan Disqus juga ter-load saat window load (untuk halaman postingan)
   window.addEventListener("load", () => {
-    if (!document.querySelector("#disqus_thread iframe")) {
+    if (document.getElementById("disqus_thread") && !document.querySelector("#disqus_thread iframe")) {
       loadDisqus();
     }
   });
