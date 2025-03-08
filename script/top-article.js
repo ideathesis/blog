@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Sisipkan style khusus untuk card artikel terpopuler dengan ukuran teks yang disesuaikan
+  // Sisipkan style khusus untuk card artikel terpopuler
   const styleEl = document.createElement("style");
   styleEl.textContent = `
     /* Card dengan tinggi minimum 150px */
@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  // URL manifest, pastikan URL ini benar dan data JSON sesuai
+  // URL manifest; pastikan URL ini benar dan data JSON sesuai
   const manifestUrl = "https://raw.githubusercontent.com/ideathesis/blog/main/post/manifest.json";
   let articles = [];
 
@@ -89,16 +89,13 @@ document.addEventListener("DOMContentLoaded", () => {
         .map(article => ({
           ...article,
           dateObject: parseCustomDate(article.date)
-          // Jumlah komentar akan diambil dari Disqus
         }))
         // Misalnya, gunakan urutan data dari manifest sebagai artikel terpopuler
         .slice(0, 3);
       console.log("Artikel terpopuler:", articles);
       renderArticles(articles);
-      // Setelah rendering, refresh hitungan komentar dari Disqus
-      if (window.DISQUSWIDGETS) {
-        window.DISQUSWIDGETS.getCount({ reset: true });
-      }
+      // Setelah render, muat skrip count Disqus jika belum ada
+      loadDisqusCountScript();
     })
     .catch(error => {
       console.error("Error:", error);
@@ -121,10 +118,10 @@ document.addEventListener("DOMContentLoaded", () => {
       const col = document.createElement("div");
       col.className = "col-md-4";
 
-      // Buat URL postingan secara otomatis dari data artikel
+      // Buat URL postingan; pastikan identifier sama seperti di halaman postingan
       const postLink = `/post/${article.file || ""}`;
 
-      // Gunakan elemen <a> agar seluruh card clickable
+      // Elemen <a> agar seluruh card clickable
       const link = document.createElement("a");
       link.href = postLink;
       link.className = "popular-post-card";
@@ -138,7 +135,7 @@ document.addEventListener("DOMContentLoaded", () => {
       title.className = "popular-post-card-title";
       title.textContent = article.title || "Judul Tidak Tersedia";
 
-      // Meta data: penulis, tanggal, dan jumlah komentar (menggunakan Disqus)
+      // Meta data: penulis, tanggal, dan jumlah komentar
       const meta = document.createElement("div");
       meta.className = "popular-post-card-meta";
       meta.innerHTML = `<strong>Penulis:</strong> ${article.author || "Tidak Diketahui"} | <strong>Tanggal:</strong> ${article.date || "-"} | <strong>Komentar:</strong> <span class="disqus-comment-count" data-disqus-identifier="${postLink}"></span>`;
@@ -152,13 +149,16 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   /* --- Konfigurasi dan load Disqus (opsional) --- */
+  // Preconnect ke Disqus
   const preconnect = document.createElement("link");
   preconnect.rel = "preconnect";
   preconnect.href = "https://ideathesis.disqus.com";
   document.head.appendChild(preconnect);
 
+  // Konfigurasi Disqus untuk halaman postingan
   var disqus_config = function () {
     const params = new URLSearchParams(window.location.search);
+    // Pastikan identifier yang digunakan konsisten
     const fileParam = params.get("file") || window.location.pathname;
     this.page.url = window.location.href;
     this.page.identifier = fileParam;
@@ -175,6 +175,25 @@ document.addEventListener("DOMContentLoaded", () => {
     (d.head || d.body).appendChild(s);
   }
 
+  // Fungsi untuk memuat skrip count Disqus setelah artikel dirender
+  function loadDisqusCountScript() {
+    // Cek apakah skrip count sudah ada
+    if (!document.getElementById("dsq-count-scr")) {
+      const dsqCountScript = document.createElement("script");
+      dsqCountScript.id = "dsq-count-scr";
+      dsqCountScript.src = "https://ideathesis.disqus.com/count.js";
+      dsqCountScript.async = true;
+      dsqCountScript.defer = true;
+      document.body.appendChild(dsqCountScript);
+      console.log("Skrip count Disqus dimuat ulang.");
+    } else if (window.DISQUSWIDGETS) {
+      // Jika sudah ada, panggil metode reset count
+      window.DISQUSWIDGETS.getCount({ reset: true });
+      console.log("Reset count Disqus dipanggil.");
+    }
+  }
+
+  // Load Disqus secara lazy jika elemen #disqus_thread ada di halaman
   if (document.getElementById("disqus_thread")) {
     if ("IntersectionObserver" in window) {
       const observer = new IntersectionObserver(
@@ -207,6 +226,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // Pastikan Disqus juga ter-load saat window load
   window.addEventListener("load", () => {
     if (!document.querySelector("#disqus_thread iframe")) {
       loadDisqus();
