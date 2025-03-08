@@ -60,7 +60,8 @@ function renderRelatedArticles(metadata) {
       const sortedArticles = relatedArticles.sort(
         (a, b) => b.relevanceScore - a.relevanceScore
       );
-      const limitedArticles = sortedArticles.slice(0, 5);
+      // Batasi artikel terkait maksimal 3
+      const limitedArticles = sortedArticles.slice(0, 3);
 
       const postList = document.getElementById("post-list");
       postList.innerHTML = "";
