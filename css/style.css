@@ -89,6 +89,96 @@ body {
   }
 }
 
+/* Header Section */
+.header-section {
+  background: linear-gradient(135deg, #00C853, #00BFA5); /* Sama dengan navbar */
+  padding: 140px 0;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+.header-section::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.2); /* Overlay tipis untuk meningkatkan kontras */
+  z-index: 1;
+}
+
+.header-content {
+  position: relative;
+  z-index: 2;
+}
+
+.header-content h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  animation: fadeInDown 1s ease-out;
+}
+
+.header-content p {
+  font-size: 1.25rem;
+  margin-bottom: 30px;
+  animation: fadeIn 1.5s ease-out;
+}
+
+/* Tombol Header yang baru */
+.header-content .btn {
+  padding: 12px 30px;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 25px;
+  background-color: #fff;
+  color: #333;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.header-content .btn:hover {
+  background-color: #f0f0f0;
+  transform: translateY(-3px);
+}
+
+/* Animasi */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Responsif */
+@media (max-width: 768px) {
+  .header-content h1 {
+    font-size: 2rem;
+  }
+  .header-content p {
+    font-size: 1rem;
+  }
+  .header-section {
+    padding: 100px 0;
+  }
+}
+
 /* Wrapper konten utama */
 .main-content-section {
     flex: 1; /* Mengisi sisa ruang antara navbar dan footer */
