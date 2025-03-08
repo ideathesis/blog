@@ -77,44 +77,14 @@ document.addEventListener("DOMContentLoaded", () => {
     return new Date(`${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`);
   };
 
-  // Ambil data dari manifest.json dan render 3 artikel terpopuler
-  fetch(manifestUrl, { mode: "cors" })
-    .then(response => {
-      if (!response.ok) throw new Error("Gagal memuat manifest: " + response.status);
-      return response.json();
-    })
-    .then(data => {
-      console.log("Data manifest:", data);
-      articles = data
-        .map(article => ({
-          ...article,
-          dateObject: parseCustomDate(article.date)
-        }))
-        // Misalnya, gunakan urutan data dari manifest sebagai artikel terpopuler
-        .slice(0, 3);
-      console.log("Artikel terpopuler:", articles);
-      renderArticles(articles);
-      // Setelah render, muat skrip count Disqus jika belum ada
-      loadDisqusCountScript();
-    })
-    .catch(error => {
-      console.error("Error:", error);
-      popularArticlesList.innerHTML = `
-        <div class="col-12 text-center py-5">
-          <p class="text-danger">Gagal memuat data artikel. Silakan coba kembali nanti.</p>
-          <button onclick="location.reload()">Muat Ulang</button>
-        </div>
-      `;
-    });
-
-  // Fungsi untuk merender artikel tanpa gambar
-  const renderArticles = (articlesToShow) => {
+  // Render artikel berdasarkan array artikel yang diberikan (hanya 3 artikel)
+  const renderArticles = (articlesToRender) => {
     popularArticlesList.innerHTML = "";
-    if (articlesToShow.length === 0) {
+    if (articlesToRender.length === 0) {
       popularArticlesList.innerHTML = `<div class="col-12 text-center py-5">Tidak ada artikel untuk ditampilkan.</div>`;
       return;
     }
-    articlesToShow.forEach(article => {
+    articlesToRender.forEach(article => {
       const col = document.createElement("div");
       col.className = "col-md-4";
 
@@ -136,9 +106,11 @@ document.addEventListener("DOMContentLoaded", () => {
       title.textContent = article.title || "Judul Tidak Tersedia";
 
       // Meta data: penulis, tanggal, dan jumlah komentar
+      // Jika article.commentCount sudah ada, tampilkan nilainya; jika belum, gunakan elemen count Disqus
+      const commentDisplay = typeof article.commentCount === "number" ? article.commentCount : `<span class="disqus-comment-count" data-disqus-identifier="${postLink}"></span>`;
       const meta = document.createElement("div");
       meta.className = "popular-post-card-meta";
-      meta.innerHTML = `<strong>Penulis:</strong> ${article.author || "Tidak Diketahui"} | <strong>Tanggal:</strong> ${article.date || "-"} | <strong>Komentar:</strong> <span class="disqus-comment-count" data-disqus-identifier="${postLink}"></span>`;
+      meta.innerHTML = `<strong>Penulis:</strong> ${article.author || "Tidak Diketahui"} | <strong>Tanggal:</strong> ${article.date || "-"} | <strong>Komentar:</strong> ${commentDisplay}`;
 
       contentDiv.appendChild(title);
       contentDiv.appendChild(meta);
@@ -148,7 +120,76 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
-  /* --- Konfigurasi dan load Disqus (opsional) --- */
+  // Fungsi untuk memuat skrip count Disqus
+  function loadDisqusCountScript() {
+    if (!document.getElementById("dsq-count-scr")) {
+      const dsqCountScript = document.createElement("script");
+      dsqCountScript.id = "dsq-count-scr";
+      dsqCountScript.src = "https://ideathesis.disqus.com/count.js";
+      dsqCountScript.async = true;
+      dsqCountScript.defer = true;
+      document.body.appendChild(dsqCountScript);
+      console.log("Skrip count Disqus dimuat.");
+    } else if (window.DISQUSWIDGETS) {
+      window.DISQUSWIDGETS.getCount({ reset: true });
+      console.log("Reset count Disqus dipanggil.");
+    }
+  }
+
+  // Fungsi untuk memuat data artikel dan render awal
+  function loadArticles() {
+    fetch(manifestUrl, { mode: "cors" })
+      .then(response => {
+        if (!response.ok) throw new Error("Gagal memuat manifest: " + response.status);
+        return response.json();
+      })
+      .then(data => {
+        console.log("Data manifest:", data);
+        // Mapping data dan menambahkan properti tanggal (dateObject)
+        articles = data.map(article => ({
+          ...article,
+          dateObject: parseCustomDate(article.date)
+        }));
+        // Render awal (sementara) dengan 3 artikel sesuai urutan di manifest
+        renderArticles(articles.slice(0, 3));
+        // Muat skrip count Disqus untuk memperbarui nilai
+        loadDisqusCountScript();
+        // Setelah beberapa detik, ambil jumlah komentar, sortir artikel, dan render 3 teratas
+        setTimeout(sortArticlesByCommentCount, 4000);
+      })
+      .catch(error => {
+        console.error("Error:", error);
+        popularArticlesList.innerHTML = `
+          <div class="col-12 text-center py-5">
+            <p class="text-danger">Gagal memuat data artikel. Silakan coba kembali nanti.</p>
+            <button onclick="location.reload()">Muat Ulang</button>
+          </div>
+        `;
+      });
+  }
+
+  // Fungsi untuk mengambil nilai komentar dari DOM, memperbarui array articles, dan mengurutkan ulang
+  function sortArticlesByCommentCount() {
+    // Untuk setiap artikel, cari elemen dengan data-disqus-identifier yang sesuai
+    articles.forEach(article => {
+      const postLink = `/post/${article.file || ""}`;
+      const span = document.querySelector(`.disqus-comment-count[data-disqus-identifier="${postLink}"]`);
+      if (span) {
+        // Ambil nilai dari teks; jika tidak bisa parse, gunakan 0
+        const count = parseInt(span.textContent.trim()) || 0;
+        article.commentCount = count;
+      } else {
+        article.commentCount = 0;
+      }
+    });
+    console.log("Artikel dengan comment count:", articles);
+    // Sort artikel berdasarkan commentCount secara menurun
+    articles.sort((a, b) => (b.commentCount || 0) - (a.commentCount || 0));
+    // Render ulang hanya 3 artikel teratas
+    renderArticles(articles.slice(0, 3));
+  }
+
+  /* --- Konfigurasi dan load Disqus untuk halaman postingan (jika ada) --- */
   // Preconnect ke Disqus
   const preconnect = document.createElement("link");
   preconnect.rel = "preconnect";
@@ -165,8 +206,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   function loadDisqus() {
-    if (window.DISQUS || document.querySelector('script[src*="disqus.com/embed.js"]'))
-      return;
+    if (window.DISQUS || document.querySelector('script[src*="disqus.com/embed.js"]')) return;
     const d = document, s = d.createElement("script");
     s.src = "https://ideathesis.disqus.com/embed.js";
     s.async = true;
@@ -175,25 +215,7 @@ document.addEventListener("DOMContentLoaded", () => {
     (d.head || d.body).appendChild(s);
   }
 
-  // Fungsi untuk memuat skrip count Disqus setelah artikel dirender
-  function loadDisqusCountScript() {
-    // Cek apakah skrip count sudah ada
-    if (!document.getElementById("dsq-count-scr")) {
-      const dsqCountScript = document.createElement("script");
-      dsqCountScript.id = "dsq-count-scr";
-      dsqCountScript.src = "https://ideathesis.disqus.com/count.js";
-      dsqCountScript.async = true;
-      dsqCountScript.defer = true;
-      document.body.appendChild(dsqCountScript);
-      console.log("Skrip count Disqus dimuat ulang.");
-    } else if (window.DISQUSWIDGETS) {
-      // Jika sudah ada, panggil metode reset count
-      window.DISQUSWIDGETS.getCount({ reset: true });
-      console.log("Reset count Disqus dipanggil.");
-    }
-  }
-
-  // Load Disqus secara lazy jika elemen #disqus_thread ada di halaman
+  // Lazy load Disqus jika elemen #disqus_thread ada di halaman
   if (document.getElementById("disqus_thread")) {
     if ("IntersectionObserver" in window) {
       const observer = new IntersectionObserver(
@@ -232,4 +254,7 @@ document.addEventListener("DOMContentLoaded", () => {
       loadDisqus();
     }
   });
+
+  // Mulai proses load artikel
+  loadArticles();
 });
