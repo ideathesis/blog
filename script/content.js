@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
       justify-content: space-between;
       align-items: center;
     }
-    /* Button Read More dengan style disesuaikan agar selaras dengan navbar */
+    /* Button Read More */
     .post-card .read-more-button {
       text-decoration: none;
       color: #fff;
@@ -73,11 +73,12 @@ document.addEventListener("DOMContentLoaded", () => {
     .pagination-controls {
       display: flex;
       justify-content: center;
-      gap: 10px;
+      gap: 5px;
       margin-top: 20px;
+      flex-wrap: wrap;
     }
     .pagination-controls button {
-      padding: 12px 30px;
+      padding: 12px 20px;
       font-size: 1em;
       background: linear-gradient(45deg, #00C853, #00BFA5);
       color: #fff;
@@ -86,16 +87,20 @@ document.addEventListener("DOMContentLoaded", () => {
       cursor: pointer;
       transition: background 0.3s ease, box-shadow 0.3s ease;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      min-width: 45px;
     }
     .pagination-controls button:hover:not(:disabled) {
       background: linear-gradient(45deg, #00BFA5, #00C853);
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
     }
-    /* Style untuk tombol disabled dengan background yang berbeda,
-       tanpa mengubah warna teks */
     .pagination-controls button:disabled {
-      background: linear-gradient(45deg, #E0E0E0, #BDBDBD);
-      cursor: not-allowed;
+      background: #757575;
+      cursor: default;
+      opacity: 0.8;
+    }
+    /* Styling khusus untuk ikon navigasi grup */
+    .pagination-controls .nav-button {
+      font-size: 1.2em;
     }
   `;
   document.head.appendChild(styleEl);
@@ -195,45 +200,66 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
-  // Fungsi untuk membuat kontrol paginasi
+  // Fungsi untuk membuat kontrol paginasi dengan maksimal 10 nomor halaman per grup
   const createPaginationControls = () => {
     paginationControls = document.createElement("div");
     paginationControls.className = "pagination-controls";
-    
-    const prevButton = document.createElement("button");
-    prevButton.textContent = "Sebelumnya";
-    prevButton.disabled = currentPage === 0;
-    prevButton.onclick = () => {
-      if (currentPage > 0) {
-        currentPage--;
-        renderArticles(currentPage);
-        updatePaginationButtons();
-      }
-    };
-
-    const nextButton = document.createElement("button");
-    nextButton.textContent = "Selanjutnya";
-    nextButton.disabled = currentPage >= totalPages - 1;
-    nextButton.onclick = () => {
-      if (currentPage < totalPages - 1) {
-        currentPage++;
-        renderArticles(currentPage);
-        updatePaginationButtons();
-      }
-    };
-
-    paginationControls.appendChild(prevButton);
-    paginationControls.appendChild(nextButton);
-    // Sisipkan kontrol paginasi setelah container artikel
     postList.parentNode.appendChild(paginationControls);
+    renderPaginationControls();
   };
 
-  // Fungsi untuk memperbarui status tombol paginasi
-  const updatePaginationButtons = () => {
-    if (paginationControls) {
-      const [prevButton, nextButton] = paginationControls.children;
-      prevButton.disabled = currentPage === 0;
-      nextButton.disabled = currentPage >= totalPages - 1;
+  // Fungsi untuk merender ulang kontrol paginasi sesuai grup halaman saat ini
+  const renderPaginationControls = () => {
+    // Hapus seluruh isi kontrol paginasi
+    paginationControls.innerHTML = "";
+
+    const pagesPerGroup = 10;
+    // Tentukan grup halaman berdasarkan currentPage
+    const currentGroup = Math.floor(currentPage / pagesPerGroup);
+    const startPage = currentGroup * pagesPerGroup;
+    const endPage = Math.min(startPage + pagesPerGroup, totalPages);
+
+    // Jika ada grup sebelumnya, tampilkan tombol "Sebelumnya" untuk navigasi grup
+    if (startPage > 0) {
+      const prevGroupButton = document.createElement("button");
+      prevGroupButton.className = "nav-button";
+      prevGroupButton.innerHTML = "&laquo;"; // ikon <<
+      prevGroupButton.addEventListener("click", () => {
+        // Pindah ke halaman terakhir grup sebelumnya
+        currentPage = startPage - 1;
+        renderArticles(currentPage);
+        renderPaginationControls();
+      });
+      paginationControls.appendChild(prevGroupButton);
+    }
+
+    // Tampilkan nomor halaman untuk grup saat ini
+    for (let i = startPage; i < endPage; i++) {
+      const pageButton = document.createElement("button");
+      pageButton.textContent = (i + 1).toString();
+      if (i === currentPage) {
+        pageButton.disabled = true;
+      }
+      pageButton.addEventListener("click", () => {
+        currentPage = i;
+        renderArticles(currentPage);
+        renderPaginationControls();
+      });
+      paginationControls.appendChild(pageButton);
+    }
+
+    // Jika masih ada grup berikutnya, tampilkan tombol "Selanjutnya" untuk navigasi grup
+    if (endPage < totalPages) {
+      const nextGroupButton = document.createElement("button");
+      nextGroupButton.className = "nav-button";
+      nextGroupButton.innerHTML = "&raquo;"; // ikon >>
+      nextGroupButton.addEventListener("click", () => {
+        // Pindah ke halaman pertama grup berikutnya
+        currentPage = endPage;
+        renderArticles(currentPage);
+        renderPaginationControls();
+      });
+      paginationControls.appendChild(nextGroupButton);
     }
   };
 });
