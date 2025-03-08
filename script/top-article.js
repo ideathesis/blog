@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Sisipkan style khusus untuk card artikel terpopuler
+  // Sisipkan style khusus untuk card artikel populer
   const styleEl = document.createElement("style");
   styleEl.textContent = `
     .popular-post-card {
@@ -61,22 +61,23 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  // URL manifest data artikel
+  // URL manifest data artikel (pastikan URL dan format JSON sesuai)
   const manifestUrl = "https://raw.githubusercontent.com/ideathesis/blog/main/post/manifest.json";
   let articles = [];
 
+  // Fungsi konversi tanggal dari format DD-MM-YYYY ke Date object
   const parseCustomDate = (dateString) => {
     const [day, month, year] = dateString.split("-");
     return new Date(`${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`);
   };
 
-  // Fungsi untuk menghasilkan identifier unik (misalnya hanya file name)
+  // Fungsi menghasilkan identifier unik dari artikel, menggunakan properti file
   const getIdentifier = (article) => {
     return article.file ? article.file.trim() : "";
   };
 
-  // Fungsi untuk me-render artikel (maksimal 3 artikel)
-  // Informasi komentar tidak ditampilkan, namun span count dimuat secara tersembunyi untuk sorting
+  // Render artikel (maksimal 3 artikel)
+  // Info jumlah komentar tidak ditampilkan, tetapi elemen span count dimuat secara tersembunyi
   const renderArticles = (articlesToRender) => {
     popularArticlesList.innerHTML = "";
     if (articlesToRender.length === 0) {
@@ -86,11 +87,9 @@ document.addEventListener("DOMContentLoaded", () => {
     articlesToRender.forEach(article => {
       const col = document.createElement("div");
       col.className = "col-md-4";
-
       const identifier = getIdentifier(article);
-      const postLink = `/post/${identifier}`;
-
-      // Seluruh card dapat diklik
+      // Link ke postingan menggunakan parameter file agar sesuai struktur URL
+      const postLink = `/post/?file=${identifier}`;
       const link = document.createElement("a");
       link.href = postLink;
       link.className = "popular-post-card";
@@ -102,8 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
       title.className = "popular-post-card-title";
       title.textContent = article.title || "Judul Tidak Tersedia";
 
-      // Tampilkan meta info tanpa menampilkan jumlah komentar.
-      // Namun, elemen span count disembunyikan agar Disqus dapat mengupdate nilainya untuk sorting.
+      // Meta info tanpa menampilkan count; elemen span count disembunyikan untuk kebutuhan sorting
       const meta = document.createElement("div");
       meta.className = "popular-post-card-meta";
       meta.innerHTML = `<strong>Penulis:</strong> ${article.author || "Tidak Diketahui"} | <strong>Tanggal:</strong> ${article.date || "-"}` +
@@ -117,7 +115,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
-  // Fungsi untuk memuat skrip count Disqus
+  // Fungsi untuk memuat skrip count Disqus (untuk mengambil data interaksi)
   function loadDisqusCountScript() {
     if (!document.getElementById("dsq-count-scr")) {
       const dsqCountScript = document.createElement("script");
@@ -126,7 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
       dsqCountScript.async = true;
       dsqCountScript.defer = true;
       dsqCountScript.onload = () => {
-        console.log("Skrip count Disqus telah selesai dimuat.");
+        console.log("Skrip count Disqus selesai dimuat.");
       };
       document.body.appendChild(dsqCountScript);
       console.log("Skrip count Disqus dimuat.");
@@ -136,7 +134,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Fungsi untuk memuat artikel dan me-render awal
+  // Fungsi untuk memuat artikel dari manifest dan render awal
   function loadArticles() {
     fetch(manifestUrl, { mode: "cors" })
       .then(response => {
@@ -149,10 +147,10 @@ document.addEventListener("DOMContentLoaded", () => {
           ...article,
           dateObject: parseCustomDate(article.date)
         }));
-        // Render awal 3 artikel sesuai urutan di manifest
+        // Render awal 3 artikel dari urutan manifest
         renderArticles(articles.slice(0, 3));
         loadDisqusCountScript();
-        // Beri waktu (misalnya 7 detik) agar Disqus sempat memperbarui count untuk sorting
+        // Delay selama 7 detik agar Disqus sempat memperbarui count untuk sorting
         setTimeout(sortArticlesByCommentCount, 7000);
       })
       .catch(error => {
@@ -166,7 +164,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   }
 
-  // Fungsi untuk mengambil nilai komentar dari elemen tersembunyi, memperbarui array, dan mengurutkan ulang
+  // Fungsi mengambil nilai komentar dari elemen tersembunyi, kemudian mengurutkan artikel
   function sortArticlesByCommentCount() {
     articles.forEach(article => {
       const identifier = getIdentifier(article);
@@ -184,9 +182,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Konfigurasi Disqus untuk halaman postingan
+  // Pastikan di halaman postingan, identifier diambil dari parameter file
   var disqus_config = function () {
     const params = new URLSearchParams(window.location.search);
-    // Misalnya, gunakan parameter file atau ambil dari URL
     const identifier = params.get("file") || window.location.pathname.split("/").pop();
     this.page.url = window.location.href;
     this.page.identifier = identifier.trim();
@@ -202,7 +200,7 @@ document.addEventListener("DOMContentLoaded", () => {
     (d.head || d.body).appendChild(s);
   }
 
-  // Lazy load Disqus jika elemen #disqus_thread ada
+  // Lazy load Disqus jika elemen #disqus_thread ada (untuk halaman postingan)
   if (document.getElementById("disqus_thread")) {
     if ("IntersectionObserver" in window) {
       const observer = new IntersectionObserver(
@@ -212,26 +210,16 @@ document.addEventListener("DOMContentLoaded", () => {
             observer.disconnect();
           }
         },
-        {
-          rootMargin: "200px",
-          threshold: 0.01,
-        }
+        { rootMargin: "200px", threshold: 0.01 }
       );
       observer.observe(document.getElementById("disqus_thread"));
     } else {
       setTimeout(loadDisqus, 2000);
-      window.addEventListener(
-        "scroll",
-        () => {
-          if (
-            window.scrollY + window.innerHeight >
-            document.getElementById("disqus_thread").offsetTop
-          ) {
-            loadDisqus();
-          }
-        },
-        { once: true }
-      );
+      window.addEventListener("scroll", () => {
+        if (window.scrollY + window.innerHeight > document.getElementById("disqus_thread").offsetTop) {
+          loadDisqus();
+        }
+      }, { once: true });
     }
   }
 
