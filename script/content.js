@@ -34,10 +34,17 @@ document.addEventListener("DOMContentLoaded", () => {
       line-height: 1.4;
       color: #333;
     }
-    .post-card .card-text {
+    /* Gabungkan penulis dan tanggal dalam 1 baris */
+    .post-card .meta-info {
       font-size: 0.9rem;
       color: #666;
       margin-bottom: 15px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .post-card .meta-info span {
+      display: inline-block;
     }
     .post-card .card-footer {
       background: none;
@@ -77,9 +84,10 @@ document.addEventListener("DOMContentLoaded", () => {
       margin-top: 20px;
       flex-wrap: wrap;
     }
+    /* Ukuran tombol nomor halaman lebih kecil */
     .pagination-controls button {
-      padding: 12px 20px;
-      font-size: 1em;
+      padding: 8px 15px;
+      font-size: 0.85em;
       background: linear-gradient(45deg, #00C853, #00BFA5);
       color: #fff;
       border: none;
@@ -87,7 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
       cursor: pointer;
       transition: background 0.3s ease, box-shadow 0.3s ease;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      min-width: 45px;
+      min-width: 40px;
     }
     .pagination-controls button:hover:not(:disabled) {
       background: linear-gradient(45deg, #00BFA5, #00C853);
@@ -172,26 +180,26 @@ document.addEventListener("DOMContentLoaded", () => {
       title.className = "card-title";
       title.textContent = article.title;
 
-      const author = document.createElement("p");
-      author.className = "card-text";
-      author.innerHTML = `<strong>Penulis:</strong> ${article.author}`;
-
-      const date = document.createElement("p");
-      date.className = "card-text";
-      date.innerHTML = `<strong>Tanggal:</strong> ${article.date}`;
+      // Gabungkan informasi penulis dan tanggal ke dalam 1 baris
+      const metaInfo = document.createElement("div");
+      metaInfo.className = "meta-info";
+      const authorSpan = document.createElement("span");
+      authorSpan.innerHTML = `<strong>Penulis:</strong> ${article.author}`;
+      const dateSpan = document.createElement("span");
+      dateSpan.innerHTML = `<strong>Tanggal:</strong> ${article.date}`;
+      metaInfo.appendChild(authorSpan);
+      metaInfo.appendChild(dateSpan);
 
       const footer = document.createElement("div");
       footer.className = "card-footer";
       const readMore = document.createElement("a");
-      // Tautan diarahkan ke index.html dengan query string dari properti file
       readMore.href = `/post/${article.file}`;
       readMore.className = "read-more-button";
       readMore.textContent = "Baca Selengkapnya";
 
       footer.appendChild(readMore);
       body.appendChild(title);
-      body.appendChild(author);
-      body.appendChild(date);
+      body.appendChild(metaInfo);
       card.appendChild(img);
       card.appendChild(body);
       card.appendChild(footer);
@@ -200,7 +208,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
-  // Fungsi untuk membuat kontrol paginasi dengan maksimal 10 nomor halaman per grup
+  // Fungsi untuk membuat kontrol paginasi dengan maksimal 5 nomor halaman per grup
   const createPaginationControls = () => {
     paginationControls = document.createElement("div");
     paginationControls.className = "pagination-controls";
@@ -213,7 +221,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Hapus seluruh isi kontrol paginasi
     paginationControls.innerHTML = "";
 
-    const pagesPerGroup = 10;
+    const pagesPerGroup = 5;
     // Tentukan grup halaman berdasarkan currentPage
     const currentGroup = Math.floor(currentPage / pagesPerGroup);
     const startPage = currentGroup * pagesPerGroup;
@@ -223,9 +231,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (startPage > 0) {
       const prevGroupButton = document.createElement("button");
       prevGroupButton.className = "nav-button";
-      prevGroupButton.innerHTML = "&laquo;"; // ikon <<
+      prevGroupButton.innerHTML = "&laquo;";
       prevGroupButton.addEventListener("click", () => {
-        // Pindah ke halaman terakhir grup sebelumnya
         currentPage = startPage - 1;
         renderArticles(currentPage);
         renderPaginationControls();
@@ -252,9 +259,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (endPage < totalPages) {
       const nextGroupButton = document.createElement("button");
       nextGroupButton.className = "nav-button";
-      nextGroupButton.innerHTML = "&raquo;"; // ikon >>
+      nextGroupButton.innerHTML = "&raquo;";
       nextGroupButton.addEventListener("click", () => {
-        // Pindah ke halaman pertama grup berikutnya
         currentPage = endPage;
         renderArticles(currentPage);
         renderPaginationControls();
