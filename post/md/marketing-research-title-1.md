@@ -6,14 +6,6 @@ image: "/post/images/marketing-research-title-1.png"
 thumbnail: "/post/images/marketing-research-title-1.png"
 ---
 
-<div align="center">
-  <h1 style="color: #2E86C1; font-family: 'Arial', sans-serif;">✨ 20 Judul Skripsi Manajemen Pemasaran Terupdate ✨</h1>
-  <h3 style="color: #5D6D7E; font-family: 'Georgia', serif;">Asosiatif & Deskriptif | Relevan, Modern, dan Inspiratif 🚀</h3>
-  <img src="/post/images/marketing-research.png" alt="Marketing Research" width="600" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);" />
-</div>
-
----
-
 ## 📌 **Judul Skripsi Asosiatif**  
 *(Menguji hubungan atau pengaruh antar variabel)*  
 
