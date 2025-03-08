@@ -54,12 +54,14 @@ document.addEventListener("DOMContentLoaded", () => {
   `;
   document.head.appendChild(styleEl);
 
+  // Elemen target untuk menampilkan artikel populer
   const popularArticlesList = document.getElementById("popular-articles-list");
   if (!popularArticlesList) {
     console.error("Elemen dengan ID 'popular-articles-list' tidak ditemukan.");
     return;
   }
 
+  // URL manifest data artikel
   const manifestUrl = "https://raw.githubusercontent.com/ideathesis/blog/main/post/manifest.json";
   let articles = [];
 
@@ -68,11 +70,13 @@ document.addEventListener("DOMContentLoaded", () => {
     return new Date(`${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`);
   };
 
-  // Pastikan identifier adalah nilai unik misalnya hanya file name
+  // Fungsi untuk menghasilkan identifier unik (misalnya hanya file name)
   const getIdentifier = (article) => {
     return article.file ? article.file.trim() : "";
   };
 
+  // Fungsi untuk me-render artikel (maksimal 3 artikel)
+  // Informasi komentar tidak ditampilkan, namun span count dimuat secara tersembunyi untuk sorting
   const renderArticles = (articlesToRender) => {
     popularArticlesList.innerHTML = "";
     if (articlesToRender.length === 0) {
@@ -82,8 +86,11 @@ document.addEventListener("DOMContentLoaded", () => {
     articlesToRender.forEach(article => {
       const col = document.createElement("div");
       col.className = "col-md-4";
+
       const identifier = getIdentifier(article);
       const postLink = `/post/${identifier}`;
+
+      // Seluruh card dapat diklik
       const link = document.createElement("a");
       link.href = postLink;
       link.className = "popular-post-card";
@@ -95,13 +102,12 @@ document.addEventListener("DOMContentLoaded", () => {
       title.className = "popular-post-card-title";
       title.textContent = article.title || "Judul Tidak Tersedia";
 
-      // Gunakan identifier yang konsisten untuk count
-      const commentDisplay = typeof article.commentCount === "number"
-        ? article.commentCount
-        : `<span class="disqus-comment-count" data-disqus-identifier="${identifier}"></span>`;
+      // Tampilkan meta info tanpa menampilkan jumlah komentar.
+      // Namun, elemen span count disembunyikan agar Disqus dapat mengupdate nilainya untuk sorting.
       const meta = document.createElement("div");
       meta.className = "popular-post-card-meta";
-      meta.innerHTML = `<strong>Penulis:</strong> ${article.author || "Tidak Diketahui"} | <strong>Tanggal:</strong> ${article.date || "-"} | <strong>Komentar:</strong> ${commentDisplay}`;
+      meta.innerHTML = `<strong>Penulis:</strong> ${article.author || "Tidak Diketahui"} | <strong>Tanggal:</strong> ${article.date || "-"}` +
+                       `<span class="disqus-comment-count" data-disqus-identifier="${identifier}" style="display:none;"></span>`;
 
       contentDiv.appendChild(title);
       contentDiv.appendChild(meta);
@@ -111,6 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
+  // Fungsi untuk memuat skrip count Disqus
   function loadDisqusCountScript() {
     if (!document.getElementById("dsq-count-scr")) {
       const dsqCountScript = document.createElement("script");
@@ -129,6 +136,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // Fungsi untuk memuat artikel dan me-render awal
   function loadArticles() {
     fetch(manifestUrl, { mode: "cors" })
       .then(response => {
@@ -141,10 +149,10 @@ document.addEventListener("DOMContentLoaded", () => {
           ...article,
           dateObject: parseCustomDate(article.date)
         }));
-        // Render awal 3 artikel dari manifest
+        // Render awal 3 artikel sesuai urutan di manifest
         renderArticles(articles.slice(0, 3));
         loadDisqusCountScript();
-        // Tambah delay, misalnya 7 detik, agar Disqus sempat mengupdate count
+        // Beri waktu (misalnya 7 detik) agar Disqus sempat memperbarui count untuk sorting
         setTimeout(sortArticlesByCommentCount, 7000);
       })
       .catch(error => {
@@ -158,6 +166,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   }
 
+  // Fungsi untuk mengambil nilai komentar dari elemen tersembunyi, memperbarui array, dan mengurutkan ulang
   function sortArticlesByCommentCount() {
     articles.forEach(article => {
       const identifier = getIdentifier(article);
@@ -174,10 +183,10 @@ document.addEventListener("DOMContentLoaded", () => {
     renderArticles(articles.slice(0, 3));
   }
 
-  // Konfigurasi Disqus untuk halaman postingan agar identifier sama
+  // Konfigurasi Disqus untuk halaman postingan
   var disqus_config = function () {
-    // Misalnya, kita pakai parameter file atau ambil nama file dari URL
     const params = new URLSearchParams(window.location.search);
+    // Misalnya, gunakan parameter file atau ambil dari URL
     const identifier = params.get("file") || window.location.pathname.split("/").pop();
     this.page.url = window.location.href;
     this.page.identifier = identifier.trim();
