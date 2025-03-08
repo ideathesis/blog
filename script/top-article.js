@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // Sisipkan style khusus untuk card artikel terpopuler
   const styleEl = document.createElement("style");
   styleEl.textContent = `
-    /* Card dengan tinggi minimum 150px */
     .popular-post-card {
       display: flex;
       flex-direction: column;
@@ -16,7 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
       border: 1px solid #E0E0E0;
       width: 100%;
       box-sizing: border-box;
-      position: relative;
       margin-bottom: 15px;
       min-height: 150px;
       overflow: hidden;
@@ -27,15 +25,13 @@ document.addEventListener("DOMContentLoaded", () => {
       background: linear-gradient(135deg, #00C853, #00BFA5);
       border-color: transparent;
     }
-    /* Container isi card */
-    .popular-post-card .card-content {
+    .card-content {
       flex-grow: 1;
       display: flex;
       flex-direction: column;
       justify-content: center;
     }
-    /* Judul artikel dengan ukuran font yang disesuaikan */
-    .popular-post-card .popular-post-card-title {
+    .popular-post-card-title {
       font-size: clamp(18px, 2vw, 20px);
       font-weight: 600;
       line-height: 1.3;
@@ -43,15 +39,13 @@ document.addEventListener("DOMContentLoaded", () => {
       color: #333;
       word-wrap: break-word;
     }
-    /* Meta data dengan ukuran font lebih kecil agar muat 1 baris */
-    .popular-post-card .popular-post-card-meta {
+    .popular-post-card-meta {
       font-size: clamp(12px, 1.2vw, 14px);
       color: #777;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
-    /* Saat hover, ubah warna teks agar lebih kontras */
     .popular-post-card:hover .popular-post-card-title,
     .popular-post-card:hover .popular-post-card-meta {
       color: #FFFFFF;
@@ -60,30 +54,25 @@ document.addEventListener("DOMContentLoaded", () => {
   `;
   document.head.appendChild(styleEl);
 
-  // Pastikan elemen target ada
   const popularArticlesList = document.getElementById("popular-articles-list");
   if (!popularArticlesList) {
     console.error("Elemen dengan ID 'popular-articles-list' tidak ditemukan.");
     return;
   }
 
-  // URL manifest; pastikan URL ini benar dan data JSON sesuai
   const manifestUrl = "https://raw.githubusercontent.com/ideathesis/blog/main/post/manifest.json";
   let articles = [];
 
-  // Fungsi konversi tanggal dari format DD-MM-YYYY ke Date object
   const parseCustomDate = (dateString) => {
     const [day, month, year] = dateString.split("-");
     return new Date(`${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`);
   };
 
-  // Fungsi untuk menghasilkan identifier konsisten berdasarkan properti artikel,
-  // misalnya menggunakan nilai article.file (pastikan nilainya unik)
+  // Pastikan identifier adalah nilai unik misalnya hanya file name
   const getIdentifier = (article) => {
-    return article.file || "";
+    return article.file ? article.file.trim() : "";
   };
 
-  // Render artikel berdasarkan array artikel yang diberikan (maksimal 3 artikel)
   const renderArticles = (articlesToRender) => {
     popularArticlesList.innerHTML = "";
     if (articlesToRender.length === 0) {
@@ -93,27 +82,20 @@ document.addEventListener("DOMContentLoaded", () => {
     articlesToRender.forEach(article => {
       const col = document.createElement("div");
       col.className = "col-md-4";
-
-      // Buat URL postingan; tetap gunakan /post/ untuk link, namun identifier hanya nilainya
       const identifier = getIdentifier(article);
       const postLink = `/post/${identifier}`;
-
-      // Elemen <a> agar seluruh card clickable
       const link = document.createElement("a");
       link.href = postLink;
       link.className = "popular-post-card";
 
-      // Container isi card
       const contentDiv = document.createElement("div");
       contentDiv.className = "card-content";
 
-      // Judul artikel
       const title = document.createElement("div");
       title.className = "popular-post-card-title";
       title.textContent = article.title || "Judul Tidak Tersedia";
 
-      // Meta data: penulis, tanggal, dan jumlah komentar
-      // Jika article.commentCount sudah ada, tampilkan nilainya; jika belum, gunakan elemen count Disqus
+      // Gunakan identifier yang konsisten untuk count
       const commentDisplay = typeof article.commentCount === "number"
         ? article.commentCount
         : `<span class="disqus-comment-count" data-disqus-identifier="${identifier}"></span>`;
@@ -129,9 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
-  // Fungsi untuk memuat skrip count Disqus
   function loadDisqusCountScript() {
-    // Jika belum dimuat, tambahkan skrip count Disqus ke body
     if (!document.getElementById("dsq-count-scr")) {
       const dsqCountScript = document.createElement("script");
       dsqCountScript.id = "dsq-count-scr";
@@ -144,13 +124,11 @@ document.addEventListener("DOMContentLoaded", () => {
       document.body.appendChild(dsqCountScript);
       console.log("Skrip count Disqus dimuat.");
     } else if (window.DISQUSWIDGETS) {
-      // Jika sudah ada, reset count-nya
       window.DISQUSWIDGETS.getCount({ reset: true });
       console.log("Reset count Disqus dipanggil.");
     }
   }
 
-  // Fungsi untuk memuat data artikel dan render awal
   function loadArticles() {
     fetch(manifestUrl, { mode: "cors" })
       .then(response => {
@@ -159,17 +137,15 @@ document.addEventListener("DOMContentLoaded", () => {
       })
       .then(data => {
         console.log("Data manifest:", data);
-        // Mapping data dan menambahkan properti tanggal (dateObject)
         articles = data.map(article => ({
           ...article,
           dateObject: parseCustomDate(article.date)
         }));
-        // Render awal 3 artikel sesuai urutan di manifest
+        // Render awal 3 artikel dari manifest
         renderArticles(articles.slice(0, 3));
-        // Muat skrip count Disqus untuk memperbarui nilai
         loadDisqusCountScript();
-        // Setelah 5 detik, ambil jumlah komentar, sortir artikel, dan render ulang 3 teratas
-        setTimeout(sortArticlesByCommentCount, 5000);
+        // Tambah delay, misalnya 7 detik, agar Disqus sempat mengupdate count
+        setTimeout(sortArticlesByCommentCount, 7000);
       })
       .catch(error => {
         console.error("Error:", error);
@@ -182,14 +158,11 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   }
 
-  // Fungsi untuk mengambil nilai komentar dari DOM, memperbarui array articles, dan mengurutkan ulang
   function sortArticlesByCommentCount() {
-    // Untuk setiap artikel, cari elemen dengan data-disqus-identifier yang sesuai
     articles.forEach(article => {
       const identifier = getIdentifier(article);
       const span = document.querySelector(`.disqus-comment-count[data-disqus-identifier="${identifier}"]`);
       if (span) {
-        // Ambil nilai dari teks; jika tidak bisa parse, gunakan 0
         const count = parseInt(span.textContent.trim()) || 0;
         article.commentCount = count;
       } else {
@@ -197,26 +170,17 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
     console.log("Artikel dengan comment count:", articles);
-    // Sort artikel berdasarkan commentCount secara menurun
     articles.sort((a, b) => (b.commentCount || 0) - (a.commentCount || 0));
-    // Render ulang hanya 3 artikel teratas
     renderArticles(articles.slice(0, 3));
   }
 
-  /* --- Konfigurasi dan load Disqus untuk halaman postingan (jika ada) --- */
-  // Preconnect ke Disqus
-  const preconnect = document.createElement("link");
-  preconnect.rel = "preconnect";
-  preconnect.href = "https://ideathesis.disqus.com";
-  document.head.appendChild(preconnect);
-
-  // Konfigurasi Disqus untuk halaman postingan
-  // Pastikan halaman postingan menggunakan identifier yang sama (misalnya, hanya file name)
+  // Konfigurasi Disqus untuk halaman postingan agar identifier sama
   var disqus_config = function () {
+    // Misalnya, kita pakai parameter file atau ambil nama file dari URL
     const params = new URLSearchParams(window.location.search);
     const identifier = params.get("file") || window.location.pathname.split("/").pop();
     this.page.url = window.location.href;
-    this.page.identifier = identifier;
+    this.page.identifier = identifier.trim();
   };
 
   function loadDisqus() {
@@ -229,7 +193,7 @@ document.addEventListener("DOMContentLoaded", () => {
     (d.head || d.body).appendChild(s);
   }
 
-  // Lazy load Disqus jika elemen #disqus_thread ada di halaman postingan
+  // Lazy load Disqus jika elemen #disqus_thread ada
   if (document.getElementById("disqus_thread")) {
     if ("IntersectionObserver" in window) {
       const observer = new IntersectionObserver(
@@ -262,13 +226,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Pastikan Disqus juga ter-load saat window load (untuk halaman postingan)
   window.addEventListener("load", () => {
     if (document.getElementById("disqus_thread") && !document.querySelector("#disqus_thread iframe")) {
       loadDisqus();
     }
   });
 
-  // Mulai proses load artikel
   loadArticles();
 });
