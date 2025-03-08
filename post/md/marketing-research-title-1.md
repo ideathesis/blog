@@ -126,7 +126,7 @@ thumbnail: "/post/images/marketing-research-title-1.png"
     <li><strong>Sustainability:</strong> Tuntutan konsumen akan praktik bisnis berkelanjutan.</li>
     <li><strong>Perubahan Perilaku:</strong> Adaptasi pasca-pandemi dan preferensi Gen Z.</li>
   </ul>
-  <p style="color: #5D6D7E;">Penelitian asosiatif membantu mengidentifikasi faktor kunci keberhasilan, sementara penelitian deskriptif memberikan gambaran tren pasar. Kombinasi keduanya mendukung pengambilan keputusan strategis.</p>
+  <p style="color: #5D6D7E;">Penelitian asosiatif membantu mengidentifikasi faktor kunci keberhasilan, sementara penelitian deskriptif memberikan gambaran tren pasar. Kombinasi keduanya mendukung pengambilan keputusan strategis. Daftar judul ini hanya sampel yang dapat Anda kembangkan, jika anda butuh bantuan lebih lanjut Anda bisa menghubungi kami</p>
 </div>
 
 ---
