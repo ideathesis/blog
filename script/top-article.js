@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
       col.className = "col-md-4";
       const identifier = getIdentifier(article);
       // Link ke postingan menggunakan parameter file agar sesuai struktur URL
-      const postLink = `/post/?file=${identifier}`;
+      const postLink = `/post/${identifier}`;
       const link = document.createElement("a");
       link.href = postLink;
       link.className = "popular-post-card";
