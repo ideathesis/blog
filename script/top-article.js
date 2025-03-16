@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Sisipkan style khusus untuk card artikel populer
+  // Sisipkan style khusus untuk card artikel populer dan top artikel
   const styleEl = document.createElement("style");
   styleEl.textContent = `
-    .popular-post-card {
+    .popular-post-card, .top-popular-post-card {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -19,11 +19,15 @@ document.addEventListener("DOMContentLoaded", () => {
       min-height: 150px;
       overflow: hidden;
     }
-    .popular-post-card:hover {
+    .popular-post-card:hover, .top-popular-post-card:hover {
       transform: translateY(-3px);
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       background: linear-gradient(135deg, #00C853, #00BFA5);
       border-color: transparent;
+    }
+    /* Style khusus untuk top artikel agar terlihat berbeda */
+    .top-popular-post-card {
+      border: 2px solid #00C853;
     }
     .card-content {
       flex-grow: 1;
@@ -31,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
       flex-direction: column;
       justify-content: center;
     }
-    .popular-post-card-title {
+    .popular-post-card-title, .top-popular-post-card-title {
       font-size: clamp(18px, 2vw, 20px);
       font-weight: 600;
       line-height: 1.3;
@@ -39,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
       color: #333;
       word-wrap: break-word;
     }
-    .popular-post-card-meta {
+    .popular-post-card-meta, .top-popular-post-card-meta {
       font-size: clamp(12px, 1.2vw, 14px);
       color: #777;
       white-space: nowrap;
@@ -47,18 +51,22 @@ document.addEventListener("DOMContentLoaded", () => {
       text-overflow: ellipsis;
     }
     .popular-post-card:hover .popular-post-card-title,
-    .popular-post-card:hover .popular-post-card-meta {
+    .popular-post-card:hover .popular-post-card-meta,
+    .top-popular-post-card:hover .top-popular-post-card-title,
+    .top-popular-post-card:hover .top-popular-post-card-meta {
       color: #FFFFFF;
       transition: color 0.3s ease;
     }
   `;
   document.head.appendChild(styleEl);
 
-  // Elemen target untuk menampilkan artikel populer
-  const popularArticlesList = document.getElementById("popular-articles-list");
+  // Pastikan elemen target tersedia, jika tidak, buat container baru dan sisipkan ke body
+  let popularArticlesList = document.getElementById("popular-articles-list");
   if (!popularArticlesList) {
-    console.error("Elemen dengan ID 'popular-articles-list' tidak ditemukan.");
-    return;
+    popularArticlesList = document.createElement("div");
+    popularArticlesList.id = "popular-articles-list";
+    popularArticlesList.className = "row";
+    document.body.appendChild(popularArticlesList);
   }
 
   // URL manifest data artikel (pastikan URL dan format JSON sesuai)
@@ -76,19 +84,49 @@ document.addEventListener("DOMContentLoaded", () => {
     return article.file ? article.file.trim() : "";
   };
 
-  // Render artikel (maksimal 3 artikel)
-  // Info jumlah komentar tidak ditampilkan, tetapi elemen span count dimuat secara tersembunyi
+  // Fungsi untuk merender artikel dengan memisahkan top artikel dari artikel lain
   const renderArticles = (articlesToRender) => {
     popularArticlesList.innerHTML = "";
     if (articlesToRender.length === 0) {
       popularArticlesList.innerHTML = `<div class="col-12 text-center py-5">Tidak ada artikel untuk ditampilkan.</div>`;
       return;
     }
-    articlesToRender.forEach(article => {
+
+    // Artikel pertama dianggap top artikel
+    const topArticle = articlesToRender[0];
+    const restArticles = articlesToRender.slice(1);
+
+    // Render top artikel
+    const topCol = document.createElement("div");
+    topCol.className = "col-12 mb-3"; // Full-width untuk top artikel
+    const topIdentifier = getIdentifier(topArticle);
+    const topLink = document.createElement("a");
+    topLink.href = `/post/${topIdentifier}`;
+    topLink.className = "top-popular-post-card";
+
+    const topContent = document.createElement("div");
+    topContent.className = "card-content";
+
+    const topTitle = document.createElement("div");
+    topTitle.className = "top-popular-post-card-title";
+    topTitle.textContent = topArticle.title || "Judul Tidak Tersedia";
+
+    const topMeta = document.createElement("div");
+    topMeta.className = "top-popular-post-card-meta";
+    topMeta.innerHTML = `<strong>Penulis:</strong> ${topArticle.author || "Tidak Diketahui"} | <strong>Tanggal:</strong> ${topArticle.date || "-"}` +
+                        `<span class="disqus-comment-count" data-disqus-identifier="${topIdentifier}" style="display:none;"></span>`;
+
+    topContent.appendChild(topTitle);
+    topContent.appendChild(topMeta);
+    topLink.appendChild(topContent);
+    topCol.appendChild(topLink);
+    popularArticlesList.appendChild(topCol);
+
+    // Render artikel lainnya (maksimal 2 artikel agar total 3)
+    restArticles.slice(0, 2).forEach(article => {
       const col = document.createElement("div");
-      col.className = "col-md-4";
+      col.className = "col-md-6"; // Dua kolom di bawah top artikel
       const identifier = getIdentifier(article);
-      // Link ke postingan menggunakan parameter file agar sesuai struktur URL
       const postLink = `/post/${identifier}`;
       const link = document.createElement("a");
       link.href = postLink;
@@ -101,7 +139,6 @@ document.addEventListener("DOMContentLoaded", () => {
       title.className = "popular-post-card-title";
       title.textContent = article.title || "Judul Tidak Tersedia";
 
-      // Meta info tanpa menampilkan count; elemen span count disembunyikan untuk kebutuhan sorting
       const meta = document.createElement("div");
       meta.className = "popular-post-card-meta";
       meta.innerHTML = `<strong>Penulis:</strong> ${article.author || "Tidak Diketahui"} | <strong>Tanggal:</strong> ${article.date || "-"}` +
@@ -170,6 +207,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const identifier = getIdentifier(article);
       const span = document.querySelector(`.disqus-comment-count[data-disqus-identifier="${identifier}"]`);
       if (span) {
+        // Jika nilai komentar kosong, gunakan 0
         const count = parseInt(span.textContent.trim()) || 0;
         article.commentCount = count;
       } else {
@@ -177,12 +215,13 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
     console.log("Artikel dengan comment count:", articles);
+    // Urutkan artikel berdasarkan commentCount (descending)
     articles.sort((a, b) => (b.commentCount || 0) - (a.commentCount || 0));
+    // Render ulang dengan top artikel di atas
     renderArticles(articles.slice(0, 3));
   }
 
   // Konfigurasi Disqus untuk halaman postingan
-  // Pastikan di halaman postingan, identifier diambil dari parameter file
   var disqus_config = function () {
     const params = new URLSearchParams(window.location.search);
     const identifier = params.get("file") || window.location.pathname.split("/").pop();
