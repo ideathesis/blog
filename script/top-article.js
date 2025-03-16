@@ -77,7 +77,6 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   // Render artikel (maksimal 3 artikel)
-  // Info jumlah komentar tidak ditampilkan, tetapi elemen span count dimuat secara tersembunyi
   const renderArticles = (articlesToRender) => {
     popularArticlesList.innerHTML = "";
     if (articlesToRender.length === 0) {
@@ -134,6 +133,25 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // Fungsi polling untuk memastikan span count telah ter-update oleh Disqus
+  function waitForDisqusCounts(callback) {
+    const checkCounts = () => {
+      // Jika semua artikel sudah memiliki nilai count (meskipun 0), lanjutkan
+      const allUpdated = articles.every(article => {
+        const identifier = getIdentifier(article);
+        const span = document.querySelector(`.disqus-comment-count[data-disqus-identifier="${identifier}"]`);
+        // Jika span tidak ditemukan atau isinya kosong, belum siap
+        return span && span.textContent.trim() !== "";
+      });
+      if (allUpdated) {
+        callback();
+      } else {
+        setTimeout(checkCounts, 500);
+      }
+    };
+    checkCounts();
+  }
+
   // Fungsi untuk memuat artikel dari manifest dan render awal
   function loadArticles() {
     fetch(manifestUrl, { mode: "cors" })
@@ -147,11 +165,12 @@ document.addEventListener("DOMContentLoaded", () => {
           ...article,
           dateObject: parseCustomDate(article.date)
         }));
-        // Render awal 3 artikel dari urutan manifest
+        // Render awal menggunakan urutan manifest (sebagai fallback)
         renderArticles(articles.slice(0, 3));
         loadDisqusCountScript();
-        // Delay selama 7 detik agar Disqus sempat memperbarui count untuk sorting
-        setTimeout(sortArticlesByCommentCount, 7000);
+
+        // Tunggu sampai semua span count ter-update, lalu urutkan artikel berdasarkan commentCount
+        waitForDisqusCounts(sortArticlesByCommentCount);
       })
       .catch(error => {
         console.error("Error:", error);
@@ -170,6 +189,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const identifier = getIdentifier(article);
       const span = document.querySelector(`.disqus-comment-count[data-disqus-identifier="${identifier}"]`);
       if (span) {
+        // Pastikan mengubah isi span ke angka; jika tidak valid, gunakan 0
         const count = parseInt(span.textContent.trim()) || 0;
         article.commentCount = count;
       } else {
@@ -177,12 +197,12 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
     console.log("Artikel dengan comment count:", articles);
+    // Urutkan artikel dari yang paling banyak komentar
     articles.sort((a, b) => (b.commentCount || 0) - (a.commentCount || 0));
     renderArticles(articles.slice(0, 3));
   }
 
   // Konfigurasi Disqus untuk halaman postingan
-  // Pastikan di halaman postingan, identifier diambil dari parameter file
   var disqus_config = function () {
     const params = new URLSearchParams(window.location.search);
     const identifier = params.get("file") || window.location.pathname.split("/").pop();
