@@ -63,9 +63,9 @@ thumbnail: "/post/images/penipuan-joki-skripsi.png"
         <em>"Saya dapat file plagiat 80% dari joki Facebook. Saat revisi, dosen menolak. Uang Rp800.000 hangus, IPK saya jadi 2,8 karena sidang ulang."</em>
       </p>
     </div>
-</section>
+  </section>
 
-<section>
+  <section>
     <h3>Dampak: Mahasiswa Terjerat, Kredibilitas Akademik Rusak</h3>
     <p>
       Praktik penipuan joki skripsi di Facebook tidak hanya merugikan secara finansial, tetapi juga berdampak serius pada kepercayaan masyarakat terhadap sistem pendidikan. Banyak mahasiswa yang terjebak oleh janji "skripsi kilat" justru mengalami:
@@ -121,18 +121,18 @@ thumbnail: "/post/images/penipuan-joki-skripsi.png"
     </p>
   </section>
 
-<section>
-    <h3>Kesimpulan: Stop Tertipu dengan Iming-Iming "Skripsi Instan"!</h3>
-    <p>
-      Penipuan joki skripsi di Facebook bukan hanya modus kejahatan digital biasa, tetapi juga praktik eksploitasi terhadap kepanikan mahasiswa. Pelaku sengaja memanfaatkan kebingungan akademik dan ketidakpahaman mahasiswa tentang proses penelitian untuk mengeruk keuntungan. 
-    </p>
-    <p>
-      Berdasarkan <strong>UU ITE Pasal 28 ayat (1)</strong>, penipuan berbasis media sosial dengan modus fake account, testimoni palsu, dan janji menyesatkan dapat dikenai hukuman penjara hingga 6 tahun. Sayangnya, banyak korban enggan melapor karena malu atau takut dianggap melanggar etika kampus.
-    </p>
-    <p>
-      Skripsi adalah bukti perjuangan intelektual Anda. Jangan biarkan oknum tidak bertanggung jawab menghancurkan masa depan akademik dengan iming-iming harga murah dan waktu singkat. Lebih baik luangkan waktu konsultasi ke dosen, manfaatkan perpustakaan digital, atau cari mentor yang kredibel. Ingat: <em>keberhasilan instan di media sosial sering kali adalah jebakan!</em>
-    </p>
-</section>
+  <section>
+      <h3>Kesimpulan: Stop Tertipu dengan Iming-Iming "Skripsi Instan"!</h3>
+      <p>
+        Penipuan joki skripsi di Facebook bukan hanya modus kejahatan digital biasa, tetapi juga praktik eksploitasi terhadap kepanikan mahasiswa. Pelaku sengaja memanfaatkan kebingungan akademik dan ketidakpahaman mahasiswa tentang proses penelitian untuk mengeruk keuntungan. 
+      </p>
+      <p>
+        Berdasarkan <strong>UU ITE Pasal 28 ayat (1)</strong>, penipuan berbasis media sosial dengan modus fake account, testimoni palsu, dan janji menyesatkan dapat dikenai hukuman penjara hingga 6 tahun. Sayangnya, banyak korban enggan melapor karena malu atau takut dianggap melanggar etika kampus.
+      </p>
+      <p>
+        Skripsi adalah bukti perjuangan intelektual Anda. Jangan biarkan oknum tidak bertanggung jawab menghancurkan masa depan akademik dengan iming-iming harga murah dan waktu singkat. Lebih baik luangkan waktu konsultasi ke dosen, manfaatkan perpustakaan digital, atau cari mentor yang kredibel. Ingat: <em>keberhasilan instan di media sosial sering kali adalah jebakan!</em>
+      </p>
+  </section>
 </article>
 
 <style>
