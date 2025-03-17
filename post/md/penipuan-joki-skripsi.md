@@ -53,14 +53,14 @@ thumbnail: "/post/images/penipuan-joki-skripsi.png"
     <div class="testimonial-box">
       <p>
         <strong>Mira (nama disamarkan):</strong><br>
-        <em>"Saya transfer Rp500.000 ke salah satu akun joki di Facebook. Mereka janji selesai 2 hari. Tapi setelah uang dikirim, chat langsung diblokir. Skripsi saya malah terlambat 3 bulan!"</em>
+        <em>"Saya transfer Rp500.000 ke salah satu akun joki di Facebook. Mereka janji selesai 2 hari. Tapi setelah uang dikirim, chat langsung diblokir."</em>
       </p>
     </div>
     
     <div class="testimonial-box">
       <p>
         <strong>Arka (nama disamarkan):</strong><br>
-        <em>"Saya dapat file plagiat 80% dari joki Facebook. Saat revisi, dosen menolak. Uang Rp800.000 hangus, IPK saya jadi 2,8 karena sidang ulang."</em>
+        <em>"Saya dapat file plagiat 90% dari joki di Facebook. Saat revisi, dosen marah dan ternyata skripsi saya merupakan skripsi dari universitas lain yang hanya diganti nama, subjek, dan objek penelitian saja. Uang Rp800.000 hangus, saya juga tidak berani melaporkan karena takut akan jadi masalah bagi saya."</em>
       </p>
     </div>
   </section>
