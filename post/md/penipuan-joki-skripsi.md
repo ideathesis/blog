@@ -79,7 +79,7 @@ thumbnail: "/post/images/penipuan-joki-skripsi.png"
       <ul>
         <li>Konsultasi dengan dosen pembimbing</li>
         <li>Ikut workshop metodologi penelitian</li>
-        <li>Gunakan jasa konsultasi akademik resmi (pastikan memiliki izin operasional)</li>
+        <li>Gunakan jasa konsultasi akademik resmi seperti <strong>IDEA THESIS</strong></li>
       </ul>
     </p>
   </section>
