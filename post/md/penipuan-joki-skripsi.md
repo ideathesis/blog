@@ -47,7 +47,7 @@ thumbnail: "/post/images/penipuan-joki-skripsi.png"
         </li>
       </ul>
 	  <blockquote>
-      "Kami menemukan bukti transfer ke rekening yang sama dari 12 korban berbeda. Ini bukti bahwa praktik ini adalah sindikat sistematis," ujar - <strong>Investigator IDEA THESIS</strong>.
+      "Kami menemukan bukti transfer ke rekening yang sama dari 12 korban berbeda. Ini bukti bahwa praktik ini adalah sindikat sistematis," - <strong>Investigator IDEA THESIS</strong>.
 	  </blockquote>
     </p>
 
