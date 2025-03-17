@@ -11,9 +11,9 @@
   <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
   <link rel="manifest" href="/manifest.json">
   
-  <!-- Open Graph Tags (nilai awal, nantinya akan di-overwrite oleh Worker) -->
+  <!-- Open Graph Tags -->
   <meta property="og:title" content="IDEA THESIS - Blog">
-  <meta property="og:description" content="Temukan artikel terbaru di BLOG IDEA THESIS">
+  <meta property="og:description" content="Temukan artikel terbaru seputar pendidikan, penelitian, dan tips akademik lainnya di BLOG IDEA THESIS. Dapatkan inspirasi dan panduan untuk menyelesaikan tugas akhir Anda dengan mudah.">
   <meta property="og:image" content="https://blog.ideathesis.biz.id/images/logo.jpg">
   <meta property="og:url" content="https://blog.ideathesis.biz.id">
   <meta property="og:type" content="website">
@@ -64,15 +64,15 @@
     
       <!-- Main Content -->
       <div>
-        <!-- Placeholder untuk metadata -->
-        <img id="featured-image" alt="" class="featured-image">
-        <h1 id="article-title" class="text-center mb-4"></h1>
-        <p id="article-meta" class="text-center text-muted mb-4"></p>
+		<!-- Placeholder untuk metadata -->
+		<img id="featured-image" alt="" class="featured-image">
+		<h1 id="article-title" class="text-center mb-4"></h1>
+		<p id="article-meta" class="text-center text-muted mb-4"></p>
         
         <!-- Konten artikel dari file Markdown akan dimuat di sini -->
         <div id="article-content"></div>
 
-        <!-- Tombol Bagikan ke Media Sosial -->
+        <!-- Tombol Bagikan ke Media Sosial (Responsif, Universal, Icon Bulat Tanpa Teks) -->
         <div class="social-share d-flex flex-wrap justify-content-center my-4">
           <a id="facebook-share" href="#" target="_blank" class="btn btn-primary m-2">
             <i class="fab fa-facebook-f"></i>
@@ -92,10 +92,10 @@
         </div>
   
         <!-- Komentar Disqus -->
-        <div id="disqus_thread"></div>
-        <noscript>Silakan aktifkan JavaScript untuk melihat komentar.</noscript>
+		<div id="disqus_thread"></div>
+			<noscript>Silakan aktifkan JavaScript untuk melihat komentar.</noscript>
   
-      </div>
+    </div>
   
       <!-- Sidebar -->
       <div class="sidebar">
@@ -105,23 +105,67 @@
     </div>
   </div>
   
-  <!-- Footer -->
-  <footer>
-    <div style="display: flex; flex-direction: column; align-items: center; text-align: center;">
-      <p style="margin: 0; transform: translateY(10px);">
-        &copy; <script>document.write(new Date().getFullYear());</script> IDEA THESIS. All rights reserved.
-      </p>
-      <p style="margin: 12px 0 0; font-size: 0.8em; line-height: 1.4;">
-        <a href="https://ideathesis.biz.id/privacy-policy" style="color: white; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#00C853'" onmouseout="this.style.color='white'">Kebijakan Privasi</a>
-        &nbsp;&nbsp;|&nbsp;&nbsp;
-        <a href="https://ideathesis.biz.id/disclaimer" style="color: white; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#00C853'" onmouseout="this.style.color='white'">Disclaimer</a>
-        &nbsp;&nbsp;|&nbsp;&nbsp;
-        <a href="https://ideathesis.biz.id/terms-conditions" style="color: white; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#00C853'" onmouseout="this.style.color='white'">Syarat & Ketentuan</a>
-      </p>
-    </div>
-  </footer>
+<!-- Footer -->
+<footer>
+  <div style="
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  ">
   
-  <!-- JavaScript -->
+    <!-- Baris Copyright -->
+    <p style="
+      margin: 0;
+      transform: translateY(10px);
+    ">
+      &copy; <script>document.write(new Date().getFullYear());</script> IDEA THESIS. All rights reserved.
+    </p>
+
+    <!-- Baris Link Kebijakan (Dengan jarak lebih) -->
+    <p style="
+      margin: 12px 0 0;  /* Jarak atas diperbesar */
+      font-size: 0.8em;
+      line-height: 1.4;
+      transform: none;
+    ">
+      <a href="https://ideathesis.biz.id/privacy-policy" 
+         style="
+           color: white;
+           text-decoration: none;
+           transition: color 0.2s;
+         "
+         onmouseover="this.style.color='#00C853'"
+         onmouseout="this.style.color='white'">
+         Kebijakan Privasi
+      </a>
+      &nbsp;&nbsp;|&nbsp;&nbsp;
+      <a href="https://ideathesis.biz.id/disclaimer" 
+         style="
+           color: white;
+           text-decoration: none;
+           transition: color 0.2s;
+         "
+         onmouseover="this.style.color='#00C853'"
+         onmouseout="this.style.color='white'">
+         Disclaimer
+      </a>
+      &nbsp;&nbsp;|&nbsp;&nbsp;
+      <a href="https://ideathesis.biz.id/terms-conditions" 
+         style="
+           color: white;
+           text-decoration: none;
+           transition: color 0.2s;
+         "
+         onmouseover="this.style.color='#00C853'"
+         onmouseout="this.style.color='white'">
+         Syarat & Ketentuan
+      </a>
+    </p>
+  </div>
+</footer>
+  
+<!-- JavaScript -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
   <script src="/script/mdhtml-with-relate.js"></script>
   <script src="/script/share-button.js"></script>
