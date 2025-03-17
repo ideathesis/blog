@@ -40,7 +40,7 @@ thumbnail: "/post/images/penipuan-joki-skripsi.png"
       </ul>
       <blockquote>
         "Banyak korban mengira membeli solusi instan, padahal yang didapat adalah jalan buntu. Kecerdasan emosional mahasiswa juga terganggu karena tertipu oleh modus buzzer dan testimoni palsu di media sosial."  
-        — <strong>Lembaga Perlindungan Konsumen Digital (LPKD)</strong>
+        — <strong>IDEA THESIS</strong>
       </blockquote>
     </p>
   </section>
