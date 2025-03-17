@@ -81,7 +81,7 @@ thumbnail: "/post/images/penipuan-joki-skripsi.png"
       <ul>
         <li><strong>Kerugian Materi</strong>: Uang jutaan rupiah hilang karena penipuan berkedok joki</li>
         <li><strong>Stres Berkepanjangan</strong>: Hasil kerja asal-asalan atau plagiat menyebabkan revisi tak berujung, dan bahkan mereka tidak dapat mengerjakan atau tidak menerima revisian sesuai dengan janji awal, karena memang pada faktanya karya tulis tersebut merupakan hasil copy paste atau plagiat dari karya tulis orang lain yang hanya diubah nama, subjek, dan objek penelitian saja, karenanya mereka tidak mengerti tentang isi karya tulis tersebut</li>
-        <li><strong>Risiko DO</strong>: Karya tidak lolos sidang atau terdeteksi turnitin</li>
+        <li><strong>Risiko DO</strong>: Karya tidak lolos sidang atau terdeteksi turnitin hingga 90%</li>
       </ul>
       <blockquote>
         "Banyak korban mengira membeli solusi instan adalah jalan terbaik, padahal yang didapat adalah jalan buntu. Kecerdasan emosional mahasiswa juga terganggu karena tertipu oleh modus buzzer dan testimoni palsu di media sosial."  
