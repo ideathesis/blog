@@ -46,7 +46,7 @@ thumbnail: "/post/images/penipuan-joki-skripsi.png"
           <strong>Penipu beroperasi secara terorganisir</strong>: Beberapa akun terhubung ke grup WhatsApp yang menerima order dari berbagai kota.
         </li>
       </ul>
-      "Kami menemukan bukti transfer ke rekening yang sama dari 12 korban berbeda. Ini bukti bahwa ini adalah sindikat sistematis," ujar <strong>Lead Investigator IDEA THESIS</strong>.
+      "Kami menemukan bukti transfer ke rekening yang sama dari 12 korban berbeda. Ini bukti bahwa praktik ini adalah sindikat sistematis," ujar <strong>Investigator IDEA THESIS</strong>.
     </p>
 
     <h4>Kesaksian Langsung Korban</h4>
