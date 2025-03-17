@@ -85,12 +85,18 @@ thumbnail: "/post/images/penipuan-joki-skripsi.png"
     </p>
   </section>
 
-  <section>
-    <h3>Kesimpulan: Jangan Gadaikan Masa Depan!</h3>
+<section>
+    <h3>Kesimpulan: Stop Tertipu dengan Iming-Iming "Skripsi Instan"!</h3>
     <p>
-      Menggunakan joki skripsi bukan hanya melanggar etika akademik, tetapi juga berisiko pidana sesuai <strong>UU No. 20/2016 tentang Sisdiknas Pasal 73</strong>. Sebuah tesis/skripsi adalah cerminan perjalanan intelektual Anda. Berjuanglah dengan jujur, karena ilmu yang didapat dengan cara curang takkan pernah membawa kebanggaan.
+      Penipuan joki skripsi di Facebook bukan hanya modus kejahatan digital biasa, tetapi juga praktik eksploitasi terhadap kepanikan mahasiswa. Pelaku sengaja memanfaatkan kebingungan akademik dan ketidakpahaman mahasiswa tentang proses penelitian untuk mengeruk keuntungan. 
     </p>
-  </section>
+    <p>
+      Berdasarkan <strong>UU ITE Pasal 28 ayat (1)</strong>, penipuan berbasis media sosial dengan modus fake account, testimoni palsu, dan janji menyesatkan dapat dikenai hukuman penjara hingga 6 tahun. Sayangnya, banyak korban enggan melapor karena malu atau takut dianggap melanggar etika kampus.
+    </p>
+    <p>
+      Skripsi adalah bukti perjuangan intelektual Anda. Jangan biarkan oknum tidak bertanggung jawab menghancurkan masa depan akademik dengan iming-iming harga murah dan waktu singkat. Lebih baik luangkan waktu konsultasi ke dosen, manfaatkan perpustakaan digital, atau cari mentor yang kredibel. Ingat: <em>keberhasilan instan di media sosial sering kali adalah jebakan!</em>
+    </p>
+</section>
 </article>
 
 <style>
