@@ -40,7 +40,7 @@ thumbnail: "/post/images/penipuan-joki-skripsi.png"
           <strong>90% akun menggunakan foto profil palsu</strong>: Mayoritas memakai gambar hasil unduhan dari Google (contoh: logo universitas atau ilustrasi generik).
         </li>
         <li>
-          <strong>85% testimoni di kolom komentar berasal dari akun "pasukan bayaran"</strong>: Terdeteksi dari pola komentar yang sama persis, bahkan ada yang menggunakan kalimat berulang seperti <em>"Terima kasih, revisi 3x langsung ACC!"</em>.
+          <strong>85% testimoni di kolom komentar berasal dari akun "pasukan bayaran"</strong>: Terdeteksi dari pola komentar yang sama persis, bahkan ada yang menggunakan kalimat berulang seperti <em>"Terima kasih, revisi 3x langsung ACC!" dan "Sukses selalu !!!"</em>.
         </li>
         <li>
           <strong>Penipu beroperasi secara terorganisir</strong>: Beberapa akun terhubung ke grup WhatsApp "joki nasional" yang menerima order dari berbagai kota.
