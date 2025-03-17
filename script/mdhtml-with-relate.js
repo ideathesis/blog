@@ -28,6 +28,37 @@ function parseYAML(yamlText) {
 }
 
 /*
+ * Fungsi untuk memperbarui meta tag OG berdasarkan metadata
+ */
+function updateMetaTags(metadata) {
+  if (metadata.title) {
+    // Perbarui judul di halaman dan meta tag og:title
+    document.getElementById('article-title').textContent = metadata.title;
+    document.title = `IDEA THESIS - ${metadata.title}`;
+
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle) {
+      ogTitle.setAttribute('content', `IDEA THESIS - ${metadata.title}`);
+    }
+    // Set og:description berdasarkan judul artikel
+    const ogDescription = document.querySelector('meta[property="og:description"]');
+    if (ogDescription) {
+      ogDescription.setAttribute('content', metadata.title);
+    }
+  }
+
+  if (metadata.image) {
+    // Perbarui gambar artikel dan meta tag og:image
+    document.getElementById('featured-image').setAttribute('src', metadata.image);
+
+    const ogImage = document.querySelector('meta[property="og:image"]');
+    if (ogImage) {
+      ogImage.setAttribute('content', metadata.image);
+    }
+  }
+}
+
+/*
  * Fungsi untuk merender artikel terkait
  */
 function renderRelatedArticles(metadata) {
@@ -115,11 +146,8 @@ fetch(`/post/md/${mdFile}`)
     // Simpan metadata ke variabel global
     window.currentMetadata = metadata;
 
-    // Update konten artikel
-    if (metadata.title) {
-      document.getElementById('article-title').textContent = metadata.title;
-      document.title = `IDEA THESIS - ${metadata.title}`;
-    }
+    // Perbarui meta tag dan konten artikel berdasarkan metadata
+    updateMetaTags(metadata);
 
     let metaText = "";
     if (metadata.author) {
@@ -129,12 +157,6 @@ fetch(`/post/md/${mdFile}`)
       metaText += metaText ? ` | ${metadata.date}` : metadata.date;
     }
     document.getElementById('article-meta').textContent = metaText;
-
-    if (metadata.image) {
-      document
-        .getElementById('featured-image')
-        .setAttribute('src', metadata.image);
-    }
 
     // Konversi Markdown ke HTML menggunakan showdown
     const converter = new showdown.Converter();
