@@ -1,5 +1,5 @@
 ---
-title: "Skripsi Instan di Facebook: Penipuan Joki Murah dan Jebakan Akun Palsu"
+title: "Waspada! Maraknya Penipuan Joki Murah di Facebook"
 author: "IDEA THESIS"
 date: "17-3-2025"
 image: "images/penipuan-joki-skripsi.png"
