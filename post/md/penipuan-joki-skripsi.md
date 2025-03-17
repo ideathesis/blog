@@ -43,7 +43,7 @@ thumbnail: "/post/images/penipuan-joki-skripsi.png"
           <strong>85% testimoni di kolom komentar berasal dari akun "pasukan bayaran"</strong>: Terdeteksi dari pola komentar yang sama persis, bahkan ada yang menggunakan kalimat berulang seperti <em>"Terima kasih, revisi 3x langsung ACC!" dan "Sukses selalu !!!"</em>.
         </li>
         <li>
-          <strong>Penipu beroperasi secara terorganisir</strong>: Beberapa akun terhubung ke grup WhatsApp "joki nasional" yang menerima order dari berbagai kota.
+          <strong>Penipu beroperasi secara terorganisir</strong>: Beberapa akun terhubung ke grup WhatsApp yang menerima order dari berbagai kota.
         </li>
       </ul>
       "Kami menemukan bukti transfer ke rekening yang sama dari 12 korban berbeda. Ini bukti bahwa ini adalah sindikat sistematis," ujar <strong>Rifqi Ramadhan, Lead Investigator IDEA THESIS</strong>.
