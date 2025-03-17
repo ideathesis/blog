@@ -11,50 +11,12 @@
   <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
   <link rel="manifest" href="/manifest.json">
   
-<!-- Open Graph Tags -->
-<meta property="og:title" content="IDEA THESIS - Blog">
-<meta property="og:description" content="Temukan artikel terbaru seputar pendidikan, penelitian, dan tips akademik lainnya di BLOG IDEA THESIS. Dapatkan inspirasi dan panduan untuk menyelesaikan tugas akhir Anda dengan mudah.">
-<meta property="og:image" content="https://blog.ideathesis.biz.id/images/logo.jpg">
-<meta property="og:url" content="https://blog.ideathesis.biz.id">
-<meta property="og:type" content="website">
-
-<script>
-  // ... (kode JavaScript sebelumnya)
-
-  // Setelah parsing metadata, tambahkan kode berikut:
-  if (metadata.title) {
-    // Update og:title
-    const ogTitle = document.querySelector('meta[property="og:title"]');
-    if (ogTitle) {
-      ogTitle.setAttribute('content', metadata.title);
-    }
-
-    // Update document.title dengan format "IDEA THESIS - [Judul Artikel]"
-    document.title = `IDEA THESIS - ${metadata.title}`;
-  }
-
-  if (metadata.thumbnail) {
-    // Update og:image dengan thumbnail dari YAML
-    const ogImage = document.querySelector('meta[property="og:image"]');
-    if (ogImage) {
-      ogImage.setAttribute('content', metadata.thumbnail);
-    }
-  }
-
-  // Update og:url ke URL artikel saat ini
-  const ogUrl = document.querySelector('meta[property="og:url"]');
-  if (ogUrl) {
-    ogUrl.setAttribute('content', window.location.href);
-  }
-
-  // Jika ada deskripsi khusus di YAML, update og:description
-  if (metadata.description) {
-    const ogDescription = document.querySelector('meta[property="og:description"]');
-    if (ogDescription) {
-      ogDescription.setAttribute('content', metadata.description);
-    }
-  }
-</script>
+  <!-- Open Graph Tags -->
+  <meta property="og:title" content="IDEA THESIS - Blog">
+  <meta property="og:description" content="Temukan artikel terbaru seputar pendidikan, penelitian, dan tips akademik lainnya di BLOG IDEA THESIS. Dapatkan inspirasi dan panduan untuk menyelesaikan tugas akhir Anda dengan mudah.">
+  <meta property="og:image" content="https://blog.ideathesis.biz.id/images/logo.jpg">
+  <meta property="og:url" content="https://blog.ideathesis.biz.id">
+  <meta property="og:type" content="website">
   
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">

@@ -148,3 +148,37 @@ fetch(`/post/md/${mdFile}`)
     console.error('Gagal memuat file Markdown:', error);
     window.location.href = "/404.html";
   });
+
+  // Setelah parsing metadata, tambahkan kode berikut:
+  if (metadata.title) {
+    // Update og:title
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle) {
+      ogTitle.setAttribute('content', metadata.title);
+    }
+
+    // Update document.title dengan format "IDEA THESIS - [Judul Artikel]"
+    document.title = `IDEA THESIS - ${metadata.title}`;
+  }
+
+  if (metadata.thumbnail) {
+    // Update og:image dengan thumbnail dari YAML
+    const ogImage = document.querySelector('meta[property="og:image"]');
+    if (ogImage) {
+      ogImage.setAttribute('content', metadata.thumbnail);
+    }
+  }
+
+  // Update og:url ke URL artikel saat ini
+  const ogUrl = document.querySelector('meta[property="og:url"]');
+  if (ogUrl) {
+    ogUrl.setAttribute('content', window.location.href);
+  }
+
+  // Jika ada deskripsi khusus di YAML, update og:description
+  if (metadata.description) {
+    const ogDescription = document.querySelector('meta[property="og:description"]');
+    if (ogDescription) {
+      ogDescription.setAttribute('content', metadata.description);
+    }
+  }
