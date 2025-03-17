@@ -53,7 +53,7 @@ thumbnail: "/post/images/penipuan-joki-skripsi.png"
     <div class="testimonial-box">
       <p>
         <strong>Mira (nama disamarkan):</strong><br>
-        <em>"Saya transfer Rp500.000 ke akun 'Skripsi Jogja Murah'. Mereka janji selesai 2 hari. Tapi setelah uang dikirim, chat langsung diblokir. Skripsi saya malah terlambat 3 bulan!"</em>
+        <em>"Saya transfer Rp500.000 ke salah satu akun joki di Facebook. Mereka janji selesai 2 hari. Tapi setelah uang dikirim, chat langsung diblokir. Skripsi saya malah terlambat 3 bulan!"</em>
       </p>
     </div>
     
