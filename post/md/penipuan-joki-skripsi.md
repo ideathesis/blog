@@ -32,7 +32,7 @@ thumbnail: "/post/images/penipuan-joki-skripsi.png"
   <section>
     <h3>Dampak: Mahasiswa Terjerat, Kredibilitas Akademik Rusak</h3>
     <p>
-      Menurut <strong>Dr. Rina Mardiati, Dosen Psikologi Universitas Indonesia</strong>, praktik ini merusak integritas akademik dan mental mahasiswa: 
+      Menurut <strong>Dr. Rina Mardiati</strong>, praktik ini merusak integritas akademik dan mental mahasiswa: 
       <blockquote>
         "Skripsi adalah proses pembelajaran kritis. Jika dibeli, mahasiswa kehilangan kesempatan mengasah kemampuan analisis yang esensial untuk karier mereka."
       </blockquote>
