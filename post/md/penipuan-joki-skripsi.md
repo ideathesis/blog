@@ -35,7 +35,7 @@ thumbnail: "/post/images/penipuan-joki-skripsi.png"
       Praktik penipuan joki skripsi di Facebook tidak hanya merugikan secara finansial, tetapi juga berdampak serius pada kepercayaan masyarakat terhadap sistem pendidikan. Banyak mahasiswa yang terjebak oleh janji "skripsi kilat" justru mengalami:
       <ul>
         <li><strong>Kerugian Materi</strong>: Uang jutaan rupiah hilang karena penipuan berkedok joki</li>
-        <li><strong>Stres Berkepanjangan</strong>: Hasil kerja asal-asalan atau plagiat menyebabkan revisi tak berujung</li>
+        <li><strong>Stres Berkepanjangan</strong>: Hasil kerja asal-asalan atau plagiat menyebabkan revisi tak berujung, dan bahkan mereka tidak dapat mengerjakan atau tidak menerima revisian sesuai dengan janji awal, karena memang pada faktanya karya tulis tersebut merupakan hasil copy paste atau plagiat dari karya tulis orang lain yang hanya diubah nama, subjek, dan objek penelitian saja, karenanya mereka tidak mengerti tentang isi karya tulis tersebut</li>
         <li><strong>Risiko DO</strong>: Karya tidak lolos sidang atau terdeteksi turnitin</li>
       </ul>
       <blockquote>
@@ -64,6 +64,7 @@ thumbnail: "/post/images/penipuan-joki-skripsi.png"
     <div class="warning-box">
       🔍 <strong>Red Flag Penipuan Joki Skripsi</strong> 
       <ul>
+        <li>Tidak ada profil yang jelas</li>
         <li>Harga jauh di bawah standar</li>
         <li>Janji selesai instan (kurang dari 7 hari)</li>
         <li>Tidak ada portofolio karya atau tidak berani menunjukkan hasil-hasil karya mereka</li>
