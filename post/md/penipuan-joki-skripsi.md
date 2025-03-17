@@ -21,7 +21,7 @@ thumbnail: "/post/images/penipuan-joki-skripsi.png"
         <strong>Harga di Bawah Pasaran</strong>: Dengan biaya jauh lebih murah dari jasa profesional (biasanya 3-10 juta), penawaran ini menargetkan mahasiswa yang terdesak deadline atau kesulitan finansial.
       </li>
       <li>
-        <strong>Buzzer Bayaran</strong>: Pelaku sengaja menyewa buzzer untuk berkomentar positif di postingan mereka. Akun-akun palsu dengan foto profil generik dan nama samaran membanjiri kolom komentar dengan testimoni seperti "Terima kasih, revisian langsung ACC!"
+        <strong>Buzzer Bayaran</strong>: Pelaku sengaja menyewa buzzer untuk berkomentar positif di postingan mereka. Akun-akun palsu dengan foto profil generik dan nama samaran membanjiri kolom komentar dengan testimoni seperti "Terima kasih, revisian langsung ACC!" atau "Sukses selalu !!!"
       </li>
       <li>
         <strong>Penipuan Berkedok Garansi</strong>: Klaim "garansi revisi" atau "bimbingan sampai lulus" hanya trik untuk memperdaya korban. Setelah uang ditransfer, pesanan menghilang atau hasilnya berupa tulisan plagiat.
