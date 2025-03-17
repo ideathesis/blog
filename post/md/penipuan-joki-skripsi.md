@@ -63,6 +63,13 @@ thumbnail: "/post/images/penipuan-joki-skripsi.png"
         <em>"Saya dapat file plagiat 90% dari joki di Facebook. Saat revisi, dosen marah dan ternyata skripsi saya merupakan skripsi dari universitas lain yang hanya diganti nama, subjek, dan objek penelitian saja. Uang Rp800.000 hangus, saya juga tidak berani melaporkan karena takut akan jadi masalah bagi saya."</em>
       </p>
     </div>
+	
+    <div class="testimonial-box">
+      <p>
+        <strong>Norman (nama disamarkan):</strong><br>
+        <em>"Awalnya saya bertanya ke teman yang kenal joki skripsi, namun harganya terbilang cukup mahal, sehingga saya cari alternatif di Facebook, karena saya lihat banyak joki yang menawarkan harga jauh lebih murah, bahkan hanya Rp250.000 untuk paket sempro atau BAB I-III, sehingga saya memilih menggunakan jasa tersebut, BAB I-III saya selesai dalam 1 hari, namun ternyata semua isinya plagiat dari milik orang lain yang hanya diganti nama peneliti menjadi nama saya dan di ganti nama perusahaannya."</em>
+      </p>
+    </div>
   </section>
 
   <section>
