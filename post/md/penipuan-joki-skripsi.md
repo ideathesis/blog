@@ -62,12 +62,12 @@ thumbnail: "/post/images/penipuan-joki-skripsi.png"
   <section>
     <h3>Waspadai Ciri-Ciri Penipuan!</h3>
     <div class="warning-box">
-      🔍 <strong>Merah Flag:</strong> 
+      🔍 <strong>Red Flag Penipuan Joki Skripsi</strong> 
       <ul>
-        <li>Harga di bawah Rp1 juta</li>
+        <li>Harga jauh di bawah standar</li>
         <li>Janji selesai instan (kurang dari 7 hari)</li>
-        <li>Tidak ada portofolio karya</li>
-        <li>Komentar testimoni seragam dan berlebihan</li>
+        <li>Tidak ada portofolio karya atau tidak berani menunjukkan hasil-hasil karya mereka</li>
+        <li>Komentar testimoni seragam dan berlebihan dari akun-akun buzzer atau tidak dikenal</li>
       </ul>
     </div>
   </section>
