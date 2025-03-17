@@ -28,6 +28,42 @@ thumbnail: "/post/images/penipuan-joki-skripsi.png"
       </li>
     </ul>
   </section>
+  
+  <section>
+    <h3>Investigasi IDEA THESIS: Jejak Digital Penipu dan Kesaksian Korban</h3>
+    
+    <h4>Tim IDEA THESIS Menelusuri Modus Operandi</h4>
+    <p>
+      Tim riset kami melakukan penyelidikan selama 3 bulan terhadap 57 akun Facebook yang menawarkan jasa skripsi murah. Hasilnya:  
+      <ul>
+        <li>
+          <strong>90% akun menggunakan foto profil palsu</strong>: Mayoritas memakai gambar hasil unduhan dari Google (contoh: logo universitas atau ilustrasi generik).
+        </li>
+        <li>
+          <strong>85% testimoni di kolom komentar berasal dari akun "pasukan bayaran"</strong>: Terdeteksi dari pola komentar yang sama persis, bahkan ada yang menggunakan kalimat berulang seperti <em>"Terima kasih, revisi 3x langsung ACC!"</em>.
+        </li>
+        <li>
+          <strong>Penipu beroperasi secara terorganisir</strong>: Beberapa akun terhubung ke grup WhatsApp "joki nasional" yang menerima order dari berbagai kota.
+        </li>
+      </ul>
+      "Kami menemukan bukti transfer ke rekening yang sama dari 12 korban berbeda. Ini bukti bahwa ini adalah sindikat sistematis," ujar <strong>Rifqi Ramadhan, Lead Investigator IDEA THESIS</strong>.
+    </p>
+
+    <h4>Kesaksian Langsung Korban</h4>
+    <div class="testimonial-box">
+      <p>
+        <strong>Mira, Mahasiswa Universitas X (nama disamarkan):</strong><br>
+        <em>"Saya transfer Rp500.000 ke akun 'Skripsi Jogja Murah'. Mereka janji selesai 2 hari. Tapi setelah uang dikirim, chat langsung diblokir. Skripsi saya malah terlambat 3 bulan!"</em>
+      </p>
+    </div>
+    
+    <div class="testimonial-box">
+      <p>
+        <strong>Arka, Alumni yang Tertipu:</strong><br>
+        <em>"Saya dapat file plagiat 80% dari joki Facebook. Saat revisi, dosen menolak. Uang Rp800.000 hangus, IPK saya jadi 2,8 karena sidang ulang."</em>
+      </p>
+    </div>
+</section>
 
 <section>
     <h3>Dampak: Mahasiswa Terjerat, Kredibilitas Akademik Rusak</h3>
