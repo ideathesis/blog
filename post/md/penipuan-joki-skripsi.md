@@ -29,14 +29,19 @@ thumbnail: "/post/images/penipuan-joki-skripsi.png"
     </ul>
   </section>
 
-  <section>
+<section>
     <h3>Dampak: Mahasiswa Terjerat, Kredibilitas Akademik Rusak</h3>
     <p>
-      Menurut <strong>Dr. Rina Mardiati</strong>, praktik ini merusak integritas akademik dan mental mahasiswa: 
+      Praktik penipuan joki skripsi di Facebook tidak hanya merugikan secara finansial, tetapi juga berdampak serius pada kepercayaan masyarakat terhadap sistem pendidikan. Banyak mahasiswa yang terjebak oleh janji "skripsi kilat" justru mengalami:
+      <ul>
+        <li><strong>Kerugian Materi</strong>: Uang jutaan rupiah hilang karena penipuan berkedok joki</li>
+        <li><strong>Stres Berkepanjangan</strong>: Hasil kerja asal-asalan atau plagiat menyebabkan revisi tak berujung</li>
+        <li><strong>Risiko DO</strong>: Karya tidak lolos sidang atau terdeteksi turnitin</li>
+      </ul>
       <blockquote>
-        "Skripsi adalah proses pembelajaran kritis. Jika dibeli, mahasiswa kehilangan kesempatan mengasah kemampuan analisis yang esensial untuk karier mereka."
+        "Banyak korban mengira membeli solusi instan, padahal yang didapat adalah jalan buntu. Kecerdasan emosional mahasiswa juga terganggu karena tertipu oleh modus buzzer dan testimoni palsu di media sosial."  
+        — <strong>Lembaga Perlindungan Konsumen Digital (LPKD)</strong>
       </blockquote>
-      Data Kementerian Pendidikan 2024 mencatat <em>32% kasus plagiarisme</em> di perguruan tinggi terkait penggunaan joki ilegal.
     </p>
   </section>
 
