@@ -39,7 +39,7 @@ thumbnail: "/post/images/penipuan-joki-skripsi.png"
         <li><strong>Risiko DO</strong>: Karya tidak lolos sidang atau terdeteksi turnitin</li>
       </ul>
       <blockquote>
-        "Banyak korban mengira membeli solusi instan, padahal yang didapat adalah jalan buntu. Kecerdasan emosional mahasiswa juga terganggu karena tertipu oleh modus buzzer dan testimoni palsu di media sosial."  
+        "Banyak korban mengira membeli solusi instan adalah jalan terbaik, padahal yang didapat adalah jalan buntu. Kecerdasan emosional mahasiswa juga terganggu karena tertipu oleh modus buzzer dan testimoni palsu di media sosial."  
         — <strong>IDEA THESIS</strong>
       </blockquote>
     </p>
