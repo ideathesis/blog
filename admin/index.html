@@ -217,22 +217,22 @@
             <form id="postForm" class="admin-form">
                 <input type="hidden" id="postId">
                 <div class="form-group">
-                    <input type="text" id="title" placeholder="Judul" required>
+                    <input type="text" id="title" name="title" placeholder="Judul" required>
                 </div>
                 <div class="form-group">
-                    <input type="text" id="author" placeholder="Penulis" value="IDEA THESIS" required>
+                    <input type="text" id="author" name="author" placeholder="Penulis" value="IDEA THESIS" required>
                 </div>
                 <div class="form-group">
-                    <input type="date" id="date" required>
+                    <input type="date" id="date" name="date" required>
                 </div>
                 <div class="form-group">
-                    <input type="text" id="image" placeholder="Path Gambar (contoh: /post/images/gambar.jpg)" required>
+                    <input type="text" id="image" name="image" placeholder="Path Gambar (contoh: /post/images/gambar.jpg)" required>
                 </div>
                 <div class="form-group">
-                    <input type="text" id="thumbnail" placeholder="Path Thumbnail" required>
+                    <input type="text" id="thumbnail" name="thumbnail" placeholder="Path Thumbnail" required>
                 </div>
                 <div class="form-group">
-                    <textarea id="content" placeholder="Konten Markdown" required></textarea>
+                    <textarea id="content" name="content" placeholder="Konten Markdown" required></textarea>
                 </div>
                 <button type="submit" class="btn-submit">Simpan Postingan</button>
             </form>
@@ -244,8 +244,11 @@
     </div>
 
     <script>
-        const API_URL = '/api/admin';
-        const AUTH_TOKEN = 'YOUR_SECRET_ADMIN_TOKEN'; // Ganti dengan token yang kuat
+        // Konfigurasi GitHub API
+        const GITHUB_TOKEN = 'IDEA_THESIS_BLOG';
+        const REPO_OWNER = 'ideathesis';
+        const REPO_NAME = 'blog';
+        const POSTS_PATH = 'post/md';
 
         let posts = [];
         let currentPost = null;
@@ -257,16 +260,23 @@
             document.getElementById('postForm').reset();
         });
 
-        // Load semua postingan
+        // Fungsi mengambil daftar postingan dari GitHub
         async function loadPosts() {
             try {
-                const response = await fetch(`${API_URL}/posts`, {
-                    headers: { 'Authorization': `Bearer ${AUTH_TOKEN}` }
+                const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${POSTS_PATH}`;
+                const response = await fetch(url, {
+                    headers: { 'Authorization': `token ${GITHUB_TOKEN}` }
                 });
                 
                 if (!response.ok) throw new Error('Gagal memuat postingan');
                 
-                posts = await response.json();
+                const files = await response.json();
+                posts = files.map(file => ({
+                    title: file.name.replace('.md',''),
+                    slug: file.name.replace('.md',''),
+                    // Tanggal bisa ditambahkan dengan memanggil info commit jika diperlukan
+                    date: new Date().toISOString()
+                }));
                 renderPostList();
             } catch (error) {
                 showError(error.message);
@@ -288,10 +298,10 @@
                     </div>
                     <div class="post-actions">
                         <button class="btn-edit" onclick="editPost('${post.slug}')">
-                            <i class="fas fa-edit"></i>
+                            <i class="fas fa-edit"></i> Edit
                         </button>
                         <button class="btn-delete" onclick="deletePost('${post.slug}')">
-                            <i class="fas fa-trash-alt"></i>
+                            <i class="fas fa-trash-alt"></i> Hapus
                         </button>
                     </div>
                 `;
@@ -299,7 +309,7 @@
             });
         }
 
-        // Handle form submit
+        // Handle submit form untuk membuat atau mengupdate postingan
         async function handleSubmit(e) {
             e.preventDefault();
             
@@ -311,19 +321,48 @@
                 date: formData.get('date'),
                 image: formData.get('image'),
                 thumbnail: formData.get('thumbnail'),
-                content: formData.get('content'),
-                slug: currentPost?.slug || generateSlug(formData.get('title'))
+                content: formData.get('content')
+            };
+            const slug = currentPost ? currentPost.slug : generateSlug(postData.title);
+            const filePath = `${POSTS_PATH}/${slug}.md`;
+
+            // Format konten dengan front matter YAML
+            const contentMarkdown = 
+`---
+title: ${postData.title}
+author: ${postData.author}
+date: ${postData.date}
+image: ${postData.image}
+thumbnail: ${postData.thumbnail}
+---
+
+${postData.content}
+`;
+            // Encode ke base64
+            const encodedContent = btoa(contentMarkdown);
+            const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${filePath}`;
+            
+            let bodyData = {
+               message: currentPost ? `Update post ${slug}` : `Create post ${slug}`,
+               content: encodedContent,
+               committer: {
+                   name: "IDEA THESIS",
+                   email: "noreply@ideathesis.com"
+               }
             };
 
+            if (currentPost && currentPost.sha) {
+               bodyData.sha = currentPost.sha;
+            }
+            
             try {
-                const method = currentPost ? 'PUT' : 'POST';
-                const response = await fetch(API_URL, {
-                    method: method,
+                const response = await fetch(url, {
+                    method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${AUTH_TOKEN}`
+                        'Authorization': `token ${GITHUB_TOKEN}`
                     },
-                    body: JSON.stringify(postData)
+                    body: JSON.stringify(bodyData)
                 });
                 
                 if (response.ok) {
@@ -339,21 +378,47 @@
             }
         }
 
-        // Edit postingan
+        // Edit postingan: ambil konten file, decode, dan isi form
         async function editPost(slug) {
+            const filePath = `${POSTS_PATH}/${slug}.md`;
+            const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${filePath}`;
             try {
-                const response = await fetch(`${API_URL}/${slug}`, {
-                    headers: { 'Authorization': `Bearer ${AUTH_TOKEN}` }
+                const response = await fetch(url, {
+                    headers: { 'Authorization': `token ${GITHUB_TOKEN}` }
                 });
                 
                 if (!response.ok) throw new Error('Postingan tidak ditemukan');
                 
-                currentPost = await response.json();
+                const fileData = await response.json();
+                // Decode konten (dalam base64)
+                const decodedContent = atob(fileData.content);
+                // Asumsikan format: front matter YAML di antara tanda --- di bagian atas
+                const parts = decodedContent.split('---');
+                let frontMatter = {};
+                let markdownContent = '';
+                if (parts.length > 2) {
+                    const fm = parts[1].trim();
+                    fm.split('\n').forEach(line => {
+                        const [key, ...rest] = line.split(':');
+                        frontMatter[key.trim()] = rest.join(':').trim();
+                    });
+                    markdownContent = parts.slice(2).join('---').trim();
+                }
+                currentPost = {
+                    slug: slug,
+                    sha: fileData.sha,
+                    title: frontMatter.title || '',
+                    author: frontMatter.author || '',
+                    date: frontMatter.date || '',
+                    image: frontMatter.image || '',
+                    thumbnail: frontMatter.thumbnail || '',
+                    content: markdownContent
+                };
                 
-                // Isi form
+                // Isi form dengan data yang diambil
                 document.getElementById('title').value = currentPost.title;
                 document.getElementById('author').value = currentPost.author;
-                document.getElementById('date').value = currentPost.date.split('T')[0];
+                document.getElementById('date').value = currentPost.date;
                 document.getElementById('image').value = currentPost.image;
                 document.getElementById('thumbnail').value = currentPost.thumbnail;
                 document.getElementById('content').value = currentPost.content;
@@ -365,21 +430,35 @@
             }
         }
 
-        // Hapus postingan
+        // Hapus postingan melalui GitHub API
         async function deletePost(slug) {
             if (!confirm('Hapus postingan ini?')) return;
-            
+            const filePath = `${POSTS_PATH}/${slug}.md`;
+            const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${filePath}`;
             try {
-                const response = await fetch(API_URL, {
+                // Pertama, ambil file untuk mendapatkan SHA
+                const response = await fetch(url, {
+                    headers: { 'Authorization': `token ${GITHUB_TOKEN}` }
+                });
+                if (!response.ok) throw new Error('Postingan tidak ditemukan');
+                const fileData = await response.json();
+                const bodyData = {
+                    message: `Delete post ${slug}`,
+                    sha: fileData.sha,
+                    committer: {
+                        name: "IDEA THESIS",
+                        email: "noreply@ideathesis.com"
+                    }
+                };
+                const deleteResponse = await fetch(url, {
                     method: 'DELETE',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${AUTH_TOKEN}`
+                        'Authorization': `token ${GITHUB_TOKEN}`
                     },
-                    body: JSON.stringify({ slug })
+                    body: JSON.stringify(bodyData)
                 });
-                
-                if (response.ok) {
+                if (deleteResponse.ok) {
                     showSuccess('Postingan dihapus');
                     loadPosts();
                 } else {
@@ -390,19 +469,21 @@
             }
         }
 
-        // Helper functions
+        // Helper: generate slug dari judul
         function generateSlug(title) {
             return title.toLowerCase()
-                       .replace(/ /g, '-')
-                       .replace(/[^a-z0-9-]/g, '');
+                        .replace(/ /g, '-')
+                        .replace(/[^a-z0-9-]/g, '');
         }
 
+        // Tampilkan pesan sukses
         function showSuccess(message) {
             const status = document.getElementById('status');
             status.textContent = message;
             status.className = 'status-message status-success';
         }
 
+        // Tampilkan pesan error
         function showError(message) {
             const status = document.getElementById('status');
             status.textContent = `Error: ${message}`;
