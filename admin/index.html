@@ -244,16 +244,23 @@
     </div>
 
     <script>
-        let posts = [];
-        const GITHUB_REPO = 'YOUR_REPO_NAME';
-        const GITHUB_OWNER = 'YOUR_GITHUB_USERNAME';
-        const BRANCH = 'main';
-        const AUTH_TOKEN = 'YOUR_SECRET_TOKEN';
+        const API_URL = '/api/admin';
+        const AUTH_TOKEN = 'YOUR_SECRET_ADMIN_TOKEN'; // Ganti dengan token yang kuat
 
-        // Fungsi untuk memuat daftar postingan
+        let posts = [];
+        let currentPost = null;
+
+        // Inisialisasi
+        document.addEventListener('DOMContentLoaded', () => {
+            loadPosts();
+            document.getElementById('postForm').addEventListener('submit', handleSubmit);
+            document.getElementById('postForm').reset();
+        });
+
+        // Load semua postingan
         async function loadPosts() {
             try {
-                const response = await fetch('/api/admin/posts', {
+                const response = await fetch(`${API_URL}/posts`, {
                     headers: { 'Authorization': `Bearer ${AUTH_TOKEN}` }
                 });
                 
@@ -262,13 +269,11 @@
                 posts = await response.json();
                 renderPostList();
             } catch (error) {
-                console.error(error);
-                document.getElementById('status').textContent = 'Error: ' + error.message;
-                document.getElementById('status').className = 'status-message status-error';
+                showError(error.message);
             }
         }
 
-        // Fungsi untuk menampilkan daftar postingan
+        // Tampilkan daftar postingan
         function renderPostList() {
             const container = document.getElementById('postList');
             container.innerHTML = '';
@@ -294,39 +299,78 @@
             });
         }
 
-        // Fungsi untuk mengisi form saat edit
-        async function editPost(slug) {
+        // Handle form submit
+        async function handleSubmit(e) {
+            e.preventDefault();
+            
+            const form = e.target;
+            const formData = new FormData(form);
+            const postData = {
+                title: formData.get('title'),
+                author: formData.get('author'),
+                date: formData.get('date'),
+                image: formData.get('image'),
+                thumbnail: formData.get('thumbnail'),
+                content: formData.get('content'),
+                slug: currentPost?.slug || generateSlug(formData.get('title'))
+            };
+
             try {
-                const response = await fetch(`/api/admin/${slug}`, {
-                    headers: { 'Authorization': `Bearer ${AUTH_TOKEN}` }
+                const method = currentPost ? 'PUT' : 'POST';
+                const response = await fetch(API_URL, {
+                    method: method,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${AUTH_TOKEN}`
+                    },
+                    body: JSON.stringify(postData)
                 });
                 
-                if (!response.ok) throw new Error('Gagal memuat data');
-                
-                const post = await response.json();
-                document.getElementById('postId').value = post.slug;
-                document.getElementById('title').value = post.title;
-                document.getElementById('author').value = post.author;
-                document.getElementById('date').value = post.date.split('T')[0];
-                document.getElementById('image').value = post.image;
-                document.getElementById('thumbnail').value = post.thumbnail;
-                document.getElementById('content').value = post.content;
-                
-                document.querySelector('.admin-title').textContent = 'Edit Postingan';
-                document.getElementById('postForm').scrollIntoView();
+                if (response.ok) {
+                    showSuccess(currentPost ? 'Postingan diperbarui' : 'Postingan dibuat');
+                    form.reset();
+                    currentPost = null;
+                    loadPosts();
+                } else {
+                    throw new Error('Gagal menyimpan');
+                }
             } catch (error) {
-                console.error(error);
-                document.getElementById('status').textContent = 'Error: ' + error.message;
-                document.getElementById('status').className = 'status-message status-error';
+                showError(error.message);
             }
         }
 
-        // Fungsi untuk menghapus postingan
+        // Edit postingan
+        async function editPost(slug) {
+            try {
+                const response = await fetch(`${API_URL}/${slug}`, {
+                    headers: { 'Authorization': `Bearer ${AUTH_TOKEN}` }
+                });
+                
+                if (!response.ok) throw new Error('Postingan tidak ditemukan');
+                
+                currentPost = await response.json();
+                
+                // Isi form
+                document.getElementById('title').value = currentPost.title;
+                document.getElementById('author').value = currentPost.author;
+                document.getElementById('date').value = currentPost.date.split('T')[0];
+                document.getElementById('image').value = currentPost.image;
+                document.getElementById('thumbnail').value = currentPost.thumbnail;
+                document.getElementById('content').value = currentPost.content;
+                
+                // Scroll ke form
+                document.getElementById('postForm').scrollIntoView();
+            } catch (error) {
+                showError(error.message);
+            }
+        }
+
+        // Hapus postingan
         async function deletePost(slug) {
-            if (!confirm('Apakah Anda yakin ingin menghapus postingan ini?')) return;
+            if (!confirm('Hapus postingan ini?')) return;
             
             try {
-                const response = await fetch('/api/admin', {
+                const response = await fetch(API_URL, {
                     method: 'DELETE',
                     headers: {
                         'Content-Type': 'application/json',
@@ -336,79 +380,34 @@
                 });
                 
                 if (response.ok) {
+                    showSuccess('Postingan dihapus');
                     loadPosts();
-                    document.getElementById('status').textContent = 'Postingan berhasil dihapus';
-                    document.getElementById('status').className = 'status-message status-success';
                 } else {
-                    throw new Error('Gagal menghapus postingan');
+                    throw new Error('Gagal menghapus');
                 }
             } catch (error) {
-                console.error(error);
-                document.getElementById('status').textContent = 'Error: ' + error.message;
-                document.getElementById('status').className = 'status-message status-error';
+                showError(error.message);
             }
         }
 
-        // Handler form submit
-        document.getElementById('postForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const postId = document.getElementById('postId').value;
-            const title = document.getElementById('title').value;
-            const author = document.getElementById('author').value;
-            const date = document.getElementById('date').value;
-            const image = document.getElementById('image').value;
-            const thumbnail = document.getElementById('thumbnail').value;
-            const content = document.getElementById('content').value;
-            
-            const status = document.getElementById('status');
-            status.textContent = 'Menyimpan...';
-            status.className = 'status-message';
-            
-            try {
-                const method = postId ? 'PUT' : 'POST';
-                const response = await fetch('/api/admin', {
-                    method: method,
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${AUTH_TOKEN}`
-                    },
-                    body: JSON.stringify({ 
-                        title, 
-                        author, 
-                        date, 
-                        image, 
-                        thumbnail, 
-                        content,
-                        slug: postId || generateSlug(title)
-                    })
-                });
-                
-                if (response.ok) {
-                    status.textContent = 'Postingan berhasil disimpan!';
-                    status.className = 'status-message status-success';
-                    document.getElementById('postForm').reset();
-                    document.getElementById('postId').value = '';
-                    document.querySelector('.admin-title').textContent = 'Buat Postingan';
-                    loadPosts();
-                } else {
-                    throw new Error('Gagal menyimpan postingan');
-                }
-            } catch (error) {
-                status.textContent = `Error: ${error.message}`;
-                status.className = 'status-message status-error';
-            }
-        });
-
-        // Fungsi generate slug
+        // Helper functions
         function generateSlug(title) {
             return title.toLowerCase()
                        .replace(/ /g, '-')
                        .replace(/[^a-z0-9-]/g, '');
         }
 
-        // Load initial data
-        loadPosts();
+        function showSuccess(message) {
+            const status = document.getElementById('status');
+            status.textContent = message;
+            status.className = 'status-message status-success';
+        }
+
+        function showError(message) {
+            const status = document.getElementById('status');
+            status.textContent = `Error: ${message}`;
+            status.className = 'status-message status-error';
+        }
     </script>
 </body>
 </html>
