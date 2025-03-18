@@ -213,8 +213,8 @@
   </div>
 
   <script>
-    // Konfigurasi GitHub API
-    const GITHUB_TOKEN = 'IDEA_THESIS_BLOG';
+    // CATATAN: Ganti token di bawah dengan token GitHub baru yang valid dan pastikan memiliki scope "repo"
+    const GITHUB_TOKEN = 'GANTI_TOKEN_BARU_ANDA_DI_SINI';
     const REPO_OWNER = 'ideathesis';
     const REPO_NAME = 'blog';
     const POSTS_PATH = 'post/md';
@@ -229,7 +229,7 @@
       document.getElementById('postForm').reset();
     });
 
-    // Fungsi untuk mengambil daftar postingan dari GitHub
+    // Ambil daftar postingan dari GitHub
     async function loadPosts() {
       try {
         const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${POSTS_PATH}`;
@@ -244,12 +244,12 @@
           throw new Error(errorData.message || 'Gagal memuat postingan');
         }
         const files = await response.json();
-        // Pastikan hanya file .md yang diambil
+        // Ambil hanya file .md
         posts = files.filter(file => file.name.endsWith('.md')).map(file => ({
           title: file.name.replace('.md',''),
           slug: file.name.replace('.md',''),
-          sha: file.sha, // simpan sha untuk update/delete
-          date: new Date().toISOString() // Jika perlu, bisa ambil tanggal commit dengan API tambahan
+          sha: file.sha,
+          date: new Date().toISOString()
         }));
         renderPostList();
       } catch (error) {
@@ -274,12 +274,8 @@
             <div class="post-date">${new Date(post.date).toLocaleDateString()}</div>
           </div>
           <div class="post-actions">
-            <button class="btn-edit" onclick="editPost('${post.slug}')">
-              <i class="fas fa-edit"></i> Edit
-            </button>
-            <button class="btn-delete" onclick="deletePost('${post.slug}')">
-              <i class="fas fa-trash-alt"></i> Hapus
-            </button>
+            <button class="btn-edit" onclick="editPost('${post.slug}')">Edit</button>
+            <button class="btn-delete" onclick="deletePost('${post.slug}')">Hapus</button>
           </div>
         `;
         container.appendChild(div);
@@ -302,7 +298,7 @@
       const slug = currentPost ? currentPost.slug : generateSlug(postData.title);
       const filePath = `${POSTS_PATH}/${slug}.md`;
 
-      // Format konten dengan front matter YAML
+      // Buat konten dengan front matter YAML
       const contentMarkdown = `---
 title: ${postData.title}
 author: ${postData.author}
@@ -370,7 +366,6 @@ ${postData.content}
         }
         const fileData = await response.json();
         const decodedContent = atob(fileData.content);
-        // Pisahkan front matter YAML dan konten markdown
         const parts = decodedContent.split('---');
         let frontMatter = {};
         let markdownContent = '';
@@ -393,7 +388,6 @@ ${postData.content}
           content: markdownContent
         };
 
-        // Isi form
         document.getElementById('title').value = currentPost.title;
         document.getElementById('author').value = currentPost.author;
         document.getElementById('date').value = currentPost.date;
@@ -413,7 +407,6 @@ ${postData.content}
       const filePath = `${POSTS_PATH}/${slug}.md`;
       const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${filePath}`;
       try {
-        // Dapatkan SHA file terlebih dahulu
         const response = await fetch(url, {
           headers: {
             'Authorization': `token ${GITHUB_TOKEN}`,
@@ -460,14 +453,13 @@ ${postData.content}
                   .replace(/[^a-z0-9-]/g, '');
     }
 
-    // Tampilkan pesan sukses
+    // Tampilkan pesan sukses dan error
     function showSuccess(message) {
       const status = document.getElementById('status');
       status.textContent = message;
       status.className = 'status-message status-success';
     }
 
-    // Tampilkan pesan error
     function showError(message) {
       const status = document.getElementById('status');
       status.textContent = `Error: ${message}`;
