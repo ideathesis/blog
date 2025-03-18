@@ -111,7 +111,7 @@ thumbnail: "/post/images/penipuan-joki-skripsi.png"
       <ul>
         <li>Tidak ada profil yang jelas</li>
         <li>Harga jauh di bawah standar</li>
-        <li>Janji selesai instan (kurang dari 7 hari)</li>
+        <li>Janji selesai instan (kurang dari 3 hari)</li>
         <li>Tidak ada portofolio karya atau tidak berani menunjukkan hasil-hasil karya mereka</li>
         <li>Komentar testimoni seragam dan berlebihan dari akun-akun buzzer atau tidak dikenal</li>
       </ul>
