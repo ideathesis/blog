@@ -1,208 +1,414 @@
-const GITHUB_TOKEN = SECRET_GITHUB_TOKEN;
-const REPO_OWNER = 'YOUR_GITHUB_USERNAME';
-const REPO_NAME = 'YOUR_REPO_NAME';
-const BRANCH = 'main';
-
-async function createOrUpdateGitHubFile(path, content, commitMessage) {
-    const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}`;
-    
-    const response = await fetch(url, {
-        method: 'PUT',
-        headers: {
-            'Authorization': `token ${GITHUB_TOKEN}`,
-            'Content-Type': 'application/json',
-            'User-Agent': 'Cloudflare-Worker'
-        },
-        body: JSON.stringify({
-            message: commitMessage,
-            content: btoa(content),
-            branch: BRANCH
-        })
-    });
-    
-    return response.ok;
-}
-
-async function deleteGitHubFile(path, commitMessage) {
-    const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}`;
-    
-    const response = await fetch(url, {
-        method: 'DELETE',
-        headers: {
-            'Authorization': `token ${GITHUB_TOKEN}`,
-            'Content-Type': 'application/json',
-            'User-Agent': 'Cloudflare-Worker'
-        },
-        body: JSON.stringify({
-            message: commitMessage,
-            branch: BRANCH
-        })
-    });
-    
-    return response.ok;
-}
-
-async function getGitHubFile(path) {
-    const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}`;
-    
-    const response = await fetch(url, {
-        headers: {
-            'Authorization': `token ${GITHUB_TOKEN}`,
-            'User-Agent': 'Cloudflare-Worker'
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Panel - IDEA THESIS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #F9FAFB;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
         }
-    });
-    
-    if (!response.ok) return null;
-    
-    const data = await response.json();
-    return {
-        content: atob(data.content),
-        sha: data.sha
-    };
-}
 
-async function listMarkdownFiles() {
-    const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/md`;
-    
-    const response = await fetch(url, {
-        headers: {
-            'Authorization': `token ${GITHUB_TOKEN}`,
-            'User-Agent': 'Cloudflare-Worker'
+        .admin-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
         }
-    });
-    
-    if (!response.ok) return [];
-    
-    const files = await response.json();
-    return files.filter(file => file.name.endsWith('.md'));
-}
 
-function parseFrontMatter(content) {
-    const frontMatterRegex = /^---\n([\s\S]*?)\n---/;
-    const match = content.match(frontMatterRegex);
-    
-    if (!match) return {};
-    
-    const frontMatter = match[1];
-    const data = {};
-    
-    frontMatter.split('\n').forEach(line => {
-        const [key, ...value] = line.split(': ');
-        data[key] = value.join(': ').replace(/"/g, '');
-    });
-    
-    return data;
-}
+        .admin-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-top: 40px;
+        }
 
-addEventListener('fetch', event => {
-    event.respondWith(handleRequest(event.request));
-});
+        .admin-title {
+            color: #00C853;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
 
-async function handleRequest(request) {
-    const url = new URL(request.url);
-    
-    // Autentikasi
-    const authHeader = request.headers.get('Authorization');
-    if (!authHeader || authHeader !== 'Bearer YOUR_SECRET_TOKEN') {
-        return new Response('Unauthorized', { status: 401 });
-    }
+        .admin-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(135deg, #00C853, #00BFA5);
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
 
-    try {
-        if (request.method === 'GET' && url.pathname === '/api/admin/posts') {
-            // Ambil daftar postingan
-            const files = await listMarkdownFiles();
-            const posts = [];
-            
-            for (const file of files) {
-                const content = await getGitHubFile(file.path);
-                if (content) {
-                    const frontMatter = parseFrontMatter(content.content);
-                    posts.push({
-                        slug: file.name.replace('.md', ''),
-                        title: frontMatter.title,
-                        author: frontMatter.author,
-                        date: frontMatter.date,
-                        image: frontMatter.image,
-                        thumbnail: frontMatter.thumbnail
-                    });
-                }
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #E0E0E0;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group textarea {
+            min-height: 200px;
+            resize: vertical;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #00C853;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(0, 200, 83, 0.2);
+        }
+
+        /* Button Styles */
+        .btn-submit {
+            background: linear-gradient(135deg, #00C853, #00BFA5);
+            color: white;
+            padding: 14px 30px;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+
+        /* Status Message */
+        .status-message {
+            margin-top: 20px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .status-success {
+            color: #28a745;
+        }
+
+        .status-error {
+            color: #dc3545;
+        }
+
+        /* Post List */
+        .post-list {
+            margin-top: 40px;
+        }
+
+        .post-item {
+            background: #FFFFFF;
+            border: 1px solid #E0E0E0;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .post-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .post-info {
+            flex: 1;
+        }
+
+        .post-title {
+            font-weight: 600;
+            color: #00C853;
+            margin: 0 0 5px;
+        }
+
+        .post-date {
+            color: #777;
+            font-size: 0.9em;
+        }
+
+        .post-actions {
+            display: flex;
+            gap: 10px;
+            margin-left: 20px;
+        }
+
+        .btn-edit, .btn-delete {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: color 0.3s ease;
+        }
+
+        .btn-edit {
+            color: #FFA726;
+        }
+
+        .btn-delete {
+            color: #EF5350;
+        }
+
+        .btn-edit:hover {
+            color: #FB8C00;
+        }
+
+        .btn-delete:hover {
+            color: #E53935;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .admin-card {
+                padding: 20px;
+                margin-top: 20px;
             }
             
-            return new Response(JSON.stringify(posts), {
-                headers: { 'Content-Type': 'application/json' }
+            .form-group input,
+            .form-group textarea {
+                font-size: 16px;
+            }
+            
+            .btn-submit {
+                padding: 12px 25px;
+            }
+            
+            .post-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .post-actions {
+                margin-left: 0;
+                margin-top: 10px;
+                width: 100%;
+                justify-content: space-around;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-wrapper">
+        <div class="admin-card">
+            <h1 class="admin-title">Manajemen Postingan</h1>
+            
+            <!-- Form untuk membuat/edit postingan -->
+            <form id="postForm" class="admin-form">
+                <input type="hidden" id="postId">
+                <div class="form-group">
+                    <input type="text" id="title" placeholder="Judul" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="author" placeholder="Penulis" value="IDEA THESIS" required>
+                </div>
+                <div class="form-group">
+                    <input type="date" id="date" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="image" placeholder="Path Gambar (contoh: /post/images/gambar.jpg)" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="thumbnail" placeholder="Path Thumbnail" required>
+                </div>
+                <div class="form-group">
+                    <textarea id="content" placeholder="Konten Markdown" required></textarea>
+                </div>
+                <button type="submit" class="btn-submit">Simpan Postingan</button>
+            </form>
+            <div id="status" class="status-message"></div>
+
+            <!-- Daftar Postingan -->
+            <div class="post-list" id="postList"></div>
+        </div>
+    </div>
+
+    <script>
+        let posts = [];
+        const GITHUB_REPO = 'YOUR_REPO_NAME';
+        const GITHUB_OWNER = 'YOUR_GITHUB_USERNAME';
+        const BRANCH = 'main';
+        const AUTH_TOKEN = 'YOUR_SECRET_TOKEN';
+
+        // Fungsi untuk memuat daftar postingan
+        async function loadPosts() {
+            try {
+                const response = await fetch('/api/admin/posts', {
+                    headers: { 'Authorization': `Bearer ${AUTH_TOKEN}` }
+                });
+                
+                if (!response.ok) throw new Error('Gagal memuat postingan');
+                
+                posts = await response.json();
+                renderPostList();
+            } catch (error) {
+                console.error(error);
+                document.getElementById('status').textContent = 'Error: ' + error.message;
+                document.getElementById('status').className = 'status-message status-error';
+            }
+        }
+
+        // Fungsi untuk menampilkan daftar postingan
+        function renderPostList() {
+            const container = document.getElementById('postList');
+            container.innerHTML = '';
+            
+            posts.forEach(post => {
+                const div = document.createElement('div');
+                div.className = 'post-item';
+                div.innerHTML = `
+                    <div class="post-info">
+                        <div class="post-title">${post.title}</div>
+                        <div class="post-date">${new Date(post.date).toLocaleDateString()}</div>
+                    </div>
+                    <div class="post-actions">
+                        <button class="btn-edit" onclick="editPost('${post.slug}')">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn-delete" onclick="deletePost('${post.slug}')">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </div>
+                `;
+                container.appendChild(div);
             });
         }
-        
-        if (request.method === 'GET' && url.pathname.startsWith('/api/admin/')) {
-            // Ambil konten postingan
-            const slug = url.pathname.split('/').pop();
-            const content = await getGitHubFile(`md/${slug}.md`);
-            
-            if (!content) return new Response('Not found', { status: 404 });
-            
-            const frontMatter = parseFrontMatter(content.content);
-            const markdownContent = content.content.replace(/^---[\s\S]*?---/, '').trim();
-            
-            return new Response(JSON.stringify({
-                slug: slug,
-                title: frontMatter.title,
-                author: frontMatter.author,
-                date: frontMatter.date,
-                image: frontMatter.image,
-                thumbnail: frontMatter.thumbnail,
-                content: markdownContent
-            }), {
-                headers: { 'Content-Type': 'application/json' }
-            });
+
+        // Fungsi untuk mengisi form saat edit
+        async function editPost(slug) {
+            try {
+                const response = await fetch(`/api/admin/${slug}`, {
+                    headers: { 'Authorization': `Bearer ${AUTH_TOKEN}` }
+                });
+                
+                if (!response.ok) throw new Error('Gagal memuat data');
+                
+                const post = await response.json();
+                document.getElementById('postId').value = post.slug;
+                document.getElementById('title').value = post.title;
+                document.getElementById('author').value = post.author;
+                document.getElementById('date').value = post.date.split('T')[0];
+                document.getElementById('image').value = post.image;
+                document.getElementById('thumbnail').value = post.thumbnail;
+                document.getElementById('content').value = post.content;
+                
+                document.querySelector('.admin-title').textContent = 'Edit Postingan';
+                document.getElementById('postForm').scrollIntoView();
+            } catch (error) {
+                console.error(error);
+                document.getElementById('status').textContent = 'Error: ' + error.message;
+                document.getElementById('status').className = 'status-message status-error';
+            }
         }
 
-        if (request.method === 'POST' || request.method === 'PUT') {
-            // Simpan postingan
-            const data = await request.json();
-            const slug = data.slug;
-            const filePath = `md/${slug}.md`;
+        // Fungsi untuk menghapus postingan
+        async function deletePost(slug) {
+            if (!confirm('Apakah Anda yakin ingin menghapus postingan ini?')) return;
             
-            const markdownContent = `---
-title: "${data.title}"
-author: "${data.author}"
-date: "${data.date}"
-image: "${data.image}"
-thumbnail: "${data.thumbnail}"
----
-
-${data.content}`;
-            
-            const success = await createOrUpdateGitHubFile(
-                filePath,
-                markdownContent,
-                request.method === 'POST' 
-                    ? `Create post: ${data.title}`
-                    : `Update post: ${data.title}`
-            );
-            
-            return success 
-                ? new Response('Post berhasil disimpan', { status: 200 })
-                : new Response('Gagal menyimpan ke GitHub', { status: 500 });
+            try {
+                const response = await fetch('/api/admin', {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${AUTH_TOKEN}`
+                    },
+                    body: JSON.stringify({ slug })
+                });
+                
+                if (response.ok) {
+                    loadPosts();
+                    document.getElementById('status').textContent = 'Postingan berhasil dihapus';
+                    document.getElementById('status').className = 'status-message status-success';
+                } else {
+                    throw new Error('Gagal menghapus postingan');
+                }
+            } catch (error) {
+                console.error(error);
+                document.getElementById('status').textContent = 'Error: ' + error.message;
+                document.getElementById('status').className = 'status-message status-error';
+            }
         }
 
-        if (request.method === 'DELETE') {
-            // Hapus postingan
-            const data = await request.json();
-            const slug = data.slug;
-            const filePath = `md/${slug}.md`;
+        // Handler form submit
+        document.getElementById('postForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
             
-            const success = await deleteGitHubFile(
-                filePath,
-                `Delete post: ${slug}`
-            );
+            const postId = document.getElementById('postId').value;
+            const title = document.getElementById('title').value;
+            const author = document.getElementById('author').value;
+            const date = document.getElementById('date').value;
+            const image = document.getElementById('image').value;
+            const thumbnail = document.getElementById('thumbnail').value;
+            const content = document.getElementById('content').value;
             
-            return success 
-                ? new Response('Post berhasil dihapus', { status: 200 })
-                : new Response('Gagal menghapus post', { status: 500 });
-        }
-    } catch (error) {
-        return new Response('Internal Server Error: ' + error.message, { status: 500 });
-    }
+            const status = document.getElementById('status');
+            status.textContent = 'Menyimpan...';
+            status.className = 'status-message';
+            
+            try {
+                const method = postId ? 'PUT' : 'POST';
+                const response = await fetch('/api/admin', {
+                    method: method,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${AUTH_TOKEN}`
+                    },
+                    body: JSON.stringify({ 
+                        title, 
+                        author, 
+                        date, 
+                        image, 
+                        thumbnail, 
+                        content,
+                        slug: postId || generateSlug(title)
+                    })
+                });
+                
+                if (response.ok) {
+                    status.textContent = 'Postingan berhasil disimpan!';
+                    status.className = 'status-message status-success';
+                    document.getElementById('postForm').reset();
+                    document.getElementById('postId').value = '';
+                    document.querySelector('.admin-title').textContent = 'Buat Postingan';
+                    loadPosts();
+                } else {
+                    throw new Error('Gagal menyimpan postingan');
+                }
+            } catch (error) {
+                status.textContent = `Error: ${error.message}`;
+                status.className = 'status-message status-error';
+            }
+        });
 
-    return new Response('Method not allowed', { status: 405 });
-}
+        // Fungsi generate slug
+        function generateSlug(title) {
+            return title.toLowerCase()
+                       .replace(/ /g, '-')
+                       .replace(/[^a-z0-9-]/g, '');
+        }
+
+        // Load initial data
+        loadPosts();
+    </script>
+</body>
+</html>
