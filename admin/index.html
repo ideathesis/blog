@@ -1,0 +1,208 @@
+const GITHUB_TOKEN = SECRET_GITHUB_TOKEN;
+const REPO_OWNER = 'YOUR_GITHUB_USERNAME';
+const REPO_NAME = 'YOUR_REPO_NAME';
+const BRANCH = 'main';
+
+async function createOrUpdateGitHubFile(path, content, commitMessage) {
+    const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}`;
+    
+    const response = await fetch(url, {
+        method: 'PUT',
+        headers: {
+            'Authorization': `token ${GITHUB_TOKEN}`,
+            'Content-Type': 'application/json',
+            'User-Agent': 'Cloudflare-Worker'
+        },
+        body: JSON.stringify({
+            message: commitMessage,
+            content: btoa(content),
+            branch: BRANCH
+        })
+    });
+    
+    return response.ok;
+}
+
+async function deleteGitHubFile(path, commitMessage) {
+    const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}`;
+    
+    const response = await fetch(url, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': `token ${GITHUB_TOKEN}`,
+            'Content-Type': 'application/json',
+            'User-Agent': 'Cloudflare-Worker'
+        },
+        body: JSON.stringify({
+            message: commitMessage,
+            branch: BRANCH
+        })
+    });
+    
+    return response.ok;
+}
+
+async function getGitHubFile(path) {
+    const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}`;
+    
+    const response = await fetch(url, {
+        headers: {
+            'Authorization': `token ${GITHUB_TOKEN}`,
+            'User-Agent': 'Cloudflare-Worker'
+        }
+    });
+    
+    if (!response.ok) return null;
+    
+    const data = await response.json();
+    return {
+        content: atob(data.content),
+        sha: data.sha
+    };
+}
+
+async function listMarkdownFiles() {
+    const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/md`;
+    
+    const response = await fetch(url, {
+        headers: {
+            'Authorization': `token ${GITHUB_TOKEN}`,
+            'User-Agent': 'Cloudflare-Worker'
+        }
+    });
+    
+    if (!response.ok) return [];
+    
+    const files = await response.json();
+    return files.filter(file => file.name.endsWith('.md'));
+}
+
+function parseFrontMatter(content) {
+    const frontMatterRegex = /^---\n([\s\S]*?)\n---/;
+    const match = content.match(frontMatterRegex);
+    
+    if (!match) return {};
+    
+    const frontMatter = match[1];
+    const data = {};
+    
+    frontMatter.split('\n').forEach(line => {
+        const [key, ...value] = line.split(': ');
+        data[key] = value.join(': ').replace(/"/g, '');
+    });
+    
+    return data;
+}
+
+addEventListener('fetch', event => {
+    event.respondWith(handleRequest(event.request));
+});
+
+async function handleRequest(request) {
+    const url = new URL(request.url);
+    
+    // Autentikasi
+    const authHeader = request.headers.get('Authorization');
+    if (!authHeader || authHeader !== 'Bearer YOUR_SECRET_TOKEN') {
+        return new Response('Unauthorized', { status: 401 });
+    }
+
+    try {
+        if (request.method === 'GET' && url.pathname === '/api/admin/posts') {
+            // Ambil daftar postingan
+            const files = await listMarkdownFiles();
+            const posts = [];
+            
+            for (const file of files) {
+                const content = await getGitHubFile(file.path);
+                if (content) {
+                    const frontMatter = parseFrontMatter(content.content);
+                    posts.push({
+                        slug: file.name.replace('.md', ''),
+                        title: frontMatter.title,
+                        author: frontMatter.author,
+                        date: frontMatter.date,
+                        image: frontMatter.image,
+                        thumbnail: frontMatter.thumbnail
+                    });
+                }
+            }
+            
+            return new Response(JSON.stringify(posts), {
+                headers: { 'Content-Type': 'application/json' }
+            });
+        }
+        
+        if (request.method === 'GET' && url.pathname.startsWith('/api/admin/')) {
+            // Ambil konten postingan
+            const slug = url.pathname.split('/').pop();
+            const content = await getGitHubFile(`md/${slug}.md`);
+            
+            if (!content) return new Response('Not found', { status: 404 });
+            
+            const frontMatter = parseFrontMatter(content.content);
+            const markdownContent = content.content.replace(/^---[\s\S]*?---/, '').trim();
+            
+            return new Response(JSON.stringify({
+                slug: slug,
+                title: frontMatter.title,
+                author: frontMatter.author,
+                date: frontMatter.date,
+                image: frontMatter.image,
+                thumbnail: frontMatter.thumbnail,
+                content: markdownContent
+            }), {
+                headers: { 'Content-Type': 'application/json' }
+            });
+        }
+
+        if (request.method === 'POST' || request.method === 'PUT') {
+            // Simpan postingan
+            const data = await request.json();
+            const slug = data.slug;
+            const filePath = `md/${slug}.md`;
+            
+            const markdownContent = `---
+title: "${data.title}"
+author: "${data.author}"
+date: "${data.date}"
+image: "${data.image}"
+thumbnail: "${data.thumbnail}"
+---
+
+${data.content}`;
+            
+            const success = await createOrUpdateGitHubFile(
+                filePath,
+                markdownContent,
+                request.method === 'POST' 
+                    ? `Create post: ${data.title}`
+                    : `Update post: ${data.title}`
+            );
+            
+            return success 
+                ? new Response('Post berhasil disimpan', { status: 200 })
+                : new Response('Gagal menyimpan ke GitHub', { status: 500 });
+        }
+
+        if (request.method === 'DELETE') {
+            // Hapus postingan
+            const data = await request.json();
+            const slug = data.slug;
+            const filePath = `md/${slug}.md`;
+            
+            const success = await deleteGitHubFile(
+                filePath,
+                `Delete post: ${slug}`
+            );
+            
+            return success 
+                ? new Response('Post berhasil dihapus', { status: 200 })
+                : new Response('Gagal menghapus post', { status: 500 });
+        }
+    } catch (error) {
+        return new Response('Internal Server Error: ' + error.message, { status: 500 });
+    }
+
+    return new Response('Method not allowed', { status: 405 });
+}
