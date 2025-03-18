@@ -213,51 +213,35 @@
   </div>
 
   <script>
-    // CATATAN: Ganti token di bawah dengan token GitHub baru yang valid dan pastikan memiliki scope "repo"
-    const GITHUB_TOKEN = 'GANTI_TOKEN_BARU_ANDA_DI_SINI';
-    const REPO_OWNER = 'ideathesis';
-    const REPO_NAME = 'blog';
-    const POSTS_PATH = 'post/md';
-
     let posts = [];
     let currentPost = null;
 
-    // Inisialisasi
     document.addEventListener('DOMContentLoaded', () => {
       loadPosts();
       document.getElementById('postForm').addEventListener('submit', handleSubmit);
-      document.getElementById('postForm').reset();
     });
 
-    // Ambil daftar postingan dari GitHub
+    // Memuat daftar postingan melalui endpoint proxy /api/posts
     async function loadPosts() {
       try {
-        const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${POSTS_PATH}`;
-        const response = await fetch(url, {
-          headers: {
-            'Authorization': `token ${GITHUB_TOKEN}`,
-            'Accept': 'application/vnd.github.v3+json'
-          }
-        });
+        const response = await fetch('/api/posts');
         if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.message || 'Gagal memuat postingan');
+          const err = await response.json();
+          throw new Error(err.message || 'Gagal memuat postingan');
         }
         const files = await response.json();
-        // Ambil hanya file .md
         posts = files.filter(file => file.name.endsWith('.md')).map(file => ({
-          title: file.name.replace('.md',''),
-          slug: file.name.replace('.md',''),
+          title: file.name.replace('.md', ''),
+          slug: file.name.replace('.md', ''),
           sha: file.sha,
           date: new Date().toISOString()
         }));
         renderPostList();
-      } catch (error) {
-        showError(`Error loadPosts: ${error.message}`);
+      } catch (e) {
+        showError(`Error loadPosts: ${e.message}`);
       }
     }
 
-    // Render daftar postingan
     function renderPostList() {
       const container = document.getElementById('postList');
       container.innerHTML = '';
@@ -282,7 +266,6 @@
       });
     }
 
-    // Handle submit form untuk membuat atau mengupdate postingan
     async function handleSubmit(e) {
       e.preventDefault();
       const form = e.target;
@@ -296,9 +279,7 @@
         content: formData.get('content')
       };
       const slug = currentPost ? currentPost.slug : generateSlug(postData.title);
-      const filePath = `${POSTS_PATH}/${slug}.md`;
-
-      // Buat konten dengan front matter YAML
+      // Susun konten dengan front matter YAML
       const contentMarkdown = `---
 title: ${postData.title}
 author: ${postData.author}
@@ -306,13 +287,10 @@ date: ${postData.date}
 image: ${postData.image}
 thumbnail: ${postData.thumbnail}
 ---
-
 ${postData.content}
 `;
-      // Encode ke base64
+      // Encode konten ke Base64
       const encodedContent = btoa(contentMarkdown);
-      const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${filePath}`;
-
       let bodyData = {
         message: currentPost ? `Update post ${slug}` : `Create post ${slug}`,
         content: encodedContent,
@@ -321,48 +299,34 @@ ${postData.content}
           email: "noreply@ideathesis.com"
         }
       };
-
       if (currentPost && currentPost.sha) {
         bodyData.sha = currentPost.sha;
       }
-
       try {
-        const response = await fetch(url, {
+        const response = await fetch(`/api/posts?slug=${slug}`, {
           method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `token ${GITHUB_TOKEN}`,
-            'Accept': 'application/vnd.github.v3+json'
-          },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(bodyData)
         });
         if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.message || 'Gagal menyimpan');
+          const err = await response.json();
+          throw new Error(err.message || 'Gagal menyimpan');
         }
         showSuccess(currentPost ? 'Postingan diperbarui' : 'Postingan dibuat');
         form.reset();
         currentPost = null;
         loadPosts();
-      } catch (error) {
-        showError(`Error handleSubmit: ${error.message}`);
+      } catch (e) {
+        showError(`Error handleSubmit: ${e.message}`);
       }
     }
 
-    // Fungsi untuk mengedit postingan: ambil file, decode, dan isi form
     async function editPost(slug) {
-      const filePath = `${POSTS_PATH}/${slug}.md`;
-      const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${filePath}`;
       try {
-        const response = await fetch(url, {
-          headers: {
-            'Authorization': `token ${GITHUB_TOKEN}`,
-            'Accept': 'application/vnd.github.v3+json'
-          }
-        });
+        const response = await fetch(`/api/posts?slug=${slug}`);
         if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.message || 'Postingan tidak ditemukan');
+          const err = await response.json();
+          throw new Error(err.message || 'Postingan tidak ditemukan');
         }
         const fileData = await response.json();
         const decodedContent = atob(fileData.content);
@@ -387,35 +351,25 @@ ${postData.content}
           thumbnail: frontMatter.thumbnail || '',
           content: markdownContent
         };
-
         document.getElementById('title').value = currentPost.title;
         document.getElementById('author').value = currentPost.author;
         document.getElementById('date').value = currentPost.date;
         document.getElementById('image').value = currentPost.image;
         document.getElementById('thumbnail').value = currentPost.thumbnail;
         document.getElementById('content').value = currentPost.content;
-
         document.getElementById('postForm').scrollIntoView();
-      } catch (error) {
-        showError(`Error editPost: ${error.message}`);
+      } catch (e) {
+        showError(`Error editPost: ${e.message}`);
       }
     }
 
-    // Fungsi untuk menghapus postingan melalui GitHub API
     async function deletePost(slug) {
       if (!confirm('Hapus postingan ini?')) return;
-      const filePath = `${POSTS_PATH}/${slug}.md`;
-      const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${filePath}`;
       try {
-        const response = await fetch(url, {
-          headers: {
-            'Authorization': `token ${GITHUB_TOKEN}`,
-            'Accept': 'application/vnd.github.v3+json'
-          }
-        });
+        const response = await fetch(`/api/posts?slug=${slug}`);
         if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.message || 'Postingan tidak ditemukan');
+          const err = await response.json();
+          throw new Error(err.message || 'Postingan tidak ditemukan');
         }
         const fileData = await response.json();
         const bodyData = {
@@ -426,40 +380,31 @@ ${postData.content}
             email: "noreply@ideathesis.com"
           }
         };
-        const deleteResponse = await fetch(url, {
+        const delResponse = await fetch(`/api/posts?slug=${slug}`, {
           method: 'DELETE',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `token ${GITHUB_TOKEN}`,
-            'Accept': 'application/vnd.github.v3+json'
-          },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(bodyData)
         });
-        if (!deleteResponse.ok) {
-          const errorData = await deleteResponse.json();
-          throw new Error(errorData.message || 'Gagal menghapus');
+        if (!delResponse.ok) {
+          const err = await delResponse.json();
+          throw new Error(err.message || 'Gagal menghapus');
         }
         showSuccess('Postingan dihapus');
         loadPosts();
-      } catch (error) {
-        showError(`Error deletePost: ${error.message}`);
+      } catch (e) {
+        showError(`Error deletePost: ${e.message}`);
       }
     }
 
-    // Helper: generate slug dari judul
     function generateSlug(title) {
-      return title.toLowerCase()
-                  .replace(/ /g, '-')
-                  .replace(/[^a-z0-9-]/g, '');
+      return title.toLowerCase().replace(/ /g, '-').replace(/[^a-z0-9-]/g, '');
     }
 
-    // Tampilkan pesan sukses dan error
     function showSuccess(message) {
       const status = document.getElementById('status');
       status.textContent = message;
       status.className = 'status-message status-success';
     }
-
     function showError(message) {
       const status = document.getElementById('status');
       status.textContent = `Error: ${message}`;
