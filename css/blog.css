@@ -38,6 +38,7 @@ body {
   margin: 0 1rem;
   position: relative;
   transition: color 0.3s ease;
+  font-size: 1.1rem; /* Ukuran font navlink sedikit ditambah */
 }
 
 .nav-link::after {
