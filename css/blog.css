@@ -4,9 +4,9 @@ body {
   background-color: #F9FAFB;
   color: #333;
   line-height: 1.6;
-  margin-top: 60px; /* Tetap dipertahankan */
-  padding-top: 20px; /* Padding baru untuk bagian atas body */
-  box-sizing: border-box; /* Memastikan padding tidak mengganggu layout */
+  margin-top: 60px;
+  padding-top: 20px;
+  box-sizing: border-box;
 }
 
 /* Navbar Styles */
@@ -20,15 +20,11 @@ body {
 
 .navbar-brand {
   font-weight: 700;
-  font-size: 1.5rem;
+  font-size: 1.6rem; /* Desktop: 24px */
   letter-spacing: 1px;
   text-transform: uppercase;
   color: #FFFFFF !important;
   transition: color 0.3s ease;
-}
-
-.navbar-brand:hover {
-  color: #FFEB3B !important;
 }
 
 .nav-link {
@@ -36,6 +32,7 @@ body {
   margin: 0 1rem;
   position: relative;
   transition: color 0.3s ease;
+  font-size: 1.1rem; /* Desktop: 17.6px */
 }
 
 .nav-link::after {
@@ -80,8 +77,8 @@ body {
   background-color: #FFFFFF;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-top: 40px;  /* Jarak dari navbar */
-  margin-bottom: 40px;  /* Jarak dari footer */
+  margin-top: 40px;
+  margin-bottom: 40px;
 }
 
 /* Featured Image Styling */
@@ -160,17 +157,13 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   background: linear-gradient(135deg, #00C853, #00BFA5);
   border-color: transparent;
-  transition: background 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
 }
 
-/* Pastikan teks tetap mudah dibaca saat hover */
 .related-post:hover .related-post-title,
 .related-post:hover .related-post-meta {
   color: #FFFFFF;
-  transition: color 0.3s ease;
 }
 
-/* Related Post Image Styling */
 .related-post img {
   width: 100%;
   height: auto;
@@ -179,7 +172,6 @@ body {
   margin-bottom: 10px;
 }
 
-/* Related Post Content Styling */
 .related-post-content {
   flex-grow: 1;
   display: flex;
@@ -187,7 +179,6 @@ body {
   justify-content: center;
 }
 
-/* Related Post Title Styling */
 .related-post-title {
   font-size: 14px;
   margin-bottom: 5px;
@@ -195,33 +186,34 @@ body {
   font-weight: 600;
   line-height: 1.2;
   word-wrap: break-word;
-  max-width: 100%;
 }
 
-/* Related Post Meta Styling */
 .related-post-meta {
   font-size: 12px;
   color: #777;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 100%;
 }
 
 /* Footer Styling */
 footer {
   background-color: #333;
   color: white;
-  padding: 20px;
+  padding: 25px;
   min-height: 80px;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
+  font-size: 1rem; /* 16px */
 }
 
 footer p {
-  transform: translateY(10px); /* Turunkan teks 10px */
+  transform: translateY(8px);
+  margin: 0;
+  padding: 0 20px;
+  line-height: 1.4;
 }
 
 /* Mobile Responsiveness */
@@ -229,6 +221,19 @@ footer p {
   body {
     margin-top: 50px;
     font-size: 15px;
+  }
+
+  .navbar {
+    padding: 0.5rem 1rem;
+  }
+
+  .navbar-brand {
+    font-size: 1.5rem !important; /* 22.5px */
+  }
+
+  .nav-link {
+    font-size: 1.05rem !important; /* 16.8px */
+    margin: 0 0.75rem;
   }
 
   .article-container {
@@ -240,12 +245,10 @@ footer p {
   .content {
     padding: 15px;
     margin-top: 15px;
-    order: 0;
   }
 
   .sidebar {
     padding: 15px;
-    order: 1;
   }
 
   .related-post {
@@ -282,36 +285,42 @@ footer p {
     white-space: normal;
   }
 
-  .navbar {
-    padding: 10px;
+  footer {
+    padding: 20px;
+    font-size: 0.95rem; /* 15.2px */
   }
 
-  .navbar-brand {
-    font-size: 1.1rem;
-  }
-
-  .featured-image {
-    margin-bottom: 15px;
+  footer p {
+    transform: translateY(5px);
   }
 }
 
 @media (max-width: 480px) {
+  .navbar-brand {
+    font-size: 1.4rem !important; /* 21px */
+  }
+
+  .nav-link {
+    font-size: 1rem !important; /* 16px */
+    margin: 0 0.5rem;
+  }
+
   .related-post img {
     width: 80px;
     height: 60px;
   }
-  
+
   .related-post-title {
     -webkit-line-clamp: 3;
   }
-  
+
   body {
     font-size: 14px;
   }
-  
+
   footer {
-    padding: 15px;
-    margin-top: 30px;
+    font-size: 0.9rem; /* 14.4px */
+    padding: 18px;
   }
 }
 
