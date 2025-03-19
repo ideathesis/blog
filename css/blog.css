@@ -1,18 +1,15 @@
 /* General Body Styling */
 body {
   font-family: 'Poppins', sans-serif;
-  background-color: #F5F5F5; /* Diubah dari #F9FAFB */
+  background-color: #F9FAFB;
   color: #333;
   line-height: 1.6;
-  margin: 0;
-  padding: 0;
-  display: flex; /* Layout fleksibel */
-  flex-direction: column; /* Elemen tersusun secara vertikal */
-  min-height: 100vh; /* Body setidaknya setinggi layar */
-  box-sizing: border-box; /* Pastikan padding tidak mengganggu layout */
+  margin-top: 60px; /* Tetap dipertahankan */
+  padding-top: 20px; /* Padding baru untuk bagian atas body */
+  box-sizing: border-box; /* Memastikan padding tidak mengganggu layout */
 }
 
-/* Navbar Styles (Revisi) */
+/* Navbar Styles */
 .navbar {
   background: linear-gradient(135deg, #00C853, #00BFA5);
   backdrop-filter: blur(10px);
@@ -115,7 +112,7 @@ body {
   width: 100%;
 }
 
-/* Chip Styling untuk Sidebar Title */
+/* Chip Styling for Sidebar Title */
 .sidebar-chip {
   display: block;
   background: linear-gradient(135deg, #00C853, #00BFA5);
@@ -211,7 +208,7 @@ body {
   max-width: 100%;
 }
 
-/* Footer Styles (Revisi) */
+/* Footer Styling */
 footer {
   background-color: #333;
   color: white;
@@ -233,43 +230,43 @@ footer p {
     margin-top: 50px;
     font-size: 15px;
   }
-  
+
   .article-container {
     grid-template-columns: 1fr;
     gap: 15px;
     grid-auto-flow: dense;
   }
-  
+
   .content {
     padding: 15px;
     margin-top: 15px;
     order: 0;
   }
-  
+
   .sidebar {
     padding: 15px;
     order: 1;
   }
-  
+
   .related-post {
     flex-direction: row;
     align-items: center;
     gap: 12px;
     padding: 8px;
   }
-  
+
   .related-post img {
     width: 100px;
     height: 70px;
     margin-bottom: 0;
     flex-shrink: 0;
   }
-  
+
   .related-post-content {
     flex: 1;
     min-width: 0;
   }
-  
+
   .related-post-title {
     font-size: 13px;
     line-height: 1.3;
@@ -279,28 +276,20 @@ footer p {
     overflow: hidden;
     margin-bottom: 3px;
   }
-  
+
   .related-post-meta {
     font-size: 11px;
     white-space: normal;
   }
-  
-  /* Penyesuaian ukuran navbar */
+
+  .navbar {
+    padding: 10px;
+  }
+
   .navbar-brand {
-    font-size: 1.6rem; /* Naikkan agar lebih dominan dibanding nav-link */
+    font-size: 1.1rem;
   }
-  
-  .nav-link {
-    font-size: 1.0rem; /* Sedikit diperkecil agar proporsional */
-    margin: 0 0.5rem;
-  }
-  
-  /* Footer: menjaga padding dan ukuran teks agar tidak terlalu kecil */
-  footer {
-    padding: 20px;
-    font-size: 1rem;
-  }
-  
+
   .featured-image {
     margin-bottom: 15px;
   }
@@ -321,13 +310,12 @@ footer p {
   }
   
   footer {
-    padding: 20px;
-    font-size: 1rem;
+    padding: 15px;
     margin-top: 30px;
   }
 }
 
-/* Social Share Button Styles */
+/* Custom CSS untuk tombol icon bulat dan gaya hover */
 .social-share a.btn {
   width: 50px;
   height: 50px;
