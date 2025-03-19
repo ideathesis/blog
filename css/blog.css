@@ -25,7 +25,7 @@ body {
 /* Navbar Brand */
 .navbar-brand {
   font-weight: 700;
-  font-size: 1.5rem;
+  font-size: 1.5rem; /* Ukuran tetap 1.5rem untuk semua tampilan */
   letter-spacing: 1px;
   text-transform: uppercase;
   color: #FFFFFF !important;
@@ -86,11 +86,10 @@ body {
   .navbar {
     padding: 0.5rem 1rem;
   }
-  .navbar-brand {
-    font-size: 1.1rem;
-  }
+  /* Biarkan .navbar-brand tetap 1.5rem */
   .nav-link {
-    margin: 0.5rem 0;
+    margin: 0 1rem;
+    font-size: 1.1rem; /* Perbesar teks menu di mobile */
   }
 }
 
