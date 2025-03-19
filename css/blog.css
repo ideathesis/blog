@@ -243,7 +243,6 @@ footer p {
 @media (max-width: 768px) {
   body {
     margin-top: 50px;
-    font-size: 15px;
   }
 
   .article-container {
@@ -306,10 +305,6 @@ footer p {
   
   .related-post-title {
     -webkit-line-clamp: 3;
-  }
-  
-  body {
-    font-size: 14px;
   }
   
   footer {
