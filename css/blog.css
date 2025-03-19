@@ -9,6 +9,10 @@ body {
   box-sizing: border-box; /* Memastikan padding tidak mengganggu layout */
 }
 
+/* ===================== */
+/*      NAVBAR         */
+/* ===================== */
+
 /* Navbar Styles */
 .navbar {
   background: linear-gradient(135deg, #00C853, #00BFA5);
@@ -89,6 +93,10 @@ body {
     margin: 0.5rem 0;
   }
 }
+
+/* ===================== */
+/*   AKHIR NAVBAR      */
+/* ===================== */
 
 /* Main Content Styling */
 .content {
@@ -296,18 +304,6 @@ footer p {
   .related-post-meta {
     font-size: 11px;
     white-space: normal;
-  }
-
-  .navbar {
-    padding: 10px;
-  }
-
-  .navbar-brand {
-    font-size: 1.1rem;
-  }
-
-  .featured-image {
-    margin-bottom: 15px;
   }
 }
 
