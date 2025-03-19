@@ -39,7 +39,7 @@ body {
 /* Navbar Links */
 .nav-link {
   color: #FFFFFF !important;
-  margin: 0 1rem;
+  margin: 0 1.5rem; /* Jarak antar navlink diperbesar */
   position: relative;
   transition: color 0.3s ease;
 }
@@ -88,7 +88,7 @@ body {
   }
   /* Biarkan .navbar-brand tetap 1.5rem */
   .nav-link {
-    margin: 0 1rem;
+    margin: 0 1.5rem; /* Jarak antar menu tetap diperbesar */
     font-size: 1.1rem; /* Perbesar teks menu di mobile */
   }
 }
