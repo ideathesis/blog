@@ -231,10 +231,10 @@ footer p {
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
   .navbar {
-    padding: 0.5rem 1rem;
+    padding: 1rem 1rem;
   }
   .nav-link {
-    margin: 0.5rem 0;
+    margin: 1rem 1;
   }
 }
   body {
