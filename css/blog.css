@@ -1,14 +1,12 @@
-/* General Styles */
+/* General Body Styling */
 body {
   font-family: 'Poppins', sans-serif;
-  background-color: #F5F5F5;
+  background-color: #F9FAFB;
   color: #333;
-  margin: 0;
-  padding: 0;
-  display: flex;             /* Aktifkan Flexbox untuk layout */
-  flex-direction: column;    /* Susun elemen secara vertikal */
-  min-height: 100vh;         /* Pastikan body setidaknya setinggi layar */
-  box-sizing: border-box;    /* Untuk menghindari konflik padding */
+  line-height: 1.6;
+  margin-top: 60px; /* Tetap dipertahankan */
+  padding-top: 20px; /* Padding baru untuk bagian atas body */
+  box-sizing: border-box; /* Memastikan padding tidak mengganggu layout */
 }
 
 /* Navbar Styles */
@@ -20,7 +18,6 @@ body {
   transition: background 0.3s ease;
 }
 
-/* Navbar Brand */
 .navbar-brand {
   font-weight: 700;
   font-size: 1.5rem;
@@ -34,7 +31,6 @@ body {
   color: #FFEB3B !important;
 }
 
-/* Navbar Links */
 .nav-link {
   color: #FFFFFF !important;
   margin: 0 1rem;
@@ -61,7 +57,6 @@ body {
   width: 100%;
 }
 
-/* Navbar Toggler (untuk tampilan mobile) */
 .navbar-toggler {
   border: none;
   padding: 0.25rem 0.75rem;
@@ -79,112 +74,141 @@ body {
   background-image: url("data:image/svg+xml;charset=UTF8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255,0.8)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
 }
 
-/* Responsif: Penyesuaian untuk tampilan mobile */
-@media (max-width: 768px) {
-  .navbar {
-    padding: 0.5rem 1rem;
-  }
-  .nav-link {
-    margin: 0.5rem 0;
-  }
-}
-
-/* Header Section (jika digunakan) */
-.header-section {
-  background: linear-gradient(135deg, #00C853, #00BFA5); /* Sama dengan navbar */
-  padding: 140px 0;
-  color: #fff;
-  position: relative;
-  overflow: hidden;
-}
-
-.header-section::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.2); /* Overlay tipis untuk meningkatkan kontras */
-  z-index: 1;
-}
-
-.header-content {
-  position: relative;
-  z-index: 2;
-}
-
-.header-content h1 {
-  font-size: 3rem;
-  font-weight: 700;
-  margin-bottom: 20px;
-  animation: fadeInDown 1s ease-out;
-}
-
-.header-content p {
-  font-size: 1.25rem;
-  margin-bottom: 30px;
-  animation: fadeIn 1.5s ease-out;
-}
-
-/* Tombol Header */
-.header-content .btn {
-  padding: 12px 30px;
-  font-size: 1rem;
-  font-weight: 600;
-  border: none;
-  border-radius: 25px;
-  background-color: #fff;
-  color: #333;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-}
-
-.header-content .btn:hover {
-  background-color: #f0f0f0;
-  transform: translateY(-3px);
-}
-
-/* Animasi */
-@keyframes fadeInDown {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-/* Wrapper konten utama */
-.main-content-section {
-  flex: 1; /* Mengisi sisa ruang antara navbar dan footer */
-}
-
-/* Content Container */
+/* Main Content Styling */
 .content {
+  padding: 20px;
+  background-color: #FFFFFF;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 40px;  /* Jarak dari navbar */
+  margin-bottom: 40px;  /* Jarak dari footer */
+}
+
+/* Featured Image Styling */
+.featured-image {
+  display: block;
+  margin: auto;
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Article Container Styling */
+.article-container {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  gap: 20px;
+}
+
+/* Sidebar Styling */
+.sidebar {
+  background-color: #FFFFFF;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 100%;
+  width: 100%;
+}
+
+/* Chip Styling for Sidebar Title */
+.sidebar-chip {
+  display: block;
+  background: linear-gradient(135deg, #00C853, #00BFA5);
+  color: #FFFFFF;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-align: center;
+  padding: 10px 20px;
+  border-radius: 25px;
+  margin-bottom: 20px;
+  width: 100%;
+  box-sizing: border-box;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Related Post Container */
+#post-list {
   display: flex;
   flex-direction: column;
-  gap: 30px;
-  padding-top: 100px; /* Jarak dari navbar */
-  padding-bottom: 20px;
-  padding-left: 20px;
-  padding-right: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
+  gap: 15px;
 }
 
-/* Footer */
+/* Related Post Styling */
+.related-post {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  text-decoration: none;
+  color: #333;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease, border-color 0.3s ease;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #FFFFFF;
+  border: 1px solid #E0E0E0;
+  width: 100%;
+  box-sizing: border-box;
+  max-width: 100%;
+  position: relative;
+}
+
+.related-post:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, #00C853, #00BFA5);
+  border-color: transparent;
+  transition: background 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+}
+
+/* Pastikan teks tetap mudah dibaca saat hover */
+.related-post:hover .related-post-title,
+.related-post:hover .related-post-meta {
+  color: #FFFFFF;
+  transition: color 0.3s ease;
+}
+
+/* Related Post Image Styling */
+.related-post img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+/* Related Post Content Styling */
+.related-post-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Related Post Title Styling */
+.related-post-title {
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #333;
+  font-weight: 600;
+  line-height: 1.2;
+  word-wrap: break-word;
+  max-width: 100%;
+}
+
+/* Related Post Meta Styling */
+.related-post-meta {
+  font-size: 12px;
+  color: #777;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+/* Footer Styling */
 footer {
   background-color: #333;
   color: white;
@@ -198,4 +222,127 @@ footer {
 
 footer p {
   transform: translateY(10px); /* Turunkan teks 10px */
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  body {
+    margin-top: 50px;
+    font-size: 15px;
+  }
+
+  .article-container {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    grid-auto-flow: dense;
+  }
+
+  .content {
+    padding: 15px;
+    margin-top: 15px;
+    order: 0;
+  }
+
+  .sidebar {
+    padding: 15px;
+    order: 1;
+  }
+
+  .related-post {
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    padding: 8px;
+  }
+
+  .related-post img {
+    width: 100px;
+    height: 70px;
+    margin-bottom: 0;
+    flex-shrink: 0;
+  }
+
+  .related-post-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .related-post-title {
+    font-size: 13px;
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 3px;
+  }
+
+  .related-post-meta {
+    font-size: 11px;
+    white-space: normal;
+  }
+
+  .navbar {
+    padding: 10px;
+  }
+
+  .navbar-brand {
+    font-size: 1.1rem;
+  }
+
+  .featured-image {
+    margin-bottom: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .related-post img {
+    width: 80px;
+    height: 60px;
+  }
+  
+  .related-post-title {
+    -webkit-line-clamp: 3;
+  }
+  
+  body {
+    font-size: 14px;
+  }
+  
+  footer {
+    padding: 15px;
+    margin-top: 30px;
+  }
+}
+
+/* Custom CSS untuk tombol icon bulat dan gaya hover */
+.social-share a.btn {
+  width: 50px;
+  height: 50px;
+  padding: 0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.social-share a.btn:hover,
+.social-share a.btn:focus {
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.btn-telegram {
+  background-color: #0088cc;
+  border-color: #0088cc;
+  color: #fff;
+}
+
+.btn-telegram:hover,
+.btn-telegram:focus {
+  background-color: #0088cc;
+  border-color: #0088cc;
+  color: #fff;
 }
