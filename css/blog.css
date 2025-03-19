@@ -226,14 +226,6 @@ footer p {
 
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
-.navbar {
-  padding: 0.75rem 1rem; /* Dinaikkan dari 0.5rem menjadi 0.75rem */
-}
-
-.nav-link {
-  margin: 0.5rem 0;
-  font-size: 1.1rem; /* Ditambahkan ukuran font */
-}
   body {
     margin-top: 50px;
     font-size: 15px;
