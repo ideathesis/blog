@@ -250,7 +250,6 @@ footer p {
 @media (max-width: 768px) {
   body {
     margin-top: 50px;
-    font-size: 15px;
   }
 
   .article-container {
