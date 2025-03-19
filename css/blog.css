@@ -1,15 +1,18 @@
 /* General Body Styling */
 body {
   font-family: 'Poppins', sans-serif;
-  background-color: #F9FAFB;
+  background-color: #F5F5F5; /* Diubah dari #F9FAFB */
   color: #333;
   line-height: 1.6;
-  margin-top: 60px;
-  padding-top: 20px;
-  box-sizing: border-box;
+  margin: 0; /* Diubah */
+  padding: 0; /* Diubah */
+  display: flex; /* Menjadikan layout fleksibel */
+  flex-direction: column; /* Susunan elemen secara vertikal */
+  min-height: 100vh; /* Pastikan body setidaknya setinggi layar */
+  box-sizing: border-box; /* Memastikan padding tidak mengganggu layout */
 }
 
-/* Navbar Styles */
+/* Navbar Styles (Revisi) */
 .navbar {
   background: linear-gradient(135deg, #00C853, #00BFA5);
   backdrop-filter: blur(10px);
@@ -74,14 +77,28 @@ body {
   background-image: url("data:image/svg+xml;charset=UTF8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255,0.8)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
 }
 
+/* Responsive adjustments untuk Navbar */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0.5rem 1rem;
+  }
+  .navbar-brand {
+    font-size: 1.3rem; /* Ukuran teks diperbesar */
+  }
+  .nav-link {
+    margin: 0.5rem 0;
+    font-size: 1.1rem; /* Ukuran teks diperbesar */
+  }
+}
+
 /* Main Content Styling */
 .content {
   padding: 20px;
   background-color: #FFFFFF;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-top: 40px;
-  margin-bottom: 40px;
+  margin-top: 40px;  /* Jarak dari navbar */
+  margin-bottom: 40px;  /* Jarak dari footer */
 }
 
 /* Featured Image Styling */
@@ -112,7 +129,7 @@ body {
   width: 100%;
 }
 
-/* Chip Styling for Sidebar Title */
+/* Chip Styling untuk Sidebar Title */
 .sidebar-chip {
   display: block;
   background: linear-gradient(135deg, #00C853, #00BFA5);
@@ -160,13 +177,17 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   background: linear-gradient(135deg, #00C853, #00BFA5);
   border-color: transparent;
+  transition: background 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
 }
 
+/* Pastikan teks tetap mudah dibaca saat hover */
 .related-post:hover .related-post-title,
 .related-post:hover .related-post-meta {
   color: #FFFFFF;
+  transition: color 0.3s ease;
 }
 
+/* Related Post Image Styling */
 .related-post img {
   width: 100%;
   height: auto;
@@ -175,6 +196,7 @@ body {
   margin-bottom: 10px;
 }
 
+/* Related Post Content Styling */
 .related-post-content {
   flex-grow: 1;
   display: flex;
@@ -182,6 +204,7 @@ body {
   justify-content: center;
 }
 
+/* Related Post Title Styling */
 .related-post-title {
   font-size: 14px;
   margin-bottom: 5px;
@@ -189,17 +212,20 @@ body {
   font-weight: 600;
   line-height: 1.2;
   word-wrap: break-word;
+  max-width: 100%;
 }
 
+/* Related Post Meta Styling */
 .related-post-meta {
   font-size: 12px;
   color: #777;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  max-width: 100%;
 }
 
-/* Footer Styling */
+/* Footer Styles (Revisi) */
 footer {
   background-color: #333;
   color: white;
@@ -212,7 +238,7 @@ footer {
 }
 
 footer p {
-  transform: translateY(10px);
+  transform: translateY(10px); /* Turunkan teks 10px */
 }
 
 /* Mobile Responsiveness */
@@ -221,54 +247,36 @@ footer p {
     margin-top: 50px;
     font-size: 15px;
   }
-
-  .navbar {
-    padding: 0.5rem 1rem;
-  }
-
-  .navbar-brand {
-    font-size: 1.3rem;
-  }
-
-  .nav-link {
-    margin: 0.5rem 0;
-    font-size: 1rem;
-  }
-
   .article-container {
     grid-template-columns: 1fr;
     gap: 15px;
     grid-auto-flow: dense;
   }
-
   .content {
     padding: 15px;
     margin-top: 15px;
+    order: 0;
   }
-
   .sidebar {
     padding: 15px;
+    order: 1;
   }
-
   .related-post {
     flex-direction: row;
     align-items: center;
     gap: 12px;
     padding: 8px;
   }
-
   .related-post img {
     width: 100px;
     height: 70px;
     margin-bottom: 0;
     flex-shrink: 0;
   }
-
   .related-post-content {
     flex: 1;
     min-width: 0;
   }
-
   .related-post-title {
     font-size: 13px;
     line-height: 1.3;
@@ -278,50 +286,37 @@ footer p {
     overflow: hidden;
     margin-bottom: 3px;
   }
-
   .related-post-meta {
     font-size: 11px;
     white-space: normal;
   }
-
-  footer {
-    padding: 15px;
-    margin-top: 30px;
-  }
-
-  footer p {
-    transform: translateY(5px);
+  /* Penyesuaian navbar sudah tercakup di atas */
+  .featured-image {
+    margin-bottom: 15px;
   }
 }
 
 @media (max-width: 480px) {
-  .navbar-brand {
-    font-size: 1.2rem;
-  }
-
-  .nav-link {
-    font-size: 0.95rem;
-  }
-
   .related-post img {
     width: 80px;
     height: 60px;
   }
-
+  
   .related-post-title {
     -webkit-line-clamp: 3;
   }
-
+  
   body {
     font-size: 14px;
   }
-
-  footer p {
-    font-size: 14px;
+  
+  footer {
+    padding: 15px;
+    margin-top: 30px;
   }
 }
 
-/* Custom CSS untuk tombol icon bulat dan gaya hover */
+/* Social Share Button Styles */
 .social-share a.btn {
   width: 50px;
   height: 50px;
