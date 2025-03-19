@@ -4,9 +4,9 @@ body {
   background-color: #F9FAFB;
   color: #333;
   line-height: 1.6;
-  margin-top: 60px; /* Tetap dipertahankan */
-  padding-top: 20px; /* Padding baru untuk bagian atas body */
-  box-sizing: border-box; /* Memastikan padding tidak mengganggu layout */
+  margin-top: 60px;
+  padding-top: 20px;
+  box-sizing: border-box;
 }
 
 /* Navbar Styles */
@@ -80,8 +80,8 @@ body {
   background-color: #FFFFFF;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-top: 40px;  /* Jarak dari navbar */
-  margin-bottom: 40px;  /* Jarak dari footer */
+  margin-top: 40px;
+  margin-bottom: 40px;
 }
 
 /* Featured Image Styling */
@@ -160,17 +160,13 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   background: linear-gradient(135deg, #00C853, #00BFA5);
   border-color: transparent;
-  transition: background 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
 }
 
-/* Pastikan teks tetap mudah dibaca saat hover */
 .related-post:hover .related-post-title,
 .related-post:hover .related-post-meta {
   color: #FFFFFF;
-  transition: color 0.3s ease;
 }
 
-/* Related Post Image Styling */
 .related-post img {
   width: 100%;
   height: auto;
@@ -179,7 +175,6 @@ body {
   margin-bottom: 10px;
 }
 
-/* Related Post Content Styling */
 .related-post-content {
   flex-grow: 1;
   display: flex;
@@ -187,7 +182,6 @@ body {
   justify-content: center;
 }
 
-/* Related Post Title Styling */
 .related-post-title {
   font-size: 14px;
   margin-bottom: 5px;
@@ -195,17 +189,14 @@ body {
   font-weight: 600;
   line-height: 1.2;
   word-wrap: break-word;
-  max-width: 100%;
 }
 
-/* Related Post Meta Styling */
 .related-post-meta {
   font-size: 12px;
   color: #777;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 100%;
 }
 
 /* Footer Styling */
@@ -221,7 +212,7 @@ footer {
 }
 
 footer p {
-  transform: translateY(10px); /* Turunkan teks 10px */
+  transform: translateY(10px);
 }
 
 /* Mobile Responsiveness */
@@ -229,6 +220,19 @@ footer p {
   body {
     margin-top: 50px;
     font-size: 15px;
+  }
+
+  .navbar {
+    padding: 0.5rem 1rem;
+  }
+
+  .navbar-brand {
+    font-size: 1.3rem;
+  }
+
+  .nav-link {
+    margin: 0.5rem 0;
+    font-size: 1rem;
   }
 
   .article-container {
@@ -240,12 +244,10 @@ footer p {
   .content {
     padding: 15px;
     margin-top: 15px;
-    order: 0;
   }
 
   .sidebar {
     padding: 15px;
-    order: 1;
   }
 
   .related-post {
@@ -282,36 +284,40 @@ footer p {
     white-space: normal;
   }
 
-  .navbar {
-    padding: 10px;
+  footer {
+    padding: 15px;
+    margin-top: 30px;
   }
 
-  .navbar-brand {
-    font-size: 1.1rem;
-  }
-
-  .featured-image {
-    margin-bottom: 15px;
+  footer p {
+    transform: translateY(5px);
   }
 }
 
 @media (max-width: 480px) {
+  .navbar-brand {
+    font-size: 1.2rem;
+  }
+
+  .nav-link {
+    font-size: 0.95rem;
+  }
+
   .related-post img {
     width: 80px;
     height: 60px;
   }
-  
+
   .related-post-title {
     -webkit-line-clamp: 3;
   }
-  
+
   body {
     font-size: 14px;
   }
-  
-  footer {
-    padding: 15px;
-    margin-top: 30px;
+
+  footer p {
+    font-size: 14px;
   }
 }
 
