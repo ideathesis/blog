@@ -22,7 +22,7 @@ Dalam dunia analisis data, pemilihan software yang tepat merupakan langkah krusi
 - **Integrasi Data:** Mudah mengimpor data dari berbagai format (Excel, CSV, dll).
 
 <div style="text-align: center;">
-  <img src="https://www.ibm.com/content/dam/connectedassets-adobe-cms/worldwide-content/creative-assets/s-migr/ul/g/86/50/spss-regression.component.item-horizontal-with-media-right-xl.ts=1737981473936.png/content/adobe-cms/us/en/products/spss-statistics/jcr:content/root/table_of_contents/body/content_section_styled/content-section-body/tabs_container_copy_/tabs-item/item_1671220708507/image" alt="SPSS Interface" style="max-width: 100%; height: auto;">
+  <img src="https://www.ibm.com/content/dam/connectedassets-adobe-cms/worldwide-content/creative-assets/s-migr/ul/g/86/50/spss-regression.component.item-horizontal-with-media-right-xl.ts=1738162308698.png/content/adobe-cms/id/id/products/spss-statistics/jcr:content/root/table_of_contents/body/content_section_styled/content-section-body/tabs_container_copy_/tabs-item/item_1671220708507/image" alt="SPSS Interface" style="max-width: 100%; height: auto;">
 </div>
 
 ---
