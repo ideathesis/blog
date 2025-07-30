@@ -109,58 +109,13 @@
 <footer>
   <div style="
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    text-align: center;
+    height: 64px;           /* tinggi footer tetap 64px (20px atas+bawah + 24px baris teks) */
+    padding: 0 15px;        /* horizontal tetap 15px; vertikal 0 agar height saja yang atur */
   ">
-  
-    <!-- Baris Copyright -->
-    <p style="
-      margin: 0;
-      transform: translateY(10px);
-    ">
+    <p style="margin: 0; line-height: 24px;">
       &copy; <script>document.write(new Date().getFullYear());</script> IDEA THESIS. All rights reserved.
-    </p>
-
-    <!-- Baris Link Kebijakan (Dengan jarak lebih) -->
-    <p style="
-      margin: 12px 0 0;  /* Jarak atas diperbesar */
-      font-size: 0.8em;
-      line-height: 1.4;
-      transform: none;
-    ">
-      <a href="https://ideathesis.biz.id/privacy-policy" 
-         style="
-           color: white;
-           text-decoration: none;
-           transition: color 0.2s;
-         "
-         onmouseover="this.style.color='#00C853'"
-         onmouseout="this.style.color='white'">
-         Kebijakan Privasi
-      </a>
-      &nbsp;&nbsp;|&nbsp;&nbsp;
-      <a href="https://ideathesis.biz.id/disclaimer" 
-         style="
-           color: white;
-           text-decoration: none;
-           transition: color 0.2s;
-         "
-         onmouseover="this.style.color='#00C853'"
-         onmouseout="this.style.color='white'">
-         Disclaimer
-      </a>
-      &nbsp;&nbsp;|&nbsp;&nbsp;
-      <a href="https://ideathesis.biz.id/terms-conditions" 
-         style="
-           color: white;
-           text-decoration: none;
-           transition: color 0.2s;
-         "
-         onmouseover="this.style.color='#00C853'"
-         onmouseout="this.style.color='white'">
-         Syarat & Ketentuan
-      </a>
     </p>
   </div>
 </footer>
