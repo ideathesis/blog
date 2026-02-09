@@ -1,18 +1,30 @@
+:root {
+  --primary-color: #198754;
+  --primary-dark: #146c43;
+  --secondary-color: #ffc107;
+  --text-color: #333;
+  --light-bg: #f8f9fa;
+  --navbar-bg-gradient: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+}
+
 /* General Styles */
 body {
-    font-family: 'Poppins', sans-serif;
-    background-color: #F5F5F5;
-    color: #333;
-    margin: 0;
-    padding: 0;
-    display: flex; /* Aktifkan Flexbox untuk layout */
-    flex-direction: column; /* Susun elemen secara vertikal */
-    min-height: 100vh; /* Pastikan body setidaknya tinggi layar */
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--light-bg);
+  color: var(--text-color);
+  margin: 0;
+  padding: 0;
+  display: flex;
+  /* Aktifkan Flexbox untuk layout */
+  flex-direction: column;
+  /* Susun elemen secara vertikal */
+  min-height: 100vh;
+  /* Pastikan body setidaknya tinggi layar */
 }
 
 /* Navbar Styles */
 .navbar {
-  background: linear-gradient(135deg, #00C853, #00BFA5);
+  background: var(--navbar-bg-gradient);
   backdrop-filter: blur(10px);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 0.75rem 1rem;
@@ -30,7 +42,7 @@ body {
 }
 
 .navbar-brand:hover {
-  color: #FFEB3B !important; /* Efek hover: kuning terang */
+  color: var(--secondary-color) !important;
 }
 
 /* Navbar Links */
@@ -46,14 +58,14 @@ body {
   position: absolute;
   width: 0;
   height: 2px;
-  background-color: #FFEB3B;
+  background-color: var(--secondary-color);
   bottom: -4px;
   left: 0;
   transition: width 0.3s ease;
 }
 
 .nav-link:hover {
-  color: #FFEB3B !important;
+  color: var(--secondary-color) !important;
 }
 
 .nav-link:hover::after {
@@ -84,6 +96,7 @@ body {
   .navbar {
     padding: 0.5rem 1rem;
   }
+
   .nav-link {
     margin: 0.5rem 0;
   }
@@ -91,7 +104,7 @@ body {
 
 /* Header Section */
 .header-section {
-  background: linear-gradient(135deg, #00C853, #00BFA5); /* Sama dengan navbar */
+  background: var(--navbar-bg-gradient);
   padding: 140px 0;
   color: #fff;
   position: relative;
@@ -105,7 +118,8 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.2); /* Overlay tipis untuk meningkatkan kontras */
+  background: rgba(0, 0, 0, 0.2);
+  /* Overlay tipis untuk meningkatkan kontras */
   z-index: 1;
 }
 
@@ -142,6 +156,7 @@ body {
 
 .header-content .btn:hover {
   background-color: #f0f0f0;
+  color: var(--primary-color);
   transform: translateY(-3px);
 }
 
@@ -151,6 +166,7 @@ body {
     opacity: 0;
     transform: translateY(-20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -161,6 +177,7 @@ body {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -171,9 +188,11 @@ body {
   .header-content h1 {
     font-size: 2rem;
   }
+
   .header-content p {
     font-size: 1rem;
   }
+
   .header-section {
     padding: 100px 0;
   }
@@ -181,25 +200,28 @@ body {
 
 /* Wrapper konten utama */
 .main-content-section {
-    flex: 1; /* Mengisi sisa ruang antara navbar dan footer */
+  flex: 1;
+  /* Mengisi sisa ruang antara navbar dan footer */
 }
 
 /* Content Container */
 .content {
-    display: flex;
-    flex-direction: column;
-    gap: 30px; /* Jarak vertikal antar elemen menjadi lebih besar */
-    padding-top: 100px; /* Menaikkan padding-top agar tidak terlalu rapat dengan navbar */
-    padding-bottom: 20px;
-    padding-left: 20px;
-    padding-right: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  /* Jarak vertikal antar elemen menjadi lebih besar */
+  padding-top: 100px;
+  /* Menaikkan padding-top agar tidak terlalu rapat dengan navbar */
+  padding-bottom: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 /* Footer */
 footer {
-  background-color: #333;
+  background-color: #212529;
   color: white;
   padding: 20px;
   min-height: 80px;
@@ -210,5 +232,5 @@ footer {
 }
 
 footer p {
-  transform: translateY(10px); /* Turunkan teks 10px */
+  transform: translateY(10px);
 }
