@@ -140,7 +140,12 @@ fetch(`/post/md/${mdFile}`)
     }
 
     // Konversi Markdown ke HTML menggunakan showdown
-    const converter = new showdown.Converter();
+    const converter = new showdown.Converter({
+      tables: true,
+      tasklists: true,
+      strikethrough: true,
+      simpleLineBreaks: true
+    });
     const html = converter.makeHtml(markdownContent);
     document.getElementById('article-content').innerHTML = html;
 

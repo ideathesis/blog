@@ -6,8 +6,6 @@ image: "images/daftar-analisis-software.png"
 thumbnail: "/post/images/daftar-analisis-software.png"
 ---
 
-# Daftar Software Analisis Populer dan Terbaik
-
 Dalam dunia analisis data, pemilihan software yang tepat merupakan langkah krusial untuk mendapatkan insight yang akurat dan mendalam. Artikel ini membahas lima software analisis data yang populer dan terbaik, lengkap dengan penjelasan detail mengenai fitur unggulan masing-masing serta visualisasi antarmuka yang responsif.
 
 ---
@@ -21,9 +19,7 @@ Dalam dunia analisis data, pemilihan software yang tepat merupakan langkah krusi
 - **Analisis Statistik Lanjutan:** Mendukung berbagai metode seperti regresi, ANOVA, dan analisis multivariat.
 - **Integrasi Data:** Mudah mengimpor data dari berbagai format (Excel, CSV, dll).
 
-<div style="text-align: center;">
-  <img src="https://www.ibm.com/content/dam/connectedassets-adobe-cms/worldwide-content/creative-assets/s-migr/ul/g/86/50/spss-regression.component.item-horizontal-with-media-right-xl.ts=1738162308698.png/content/adobe-cms/id/id/products/spss-statistics/jcr:content/root/table_of_contents/body/content_section_styled/content-section-body/tabs_container_copy_/tabs-item/item_1671220708507/image" alt="SPSS Interface" style="max-width: 100%; height: auto;">
-</div>
+![SPSS Interface](https://www.ibm.com/content/dam/connectedassets-adobe-cms/worldwide-content/creative-assets/s-migr/ul/g/86/50/spss-regression.component.item-horizontal-with-media-right-xl.ts=1738162308698.png/content/adobe-cms/id/id/products/spss-statistics/jcr:content/root/table_of_contents/body/content_section_styled/content-section-body/tabs_container_copy_/tabs-item/item_1671220708507/image)
 
 ---
 
@@ -36,9 +32,7 @@ Dalam dunia analisis data, pemilihan software yang tepat merupakan langkah krusi
 - **Visualisasi Dinamis:** Menyediakan grafik interaktif untuk mendukung interpretasi data.
 - **Kemudahan Interpretasi:** Output yang jelas dan mudah dipahami bagi para ekonom dan analis.
 
-<div style="text-align: center;">
-  <img src="https://eviews.com/EViews13/images/Enterpriselg.png" alt="E-Views Dashboard" style="max-width: 100%; height: auto;">
-</div>
+![E-Views Dashboard](https://eviews.com/EViews13/images/Enterpriselg.png)
 
 ---
 
@@ -51,9 +45,7 @@ Dalam dunia analisis data, pemilihan software yang tepat merupakan langkah krusi
 - **Beragam Paket Analisis:** Tersedia paket lengkap untuk analisis data dan pembuatan grafik berkualitas tinggi.
 - **Komunitas Pengguna Luas:** Dokumentasi lengkap dan dukungan dari komunitas yang aktif.
 
-<div style="text-align: center;">
-  <img src="https://www.stata.com/features/overview/i/data-editor-paste-special.png" alt="STATA Output" style="max-width: 100%; height: auto;">
-</div>
+![STATA Output](https://www.stata.com/features/overview/i/data-editor-paste-special.png)
 
 ---
 
@@ -66,9 +58,7 @@ Dalam dunia analisis data, pemilihan software yang tepat merupakan langkah krusi
 - **Analisis Jalur dan Pengukuran:** Estimasi akurat untuk model-model yang kompleks.
 - **Visualisasi Model:** Diagram model SEM interaktif untuk interpretasi yang lebih mudah.
 
-<div style="text-align: center;">
-  <img src="https://www.smartpls.com/images/screen_full.png" alt="SmartPLS Diagram" style="max-width: 100%; height: auto;">
-</div>
+![SmartPLS Diagram](https://www.smartpls.com/images/screen_full.png)
 
 ---
 
@@ -81,9 +71,7 @@ Dalam dunia analisis data, pemilihan software yang tepat merupakan langkah krusi
 - **Integrasi dengan R:** Menggabungkan kekuatan R dengan kemudahan penggunaan JASP.
 - **Hasil Visual yang Menarik:** Output grafik dan tabel yang mudah diinterpretasikan.
 
-<div style="text-align: center;">
-  <img src="https://jasp-stats.org/wp-content/uploads/2024/07/process-2048x1305.png" alt="JASP Interface" style="max-width: 100%; height: auto;">
-</div>
+![JASP Interface](https://jasp-stats.org/wp-content/uploads/2024/07/process-2048x1305.png)
 
 ---
 

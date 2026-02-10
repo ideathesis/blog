@@ -6,7 +6,6 @@ image: "images/10-kampus-terbaik-di-indonesia.png"
 thumbnail: "/post/images/10-kampus-terbaik-di-indonesia.png"
 ---
 
-# 10 Kampus Terbaik di Indonesia: Pilihan Tepat untuk Masa Depan Gemilang
 
 Indonesia memiliki banyak perguruan tinggi yang menawarkan kualitas pendidikan unggulan. Bagi calon mahasiswa, memilih kampus yang tepat merupakan langkah penting untuk meraih masa depan yang cerah. Berikut adalah daftar 10 kampus terbaik di Indonesia berdasarkan reputasi akademik, fasilitas, dan pengaruh global.
 
