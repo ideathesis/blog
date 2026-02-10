@@ -46,7 +46,7 @@ function renderRelatedArticles(metadata) {
         const currentTitleWords = metadata.title.toLowerCase().split(/\s+/);
         const articleTitleWords = article.title.toLowerCase().split(/\s+/);
         return currentTitleWords.some(word => articleTitleWords.includes(word)) &&
-               article.title !== metadata.title;
+          article.title !== metadata.title;
       });
 
       relatedArticles.forEach(article => {
@@ -69,12 +69,15 @@ function renderRelatedArticles(metadata) {
       limitedArticles.forEach(article => {
         const postLink = document.createElement("a");
         postLink.href = `/post/${article.file}`;
-        postLink.className = "col-md-12 col-lg-6 related-post";
+        postLink.className = "related-post";
         postLink.innerHTML = `
           <img src="${article.image}" alt="${article.title}" class="img-fluid">
           <div class="related-post-content">
             <h3 class="related-post-title">${article.title}</h3>
-            <p class="related-post-meta">Penulis: ${article.author} | ${article.date}</p>
+            <div class="related-post-meta">
+              <span><i class="far fa-user"></i> ${article.author}</span>
+              <span><i class="far fa-calendar"></i> ${article.date}</span>
+            </div>
           </div>
         `;
         postList.appendChild(postLink);
