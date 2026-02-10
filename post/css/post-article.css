@@ -173,10 +173,8 @@
 }
 
 #article-content img {
-    width: 100%;
-    max-width: 600px;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
+    max-width: 100%;
+    height: auto;
     border-radius: 12px;
     margin: 30px auto;
     display: block;
@@ -233,7 +231,7 @@
     position: sticky;
     top: 100px;
     background: #ffffff;
-    padding: 25px 20px;
+    padding: 25px 12px;
     border-radius: 15px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
     max-height: calc(100vh - 120px);
