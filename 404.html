@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,22 +9,32 @@
   <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
   <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
   <link rel="manifest" href="/manifest.json">
+
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css">
+
   <style>
     :root {
-      --primary-color: #81C784;
-      --hover-color: #64B5F6;
-      --error-color: #e74c3c; /* Warna error */
-      --dark-overlay-start: rgba(0, 0, 0, 0.5);
-      --dark-overlay-end: rgba(0, 0, 0, 0.7);
-      --body-bg: #E8F3E8;
+      --primary-color: #198754;
+      --primary-dark: #146c43;
+      --body-bg: #f8f9fa;
     }
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
+
     body {
       font-family: 'Poppins', sans-serif;
       background-color: var(--body-bg);
@@ -31,113 +42,159 @@
       display: flex;
       flex-direction: column;
       min-height: 100vh;
+      overflow: hidden;
+      /* Prevent scrollbars */
     }
+
     main {
       flex: 1;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 40px 20px;
-      background: url('css/images/404.png') no-repeat center center/cover;
+      padding: 20px;
+      /* Background gradient matching Idea Thesis brand */
+      background: linear-gradient(135deg, #198754 0%, #212529 100%);
       position: relative;
     }
+
+    /* Radial gradient overlay */
     main::before {
       content: '';
       position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: linear-gradient(to bottom, var(--dark-overlay-start), var(--dark-overlay-end));
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at center, transparent 0%, #000 80%);
+      opacity: 0.6;
       z-index: 1;
     }
+
     .content {
       position: relative;
       z-index: 2;
       text-align: center;
       max-width: 600px;
-      padding: 20px;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 10px;
-      backdrop-filter: blur(4px);
+      padding: 50px 40px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      width: 100%;
+      display: block;
+      /* Override external flex styles */
     }
+
     .content h1 {
-      font-size: 5rem;
-      color: var(--error-color);
-      margin-bottom: 20px;
-      animation: fadeInDown 0.8s ease;
+      font-size: 8rem;
+      font-weight: 800;
+      color: #fff;
+      margin: 0;
+      line-height: 1;
+      text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      animation: fadeInDown 0.8s ease backwards;
     }
+
     .content p {
-      font-size: 1.5rem;
-      color: var(--error-color);
-      margin-bottom: 30px;
-      animation: fadeInUp 0.8s ease;
+      font-size: 1.25rem;
+      color: rgba(255, 255, 255, 0.9);
+      margin-top: 20px;
+      margin-bottom: 40px;
+      font-weight: 400;
+      animation: fadeInUp 0.8s ease 0.2s backwards;
     }
-    /* Tombol dengan gradasi selaras dengan navbar */
-    .cta-button {
-      background: linear-gradient(45deg, #00C853, #00BFA5);
-      color: #fff;
+
+    /* Custom Button Style */
+    .btn-idea-thesis {
+      background: linear-gradient(135deg, #198754, #146c43);
+      color: white !important;
+      /* Force white text */
       border: none;
-      padding: 15px 30px;
-      border-radius: 30px;
-      cursor: pointer;
-      transition: background 0.3s ease, transform 0.3s ease;
-      text-decoration: none;
+      border-radius: 50px;
+      padding: 15px 40px;
       font-weight: 600;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      font-size: 1rem;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+      width: auto;
+      /* Prevent full width */
+      animation: fadeInUp 0.8s ease 0.4s backwards;
     }
-    .cta-button:hover {
-      background: linear-gradient(45deg, #00BFA5, #00C853);
+
+    .btn-idea-thesis:hover {
+      background: linear-gradient(135deg, #146c43, #157347);
       transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+      color: white !important;
     }
-    footer {
-      background-color: #333;
-      color: #fff;
-      text-align: center;
-      padding: 28px 15px; /* padding vertical ditingkatkan */
+
+    .btn-idea-thesis i {
+      font-size: 1.1rem;
     }
+
+    /* Animation Keyframes */
     @keyframes fadeInDown {
-      from { opacity: 0; transform: translateY(-30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    /* Responsif */
-    @media (max-width: 768px) {
-      .content h1 {
-        font-size: 3.5rem;
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
       }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 576px) {
+      .content h1 {
+        font-size: 6rem;
+      }
+
       .content p {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
+      }
+
+      .content {
+        padding: 40px 20px;
       }
     }
   </style>
 </head>
+
 <body>
+
   <main>
     <div class="content">
       <h1>404</h1>
       <p>Maaf, halaman yang Anda cari tidak ditemukan.</p>
-      <a href="/" class="cta-button">Kembali ke Beranda</a>
+      <a href="/" class="btn-idea-thesis">
+        <i class="fas fa-arrow-left"></i> Kembali ke Blog
+      </a>
     </div>
   </main>
 
-<!-- Footer -->
-<footer>
-  <div style="
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 12px 15px;   /* vertikal turun lagi: 18px → 12px */
-  ">
-    <p style="margin: 0;">
-      &copy; <script>document.write(new Date().getFullYear());</script> IDEA THESIS. All rights reserved.
-    </p>
-  </div>
-</footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-  <script src="script/swiper-pagination.js"></script>
 </body>
+
 </html>
