@@ -8,36 +8,58 @@ document.addEventListener("DOMContentLoaded", () => {
       justify-content: space-between;
       text-decoration: none;
       color: #333;
-      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease, border-color 0.3s ease;
-      padding: 10px;
-      border-radius: 8px;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      padding: 25px;
+      border-radius: 15px;
       background-color: #FFFFFF;
-      border: 1px solid #E0E0E0;
+      border: 2px solid #e8f5e9;
       width: 100%;
       box-sizing: border-box;
-      margin-bottom: 15px;
-      min-height: 150px;
+      margin-bottom: 20px;
+      min-height: 180px;
       overflow: hidden;
+      position: relative;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    }
+    .popular-post-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(135deg, #198754, #146c43);
+      opacity: 0;
+      transition: opacity 0.3s ease;
     }
     .popular-post-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      background: linear-gradient(135deg, #00C853, #00BFA5);
+      transform: translateY(-10px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+      background: linear-gradient(135deg, #198754, #146c43);
       border-color: transparent;
+    }
+    .popular-post-card:hover::before {
+      opacity: 1;
     }
     .card-content {
       flex-grow: 1;
       display: flex;
       flex-direction: column;
       justify-content: center;
+      position: relative;
+      z-index: 1;
     }
     .popular-post-card-title {
       font-size: clamp(18px, 2vw, 20px);
-      font-weight: 600;
+      font-weight: 700;
       line-height: 1.3;
-      margin-bottom: 5px;
+      margin-bottom: 10px;
       color: #333;
       word-wrap: break-word;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
     .popular-post-card-meta {
       font-size: clamp(12px, 1.2vw, 14px);
@@ -45,11 +67,108 @@ document.addEventListener("DOMContentLoaded", () => {
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      display: flex;
+      gap: 15px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .popular-post-card-meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .popular-post-card-meta i {
+      color: #198754;
     }
     .popular-post-card:hover .popular-post-card-title,
-    .popular-post-card:hover .popular-post-card-meta {
+    .popular-post-card:hover .popular-post-card-meta,
+    .popular-post-card:hover .popular-post-card-meta i {
       color: #FFFFFF;
       transition: color 0.3s ease;
+    }
+    /* Badge untuk artikel populer */
+    .popular-badge {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: linear-gradient(135deg, #ffc107, #ff9800);
+      color: #fff;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      box-shadow: 0 2px 8px rgba(255, 193, 7, 0.3);
+      z-index: 2;
+    }
+
+    /* Responsive untuk popular-post-card */
+    @media (max-width: 992px) {
+      .popular-post-card {
+        padding: 20px;
+        min-height: 160px;
+      }
+      .popular-post-card-title {
+        font-size: 1rem;
+      }
+      .popular-post-card-meta {
+        font-size: 0.85rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .popular-post-card {
+        padding: 18px;
+        min-height: 150px;
+        margin-bottom: 15px;
+      }
+      .popular-post-card-title {
+        font-size: 0.95rem;
+        -webkit-line-clamp: 3;
+      }
+      .popular-post-card-meta {
+        font-size: 0.8rem;
+        gap: 10px;
+      }
+      .popular-badge {
+        top: 10px;
+        right: 10px;
+        padding: 4px 10px;
+        font-size: 0.7rem;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .popular-post-card {
+        padding: 15px;
+        min-height: 140px;
+      }
+      .popular-post-card-title {
+        font-size: 0.9rem;
+      }
+      .popular-post-card-meta {
+        font-size: 0.75rem;
+        gap: 8px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .popular-post-card {
+        padding: 12px;
+        min-height: 130px;
+      }
+      .popular-post-card-title {
+        font-size: 0.85rem;
+      }
+      .popular-post-card-meta {
+        font-size: 0.7rem;
+        gap: 6px;
+      }
+      .popular-badge {
+        padding: 3px 8px;
+        font-size: 0.65rem;
+      }
     }
   `;
   document.head.appendChild(styleEl);
@@ -83,7 +202,7 @@ document.addEventListener("DOMContentLoaded", () => {
       popularArticlesList.innerHTML = `<div class="col-12 text-center py-5">Tidak ada artikel untuk ditampilkan.</div>`;
       return;
     }
-    articlesToRender.forEach(article => {
+    articlesToRender.forEach((article, index) => {
       const col = document.createElement("div");
       col.className = "col-md-4";
       const identifier = getIdentifier(article);
@@ -93,6 +212,11 @@ document.addEventListener("DOMContentLoaded", () => {
       link.href = postLink;
       link.className = "popular-post-card";
 
+      // Badge populer
+      const badge = document.createElement("div");
+      badge.className = "popular-badge";
+      badge.textContent = `#${index + 1} Populer`;
+
       const contentDiv = document.createElement("div");
       contentDiv.className = "card-content";
 
@@ -100,14 +224,16 @@ document.addEventListener("DOMContentLoaded", () => {
       title.className = "popular-post-card-title";
       title.textContent = article.title || "Judul Tidak Tersedia";
 
-      // Meta info tanpa menampilkan count; elemen span count disembunyikan untuk kebutuhan sorting
+      // Meta info dengan ikon
       const meta = document.createElement("div");
       meta.className = "popular-post-card-meta";
-      meta.innerHTML = `<strong>Penulis:</strong> ${article.author || "Tidak Diketahui"} | <strong>Tanggal:</strong> ${article.date || "-"}` +
+      meta.innerHTML = `<span><i class="fas fa-user"></i> ${article.author || "Tidak Diketahui"}</span>` +
+                       `<span><i class="fas fa-calendar"></i> ${article.date || "-"}</span>` +
                        `<span class="disqus-comment-count" data-disqus-identifier="${identifier}" style="display:none;"></span>`;
 
       contentDiv.appendChild(title);
       contentDiv.appendChild(meta);
+      link.appendChild(badge);
       link.appendChild(contentDiv);
       col.appendChild(link);
       popularArticlesList.appendChild(col);

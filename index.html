@@ -53,50 +53,80 @@
     </div>
   </nav>
 
-	<!-- Header Section -->
-	<section class="header-section">
-	  <div class="container header-content text-center">
-		<h1>BLOG IDEA THESIS</h1>
-		<p>Temukan artikel terbaru seputar pendidikan, penelitian, dan tips akademik lainnya di BLOG IDEA THESIS</p>
-		<a href="#post-list" class="btn btn-light btn-lg">Mulai Jelajahi</a>
-	  </div>
-	</section>
-  
-  <!-- Main Section: Kolom Pencarian di atas konten utama -->
-  <section class="main-content-section" style="padding-top: 30px;">
+  <!-- Header Section - Full Background Gradient -->
+  <section class="header-section">
     <div class="container">
-      
-      <!-- Kolom Pencarian -->
-      <div class="mb-4">
-        <div class="search-container">
-          <div class="search-input-container">
-            <input type="text" id="search-input" class="form-control" placeholder="Cari artikel...">
-            <button id="search-button" class="btn btn-primary">Cari</button>
-          </div>
-          <div class="loading-indicator" style="display: none;">
-            <div class="loading-indicator-inner">
-              <span>Sedang mencari...</span>
-              <div class="spinner"></div>
+      <div class="header-content text-center">
+        <h1>BLOG IDEA THESIS</h1>
+        <p>Temukan artikel terbaru seputar pendidikan, penelitian, dan tips akademik lainnya di BLOG IDEA THESIS</p>
+        
+        <!-- Magazine Style Search Section -->
+        <div class="magazine-search-section">
+          <div class="search-hero">
+            <div class="search-container">
+              
+              <form id="searchForm" class="magazine-search-form">
+                <div class="search-input-wrapper">
+                  <i class="fas fa-search search-icon"></i>
+                  <input type="text" id="search-input" class="magazine-search-input" placeholder="Cari artikel berdasarkan judul, penulis, atau topik...">
+                  <button type="submit" class="magazine-search-btn">
+                    <span>Cari</span>
+                    <i class="fas fa-arrow-right"></i>
+                  </button>
+                </div>
+              </form>
+              
             </div>
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- Main Content Section -->
+  <section class="main-content-section">
+    <div class="container">
       
-      <!-- Daftar Hasil Pencarian -->
-      <div class="mb-4">
-        <ul id="result-list" class="result-list list-unstyled"></ul>
-        <!-- Pagination -->
-        <div id="pagination-container" class="pagination" style="display: none;">
-          <button id="prev-page" class="btn btn-secondary me-2" disabled>Sebelumnya</button>
-          <button id="next-page" class="btn btn-secondary">Selanjutnya</button>
+      <!-- Search Results Section -->
+      <div id="search-results-section" class="search-results-section">
+        <div class="loading-indicator">
+          <div class="loading-indicator-inner">
+            <div class="magazine-spinner"></div>
+            <span>Mencari artikel terbaik untuk Anda...</span>
+          </div>
+        </div>
+        
+        <div class="results-container">
+          <div class="results-header">
+            <h3 class="results-title">Hasil Pencarian</h3>
+            <button class="back-to-main" onclick="showMainContent()">
+              <i class="fas fa-arrow-left"></i>
+              Kembali ke Beranda
+            </button>
+          </div>
+          
+          <ul id="result-list" class="magazine-results-list"></ul>
+          
+          <div id="pagination-container" class="magazine-pagination">
+            <button id="prev-page" class="pagination-btn prev" disabled>
+              <i class="fas fa-chevron-left"></i>
+              Sebelumnya
+            </button>
+            <span class="page-info">Halaman <span id="current-page">1</span></span>
+            <button id="next-page" class="pagination-btn next">
+              Selanjutnya
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
         </div>
       </div>
-      
-      <!-- Konten Utama Artikel -->
-      <div class="row" id="post-list">
-        <!-- Daftar artikel akan dimuat di sini -->
+
+      <!-- Main Content Section -->
+      <div id="main-content-section" class="main-content-section">
+        <div class="row" id="post-list">
+          <!-- Daftar artikel akan dimuat di sini -->
+        </div>
       </div>
-      
     </div>
   </section>
 
