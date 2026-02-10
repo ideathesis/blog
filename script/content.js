@@ -1,150 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Sisipkan style khusus untuk tampilan kartu artikel dan paginasi
-  const styleEl = document.createElement("style");
-  styleEl.textContent = `
-    .post-card {
-      background: #fff;
-      border-radius: 15px;
-      overflow: hidden;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-      margin-bottom: 30px;
-    }
-    .post-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: linear-gradient(135deg, #198754, #146c43);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-    .post-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
-    }
-    .post-card:hover::before {
-      opacity: 1;
-    }
-    .post-card img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      transition: transform 0.5s ease;
-    }
-    .post-card:hover img {
-      transform: scale(1.05);
-    }
-    .post-card .card-body {
-      padding: 25px;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-    .post-card .card-title {
-      font-size: 1.2rem;
-      font-weight: 700;
-      margin-bottom: 15px;
-      line-height: 1.4;
-      color: #333;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-    .post-card .meta-info {
-      font-size: 0.85rem;
-      color: #777;
-      margin-bottom: 15px;
-      display: flex;
-      gap: 15px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-    .post-card .meta-info span {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-    }
-    .post-card .meta-info i {
-      color: #198754;
-    }
-    .post-card .card-footer {
-      background: none;
-      border: none;
-      padding: 0;
-      margin-top: auto;
-    }
-    .post-card .read-more-button {
-      display: inline-block;
-      padding: 12px 25px;
-      background: linear-gradient(135deg, #198754, #146c43);
-      color: #fff;
-      text-decoration: none;
-      border-radius: 50px;
-      font-weight: 600;
-      font-size: 0.9rem;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 10px rgba(25, 135, 84, 0.2);
-      text-align: center;
-    }
-    .post-card .read-more-button:hover {
-      background: linear-gradient(45deg, #146c43, #198754);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 15px rgba(25, 135, 84, 0.3);
-      color: #fff;
-    }
-    /* Styling untuk kontainer paginasi */
-    .pagination-controls {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      margin-top: 40px;
-      flex-wrap: wrap;
-    }
-    .pagination-controls button {
-      padding: 10px 18px;
-      font-size: 0.9rem;
-      background: #fff;
-      color: #198754;
-      border: 2px solid #198754;
-      border-radius: 50px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-weight: 600;
-      min-width: 45px;
-    }
-    .pagination-controls button:hover:not(:disabled) {
-      background: linear-gradient(135deg, #198754, #146c43);
-      color: #fff;
-      border-color: transparent;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 10px rgba(25, 135, 84, 0.2);
-    }
-    .pagination-controls button:disabled {
-      background: #e0e0e0;
-      color: #999;
-      border-color: #e0e0e0;
-      cursor: not-allowed;
-    }
-    .pagination-controls button.active {
-      background: linear-gradient(135deg, #198754, #146c43);
-      color: #fff;
-      border-color: transparent;
-    }
-    /* Styling khusus untuk ikon navigasi grup */
-    .pagination-controls .nav-button {
-      font-size: 1.2em;
-    }
-  `;
-  document.head.appendChild(styleEl);
-
   const postList = document.getElementById("post-list");
   const manifestUrl = "https://raw.githubusercontent.com/ideathesis/blog/main/post/manifest.json";
   let articles = [];
@@ -160,7 +14,9 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   // Ambil data dari manifest.json dan render artikel
-  fetch(manifestUrl, { mode: "cors" })
+  fetch(manifestUrl, {
+    mode: "cors"
+  })
     .then(response => {
       if (!response.ok) throw new Error("Gagal memuat manifest");
       return response.json();
@@ -183,8 +39,11 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error("Error:", error);
       postList.innerHTML = `
         <div class="col-12 text-center py-5">
-          <p class="text-danger">Gagal memuat data artikel. Silakan coba kembali nanti.</p>
-          <button onclick="location.reload()">Muat Ulang</button>
+          <div class="alert alert-warning border-0 shadow-sm" style="border-radius: 15px;">
+             <h4 class="alert-heading fw-bold mb-3"><i class="fas fa-exclamation-triangle me-2"></i>Gagal Memuat Artikel</h4>
+             <p class="mb-0">Mohon maaf, terjadi kesalahan saat mengambil data artikel. Silakan coba muat ulang halaman.</p>
+             <button onclick="location.reload()" class="btn btn-success mt-3 rounded-pill px-4">Muat Ulang</button>
+          </div>
         </div>
       `;
     });
@@ -198,44 +57,29 @@ document.addEventListener("DOMContentLoaded", () => {
     postList.innerHTML = "";
     articlesToShow.forEach(article => {
       const col = document.createElement("div");
-      col.className = "col-md-4";
-      const card = document.createElement("div");
-      card.className = "post-card";
+      col.className = "col-lg-4 col-md-6 mb-4 d-flex align-items-stretch";
 
-      const img = document.createElement("img");
-      img.src = article.thumbnail || article.image;
-      img.alt = article.title;
-
-      const body = document.createElement("div");
-      body.className = "card-body";
-      const title = document.createElement("h2");
-      title.className = "card-title";
-      title.textContent = article.title;
-
-      // Gabungkan informasi penulis dan tanggal ke dalam 1 baris dengan ikon
-      const metaInfo = document.createElement("div");
-      metaInfo.className = "meta-info";
-      const authorSpan = document.createElement("span");
-      authorSpan.innerHTML = `<i class="fas fa-user"></i> ${article.author}`;
-      const dateSpan = document.createElement("span");
-      dateSpan.innerHTML = `<i class="fas fa-calendar"></i> ${article.date}`;
-      metaInfo.appendChild(authorSpan);
-      metaInfo.appendChild(dateSpan);
-
-      const footer = document.createElement("div");
-      footer.className = "card-footer";
-      const readMore = document.createElement("a");
-      readMore.href = `/post/${article.file}`;
-      readMore.className = "read-more-button";
-      readMore.textContent = "Baca Selengkapnya";
-
-      footer.appendChild(readMore);
-      body.appendChild(title);
-      body.appendChild(metaInfo);
-      card.appendChild(img);
-      card.appendChild(body);
-      card.appendChild(footer);
-      col.appendChild(card);
+      col.innerHTML = `
+        <article class="blog-card">
+           <a href="/post/${article.file}" class="blog-card-img-link" aria-label="${article.title}">
+             <div class="blog-card-img-wrapper">
+               <img src="${article.thumbnail || article.image}" alt="${article.title}" loading="lazy">
+             </div>
+           </a>
+           <div class="blog-card-body">
+             <div class="blog-card-meta">
+                <span class="meta-item"><i class="far fa-calendar-alt"></i> ${article.date}</span>
+                <span class="meta-item"><i class="far fa-user"></i> ${article.author}</span>
+             </div>
+             <h3 class="blog-card-title">
+               <a href="/post/${article.file}">${article.title}</a>
+             </h3>
+             <a href="/post/${article.file}" class="blog-card-link">
+               Baca Selengkapnya <i class="fas fa-arrow-right"></i>
+             </a>
+           </div>
+        </article>
+      `;
       postList.appendChild(col);
     });
   };
@@ -243,7 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Fungsi untuk membuat kontrol paginasi dengan maksimal 5 nomor halaman per grup
   const createPaginationControls = () => {
     paginationControls = document.createElement("div");
-    paginationControls.className = "pagination-controls";
+    paginationControls.className = "pagination-controls w-100 d-flex justify-content-center align-items-center";
     postList.parentNode.appendChild(paginationControls);
     renderPaginationControls();
   };
@@ -263,11 +107,14 @@ document.addEventListener("DOMContentLoaded", () => {
     if (startPage > 0) {
       const prevGroupButton = document.createElement("button");
       prevGroupButton.className = "nav-button";
-      prevGroupButton.innerHTML = "&laquo;";
+      prevGroupButton.innerHTML = "<i class='fas fa-angle-double-left'></i>";
       prevGroupButton.addEventListener("click", () => {
         currentPage = startPage - 1;
         renderArticles(currentPage);
         renderPaginationControls();
+        document.getElementById('main-content-section').scrollIntoView({
+          behavior: 'smooth'
+        });
       });
       paginationControls.appendChild(prevGroupButton);
     }
@@ -283,6 +130,9 @@ document.addEventListener("DOMContentLoaded", () => {
         currentPage = i;
         renderArticles(currentPage);
         renderPaginationControls();
+        document.getElementById('main-content-section').scrollIntoView({
+          behavior: 'smooth'
+        });
       });
       paginationControls.appendChild(pageButton);
     }
@@ -291,11 +141,14 @@ document.addEventListener("DOMContentLoaded", () => {
     if (endPage < totalPages) {
       const nextGroupButton = document.createElement("button");
       nextGroupButton.className = "nav-button";
-      nextGroupButton.innerHTML = "&raquo;";
+      nextGroupButton.innerHTML = "<i class='fas fa-angle-double-right'></i>";
       nextGroupButton.addEventListener("click", () => {
         currentPage = endPage;
         renderArticles(currentPage);
         renderPaginationControls();
+        document.getElementById('main-content-section').scrollIntoView({
+          behavior: 'smooth'
+        });
       });
       paginationControls.appendChild(nextGroupButton);
     }

@@ -1,24 +1,26 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>IDEA THESIS - BLOG</title>
-  
+
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="192x192" href="images/favicon-192x192.png">
   <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
   <link rel="manifest" href="/manifest.json">
-  
+
   <!-- Open Graph Tags -->
   <meta property="og:title" content="BLOG - IDEA THESIS">
-  <meta property="og:description" content="Temukan artikel terbaru seputar pendidikan, penelitian, dan tips akademik lainnya di BLOG IDEA THESIS. Dapatkan inspirasi dan panduan untuk menyelesaikan tugas akhir Anda dengan mudah.">
+  <meta property="og:description"
+    content="Temukan artikel terbaru seputar pendidikan, penelitian, dan tips akademik lainnya di BLOG IDEA THESIS. Dapatkan inspirasi dan panduan untuk menyelesaikan tugas akhir Anda dengan mudah.">
   <meta property="og:image" content="https://blog.ideathesis.biz.id/images/logo_baru.png">
   <meta property="og:url" content="https://blog.ideathesis.biz.id">
   <meta property="og:type" content="website">
-  
+
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,8 +32,9 @@
   <!-- Custom CSS -->
   <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
-  
+
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-light fixed-top">
     <div class="container">
@@ -59,23 +62,24 @@
       <div class="header-content text-center">
         <h1>BLOG IDEA THESIS</h1>
         <p>Temukan artikel terbaru seputar pendidikan, penelitian, dan tips akademik lainnya di BLOG IDEA THESIS</p>
-        
-        <!-- Magazine Style Search Section -->
+
+        <!-- Style Search Section -->
         <div class="magazine-search-section">
           <div class="search-hero">
             <div class="search-container">
-              
+
               <form id="searchForm" class="magazine-search-form">
                 <div class="search-input-wrapper">
                   <i class="fas fa-search search-icon"></i>
-                  <input type="text" id="search-input" class="magazine-search-input" placeholder="Cari artikel berdasarkan judul, penulis, atau topik...">
+                  <input type="text" id="search-input" class="magazine-search-input"
+                    placeholder="Cari artikel berdasarkan judul, penulis, atau topik...">
                   <button type="submit" class="magazine-search-btn">
                     <span>Cari</span>
                     <i class="fas fa-arrow-right"></i>
                   </button>
                 </div>
               </form>
-              
+
             </div>
           </div>
         </div>
@@ -86,7 +90,7 @@
   <!-- Main Content Section -->
   <section class="main-content-section">
     <div class="container">
-      
+
       <!-- Search Results Section -->
       <div id="search-results-section" class="search-results-section">
         <div class="loading-indicator">
@@ -95,7 +99,7 @@
             <span>Mencari artikel terbaik untuk Anda...</span>
           </div>
         </div>
-        
+
         <div class="results-container">
           <div class="results-header">
             <h3 class="results-title">Hasil Pencarian</h3>
@@ -104,9 +108,9 @@
               Kembali ke Beranda
             </button>
           </div>
-          
+
           <ul id="result-list" class="magazine-results-list"></ul>
-          
+
           <div id="pagination-container" class="magazine-pagination">
             <button id="prev-page" class="pagination-btn prev" disabled>
               <i class="fas fa-chevron-left"></i>
@@ -130,12 +134,12 @@
     </div>
   </section>
 
-<!-- Section Artikel Terpopuler -->
-<section id="popular-articles" style="margin-top: 35px;">
-  <div class="container">
-    <div class="row">
-      <div class="col-12 text-center mb-4">
-        <h2 style="
+  <!-- Section Artikel Terpopuler -->
+  <section id="popular-articles" style="margin-top: 35px;">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center mb-4">
+          <h2 style="
               display: inline-block;
               background: linear-gradient(135deg, #00C853, #00BFA5);
               color: #fff;
@@ -147,31 +151,32 @@
               text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
               margin: 0 auto;
               ">
-          Artikel Populer
-        </h2>
+            Artikel Populer
+          </h2>
+        </div>
+      </div>
+      <div class="row" id="popular-articles-list">
+        <!-- Card artikel terpopuler akan dirender di sini -->
       </div>
     </div>
-    <div class="row" id="popular-articles-list">
-      <!-- Card artikel terpopuler akan dirender di sini -->
-    </div>
-  </div>
-</section>
+  </section>
 
-<!-- Footer -->
-<footer>
-  <div style="
+  <!-- Footer -->
+  <footer>
+    <div style="
     display: flex;
     justify-content: center;
     align-items: center;
     height: 64px;           /* tinggi footer tetap 64px (20px atas+bawah + 24px baris teks) */
     padding: 0 15px;        /* horizontal tetap 15px; vertikal 0 agar height saja yang atur */
   ">
-    <p style="margin: 0; line-height: 24px;">
-      &copy; <script>document.write(new Date().getFullYear());</script> IDEA THESIS. All rights reserved.
-    </p>
-  </div>
-</footer>
-  
+      <p style="margin: 0; line-height: 24px;">
+        &copy;
+        <script>document.write(new Date().getFullYear());</script> IDEA THESIS. All rights reserved.
+      </p>
+    </div>
+  </footer>
+
   <!-- JavaScript -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://unpkg.com/swiper@11.2.5/swiper-bundle.min.js"></script>
@@ -180,6 +185,7 @@
   <script src="script/search-article.js"></script>
   <script src="script/top-article.js"></script>
   <script src="script/autoclose-navbar-mobile.js"></script>
-  
+
 </body>
+
 </html>
