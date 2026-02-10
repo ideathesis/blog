@@ -32,6 +32,8 @@
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
     transition: box-shadow 0.3s ease;
     border: 1px solid rgba(25, 135, 84, 0.08);
+    overflow-x: hidden;
+    max-width: 100%;
 }
 
 .article-container>div:first-child:hover {
@@ -91,6 +93,9 @@
     line-height: 1.8;
     color: #333;
     margin-bottom: 40px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
 }
 
 #article-content h2 {
@@ -164,12 +169,65 @@
     border-radius: 8px;
     overflow-x: auto;
     margin: 20px 0;
+    max-width: 100%;
 }
 
 #article-content pre code {
     background: transparent;
     color: #fff;
     padding: 0;
+    white-space: pre;
+    word-wrap: normal;
+}
+
+/* Table Responsive */
+#article-content table {
+    width: 100%;
+    max-width: 100%;
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.95rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+#article-content table th {
+    background: linear-gradient(135deg, #198754, #146c43);
+    color: white;
+    padding: 12px 15px;
+    text-align: left;
+    font-weight: 600;
+    border: none;
+}
+
+#article-content table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #dee2e6;
+    word-break: break-word;
+}
+
+#article-content table tbody tr {
+    background-color: #ffffff;
+    transition: background-color 0.2s ease;
+}
+
+#article-content table tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+#article-content table tbody tr:hover {
+    background-color: #e9f7ef;
+}
+
+/* Table Wrapper for Horizontal Scroll */
+#article-content .table-wrapper,
+#article-content>div:has(table) {
+    width: 100%;
+    overflow-x: auto;
+    margin: 25px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 #article-content img {
@@ -179,6 +237,60 @@
     margin: 30px auto;
     display: block;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Image with Caption */
+#article-content figure {
+    margin: 30px 0;
+    text-align: center;
+}
+
+#article-content figure img {
+    margin: 0 auto 10px;
+}
+
+#article-content figcaption {
+    font-size: 0.9rem;
+    color: #6c757d;
+    font-style: italic;
+    margin-top: 10px;
+}
+
+/* Iframe / Video Responsive */
+#article-content iframe,
+#article-content video {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    margin: 30px auto;
+    display: block;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Video Container for 16:9 Ratio */
+#article-content .video-wrapper,
+#article-content .embed-responsive {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    /* 16:9 ratio */
+    height: 0;
+    overflow: hidden;
+    margin: 30px 0;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+#article-content .video-wrapper iframe,
+#article-content .embed-responsive iframe,
+#article-content .video-wrapper video,
+#article-content .embed-responsive video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
 }
 
 /* Social Share Buttons */
@@ -455,24 +567,51 @@
     }
 
     .sidebar {
-        padding: 20px;
+        padding: 15px 10px;
     }
 
-    .related-post {
-        flex-direction: row;
+    .sidebar-chip {
+        font-size: 1rem;
+        padding: 10px 20px;
+    }
+
+    #post-list {
         gap: 12px;
     }
 
+    .related-post {
+        flex-direction: column;
+    }
+
     .related-post img {
-        width: 100px;
-        height: 70px;
-        margin-bottom: 0;
-        flex-shrink: 0;
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        height: auto;
+        border-radius: 10px 10px 0 0;
+    }
+
+    .related-post-content {
+        padding: 12px;
     }
 
     .related-post-title {
         font-size: 0.9rem;
+        line-height: 1.3;
         -webkit-line-clamp: 2;
+    }
+
+    .related-post-meta {
+        font-size: 0.75rem;
+        gap: 6px;
+    }
+
+    .related-post-meta span {
+        padding: 3px 6px;
+        font-size: 0.7rem;
+    }
+
+    .related-post-meta i {
+        font-size: 0.7rem;
     }
 }
 
