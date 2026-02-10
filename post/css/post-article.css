@@ -336,6 +336,8 @@
     border-radius: 12px;
     margin-top: 40px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+    max-width: 100%;
 }
 
 /* Sidebar Styling */
@@ -612,6 +614,12 @@
 
     .related-post-meta i {
         font-size: 0.7rem;
+    }
+
+    #disqus_thread {
+        padding: 15px;
+        margin-top: 30px;
+        border-radius: 8px;
     }
 }
 
