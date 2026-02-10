@@ -105,7 +105,7 @@ body {
 /* Header Section */
 .header-section {
   background: var(--navbar-bg-gradient);
-  padding: 100px 0 60px 0;
+  padding: 140px 0;
   color: #fff;
   position: relative;
   overflow: hidden;
@@ -129,16 +129,16 @@ body {
 }
 
 .header-content h1 {
-  font-size: 2.5rem;
+  font-size: 3rem;
   font-weight: 700;
-  margin-bottom: 15px;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  animation: fadeInDown 1s ease-out;
 }
 
 .header-content p {
-  font-size: 1.1rem;
-  margin-bottom: 25px;
-  line-height: 1.6;
+  font-size: 1.25rem;
+  margin-bottom: 30px;
+  animation: fadeIn 1.5s ease-out;
 }
 
 
