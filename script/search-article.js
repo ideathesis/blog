@@ -335,7 +335,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const query = searchInput.value.toLowerCase().trim();
 
     if (!query) {
-      alert("Masukkan kata kunci pencarian!");
+      showAlert("Silakan masukkan kata kunci pencarian terlebih dahulu.");
       searchInput.focus();
       return;
     }
@@ -480,4 +480,40 @@ document.addEventListener("DOMContentLoaded", () => {
       performSearch();
     });
   });
+
+  // Alert Helper Functions (consistent with labs perpustakaan)
+  function showAlert(message) {
+    if (typeof bootstrap !== 'undefined' && bootstrap.Modal) {
+      const alertModal = new bootstrap.Modal(document.getElementById('alertModal') || createAlertModal());
+      document.getElementById('alertMessage').textContent = message;
+      alertModal.show();
+    } else {
+      alert(message);
+    }
+  }
+
+  function createAlertModal() {
+    const modalHTML = `
+      <div class="modal fade" id="alertModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title"><i class="fas fa-exclamation-triangle me-2"></i>Peringatan</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+              <p id="alertMessage" class="mb-0"></p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-success" data-bs-dismiss="modal">
+                <i class="fas fa-check me-1"></i>Mengerti
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+    return document.getElementById('alertModal');
+  }
 });

@@ -713,26 +713,35 @@ body {
     font-size: 0.9rem;
   }
 
+  .search-hero {
+    padding: 2rem 1rem;
+  }
+
   .search-input-wrapper {
     flex-direction: column;
-    border-radius: 25px;
-    padding: 0.3rem;
+    border-radius: 20px;
+    padding: 0.5rem;
+    gap: 0.5rem;
   }
 
   .search-icon {
-    left: 15px;
-    top: 35%;
+    left: 20px;
+    top: 30px;
   }
 
   .magazine-search-input {
-    padding: 0.8rem 0.8rem 0.8rem 2.5rem;
-    margin-bottom: 0.5rem;
+    padding: 1rem 1rem 1rem 3rem;
+    margin-bottom: 0;
+    font-size: 0.95rem;
+    border-radius: 15px;
   }
 
   .magazine-search-btn {
     width: 100%;
-    border-radius: 25px;
-    padding: 0.8rem;
+    border-radius: 15px;
+    padding: 1rem;
+    min-width: unset;
+    font-size: 0.95rem;
   }
 
   .search-tags {
