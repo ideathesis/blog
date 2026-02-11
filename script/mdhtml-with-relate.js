@@ -30,66 +30,142 @@ function parseYAML(yamlText) {
 /*
  * Fungsi untuk merender artikel terkait
  */
+/*
+ * Fungsi untuk merender artikel terkait
+ */
 function renderRelatedArticles(metadata) {
-  if (!metadata) {
-    console.error("Metadata tidak tersedia");
+  if (!metadata || !metadata.title) {
+    console.error("Metadata tidak valid untuk mencari artikel terkait");
     return;
   }
 
-  const manifestUrl =
-    "https://raw.githubusercontent.com/ideathesis/blog/main/post/manifest.json";
+  // Use relative path
+  const manifestUrl = "post/manifest.json";
 
   fetch(manifestUrl)
-    .then(response => response.json())
+    .then(response => {
+      if (!response.ok) throw new Error("Gagal memuat manifest");
+      return response.json();
+    })
     .then(allArticles => {
-      const relatedArticles = allArticles.filter(article => {
-        const currentTitleWords = metadata.title.toLowerCase().split(/\s+/);
-        const articleTitleWords = article.title.toLowerCase().split(/\s+/);
-        return currentTitleWords.some(word => articleTitleWords.includes(word)) &&
-          article.title !== metadata.title;
-      });
+      // 1. Prepare current article data
+      const currentTitle = metadata.title.toLowerCase();
+      // Parse tags: support both array and comma-separated string
+      let currentTags = [];
+      if (Array.isArray(metadata.tags)) {
+        currentTags = metadata.tags.map(t => t.toLowerCase());
+      } else if (typeof metadata.tags === 'string') {
+        currentTags = metadata.tags.split(',').map(t => t.trim().toLowerCase());
+      } else if (metadata.category) {
+        // Fallback to category if no tags
+        currentTags = [metadata.category.toLowerCase()];
+      }
 
-      relatedArticles.forEach(article => {
-        const currentTitleWords = metadata.title.toLowerCase().split(/\s+/);
-        const articleTitleWords = article.title.toLowerCase().split(/\s+/);
-        article.relevanceScore = currentTitleWords.filter(word =>
-          articleTitleWords.includes(word)
-        ).length;
-      });
+      // Stop words to ignore in title matching (Indonesian)
+      const stopWords = ["dan", "yang", "di", "ke", "dari", "ini", "itu", "untuk", "pada", "adalah", "dengan", "dalam", "atau", "juga", "karena", "bagi", "saya", "kita", "anda"];
 
-      const sortedArticles = relatedArticles.sort(
-        (a, b) => b.relevanceScore - a.relevanceScore
-      );
-      // Batasi artikel terkait maksimal 3
-      const limitedArticles = sortedArticles.slice(0, 3);
+      const currentTitleKeywords = currentTitle.split(/\s+/)
+        .map(w => w.replace(/[^a-z0-9]/g, '')) // cleanup punctuation
+        .filter(w => w.length > 3 && !stopWords.includes(w));
 
-      const postList = document.getElementById("post-list");
-      postList.innerHTML = "";
+      // 2. Score articles
+      const scoredArticles = allArticles
+        .filter(article => {
+          // Exclude current article (check by title or file if available)
+          if (article.title === metadata.title) return false;
+          if (window.location.pathname.includes(article.file)) return false;
+          return true;
+        })
+        .map(article => {
+          let score = 0;
 
-      limitedArticles.forEach(article => {
-        const postLink = document.createElement("a");
-        postLink.href = `/post/${article.file}`;
-        postLink.className = "related-post";
-        postLink.innerHTML = `
-          <img src="${article.image}" alt="${article.title}" class="img-fluid">
-          <div class="related-post-content">
-            <h3 class="related-post-title">${article.title}</h3>
-            <div class="related-post-meta">
-              <span><i class="far fa-user"></i> ${article.author}</span>
-              <span><i class="far fa-calendar"></i> ${article.date}</span>
-            </div>
-          </div>
-        `;
-        postList.appendChild(postLink);
-      });
+          // A. Tag Matching (High Weight)
+          let articleTags = [];
+          if (Array.isArray(article.tags)) {
+            articleTags = article.tags.map(t => t.toLowerCase());
+          } else if (typeof article.tags === 'string') {
+            articleTags = article.tags.split(',').map(t => t.trim().toLowerCase());
+          } else if (article.category) {
+            articleTags = [article.category.toString().toLowerCase()];
+          }
+
+          const sharedTags = currentTags.filter(tag => articleTags.includes(tag));
+          score += sharedTags.length * 3; // 3 points per shared tag
+
+          // B. Title Keyword Matching (Medium Weight)
+          const articleTitle = article.title.toLowerCase();
+          const articleKeywords = articleTitle.split(/\s+/)
+            .map(w => w.replace(/[^a-z0-9]/g, ''))
+            .filter(w => w.length > 3 && !stopWords.includes(w));
+
+          const sharedKeywords = currentTitleKeywords.filter(kw => articleKeywords.includes(kw));
+          score += sharedKeywords.length * 1; // 1 point per shared keyword
+
+          // C. Recency/Popularity tie-breaker (small boost)
+          // We can't easily check recency without parsing date, but we can preserve original order slightly
+
+          return { ...article, score };
+        });
+
+      // 3. Sort by score
+      scoredArticles.sort((a, b) => b.score - a.score);
+
+      // 4. Fallback: If top score is 0, just take the latest ones (assuming manifest is sorted or we sort by date)
+      // (The manifest usually has latest first or random. Ideally we parse date, but for now just taking first few is better than nothing if no matches)
+
+      const relatedArticles = scoredArticles.slice(0, 3);
+
+      // 5. Render
+      const relatedContainer = document.getElementById("related-articles-list") || document.getElementById("post-list"); // Fallback to post-list if specific container doesn't exist yet, though user path implies we might be on a single post page using content.js structure? 
+      // Wait, this file 'mdhtml-with-relate.js' suggests it renders into 'post-list'. Let's check the HTML.
+      // Based on previous code, it rendered into 'post-list'.
+
+      if (relatedContainer) {
+        relatedContainer.innerHTML = "";
+
+        if (relatedArticles.length === 0) {
+          relatedContainer.innerHTML = "<p class='text-center text-muted col-12'>Tidak ada artikel terkait ditemukan.</p>";
+          return;
+        }
+
+        relatedArticles.forEach(article => {
+          // Construct HTML matching the main blog card style for consistency
+          const col = document.createElement("div");
+          col.className = "col-lg-4 col-md-6 mb-4 d-flex align-items-stretch";
+
+          // Image Path Fix
+          let imgPath = article.thumbnail || article.image || "";
+          imgPath = imgPath.replace(/^(\/)?post\//, "");
+          const imageUrl = imgPath ? `post/${imgPath}` : 'images/logo_baru.png';
+
+          // Link Fix
+          let postFile = article.file || "";
+          postFile = postFile.replace(/^(\/)?post\//, "");
+          const postLinkUrl = `post/${postFile}`;
+
+          col.innerHTML = `
+            <article class="blog-card h-100 border-0 shadow-sm" style="border-radius: 12px; overflow: hidden;">
+               <a href="${postLinkUrl}" class="blog-card-img-link" aria-label="${article.title}">
+                 <div class="blog-card-img-wrapper">
+                   <img src="${imageUrl}" alt="${article.title}" loading="lazy" onerror="this.src='images/logo_baru.png'">
+                 </div>
+               </a>
+               <div class="blog-card-body d-flex flex-column h-100 bg-white">
+                 <div class="blog-card-meta mb-2">
+                    <span class="meta-item text-muted small"><i class="far fa-calendar-alt text-success me-1"></i> ${article.date || '-'}</span>
+                 </div>
+                 <h3 class="blog-card-title fw-bold text-dark mb-3" style="font-size: 1.1rem; line-height: 1.4;">
+                   <a href="${postLinkUrl}" class="text-decoration-none text-dark stretched-link">${article.title}</a>
+                 </h3>
+               </div>
+            </article>
+          `;
+          relatedContainer.appendChild(col);
+        });
+      }
     })
     .catch(error => {
       console.error("Gagal memuat artikel terkait:", error);
-      document.getElementById("post-list").innerHTML = `
-        <div class="alert alert-warning">
-          Gagal memuat artikel terkait. Silakan refresh halaman.
-        </div>
-      `;
     });
 }
 

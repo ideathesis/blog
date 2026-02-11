@@ -59,24 +59,29 @@ document.addEventListener("DOMContentLoaded", () => {
       const col = document.createElement("div");
       col.className = "col-lg-4 col-md-6 mb-4 d-flex align-items-stretch";
 
+      const imgPath = (article.thumbnail || article.image || "").replace(/^(\/)?post\//, "");
+      const imageUrl = imgPath ? `post/${imgPath}` : '/images/logo_baru.png';
+
       col.innerHTML = `
-        <article class="blog-card">
-           <a href="/post/${article.file}" class="blog-card-img-link" aria-label="${article.title}">
+        <article class="blog-card h-100 border-0 shadow-sm" style="border-radius: 12px; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease;">
+           <a href="post/${article.file}" class="blog-card-img-link" aria-label="${article.title}">
              <div class="blog-card-img-wrapper">
-               <img src="${article.thumbnail || article.image}" alt="${article.title}" loading="lazy">
+               <img src="${imageUrl}" alt="${article.title}" loading="lazy" onerror="this.src='/images/logo_baru.png'">
              </div>
            </a>
-           <div class="blog-card-body">
-             <div class="blog-card-meta">
-                <span class="meta-item"><i class="far fa-calendar-alt"></i> ${article.date}</span>
-                <span class="meta-item"><i class="far fa-user"></i> ${article.author}</span>
+           <div class="blog-card-body d-flex flex-column h-100 bg-white">
+             <div class="blog-card-meta mb-2">
+                <span class="meta-item text-muted small"><i class="far fa-calendar-alt text-success me-1"></i> ${article.date}</span>
+                <span class="meta-item text-muted small"><i class="far fa-user text-success me-1"></i> ${article.author}</span>
              </div>
-             <h3 class="blog-card-title">
-               <a href="/post/${article.file}">${article.title}</a>
+             <h3 class="blog-card-title fw-bold text-dark mb-3" style="font-size: 1.1rem; line-height: 1.5; letter-spacing: -0.02em;">
+               <a href="post/${article.file}" class="text-decoration-none text-dark stretched-link">${article.title}</a>
              </h3>
-             <a href="/post/${article.file}" class="blog-card-link">
-               Baca Selengkapnya <i class="fas fa-arrow-right"></i>
-             </a>
+             <div class="mt-auto pt-2 border-top">
+                <span class="text-success fw-bold small text-uppercase" style="letter-spacing: 0.5px; font-size: 0.75rem;">
+                   Baca Artikel <i class="fas fa-arrow-right ms-1"></i>
+                </span>
+             </div>
            </div>
         </article>
       `;

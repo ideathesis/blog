@@ -2,38 +2,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // Sisipkan style untuk loading indicator dan hasil pencarian
   const styleEl = document.createElement("style");
   styleEl.textContent = `
-    /* Loading Indicator */
-    .loading-indicator {
-        display: none;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        gap: 15px;
-        margin: 40px 0;
-        color: #198754;
-    }
-    .loading-indicator.show {
-        display: flex;
-    }
-    .loading-indicator-inner {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-    }
-    .magazine-spinner {
-        width: 40px;
-        height: 40px;
-        border: 3px solid rgba(25, 135, 84, 0.1);
-        border-top-color: #198754;
-        border-radius: 50%;
-        animation: spin 0.8s linear infinite;
-    }
-    @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-    }
-    
     /* Container Reset */
     .results-container {
         background: transparent !important;
